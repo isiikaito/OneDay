@@ -26,17 +26,27 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
+	void GameStage::CreateStageFloor()
+	{
+		//各値が揃ったのでオブジェクトの作成
+		AddGameObject<StageFloor>(
+			Vec3(1.0f, 1.0f, 1.0f),
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, -0.5f, 0.0f));
+	}
 
 
 	void GameStage::OnCreate() {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
+			CreateStageFloor();
 		}
 		catch (...) {
 			throw;
 		}
 	}
+	
 
 }
 //end basecross
