@@ -12,8 +12,19 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
 	///	ゲームシーン
 	//--------------------------------------------------------------------------------------
+	void Scene::CreateResourses()
+	{
+		wstring dataDir;
+		//サンプルのためアセットディレクトリを取得
+		App::GetApp()->GetAssetsDirectory(dataDir);
+
+		//床のモデル読み込み
+		auto staticModelMesh = MeshResource::CreateStaticModelMesh(dataDir, L"Floor1.bmf");
+		App::GetApp()->RegisterResource(L"STAGEFLOOR_MESH", staticModelMesh);
+	}
 	void Scene::OnCreate(){
 		try {
+			CreateResourses();//!リソース作成
 			//クリアする色を設定
 			Col4 Col;
 			Col.set(31.0f / 255.0f, 30.0f / 255.0f, 71.0f / 255.0f, 255.0f / 255.0f);

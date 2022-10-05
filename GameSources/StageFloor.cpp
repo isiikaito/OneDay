@@ -1,6 +1,8 @@
-/*!
-@file Character.cpp
-@brief キャラクターなど実体
+/**
+*@file StageFloor.cpp
+*@brief ゲームステージの床の実装が定義されているソースファイル
+*@author Kaito Isii
+*@details ゲームステージの床の実体実装
 */
 
 #include "stdafx.h"
@@ -28,24 +30,38 @@ namespace basecross {
 
 	//初期化
 	void StageFloor::OnCreate() {
-		auto ptrTransform = GetComponent<Transform>();
-		ptrTransform->SetScale(m_Scale);
-		ptrTransform->SetRotation(m_Rotation);
-		ptrTransform->SetPosition(m_Position);
-		//OBB衝突j判定を付ける
-		auto ptrColl = AddComponent<CollisionObb>();
-		ptrColl->SetFixed(true);
-		//タグをつける
-		AddTag(L"StageFloor");
-		//影をつける（シャドウマップを描画する）
-		auto shadowPtr = AddComponent<Shadowmap>();
-		//影の形（メッシュ）を設定
-		shadowPtr->SetMeshResource(L"DEFAULT_CUBE");
-		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
-		
-		ptrDraw->SetFogEnabled(true);
-		ptrDraw->SetOwnShadowActive(true);
+		//!衝突判定の設定
+		auto ptrTrans = GetComponent<Transform>();
+		ptrTrans->SetScale(m_Scale);      //!大きさ
+		ptrTrans->SetRotation(m_Rotation);//!回転
+		ptrTrans->SetPosition(m_Position);//!位置
+
+		// モデルとトランスフォームの間の差分行列
+		Mat4x4 spanMat;
+		spanMat.affineTransformation(
+			Vec3(0.045f, 1.0f, 0.13f),//!大きさ
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, 0.0f, 0.0f),   //!回転
+			Vec3(0.0f, 0.0f, -0.05f)  //!位置
+		);
+
+
+		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
+		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
+		auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
+		Coll->SetFixed(true);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
+
+		//!影の形（メッシュ）を設定
+		ptrShadow->SetMeshResource(L"STAGEFLOOR_MESH");
+		ptrShadow->SetMeshToTransformMatrix(spanMat);
+
+		//!メッシュの設定
+		ptrDraw->SetMeshResource(L"STAGEFLOOR_MESH");
+		ptrDraw->SetMeshToTransformMatrix(spanMat);
+
+		//!RigidbodyBoxの追加
+		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
+		auto PsPtr = AddComponent<RigidbodyBox>(param);
 
 	}
 }
