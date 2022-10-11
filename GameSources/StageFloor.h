@@ -10,7 +10,7 @@
 /**basecross共通のネームペース*/
 namespace basecross {
 	class StageFloor : public GameObject {
-		Vec3 m_Scale;   //!大きさ
+		Vec3 m_Scale;   //!大きさ11111
 		Vec3 m_Rotation;//!回転
 		Vec3 m_Position;//!位置
 
