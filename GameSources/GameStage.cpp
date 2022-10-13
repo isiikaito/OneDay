@@ -11,19 +11,18 @@ namespace basecross {
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
+	//ビューとライトの作成
 	void GameStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 5.0f, -5.0f);
-		const Vec3 at(0.0f);
-		auto PtrView = CreateView<SingleView>();
+		auto ptrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<Camera>();
-		PtrView->SetCamera(PtrCamera);
-		PtrCamera->SetEye(eye);
-		PtrCamera->SetAt(at);
+		auto ptrMyCamera = ObjectFactory::Create<MyCamera>();
+		ptrView->SetCamera(ptrMyCamera);
+		ptrMyCamera->SetEye(Vec3(0.0f, 5.0f, -5.0f));
+		ptrMyCamera->SetAt(Vec3(0.0f, 0.0f, 0.0f));
 		//マルチライトの作成
-		auto PtrMultiLight = CreateLight<MultiLight>();
+		auto ptrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
-		PtrMultiLight->SetDefaultLighting();
+		ptrMultiLight->SetDefaultLighting();
 	}
 
 	void GameStage::CreateStageFloor()
@@ -61,6 +60,13 @@ namespace basecross {
 
 	}
 
+//!プレイヤーの作成
+	void GameStage::CreatePlayer()
+	{
+		auto ptrPlayer = AddGameObject<Player>();//!プレイヤーの作成
+		SetSharedGameObject(L"Player", ptrPlayer);
+		ptrPlayer->AddTag(L"Player");
+	}
 
 	void GameStage::OnCreate() {
 		try {
@@ -77,12 +83,14 @@ namespace basecross {
 			//ビューとライトの作成
 			CreateViewLight();
 			CreateStageFloor();
+			//プレーヤーの作成
+			CreatePlayer();
 		}
 		catch (...) {
 			throw;
 		}
 	}
 	
-
+	
 }
 //end basecross
