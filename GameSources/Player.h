@@ -17,6 +17,9 @@ namespace basecross{
 		Vec3 GetMoveVector() const;//!コントローラから方向ベクトルを得る
 		void MovePlayer();         //!プレイヤーの移動
 		float m_Speed;             //!スピード
+		float m_idleTime;          //!時間
+
+		InputHandler<Player> m_InputHandler;  //コントローラーのボタンの取得
 
 	public:
 		//構築と破棄
@@ -38,6 +41,7 @@ namespace basecross{
 		virtual void OnCreate() override;
 		//更新
 		virtual void OnUpdate() ;
+		void OnPushA();//!//コントローラーのボタン判定A
 
 	};
 }
