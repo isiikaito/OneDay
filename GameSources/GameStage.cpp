@@ -61,11 +61,11 @@ namespace basecross {
 	}
 	//スコアスプライト作成
 	void GameStage::CreateTimerSprite() {
-		AddGameObject<Timer>(4,
+		AddGameObject<Timer>(2,
 			L"NUMBER_TX",
 			true,
-			Vec2(320.0f, 80.0f),
-			Vec3(0.0f, 0.0f, 0.0f));
+			Vec2(160.0f, 80.0f),//元は(320.0f,80,0f)
+			Vec3(-550.0f, 330.0f, 10.0f));//元は(0.0f, 0.0f, 0.0f)
 
 	}
 	//!プレイヤーの作成
@@ -104,14 +104,10 @@ namespace basecross {
 		}
 	}
 
-
-
-
-
 	void GameStage::OnUpdate() {
 		float elapsedTime = App::GetApp()->GetElapsedTime();
-		m_TotalTime += elapsedTime;
-		if (m_TotalTime >= 10000.0f) {
+		m_TotalTime -= elapsedTime;
+		if (m_TotalTime >= 30.0f) {
 			m_TotalTime = 0.0f;
 		}
 		////スコアを更新する
