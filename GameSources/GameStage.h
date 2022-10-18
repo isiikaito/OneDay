@@ -17,6 +17,7 @@ namespace basecross {
 		void CreateViewLight();  //!ビューの作成
 		void CreateStageFloor(); //!ステージの床
 		void CreatePlayer();//!プレイヤーの作成
+		void CerateHunter();//!ハンターの作成
 
 	public:
 		//構築と破棄

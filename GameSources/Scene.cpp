@@ -19,8 +19,13 @@ namespace basecross{
 		App::GetApp()->GetAssetsDirectory(dataDir);
 
 		//床のモデル読み込み
-		auto staticModelMesh = MeshResource::CreateStaticModelMesh(dataDir, L"Floor1.bmf");
-		App::GetApp()->RegisterResource(L"STAGEFLOOR_MESH", staticModelMesh);
+		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir, L"Floor1.bmf");
+		App::GetApp()->RegisterResource(L"STAGEFLOOR_MESH", staticModelMesh1);
+
+		//!ハンターのモデリング
+		auto staticModelMesh2 = MeshResource::CreateStaticModelMesh(dataDir, L"Hunter.bmf");
+		App::GetApp()->RegisterResource(L"HUNTER_MESH", staticModelMesh2);
+
 	}
 	void Scene::OnCreate(){
 		try {

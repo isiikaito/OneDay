@@ -67,6 +67,11 @@ namespace basecross {
 		SetSharedGameObject(L"Player", ptrPlayer);
 		ptrPlayer->AddTag(L"Player");
 	}
+	//!ハンターの作成
+	void GameStage::CerateHunter()
+	{
+		 AddGameObject<Hunter>();
+	}
 
 	void GameStage::OnCreate() {
 		try {
@@ -80,11 +85,10 @@ namespace basecross {
 			m_CsvC.SetFileName(DataDir + L"stage0.csv");
 			m_CsvC.ReadCsv();
 
-			//ビューとライトの作成
-			CreateViewLight();
-			CreateStageFloor();
-			//プレーヤーの作成
-			CreatePlayer();
+			CreateViewLight();//ビューとライトの作成
+			CreateStageFloor();//!ステージの床の作成
+			CreatePlayer();//!プレーヤーの作成
+			CerateHunter();//!ハンターの作成
 		}
 		catch (...) {
 			throw;
