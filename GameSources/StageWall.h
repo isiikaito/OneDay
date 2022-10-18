@@ -1,15 +1,15 @@
 /**
-*@file StageFloor.h
-*@brief ゲームステージの床の実装が定義されているヘッダーファイル
+*@file StageWall.h
+*@brief ゲームステージの壁の実装が定義されているヘッダーファイル
 *@author Ayumu Muroi
-*@details ゲームステージの床の実装
+*@details ゲームステージの壁の実装
 */
 #pragma once
 #include "stdafx.h"
 
 /**basecross共通のネームペース*/
 namespace basecross {
-	class StageFloor : public GameObject {
+	class StageWall : public GameObject {
 		Vec3 m_Scale;   //!大きさ
 		Vec3 m_Rotation;//!回転
 		Vec3 m_Position;//!位置
@@ -18,12 +18,12 @@ namespace basecross {
 		/**
 		* コンストラクタ
 		*/
-		StageFloor(const shared_ptr<Stage>& StagePtr, const Vec3& Scale, const Vec3& Rotation, const Vec3& Position);
+		StageWall(const shared_ptr<Stage>& StagePtr, const Vec3& Scale, const Vec3& Rotation, const Vec3& Position);
 
 		/**
 　　　　* デストラクタ
 　　　　*/
-		virtual ~StageFloor() {}
+		virtual ~StageWall() {}
 
 		/**
 		* ゲームステージの床の初期パラメータを初期化する関数
