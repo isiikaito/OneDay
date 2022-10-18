@@ -31,7 +31,7 @@ namespace basecross {
 
 	public:
 		//\’z‚Æ”jŠü
-		GameStage() :Stage(),m_TotalTime(0.0f) {}
+		GameStage() :Stage(),m_TotalTime(30.0f) {}
 		virtual ~GameStage() {}
 		//‰Šú‰»
 		virtual void OnCreate()override;
