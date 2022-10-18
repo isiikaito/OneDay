@@ -37,6 +37,7 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Timer.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -69,6 +70,7 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Timer.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>

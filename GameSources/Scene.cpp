@@ -18,6 +18,11 @@ namespace basecross{
 		//サンプルのためアセットディレクトリを取得
 		App::GetApp()->GetAssetsDirectory(dataDir);
 
+		//!テクスチャ
+		wstring strTexture = dataDir + L"number.png";
+		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
+
+
 		//床のモデル読み込み
 		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir, L"Floor1.bmf");
 		App::GetApp()->RegisterResource(L"STAGEFLOOR_MESH", staticModelMesh1);
@@ -25,6 +30,8 @@ namespace basecross{
 		//!ハンターのモデリング
 		auto staticModelMesh2 = MeshResource::CreateStaticModelMesh(dataDir, L"Hunter.bmf");
 		App::GetApp()->RegisterResource(L"HUNTER_MESH", staticModelMesh2);
+		auto staticModelMesh = MeshResource::CreateStaticModelMesh(dataDir, L"Floor1.bmf");
+		App::GetApp()->RegisterResource(L"STAGEFLOOR_MESH", staticModelMesh);
 
 	}
 	void Scene::OnCreate(){
@@ -41,6 +48,9 @@ namespace basecross{
 		catch (...) {
 			throw;
 		}
+
+		
+
 	}
 
 	Scene::~Scene() {

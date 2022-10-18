@@ -17,14 +17,26 @@ namespace basecross {
 		void CreateViewLight();  //!ビューの作成
 		void CreateStageFloor(); //!ステージの床
 		void CreatePlayer();//!プレイヤーの作成
+
 		void CerateHunter();//!ハンターの作成
+
+		void CreateTimerSprite();//!タイマースプライト作成
+		void CreateTraceSprite();//!半透明のスプライト作成
+		void CreateWallSprite();//!壁模様のスプライト作成
+		void CreateScrollSprite();//!スクロールするスプライト作成
+		void CreateScoreSprite();//!スコアスプライト作成
+
+		float m_TotalTime;//!トータル時間(タイマーの作成)
+
 
 	public:
 		//構築と破棄
-		GameStage() :Stage() {}
+		GameStage() :Stage(),m_TotalTime(0.0f) {}
 		virtual ~GameStage() {}
 		//初期化
 		virtual void OnCreate()override;
+
+		virtual void OnUpdate()override;
 	};
 
 

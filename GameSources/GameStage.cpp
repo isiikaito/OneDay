@@ -59,8 +59,16 @@ namespace basecross {
 		}
 
 	}
+	//スコアスプライト作成
+	void GameStage::CreateTimerSprite() {
+		AddGameObject<Timer>(4,
+			L"NUMBER_TX",
+			true,
+			Vec2(320.0f, 80.0f),
+			Vec3(0.0f, 0.0f, 0.0f));
 
-//!プレイヤーの作成
+	}
+	//!プレイヤーの作成
 	void GameStage::CreatePlayer()
 	{
 		auto ptrPlayer = AddGameObject<Player>();//!プレイヤーの作成
@@ -84,6 +92,7 @@ namespace basecross {
 			//CSVファイルその読み込み
 			m_CsvC.SetFileName(DataDir + L"stage0.csv");
 			m_CsvC.ReadCsv();
+			CreateTimerSprite();
 
 			CreateViewLight();//ビューとライトの作成
 			CreateStageFloor();//!ステージの床の作成
@@ -94,7 +103,21 @@ namespace basecross {
 			throw;
 		}
 	}
-	
-	
+
+
+
+
+
+	void GameStage::OnUpdate() {
+		float elapsedTime = App::GetApp()->GetElapsedTime();
+		m_TotalTime += elapsedTime;
+		if (m_TotalTime >= 10000.0f) {
+			m_TotalTime = 0.0f;
+		}
+		////スコアを更新する
+		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
+		ptrScor->SetScore(m_TotalTime);
+	}
+
 }
 //end basecross

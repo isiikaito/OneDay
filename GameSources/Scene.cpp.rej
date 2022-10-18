@@ -1,0 +1,9 @@
+diff a/GameSources/Scene.cpp b/GameSources/Scene.cpp	(rejected hunks)
+@@ -26,6 +26,7 @@
+ 
+ 
+ 		//���̃��f���ǂݍ���
++<<<<<<< Updated upstream
+ 		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir, L"Floor1.bmf");
+ 		App::GetApp()->RegisterResource(L"STAGEFLOOR_MESH", staticModelMesh1);
+ 
