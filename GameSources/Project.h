@@ -13,6 +13,7 @@
 #include "Character.h"
 #include "Player.h"
 #include "StageFloor.h"
+#include "StageWall.h"
 #include "MyCamera.h"
 #include "Hunter.h"
 #include "Timer.h"

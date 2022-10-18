@@ -1,8 +1,8 @@
 /**
-*@file StageFloor.cpp
-*@brief ゲームステージの床の実装が定義されているソースファイル
+*@file StageWall.cpp
+*@brief ゲームステージの壁の実装が定義されているソースファイル
 *@author Ayumu Muroi
-*@details ゲームステージの床の実体実装
+*@details ゲームステージの壁の実体実装
 */
 
 #include "stdafx.h"
@@ -15,7 +15,7 @@ namespace basecross {
 	//	class FixedBox : public GameObject;
 	//--------------------------------------------------------------------------------------
 	//構築と破棄
-	StageFloor::StageFloor(const shared_ptr<Stage>& StagePtr,
+	StageWall::StageWall(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
 		const Vec3& Position
@@ -26,10 +26,10 @@ namespace basecross {
 		m_Position(Position)
 	{
 	}
-	
+
 
 	//初期化
-	void StageFloor::OnCreate() {
+	void StageWall::OnCreate() {
 		//!衝突判定の設定
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(m_Scale);      //!大きさ
@@ -39,10 +39,10 @@ namespace basecross {
 		// モデルとトランスフォームの間の差分行列
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.039f, 1.0f, 0.038f),//!大きさ
+			Vec3(0.8f, 0.14f, 0.04f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(0.0f, 0.5f, -0.02f)  //!位置
+			Vec3(0.0f, -0.83f, -0.02f)  //!位置
 		);
 
 
@@ -52,11 +52,11 @@ namespace basecross {
 		Coll->SetFixed(true);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
 
 		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"STAGEFLOOR_MESH");
+		ptrShadow->SetMeshResource(L"STAGEWALL_MESH");
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 
 		//!メッシュの設定
-		ptrDraw->SetMeshResource(L"STAGEFLOOR_MESH");
+		ptrDraw->SetMeshResource(L"STAGEWALL_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		Coll->SetDrawActive(true);
 		//!RigidbodyBoxの追加
