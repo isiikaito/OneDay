@@ -22,9 +22,8 @@ namespace basecross{
 		wstring strTexture = dataDir + L"number.png";
 		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
 
-
-		//床のモデル読み込み
-		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir, L"Floor1.bmf");
+		//!床のモデル読み込み
+		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir, L"StageFloor.bmf");
 		App::GetApp()->RegisterResource(L"STAGEFLOOR_MESH", staticModelMesh1);
 
 		//!ハンターのモデリング

@@ -39,10 +39,10 @@ namespace basecross {
 		// モデルとトランスフォームの間の差分行列
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.045f, 1.0f, 0.13f),//!大きさ
+			Vec3(0.039f, 1.0f, 0.038f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(0.0f, 0.0f, -0.05f)  //!位置
+			Vec3(0.0f, 0.5f, -0.02f)  //!位置
 		);
 
 
