@@ -154,6 +154,5 @@ namespace basecross {
 		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
 		ptrScor->SetScore(m_TotalTime);
 	}
-
 }
 //end basecross
