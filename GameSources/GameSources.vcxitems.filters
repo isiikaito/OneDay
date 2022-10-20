@@ -35,6 +35,12 @@
       <Filter>Other</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageWall.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Title.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h">
@@ -71,6 +77,12 @@
       <Filter>Other</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageWall.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Title.h">
+      <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
+      <Filter>Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Stage">
@@ -93,6 +105,9 @@
     </Filter>
     <Filter Include="Other">
       <UniqueIdentifier>{b037c820-f3d5-4090-acda-7d89b415f7a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Title">
+      <UniqueIdentifier>{cce705ed-2344-40ea-ba54-1f787b4a54c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

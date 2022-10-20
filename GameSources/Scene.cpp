@@ -21,6 +21,10 @@ namespace basecross{
 		//!テクスチャ
 		wstring strTexture = dataDir + L"number.png";
 		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
+		//!タイトル画面
+		strTexture = dataDir + L"StageMessage.png";
+		App::GetApp()->RegisterTexture(L"MESSAGE_TX", strTexture);
+
 
 		//!床のモデル読み込み
 		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir, L"StageFloor.bmf");
@@ -44,7 +48,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		}
 		catch (...) {
 			throw;
@@ -61,6 +65,10 @@ namespace basecross{
 		if (event->m_MsgStr == L"ToGameStage") {
 			//最初のアクティブステージの設定
 			ResetActiveStage<GameStage>();
+		}
+		else if (event->m_MsgStr == L"ToTitleStage")//!タイトルステージ
+		{
+			ResetActiveStage<TitleStage>();
 		}
 	}
 
