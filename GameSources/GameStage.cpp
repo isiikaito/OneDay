@@ -147,8 +147,8 @@ namespace basecross {
 	void GameStage::OnUpdate() {
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		m_TotalTime -= elapsedTime;
-		if (m_TotalTime >= 30.0f) {
-			m_TotalTime = 0.0f;
+		if (m_TotalTime <= 0.0f) {
+			m_TotalTime = m_GameTime;
 		}
 		////スコアを更新する
 		auto ptrScor = GetSharedGameObject<Timer>(L"Time");

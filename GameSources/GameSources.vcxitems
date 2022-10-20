@@ -26,6 +26,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageWall.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Timer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Title.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
@@ -38,6 +40,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageFloor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageWall.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Timer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Title.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp" />
   </ItemGroup>

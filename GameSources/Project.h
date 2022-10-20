@@ -17,6 +17,8 @@
 #include "MyCamera.h"
 #include "Hunter.h"
 #include "Timer.h"
+#include "Title.h"
+#include"TitleStage.h"
 
 
 
