@@ -41,6 +41,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
       <Filter>Title</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageBuilding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h">
@@ -83,6 +84,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
       <Filter>Title</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Stage">

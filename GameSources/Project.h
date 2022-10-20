@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "StageFloor.h"
 #include "StageWall.h"
+#include "StageBuilding.h"
 #include "MyCamera.h"
 #include "Hunter.h"
 #include "Timer.h"

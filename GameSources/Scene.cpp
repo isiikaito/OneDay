@@ -37,6 +37,10 @@ namespace basecross{
 		//!•Ç‚Ìƒ‚ƒfƒ‹“Ç‚Ýž‚Ý
 		auto staticModelMesh3 = MeshResource::CreateStaticModelMesh(dataDir, L"StageWall.bmf");
 		App::GetApp()->RegisterResource(L"STAGEWALL_MESH", staticModelMesh3);
+	
+		//!Œš•¨‚Ìƒ‚ƒfƒ‹“Ç‚Ýž‚Ý
+		auto staticModelMesh4 = MeshResource::CreateStaticModelMesh(dataDir, L"StageBuilding.bmf");
+		App::GetApp()->RegisterResource(L"STAGEBUILDING_MESH", staticModelMesh4);
 
 	}
 	void Scene::OnCreate(){

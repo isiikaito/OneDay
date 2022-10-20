@@ -92,7 +92,7 @@ namespace basecross{
 
 		//!初期位置などの設定
 		auto ptr = AddComponent<Transform>();
-		ptr->SetScale(0.25f, 0.25f, 0.25f);	//直径25センチの球体
+		ptr->SetScale(0.5f, 0.5f, 0.5f);	//直径25センチの球体
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
 		ptr->SetPosition(Vec3(0, 10.0f, 0));
 
