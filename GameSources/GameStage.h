@@ -25,10 +25,7 @@ namespace basecross {
 		void CerateHunter();//!ハンターの作成
 
 		void CreateTimerSprite();//!タイマースプライト作成
-		void CreateTraceSprite();//!半透明のスプライト作成
-		void CreateWallSprite();//!壁模様のスプライト作成
-		void CreateScrollSprite();//!スクロールするスプライト作成
-		void CreateScoreSprite();//!スコアスプライト作成
+		
 
 		float m_TotalTime;//!トータル時間(タイマーの作成)
 

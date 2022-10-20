@@ -152,7 +152,16 @@ namespace basecross {
 	//!ハンターの作成
 	void GameStage::CerateHunter()
 	{
-		 AddGameObject<Hunter>();
+		auto group = CreateSharedObjectGroup(L"ObjGroup");
+		//配列の初期化
+		vector<Vec3> vec = {
+			{ -10.0f, 0.125f, 10.0f },
+		};
+
+		//配置オブジェクトの作成
+		for (size_t count = 0; count < vec.size(); count++) {
+			AddGameObject<Hunter>(vec[count]);
+		}
 	}
 
 	void GameStage::OnCreate() {
