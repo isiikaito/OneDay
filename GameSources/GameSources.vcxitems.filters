@@ -35,6 +35,7 @@
       <Filter>Other</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageWall.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageBuilding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h">
@@ -71,6 +72,7 @@
       <Filter>Other</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageWall.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Stage">

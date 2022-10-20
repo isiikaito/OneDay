@@ -18,6 +18,7 @@ namespace basecross {
 		void CreateStageFloor(); //!ステージの床
 		void CreatePlayer();//!プレイヤーの作成
 		void CreateStageWall(); //!ステージの壁
+		void CreateStageBuilding(); //!ステージの建物
 
 		void CerateHunter();//!ハンターの作成
 
