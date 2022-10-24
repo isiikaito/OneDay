@@ -128,8 +128,10 @@ namespace basecross {
 				(float)_wtof(Tokens[9].c_str())
 			);
 			//各値が揃ったのでオブジェクトの作成
-			AddGameObject<StageBuilding>(Scale, Rot, Pos);
+			
+			auto ptrBuilding=AddGameObject<StageBuilding>(Scale, Rot, Pos);
 		}
+		
 
 	}
 
