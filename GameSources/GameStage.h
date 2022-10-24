@@ -29,7 +29,7 @@ namespace basecross {
 
 		float m_TotalTime;//!トータル時間(タイマーの作成)
 
-		const float m_GameTime = 6.0f;
+		const float m_GameTime = 31.0f;
 
 
 	public:
