@@ -50,7 +50,8 @@ namespace basecross {
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
 		auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
 		Coll->SetFixed(true);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
-
+		
+		AddTag(L"StageBuilding");//!タグをつける
 		//!影の形（メッシュ）を設定
 		ptrShadow->SetMeshResource(L"STAGEBUILDING_MESH");
 		ptrShadow->SetMeshToTransformMatrix(spanMat);

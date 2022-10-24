@@ -47,7 +47,7 @@ namespace basecross
 		auto ptrSep = GetBehavior<SeparationSteering>();
 		ptrSep->SetGameObjectGroup(group);
 
-		//!分かんないから聞く
+	
 		//壁回避行動を付ける(ゲーム盤の外に出ないようにする)
 		auto ptrWall = GetBehavior<WallAvoidanceSteering>();
 		vector<PLANE> planeVec = {
@@ -77,6 +77,7 @@ namespace basecross
 		//!障害物回避行動を付ける
 		vector<shared_ptr<GameObject>>spObjVec;
 		GetStage()->GetUsedTagObjectVec(L"StageWall", spObjVec);//!障害物の取得
+		GetStage()->GetUsedTagObjectVec(L"StageBuilding", spObjVec);//!障害物の取得
 		vector<SPHERE> spVec;//!球体のベクトルの取得
 		for (auto& v : spObjVec) {
 			auto TransPtr = v->GetComponent<Transform>();//!グループ内のコンポーネントを取得
