@@ -17,13 +17,13 @@ namespace basecross {
 		m_TargetToAt(0, 0, 0),    //!目標から視点を調整する位置ベクトル
 		m_RadY(0.5f),             //!カメラのY軸の位置
 		m_RadXZ(0),               //!カメラのZ軸の位置
-		m_CameraUpDownSpeed(10.0f),//!カメラの上下スビード
+		m_CameraUpDownSpeed(2.0f),//!カメラの上下スビード
 		m_CameraUnderRot(0.1f),   //!カメラを下げる下限角度
 		m_ArmLen(5.0f),           //!腕の長さの設定
-		m_MaxArm(20.0f),          //!腕の最大の長さ
-		m_MinArm(2.0f),           //!腕の最小の長さ
+		m_MaxArm(100.0f),          //!腕の最大の長さ
+		m_MinArm(20.0f),           //!腕の最小の長さ
 		m_RotSpeed(1.0f),         //!回転スピード
-		m_ZoomSpeed(0.1f),        //!スムーズスピード
+		m_ZoomSpeed(0.5f),        //!スムーズスピード
 		m_LRBaseMode(true),       //!左右スティック変更のモード
 		m_UDBaseMode(true)        //!上下のスティック変更モード
 	{}

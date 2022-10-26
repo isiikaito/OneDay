@@ -15,7 +15,7 @@ namespace basecross{
 	//!\’z‚Æ”jŠü
 	Player::Player(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr),
-		m_Speed(6.0f),
+		m_Speed(20.0f),
 		m_idleTime(0.0f)
 	{}
 
@@ -92,7 +92,7 @@ namespace basecross{
 
 		//!‰ŠúˆÊ’u‚È‚Ç‚Ìİ’è
 		auto ptr = AddComponent<Transform>();
-		ptr->SetScale(0.5f, 0.5f, 0.5f);	//’¼Œa25ƒZƒ“ƒ`‚Ì‹…‘Ì
+		ptr->SetScale(5.0f, 5.0f, 5.0f);	//’¼Œa25ƒZƒ“ƒ`‚Ì‹…‘Ì
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
 		ptr->SetPosition(Vec3(0, 10.0f, 0));
 
