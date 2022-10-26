@@ -1,14 +1,15 @@
 /*!
 @file Hunter.cpp
 @brief ハンターの実体
+*@author isii kaito
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
-namespace basecross 
+namespace basecross
 {
-	Enemy::Enemy(const shared_ptr<Stage>& StagePtr, const Vec3& StartPos) :
+	Hunter::Hunter(const shared_ptr<Stage>& StagePtr, const Vec3& StartPos) :
 		GameObject(StagePtr),
 		m_StartPos(StartPos),
 		m_StateChangeSize(5.0f),
@@ -20,9 +21,9 @@ namespace basecross
 	}
 
 	//!デストラクタ
-	Enemy::~Enemy() {}
+	Hunter::~Hunter() {}
 	//!適応力
-	void Enemy::ApplyForce() {
+	void Hunter::ApplyForce() {
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!時間の取得
 		m_Velocity += m_Force * elapsedTime;//!行動の力に時間をかけて速度を求めている
 		auto ptrTrans = GetComponent<Transform>();//!敵のTransformを取得している
@@ -32,131 +33,15 @@ namespace basecross
 	}
 
 	//!ターゲット(プレイヤー)の取得
-	shared_ptr<GameObject>  Enemy::GetTarget()const
+	shared_ptr<GameObject>  Hunter::GetTarget()const
 	{
 		return GetStage()->GetSharedObject(L"Player");
 	}
 
 	//!初期化
-	void Enemy::OnCreate()
-	{
-		auto group = GetStage()->GetSharedObjectGroup(L"ObjGroup");//!オブジェクトのグループを得る
-		group->IntoGroup(GetThis<Enemy>());//!グループに自分自身を追加
-
-		//!分離行動をつける
-		auto ptrSep = GetBehavior<SeparationSteering>();
-		ptrSep->SetGameObjectGroup(group);
-
-	
-		//壁回避行動を付ける(ゲーム盤の外に出ないようにする)
-		auto ptrWall = GetBehavior<WallAvoidanceSteering>();
-		vector<PLANE> planeVec = {
-			{
-				Vec3(20,0,0),
-				Vec3(20,1.0,0),
-				Vec3(20,0,-1.0),
-			},
-			{
-				Vec3(0,0,-20),
-				Vec3(0,1.0,-20),
-				Vec3(-1.0,0,-20),
-			},
-			{
-				Vec3(-20,0,0),
-				Vec3(-20,1.0,0),
-				Vec3(-20,0,1.0),
-			},
-			{
-				Vec3(0,0,20),
-				Vec3(0,1.0,20),
-				Vec3(1.0,0,20),
-			},
-		};
-		ptrWall->SetPlaneVec(planeVec);
-
-		//!障害物回避行動を付ける
-		vector<shared_ptr<GameObject>>spObjVec;
-		GetStage()->GetUsedTagObjectVec(L"StageWall", spObjVec);//!障害物の取得
-		GetStage()->GetUsedTagObjectVec(L"StageBuilding", spObjVec);//!障害物の取得
-		vector<SPHERE> spVec;//!球体のベクトルの取得
-		for (auto& v : spObjVec) {
-			auto TransPtr = v->GetComponent<Transform>();//!グループ内のコンポーネントを取得
-			SPHERE sp;//!聞く
-			sp.m_Center = TransPtr->GetPosition();
-			sp.m_Radius = TransPtr->GetScale().x * 0.5f;
-			spVec.push_back(sp);
-		}
-		auto ptrAvoidance = GetBehavior<ObstacleAvoidanceSteering>();
-		ptrAvoidance->SetObstacleSphereVec(spVec);
-		m_StateMachine.reset(new StateMachine<Enemy>(GetThis<Enemy>()));//!ステートマシンの構築
-		m_StateMachine->ChangeState(NearState::Instance());
-	}
-	//!更新
-	void Enemy::OnUpdate()
-	{
-		m_Force = Vec3(0);//!行動の力をゼロにする
-		//!共通のステアリング1
-		auto ptrWall = GetBehavior<WallAvoidanceSteering>();//!ステージの外に出ないようにする処理
-		m_Force += ptrWall->Execute(m_Force, GetVelocity());//!実行する力と速度を代入
-		m_StateMachine->Update();//!この中でステートの切り替えが行われる
-		//!共通のステアリング2
-		auto ptrSep = GetBehavior<SeparationSteering>();//!分離行動を実行する
-		m_Force += ptrSep->Execute(m_Force);//!分離行動の力を代入する
-		auto ptrAvoidance = GetBehavior<ObstacleAvoidanceSteering>();//!障害物を避ける行動
-		m_Force += ptrAvoidance->Execute(m_Force, GetVelocity());
-		ApplyForce();
-		auto ptrUtil = GetBehavior<UtilBehavior>();
-		ptrUtil->RotToHead(1.0f);
-
-
-
-	}
-
-	//--------------------------------------------------------------------------------------
-	  //	プレイヤーから遠いときの移動
-	  //--------------------------------------------------------------------------------------
-	shared_ptr<FarState> FarState::Instance() {
-		static shared_ptr<FarState> instance(new FarState);
-		return instance;
-	}
-	void FarState::Enter(const shared_ptr<Enemy>& Obj) {
-	}
-	void FarState::Execute(const shared_ptr<Enemy>& Obj) {
-		Obj->FarBehavior();
-	}
-
-	void FarState::Exit(const shared_ptr<Enemy>& Obj) {
-	}
-
-	//--------------------------------------------------------------------------------------
-	//	プレイヤーから近いときの移動
-	//--------------------------------------------------------------------------------------
-	shared_ptr<NearState> NearState::Instance() {
-		static shared_ptr<NearState> instance(new NearState);
-		return instance;
-	}
-	void NearState::Enter(const shared_ptr<Enemy>& Obj) {
-	}
-	void NearState::Execute(const shared_ptr<Enemy>& Obj) {
-		Obj->NearBehavior();
-	}
-	void NearState::Exit(const shared_ptr<Enemy>& Obj) {
-	}
-
-
-	//--------------------------------------------------------------------------------------
-	   //	パスを巡回する配置オブジェクト
-	   //--------------------------------------------------------------------------------------
-	   //構築と破棄
-	Hunter::Hunter(const shared_ptr<Stage>& StagePtr, const Vec3& StartPos) :
-		Enemy(StagePtr, StartPos)
-	{
-	}
-	Hunter::~Hunter() {}
-
-	//初期化
 	void Hunter::OnCreate()
 	{
+
 		//初期位置などの設定
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(1.0f, 1.4f, 1.4f);//!大きさ
@@ -173,7 +58,7 @@ namespace basecross
 
 		AddTag(L"ObjGroup");//!オブジェクトタグの作成
 		auto group = GetStage()->GetSharedObjectGroup(L"ObjGroup");//!オブジェクトのグループを得る
-		group->IntoGroup(GetThis<Enemy>());//!グループに自分自身を追加
+		group->IntoGroup(GetThis<Hunter>());//!グループに自分自身を追加
 
 		//経路巡回を付ける
 		auto ptrFollowPath = GetBehavior<FollowPathSteering>();
@@ -199,10 +84,43 @@ namespace basecross
 		ptrDraw->SetMeshResource(L"HUNTER_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		Coll->SetDrawActive(true);
-		//!親クラスのOnCreateを呼ぶ
-		Enemy::OnCreate();
-	}
 
+
+
+		//!障害物回避行動
+		vector<shared_ptr<GameObject>>obObjVec;
+		GetStage()->GetUsedTagObjectVec(L"StageWall", obObjVec);
+		vector<SPHERE>obVec;
+		for (auto& v : obObjVec)
+		{
+			auto TransPtr = v->GetComponent<Transform>();
+
+			SPHERE sp;
+			sp.m_Center = TransPtr->GetPosition();
+			sp.m_Radius = TransPtr->GetScale().x * 1.4f;
+			obVec.push_back(sp);
+		}
+		auto ptrAvoidandce = GetBehavior<ObstacleAvoidanceSteering>();
+		ptrAvoidandce->SetObstacleSphereVec(obVec);
+		m_StateMachine.reset(new StateMachine<Hunter>(GetThis<Hunter>()));
+		m_StateMachine->ChangeState(FarState::Instance());
+		}
+	//!更新
+	void Hunter::OnUpdate()
+	{
+		m_Force = Vec3(0);//!行動の力をゼロにする
+
+		m_StateMachine->Update();//!この中でステートの切り替えが行われる
+
+		auto ptrAvoidance = GetBehavior<ObstacleAvoidanceSteering>();//!障害物を避ける行動
+		m_Force += ptrAvoidance->Execute(m_Force, GetVelocity());
+		ApplyForce();
+		auto ptrUtil = GetBehavior<UtilBehavior>();
+		ptrUtil->RotToHead(1.0f);
+
+
+
+	}
 	//!動作
 	//!ステートが近い時の処理
 	void Hunter::NearBehavior()
@@ -224,6 +142,7 @@ namespace basecross
 
 	//!ステートが遠い時の処理
 	void Hunter::FarBehavior() {
+		auto ptrArrive = GetBehavior<ArriveSteering>();
 		auto ptrFollowPath = GetBehavior<FollowPathSteering>();//!巡回行動のステアリング
 		auto ptrTrans = GetComponent<Transform>();//!敵のコンポーネントの取得
 		auto ptrPlayerTrans = GetTarget()->GetComponent<Transform>();//!プレイヤーのコンポーネントの取得
@@ -252,6 +171,41 @@ namespace basecross
 
 
 	}
+
+	//--------------------------------------------------------------------------------------
+	  //	プレイヤーから遠いときの移動
+	  //--------------------------------------------------------------------------------------
+	shared_ptr<FarState> FarState::Instance() {
+		static shared_ptr<FarState> instance(new FarState);
+		return instance;
+	}
+	void FarState::Enter(const shared_ptr<Hunter>& Obj) {
+	}
+	void FarState::Execute(const shared_ptr<Hunter>& Obj) {
+		Obj->FarBehavior();
+	}
+
+	void FarState::Exit(const shared_ptr<Hunter>& Obj) {
+	}
+
+	//--------------------------------------------------------------------------------------
+	//	プレイヤーから近いときの移動
+	//--------------------------------------------------------------------------------------
+	shared_ptr<NearState> NearState::Instance() {
+		static shared_ptr<NearState> instance(new NearState);
+		return instance;
+	}
+	void NearState::Enter(const shared_ptr<Hunter>& Obj) {
+	}
+	void NearState::Execute(const shared_ptr<Hunter>& Obj) {
+		Obj->NearBehavior();
+	}
+	void NearState::Exit(const shared_ptr<Hunter>& Obj) {
+	}
+
+
+
+
 
 }
 //!end basecross

@@ -1,22 +1,22 @@
 /*!
 @file Hunter.h
 @brief ハンターの作成
+*@author isii kaito
 */
 
 #pragma once
 #include "stdafx.h"
 
-namespace basecross 
+namespace basecross
 {
-	
 	//--------------------------------------------------------
 	//!ハンター
 	//--------------------------------------------------------
-	class Enemy :public GameObject
+	class Hunter :public GameObject
 	{
 
 		//ステートマシーン(状態を表す)
-		unique_ptr< StateMachine<Enemy> >  m_StateMachine;
+		unique_ptr< StateMachine<Hunter> >  m_StateMachine;
 		Vec3  m_StartPos;//!スタートポジション
 		Vec3 m_Force;//!動きの力
 		Vec3 m_Velocity;//!速度
@@ -26,7 +26,7 @@ namespace basecross
 
 
 
-	protected:
+	public:
 		//構築と破棄
 		//--------------------------------------------------------------------------------------
 		/*!
@@ -34,17 +34,17 @@ namespace basecross
 		@param[in]	StagePtr	ステージ
 		*/
 		//--------------------------------------------------------------------------------------
-		Enemy(const shared_ptr<Stage>& StagePtr, const Vec3& StartPos);
+		Hunter(const shared_ptr<Stage>& StagePtr, const Vec3& StartPos);
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	デストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual ~Enemy();
+		virtual ~Hunter();
 	public:
 
 		//アクセサ
-		const unique_ptr<StateMachine<Enemy>>& GetStateMachine() {
+		const unique_ptr<StateMachine<Hunter>>& GetStateMachine() {
 			return m_StateMachine;
 		}
 
@@ -84,8 +84,8 @@ namespace basecross
 		}
 
 		shared_ptr<GameObject>  GetTarget()const;//!ターゲットの取得
-		virtual void NearBehavior() = 0;//!ステートがプレイヤーから近い位置にあるときに毎ターン呼ばれる
-		virtual void FarBehavior() = 0;//!ステートがプレイヤーから遠い位置にあるときに毎ターン呼ばれる
+		virtual void NearBehavior();//!ステートがプレイヤーから近い位置にあるときに毎ターン呼ばれる
+		virtual void FarBehavior();//!ステートがプレイヤーから遠い位置にあるときに毎ターン呼ばれる
 		virtual void OnCreate();//初期化
 		virtual void OnUpdate();//!更新
 
@@ -94,50 +94,30 @@ namespace basecross
 	//--------------------------------------------------------------------------------------
 	//	プレイヤーから遠いときの移動
 	//--------------------------------------------------------------------------------------
-	class FarState : public ObjState<Enemy>
+	class FarState : public ObjState<Hunter>
 	{
 		FarState() {}
 	public:
 		static shared_ptr<FarState> Instance();
-		virtual void Enter(const shared_ptr<Enemy>& Obj)override;//!処理に入る
-		virtual void Execute(const shared_ptr<Enemy>& Obj)override;//!処理を実行する
-		virtual void Exit(const shared_ptr<Enemy>& Obj)override;//!処理を出る
+		virtual void Enter(const shared_ptr<Hunter>& Obj)override;//!処理に入る
+		virtual void Execute(const shared_ptr<Hunter>& Obj)override;//!処理を実行する
+		virtual void Exit(const shared_ptr<Hunter>& Obj)override;//!処理を出る
 	};
 
 	//--------------------------------------------------------------------------------------
 	//	 プレイヤーから近いときの移動
 	//--------------------------------------------------------------------------------------
-	class NearState : public ObjState<Enemy>
+	class NearState : public ObjState<Hunter>
 	{
 		NearState() {}
 	public:
 		static shared_ptr<NearState> Instance();
-		virtual void Enter(const shared_ptr<Enemy>& Obj)override;
-		virtual void Execute(const shared_ptr<Enemy>& Obj)override;
-		virtual void Exit(const shared_ptr<Enemy>& Obj)override;
+		virtual void Enter(const shared_ptr<Hunter>& Obj)override;
+		virtual void Execute(const shared_ptr<Hunter>& Obj)override;
+		virtual void Exit(const shared_ptr<Hunter>& Obj)override;
 	};
 
 
-	//--------------------------------------------------------------------------------------
-	//!パスを巡回する配置オブジェクト
-	//--------------------------------------------------------------------------------------
-	class Hunter : public Enemy {
-	public:
-		//構築と破棄
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief	コンストラクタ
-		@param[in]	StagePtr	ステージ
-		*/
-		//--------------------------------------------------------------------------------------
-		Hunter(const shared_ptr<Stage>& StagePtr, const Vec3& StartPos);
-		virtual ~Hunter();
-
-		virtual void OnCreate() override;//!初期化
-		//操作
-		virtual void NearBehavior() override;//!ステートが近い時
-		virtual void FarBehavior() override;//!ステートが遠い時
-	};
 
 }
 //!end basecross
