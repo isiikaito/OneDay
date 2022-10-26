@@ -39,12 +39,12 @@ namespace basecross {
 		// モデルとトランスフォームの間の差分行列
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.8f, 0.14f, 0.042f),//!大きさ
+			Vec3(0.8f, 0.045f, 0.0177f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(0.0f, -0.83f, -0.01f)  //!位置
+			Vec3(0.0f, -0.35f, -0.005f)  //!位置
 		);
-
+		
 
 		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
