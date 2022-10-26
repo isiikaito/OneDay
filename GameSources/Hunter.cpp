@@ -87,23 +87,24 @@ namespace basecross
 
 
 
-
-		//!障害物回避行動を付ける
+		//!障害物回避行動
 		vector<shared_ptr<GameObject>>obObjVec;
-		GetStage()->GetUsedTagObjectVec(L"StageWall", obObjVec);//!障害物の取得
-		vector<OBB> obVec;//!球体のベクトルの取得
-		for (auto& v : obObjVec) {
-			auto TransPtr = v->GetComponent<Transform>();//!グループ内のコンポーネントを取得
-			OBB ob;
-			ob.m_Center = TransPtr->GetPosition();
-			ob.m_Size = TransPtr->GetScale();
-			obVec.push_back(ob);
+		GetStage()->GetUsedTagObjectVec(L"StageWall", obObjVec);
+		vector<SPHERE>obVec;
+		for (auto& v : obObjVec)
+		{
+			auto TransPtr = v->GetComponent<Transform>();
+
+			SPHERE sp;
+			sp.m_Center = TransPtr->GetPosition();
+			sp.m_Radius = TransPtr->GetScale().x * 1.4f;
+			obVec.push_back(sp);
 		}
-		auto ptrAvoidance = GetBehavior<ObstacleAvoidanceSteering>();
-		ptrAvoidance->SetObstacleObbVec(obVec);
-		m_StateMachine.reset(new StateMachine<Hunter>(GetThis<Hunter>()));//!ステートマシンの構築
-		m_StateMachine->ChangeState(NearState::Instance());
-	}
+		auto ptrAvoidandce = GetBehavior<ObstacleAvoidanceSteering>();
+		ptrAvoidandce->SetObstacleSphereVec(obVec);
+		m_StateMachine.reset(new StateMachine<Hunter>(GetThis<Hunter>()));
+		m_StateMachine->ChangeState(FarState::Instance());
+		}
 	//!更新
 	void Hunter::OnUpdate()
 	{
