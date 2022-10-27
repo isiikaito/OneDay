@@ -15,7 +15,8 @@ namespace basecross {
 
 		
 
-		CsvFile m_CsvC;          //!CSVファイルそのC
+		CsvFile m_StageCsv;          //!ステージCSVファイル
+		CsvFile m_EnemyCsv;
 		void CreateViewLight();  //!ビューの作成
 		void CreateStageFloor(); //!ステージの床
 		void CreatePlayer();//!プレイヤーの作成
