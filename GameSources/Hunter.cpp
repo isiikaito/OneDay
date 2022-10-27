@@ -9,10 +9,24 @@
 
 namespace basecross
 {
-	Hunter::Hunter(const shared_ptr<Stage>& StagePtr, const Vec3& StartPos) :
+	Hunter::Hunter(const shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
+		const Vec3& Rotation,
+		const Vec3& Position,
+		const Vec3& PatrolPointFirst,
+		const Vec3& PatrolPointsSecond,
+		const Vec3& PatrolPointsThird,
+		const Vec3& PatrolPointsForce) :
+
 		GameObject(StagePtr),
-		m_StartPos(StartPos),
-		m_StateChangeSize(5.0f),
+		m_Scale(Scale),
+		m_Rotation(Rotation),
+		m_Position(Position),
+		m_PatrolPointFirst(PatrolPointFirst),
+		m_PatrolPointsSecond(PatrolPointsSecond),
+		m_PatrolPointsThird(PatrolPointsThird),
+		m_PatrolPointsForce(PatrolPointsForce),
+		m_StateChangeSize(30.0f),
 		m_Force(0),
 		m_Velocity(0),
 		PEvector(0)
@@ -28,7 +42,7 @@ namespace basecross
 		m_Velocity += m_Force * elapsedTime;//!行動の力に時間をかけて速度を求めている
 		auto ptrTrans = GetComponent<Transform>();//!敵のTransformを取得している
 		auto pos = ptrTrans->GetPosition();//!敵のポジションを取得している
-		pos += m_Velocity * elapsedTime;//!敵のポジションに速度と時間を掛けたものを足す
+		pos += m_Velocity * elapsedTime*2;//!敵のポジションに速度と時間を掛けたものを足す
 		ptrTrans->SetPosition(pos);//!敵のポジションの設定
 	}
 
@@ -44,9 +58,9 @@ namespace basecross
 
 		//初期位置などの設定
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(1.0f, 1.4f, 1.4f);//!大きさ
-		ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);//!回転
-		ptrTrans->SetPosition(0.0f, 5.0f, 0.0f);//!位置
+		ptrTrans->SetScale(m_Scale);//!大きさ
+		ptrTrans->SetRotation(m_Rotation);//!回転
+		ptrTrans->SetPosition(m_Position);//!位置
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
@@ -62,11 +76,12 @@ namespace basecross
 
 		//経路巡回を付ける
 		auto ptrFollowPath = GetBehavior<FollowPathSteering>();
-		list<Vec3> pathList = {
-			Vec3(-10,0.125,10),
-			Vec3(10,0.125,10),
-			Vec3(-10,0.125,-10),
-			Vec3(10,0.125,-10),
+		list<Vec3> pathList =
+		{
+	      m_PatrolPointFirst  ,
+	      m_PatrolPointsSecond,
+	      m_PatrolPointsThird ,
+	      m_PatrolPointsForce
 		};
 		ptrFollowPath->SetPathList(pathList);
 		ptrFollowPath->SetLooped(true);
@@ -89,7 +104,7 @@ namespace basecross
 
 		//!障害物回避行動
 		vector<shared_ptr<GameObject>>obObjVec;
-		GetStage()->GetUsedTagObjectVec(L"StageWall", obObjVec);
+		GetStage()->GetUsedTagObjectVec(L"StageBuilding", obObjVec);
 		vector<SPHERE>obVec;
 		for (auto& v : obObjVec)
 		{
@@ -97,7 +112,7 @@ namespace basecross
 
 			SPHERE sp;
 			sp.m_Center = TransPtr->GetPosition();
-			sp.m_Radius = TransPtr->GetScale().x * 1.4f;
+			sp.m_Radius = TransPtr->GetScale().x * 1.414f*0.5f;
 			obVec.push_back(sp);
 		}
 		auto ptrAvoidandce = GetBehavior<ObstacleAvoidanceSteering>();
@@ -142,7 +157,7 @@ namespace basecross
 
 	//!ステートが遠い時の処理
 	void Hunter::FarBehavior() {
-		auto ptrArrive = GetBehavior<ArriveSteering>();
+	
 		auto ptrFollowPath = GetBehavior<FollowPathSteering>();//!巡回行動のステアリング
 		auto ptrTrans = GetComponent<Transform>();//!敵のコンポーネントの取得
 		auto ptrPlayerTrans = GetTarget()->GetComponent<Transform>();//!プレイヤーのコンポーネントの取得

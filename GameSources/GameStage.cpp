@@ -31,7 +31,7 @@ namespace basecross {
 		//CSVの行単位の配列
 		vector<wstring>LineVec;
 		//0番目のカラムがL"stageObject"である行を抜き出す
-		m_CsvC.GetSelect(LineVec, 0, L"StageFloor");
+		m_StageCsv.GetSelect(LineVec, 0, L"StageFloor");
 		for (auto& v : LineVec) {
 			//トークン（カラム）の配置
 			vector<wstring>Tokens;
@@ -67,7 +67,7 @@ namespace basecross {
 		//CSVの行単位の配列
 		vector<wstring>LineVec;
 		//0番目のカラムがL"stageObject"である行を抜き出す
-		m_CsvC.GetSelect(LineVec, 0, L"StageWall");
+		m_StageCsv.GetSelect(LineVec, 0, L"StageWall");
 		for (auto& v : LineVec) {
 			//トークン（カラム）の配置
 			vector<wstring>Tokens;
@@ -103,7 +103,7 @@ namespace basecross {
 		//CSVの行単位の配列
 		vector<wstring>LineVec;
 		//0番目のカラムがL"stageObject"である行を抜き出す
-		m_CsvC.GetSelect(LineVec, 0, L"StageBuilding");
+		m_StageCsv.GetSelect(LineVec, 0, L"StageBuilding");
 		for (auto& v : LineVec) {
 			//トークン（カラム）の配置
 			vector<wstring>Tokens;
@@ -154,29 +154,83 @@ namespace basecross {
 	//!ハンターの作成
 	void GameStage::CerateHunter()
 	{
-		auto group = CreateSharedObjectGroup(L"ObjGroup");
-		//配列の初期化
-		vector<Vec3> vec = {
-			{ -10.0f, 0.125f, 10.0f },
-		};
+		auto group = CreateSharedObjectGroup(L"ObjGroup");//!グループを取得
 
-		//配置オブジェクトの作成
-		for (size_t count = 0; count < vec.size(); count++) {
-			AddGameObject<Hunter>(vec[count]);
+		vector<wstring>LineVec;//!CSVの行単位の配列
+
+
+		m_EnemyCsv.GetSelect(LineVec, 0, L"Hunter");//!0番目のカラムがL"Hunter"である行を抜き出す
+		for (auto& v : LineVec)
+		{
+			vector<wstring>Tokens;//!トークン(カラム)の配置
+			Util::WStrToTokenVector(Tokens, v, L',');//!トークン(カラム)単位で文字列を抽出(',')
+			//!トークン(カラム)をスケール、回転、位置に読み込む
+			Vec3 Scale(
+				(float)_wtof(Tokens[1].c_str()),
+				(float)_wtof(Tokens[2].c_str()),
+				(float)_wtof(Tokens[3].c_str())
+			);
+			Vec3 Rot;
+			//!回転は「XM_PLDIV2」の文字列になっている場合がある
+			Rot.x = (Tokens[4] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[4].c_str());
+			Rot.y = (Tokens[5] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[5].c_str());
+			Rot.z = (Tokens[6] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[6].c_str());
+
+			//!ハンターの位置
+			Vec3 Pos(
+				(float)_wtof(Tokens[7].c_str()),
+				(float)_wtof(Tokens[8].c_str()),
+				(float)_wtof(Tokens[9].c_str())
+			);
+
+			Vec3 m_PatrolPointFirst(
+				(float)_wtof(Tokens[10].c_str()),
+				(float)_wtof(Tokens[11].c_str()),
+				(float)_wtof(Tokens[12].c_str())
+			);
+
+			//!ハンターの巡回ポイント2
+			Vec3 m_PatrolPointsSecond(
+				(float)_wtof(Tokens[13].c_str()),
+				(float)_wtof(Tokens[14].c_str()),
+				(float)_wtof(Tokens[15].c_str())
+			);
+
+			//!ハンターの巡回ポイント3
+			Vec3 m_PatrolPointsThird(
+				(float)_wtof(Tokens[16].c_str()),
+				(float)_wtof(Tokens[17].c_str()),
+				(float)_wtof(Tokens[18].c_str())
+			);
+
+			//!ハンターの巡回ポイント4
+			Vec3 m_PatrolPointsForce(
+				(float)_wtof(Tokens[19].c_str()),
+				(float)_wtof(Tokens[20].c_str()),
+				(float)_wtof(Tokens[21].c_str())
+			);
+
+			AddGameObject<Hunter>(Scale, Rot, Pos, m_PatrolPointFirst, m_PatrolPointsSecond, m_PatrolPointsThird, m_PatrolPointsForce);
 		}
+
 	}
 
 	void GameStage::OnCreate() {
 		try {
 
 			SetPhysicsActive(true);//物理計算有効
-			// 「アプリ」オブジェクトのインスタンスを取得する（インスタンス：クラスの実態、オブジェクト指向のオブジェクトのこと）
+			//! 「アプリ」オブジェクトのインスタンスを取得する（インスタンス：クラスの実態、オブジェクト指向のオブジェクトのこと）
 			auto& app = App::GetApp();
 			wstring DataDir;
 			App::GetApp()->GetDataDirectory(DataDir);
-			//CSVファイルその読み込み
-			m_CsvC.SetFileName(DataDir + L"stage0.csv");
-			m_CsvC.ReadCsv();
+
+			//!ステージファイルの読み込み
+			m_StageCsv.SetFileName(DataDir + L"stage0.csv");
+			m_StageCsv.ReadCsv();
+			//!敵のパラメータファイルの読み込み
+			//! 
+			m_EnemyCsv.SetFileName(DataDir + L"Enemy.csv");
+			m_EnemyCsv.ReadCsv();
 			CreateTimerSprite();
 
 			CreateViewLight();//ビューとライトの作成

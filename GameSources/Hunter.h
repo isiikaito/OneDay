@@ -17,7 +17,13 @@ namespace basecross
 
 		//ステートマシーン(状態を表す)
 		unique_ptr< StateMachine<Hunter> >  m_StateMachine;
-		Vec3  m_StartPos;//!スタートポジション
+		Vec3  m_Position;//!位置
+		Vec3 m_Rotation;//!回転
+		Vec3 m_Scale;//!大きさ
+		Vec3 m_PatrolPointFirst;//!ハンターの巡回ポイント1
+		Vec3 m_PatrolPointsSecond;//!ハンターの巡回ポイント2
+		Vec3 m_PatrolPointsThird;//!ハンターの巡回ポイント3
+		Vec3 m_PatrolPointsForce;//!ハンターの巡回ポイント4
 		Vec3 m_Force;//!動きの力
 		Vec3 m_Velocity;//!速度
 		float m_StateChangeSize;
@@ -34,7 +40,15 @@ namespace basecross
 		@param[in]	StagePtr	ステージ
 		*/
 		//--------------------------------------------------------------------------------------
-		Hunter(const shared_ptr<Stage>& StagePtr, const Vec3& StartPos);
+		Hunter(const shared_ptr<Stage>& StagePtr,
+			const Vec3& Scale,
+			const Vec3& Rotation,
+			const Vec3& Position,
+			const Vec3& PatrolPointFirst,
+			const Vec3& PatrolPointsSecond,
+			const Vec3& PatrolPointsThird,
+			const Vec3& PatrolPointsForce
+		);
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	デストラクタ
@@ -48,10 +62,7 @@ namespace basecross
 			return m_StateMachine;
 		}
 
-		//!スタートポジションを取得する
-		Vec3 GetStartPos() const {
-			return m_StartPos;
-		}
+	
 
 		//!ステートチェンジサイズ
 		float GetStateChangeSize() const {
