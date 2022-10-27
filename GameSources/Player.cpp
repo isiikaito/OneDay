@@ -94,7 +94,7 @@ namespace basecross{
 		auto ptr = AddComponent<Transform>();
 		ptr->SetScale(5.0f, 5.0f, 5.0f);	//’¼Œa25ƒZƒ“ƒ`‚Ì‹…‘Ì
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
-		ptr->SetPosition(Vec3(0, 10.0f, 0));
+		ptr->SetPosition(Vec3(0, 10.0f, -30));
 
 		
 		auto ptrColl = AddComponent<CollisionSphere>();//!CollisionSphereÕ“Ë”»’è‚ğ•t‚¯‚é
