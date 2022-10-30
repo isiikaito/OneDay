@@ -20,16 +20,12 @@ namespace basecross
 		Vec3  m_Position;//!位置
 		Vec3 m_Rotation;//!回転
 		Vec3 m_Scale;//!大きさ
-		Vec3 m_PatrolPointFirst;//!ハンターの巡回ポイント1
-		Vec3 m_PatrolPointsSecond;//!ハンターの巡回ポイント2
-		Vec3 m_PatrolPointsThird;//!ハンターの巡回ポイント3
-		Vec3 m_PatrolPointsForce;//!ハンターの巡回ポイント4
 		Vec3 m_Force;//!動きの力
 		Vec3 m_Velocity;//!速度
 		float m_StateChangeSize;
 		void ApplyForce();//!適応力
-		Vec3 PEvector;
-
+		Vec3 PEvector;//!プレイヤーと敵のベクトル
+		std::vector<Vec3> m_patrolPoints;//!巡回ポイント
 
 
 	public:
@@ -44,10 +40,7 @@ namespace basecross
 			const Vec3& Scale,
 			const Vec3& Rotation,
 			const Vec3& Position,
-			const Vec3& PatrolPointFirst,
-			const Vec3& PatrolPointsSecond,
-			const Vec3& PatrolPointsThird,
-			const Vec3& PatrolPointsForce
+			const std::vector<Vec3>& patrolPoints
 		);
 		//--------------------------------------------------------------------------------------
 		/*!

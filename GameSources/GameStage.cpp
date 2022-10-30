@@ -151,15 +151,48 @@ namespace basecross {
 		SetSharedGameObject(L"Player", ptrPlayer);
 		ptrPlayer->AddTag(L"Player");
 	}
-	//!ハンターの作成
-	void GameStage::CerateHunter()
-	{
-		auto group = CreateSharedObjectGroup(L"ObjGroup");//!グループを取得
 
+	//!ハンター(スケール、ローテイション、ポジション)の構造体
+	struct TransformCreateDate {
+		//!構造体テンプレート
+		Vec3 scale = Vec3(0.0f);//!大きさ
+		Vec3 rotation = Vec3(0.0f);//!回転
+		Vec3 position = Vec3(0.0f);//!位置
+		wstring EnemykeyName = L"";//!ハンターの巡回ルートのキーフレームを取得
+
+		TransformCreateDate():
+			TransformCreateDate(Vec3(0.0f),Vec3(0.0f),Vec3(0.0f),wstring(L""))
+		{}
+		//!構造体の初期化
+		TransformCreateDate(
+			const Vec3&scale,
+			const Vec3&rotation,
+			const Vec3&position,
+			const wstring&EnemykeyName
+		):
+			scale(scale),
+			rotation(rotation),
+			position(position),
+			EnemykeyName(EnemykeyName)
+		{}
+	};
+
+	//!ハンター(スケール、ローテイション、ポジション)の関数
+	std::vector<TransformCreateDate>TransformDate(const wstring& folderName, const wstring& fileName, const wstring& keyName) {
+		std::vector<TransformCreateDate>result;//!変数名
 		vector<wstring>LineVec;//!CSVの行単位の配列
 
+		auto& app = App::GetApp();//!アプリの取得
+		wstring DataDir;
+		App::GetApp()->GetDataDirectory(DataDir);
+		auto fullPass = DataDir + folderName + fileName;
 
-		m_EnemyCsv.GetSelect(LineVec, 0, L"Hunter");//!0番目のカラムがL"Hunter"である行を抜き出す
+		CsvFile csvFile;
+		csvFile.SetFileName(fullPass);
+		csvFile.ReadCsv();
+
+		csvFile.GetSelect(LineVec, 0, keyName);//!0番目のカラムがL"Hunter"である行を抜き出す
+
 		for (auto& v : LineVec)
 		{
 			vector<wstring>Tokens;//!トークン(カラム)の配置
@@ -182,39 +215,73 @@ namespace basecross {
 				(float)_wtof(Tokens[8].c_str()),
 				(float)_wtof(Tokens[9].c_str())
 			);
+			wstring	EnemykeyName = Tokens[10];
+			result.push_back(TransformCreateDate(Scale, Rot, Pos, EnemykeyName));
 
-			Vec3 m_PatrolPointFirst(
-				(float)_wtof(Tokens[10].c_str()),
-				(float)_wtof(Tokens[11].c_str()),
-				(float)_wtof(Tokens[12].c_str())
-			);
-
-			//!ハンターの巡回ポイント2
-			Vec3 m_PatrolPointsSecond(
-				(float)_wtof(Tokens[13].c_str()),
-				(float)_wtof(Tokens[14].c_str()),
-				(float)_wtof(Tokens[15].c_str())
-			);
-
-			//!ハンターの巡回ポイント3
-			Vec3 m_PatrolPointsThird(
-				(float)_wtof(Tokens[16].c_str()),
-				(float)_wtof(Tokens[17].c_str()),
-				(float)_wtof(Tokens[18].c_str())
-			);
-
-			//!ハンターの巡回ポイント4
-			Vec3 m_PatrolPointsForce(
-				(float)_wtof(Tokens[19].c_str()),
-				(float)_wtof(Tokens[20].c_str()),
-				(float)_wtof(Tokens[21].c_str())
-			);
-
-			AddGameObject<Hunter>(Scale, Rot, Pos, m_PatrolPointFirst, m_PatrolPointsSecond, m_PatrolPointsThird, m_PatrolPointsForce);
 		}
 
+		return result;
 	}
 
+	//!パトロールポイントの構造体
+	struct PointCreateDate {
+		std::vector<Vec3>m_patorlPositions = vector<Vec3>(0.0f);
+
+		PointCreateDate():
+			PointCreateDate(vector<Vec3>(0.0f)){}
+		PointCreateDate(const std::vector<Vec3>& patrolPoints):
+		m_patorlPositions(patrolPoints)
+	{}
+	};
+
+	//!パトロールポイント
+	PointCreateDate PointDate(const wstring& folderName, const wstring& fileName, const wstring& keyName)
+	{
+		PointCreateDate PatorlPoint;
+
+		vector<wstring>LineVec;
+		auto& app = App::GetApp();//!アプリの取得
+		wstring DataDir;
+		App::GetApp()->GetDataDirectory(DataDir);
+		auto fullPass = DataDir + folderName + fileName;//!
+
+		CsvFile csvFile;
+		csvFile.SetFileName(fullPass);
+		csvFile.ReadCsv();
+
+		csvFile.GetSelect(LineVec, 0, keyName);//!0番目のカラムがkeyNameである行を抜き出す
+		for (auto& v : LineVec)
+		{
+			vector<wstring>Tokens;//!トークン(カラム)の配置
+			Util::WStrToTokenVector(Tokens, v, L',');//!トークン(カラム)単位で文字列を抽出(',')
+
+			auto& routePositions = PatorlPoint.m_patorlPositions;
+
+			routePositions.push_back(
+				Vec3((float)_wtof(Tokens[1].c_str()),
+					(float)_wtof(Tokens[2].c_str()),
+					(float)_wtof(Tokens[3].c_str())));
+		}
+
+		return PatorlPoint;
+	}
+
+
+
+	//!ハンターの作成
+	void GameStage::CerateHunter()
+	{
+		auto group = CreateSharedObjectGroup(L"ObjGroup");//!グループを取得
+
+		auto datas = TransformDate(L"", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
+
+		for (auto data : datas) {
+		
+			auto pointData = PointDate(L"", L"Point.csv", data.EnemykeyName);//!ハンターの大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
+			
+			AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
+		}
+	}
 	void GameStage::OnCreate() {
 		try {
 

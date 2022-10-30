@@ -13,19 +13,14 @@ namespace basecross
 		const Vec3& Scale,
 		const Vec3& Rotation,
 		const Vec3& Position,
-		const Vec3& PatrolPointFirst,
-		const Vec3& PatrolPointsSecond,
-		const Vec3& PatrolPointsThird,
-		const Vec3& PatrolPointsForce) :
+		const std::vector<Vec3>& patrolPoints
+		) :
 
 		GameObject(StagePtr),
 		m_Scale(Scale),
 		m_Rotation(Rotation),
 		m_Position(Position),
-		m_PatrolPointFirst(PatrolPointFirst),
-		m_PatrolPointsSecond(PatrolPointsSecond),
-		m_PatrolPointsThird(PatrolPointsThird),
-		m_PatrolPointsForce(PatrolPointsForce),
+		m_patrolPoints(patrolPoints),
 		m_StateChangeSize(30.0f),
 		m_Force(0),
 		m_Velocity(0),
@@ -76,15 +71,15 @@ namespace basecross
 
 		//経路巡回を付ける
 		auto ptrFollowPath = GetBehavior<FollowPathSteering>();
-		list<Vec3> pathList =
+		list<Vec3> pathList ={};//!巡回ポイントのリスト
+
+		for (auto v : m_patrolPoints)//!vector配列の要素分ループを回す
 		{
-	      m_PatrolPointFirst  ,
-	      m_PatrolPointsSecond,
-	      m_PatrolPointsThird ,
-	      m_PatrolPointsForce
-		};
-		ptrFollowPath->SetPathList(pathList);
-		ptrFollowPath->SetLooped(true);
+			pathList.push_back(v);//!巡回経路のリストに巡回ポイントを入れる
+		}
+
+		ptrFollowPath->SetPathList(pathList);//!リストを設定する
+		ptrFollowPath->SetLooped(true);//!巡回のループを回す
 
 		AddComponent<Gravity>(); //!重力をつける
 		auto Coll = AddComponent<CollisionObb>();//!CollisionObb衝突判定を付ける
