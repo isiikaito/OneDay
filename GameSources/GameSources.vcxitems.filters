@@ -1,14 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageFloor.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp">
       <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp">
-      <Filter>Stage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp">
       <Filter>Camera</Filter>
@@ -34,30 +28,34 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp">
       <Filter>Other</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageWall.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Title.cpp">
       <Filter>Title</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
       <Filter>Title</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageBuilding.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOver.cpp">
       <Filter>GameOver</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOverStage.cpp">
       <Filter>GameOver</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageBuilding.cpp">
+      <Filter>Stage\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageWall.cpp">
+      <Filter>Stage\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageFloor.cpp">
+      <Filter>Stage\Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp">
+      <Filter>Stage\GameStage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
       <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h">
-      <Filter>Stage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
       <Filter>Camera</Filter>
@@ -83,19 +81,29 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
       <Filter>Other</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageWall.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Title.h">
       <Filter>Title</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
       <Filter>Title</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOver.h">
       <Filter>GameOver</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOverStage.h">
       <Filter>GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
+      <Filter>Stage\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageWall.h">
+      <Filter>Stage\Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h">
+      <Filter>Stage\Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h">
+      <Filter>Stage\GameStage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +133,18 @@
     </Filter>
     <Filter Include="GameOver">
       <UniqueIdentifier>{970a8b4d-2ad5-4578-bbbe-76f2299b7536}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Building">
+      <UniqueIdentifier>{d3611615-6c63-4a9a-b2d8-9abfc45a8109}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Wall">
+      <UniqueIdentifier>{3f926db9-fc7c-44fe-98af-dcd6e1d58812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Floor">
+      <UniqueIdentifier>{bbbccaa7-ba0f-4c28-b7f7-6ffc61dfebbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\GameStage">
+      <UniqueIdentifier>{500dbaa9-d351-47a5-b3d3-c517868992fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
