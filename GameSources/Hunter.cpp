@@ -14,7 +14,7 @@ namespace basecross
 		const Vec3& Rotation,
 		const Vec3& Position,
 		const std::vector<Vec3>& patrolPoints
-		) :
+	) :
 
 		GameObject(StagePtr),
 		m_Scale(Scale),
@@ -24,7 +24,8 @@ namespace basecross
 		m_StateChangeSize(30.0f),
 		m_Force(0),
 		m_Velocity(0),
-		PEvector(0)
+		m_PEvector(0),
+		m_playerChange(0)
 
 	{
 	}
@@ -37,7 +38,7 @@ namespace basecross
 		m_Velocity += m_Force * elapsedTime;//!行動の力に時間をかけて速度を求めている
 		auto ptrTrans = GetComponent<Transform>();//!敵のTransformを取得している
 		auto pos = ptrTrans->GetPosition();//!敵のポジションを取得している
-		pos += m_Velocity * elapsedTime*2;//!敵のポジションに速度と時間を掛けたものを足す
+		pos += m_Velocity * elapsedTime * 2;//!敵のポジションに速度と時間を掛けたものを足す
 		ptrTrans->SetPosition(pos);//!敵のポジションの設定
 	}
 
@@ -71,7 +72,7 @@ namespace basecross
 
 		//経路巡回を付ける
 		auto ptrFollowPath = GetBehavior<FollowPathSteering>();
-		list<Vec3> pathList ={};//!巡回ポイントのリスト
+		list<Vec3> pathList = {};//!巡回ポイントのリスト
 
 		for (auto v : m_patrolPoints)//!vector配列の要素分ループを回す
 		{
@@ -105,14 +106,14 @@ namespace basecross
 
 			SPHERE sp;
 			sp.m_Center = TransPtr->GetPosition();
-			sp.m_Radius = TransPtr->GetScale().x * 1.414f*0.5f;
+			sp.m_Radius = TransPtr->GetScale().x * 1.414f * 0.5f;
 			obVec.push_back(sp);
 		}
 		auto ptrAvoidandce = GetBehavior<ObstacleAvoidanceSteering>();
 		ptrAvoidandce->SetObstacleSphereVec(obVec);
 		m_StateMachine.reset(new StateMachine<Hunter>(GetThis<Hunter>()));
 		m_StateMachine->ChangeState(FarState::Instance());
-		}
+	}
 	//!更新
 	void Hunter::OnUpdate()
 	{
@@ -125,6 +126,10 @@ namespace basecross
 		ApplyForce();
 		auto ptrUtil = GetBehavior<UtilBehavior>();
 		ptrUtil->RotToHead(1.0f);
+
+		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");             //!プレイヤーの取得
+		m_playerChange = ptrPlayer->GetPlayerCange();//!プレイヤーの状態の取得
+		ptrPlayer->SetPlayerChange(m_playerChange);//!プレイヤーの取得した状態の設定
 	}
 	//!動作
 	//!ステートが近い時の処理
@@ -140,18 +145,19 @@ namespace basecross
 		SetForce(force);                                                                 //!力を設定する
 		float f = bsm::length(ptrPlayerTrans->GetPosition() - ptrTrans->GetPosition());  //!プレイヤーの位置ー敵の位置
 		//!一定の距離離れたら
-		if (f > GetStateChangeSize()) {
+		if (f > GetStateChangeSize() || m_playerChange == static_cast<int>(PlayerModel::human)) //!ステートの大きさ分離れたらまたはプレイヤーが人間状態になったら
+		{
 			GetStateMachine()->ChangeState(FarState::Instance());                        //!ステートをチェンジする
 		}
 	}
 
 	//!ステートが遠い時の処理
 	void Hunter::FarBehavior() {
-	
+
 		auto ptrFollowPath = GetBehavior<FollowPathSteering>();//!巡回行動のステアリング
-		auto ptrTrans = GetComponent<Transform>();//!敵のコンポーネントの取得
-		auto ptrPlayerTrans = GetTarget()->GetComponent<Transform>();//!プレイヤーのコンポーネントの取得
-		auto force = GetForce();//!行動の力の取得
+			auto ptrTrans = GetComponent<Transform>();//!敵のコンポーネントの取得
+			auto ptrPlayerTrans = GetTarget()->GetComponent<Transform>();//!プレイヤーのコンポーネントの取得
+			auto force = GetForce();//!行動の力の取得
 		force += ptrFollowPath->Execute(force, GetVelocity());//!現在の力、速度、位置を代入している。
 		SetForce(force);//!力を設定する
 		float f = bsm::length(ptrPlayerTrans->GetPosition() - ptrTrans->GetPosition());//!プレイヤーの位置ー敵の位置
@@ -162,15 +168,20 @@ namespace basecross
 		PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
 		auto angle = angleBetweenNormals(Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
 		auto chk = XM_PI / 6.0f;//!360を6で割って角度を出す。
-		if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
-		{
-			//!一定の近づいたら
-			if (f <= GetStateChangeSize())
-			{
-				GetStateMachine()->ChangeState(NearState::Instance());//!ステートをチェンジする
 
+		if (m_playerChange == static_cast<int>(PlayerModel::wolf))//!プレイヤーが狼の状態の時
+		{
+			if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
+			{
+				//!一定の近づいたら
+				if (f <= GetStateChangeSize())
+				{
+					GetStateMachine()->ChangeState(NearState::Instance());//!ステートをチェンジする
+
+				}
 			}
 		}
+
 
 
 
