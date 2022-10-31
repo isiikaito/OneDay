@@ -19,27 +19,26 @@ namespace basecross{
 		App::GetApp()->GetAssetsDirectory(dataDir);
 
 		//!テクスチャ
-		wstring strTexture = dataDir + L"number.png";
+		wstring strTexture = dataDir +L"Texture\\"+ L"number.png";
 		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
 		//!タイトル画面
-		strTexture = dataDir + L"StageMessage.png";
+		strTexture = dataDir + L"Texture\\"+L"StageMessage.png";
 		App::GetApp()->RegisterTexture(L"MESSAGE_TX", strTexture);
-
-
+		
 		//!床のモデル読み込み
-		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir, L"StageFloor.bmf");
+		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir,L"MayaModel\\" L"StageFloor.bmf");
 		App::GetApp()->RegisterResource(L"STAGEFLOOR_MESH", staticModelMesh1);
 
 		//!ハンターのモデリング
-		auto staticModelMesh2 = MeshResource::CreateStaticModelMesh(dataDir, L"Hunter.bmf");
+		auto staticModelMesh2 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Hunter.bmf");
 		App::GetApp()->RegisterResource(L"HUNTER_MESH", staticModelMesh2);
 		
 		//!壁のモデル読み込み
-		auto staticModelMesh3 = MeshResource::CreateStaticModelMesh(dataDir, L"StageWall.bmf");
+		auto staticModelMesh3 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageWall.bmf");
 		App::GetApp()->RegisterResource(L"STAGEWALL_MESH", staticModelMesh3);
 	
 		//!建物のモデル読み込み
-		auto staticModelMesh4 = MeshResource::CreateStaticModelMesh(dataDir, L"StageBuilding.bmf");
+		auto staticModelMesh4 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageBuilding.bmf");
 		App::GetApp()->RegisterResource(L"STAGEBUILDING_MESH", staticModelMesh4);
 
 	}

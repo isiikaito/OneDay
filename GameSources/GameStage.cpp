@@ -273,11 +273,11 @@ namespace basecross {
 	{
 		auto group = CreateSharedObjectGroup(L"ObjGroup");//!グループを取得
 
-		auto datas = TransformDate(L"", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
+		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
 
 		for (auto data : datas) {
 		
-			auto pointData = PointDate(L"", L"Point.csv", data.EnemykeyName);//!ハンターの大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
+			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!ハンターの大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
 			
 			AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
 		}
@@ -292,14 +292,12 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 
 			//!ステージファイルの読み込み
-			m_StageCsv.SetFileName(DataDir + L"stage0.csv");
+			m_StageCsv.SetFileName(DataDir + L"csvFolder\\"+L"stage0.csv");
 			m_StageCsv.ReadCsv();
-			//!敵のパラメータファイルの読み込み
-			//! 
-			m_EnemyCsv.SetFileName(DataDir + L"Enemy.csv");
-			m_EnemyCsv.ReadCsv();
-			CreateTimerSprite();
 
+			
+		
+            CreateTimerSprite();//!時間のスプライトの作成
 			CreateViewLight();//ビューとライトの作成
 			CreateStageFloor();//!ステージの床の作成
 			CreateStageWall(); //!ステージの壁の作成
