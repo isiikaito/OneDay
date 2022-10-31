@@ -24,9 +24,9 @@ namespace basecross
 		Vec3 m_Velocity;//!速度
 		float m_StateChangeSize;
 		void ApplyForce();//!適応力
-		Vec3 PEvector;//!プレイヤーと敵のベクトル
+		Vec3 m_PEvector;//!プレイヤーと敵のベクトル
 		std::vector<Vec3> m_patrolPoints;//!巡回ポイント
-
+		int m_playerChange;//!プレイヤーの状態
 
 	public:
 		//構築と破棄

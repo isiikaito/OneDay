@@ -11,6 +11,11 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
     ///	プレイヤー
 	//--------------------------------------------------------------------------------------
+	enum class PlayerModel {
+		human,
+		wolf
+	};
+
 	class Player : public GameObject
 	{
 		Vec2 GetInputState() const;//!プレイヤーが使用するコントローラーの入力
@@ -18,6 +23,10 @@ namespace basecross{
 		void MovePlayer();         //!プレイヤーの移動
 		float m_Speed;             //!スピード
 		float m_idleTime;          //!時間
+		int m_playerChange;//!プレイヤーの見た目の状態
+		const float m_humanTime;//!人間の時間
+		const float m_wolfTime;//!狼の時間
+		const int m_reset;//1ループリセット
 
 		InputHandler<Player> m_InputHandler;  //コントローラーのボタンの取得
 
@@ -43,6 +52,14 @@ namespace basecross{
 		virtual void OnUpdate() ;
 		void OnPushA();//!//コントローラーのボタン判定A
 
+		int GetPlayerCange()const
+		{
+			return m_playerChange;
+		}
+		void SetPlayerChange(int playerChange)
+		{
+			m_playerChange = playerChange;
+		}
 	};
 }
 //end basecross

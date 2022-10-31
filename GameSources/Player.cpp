@@ -16,7 +16,11 @@ namespace basecross{
 	Player::Player(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr),
 		m_Speed(20.0f),
-		m_idleTime(0.0f)
+		m_idleTime(0.0f),
+		m_playerChange(0),
+		m_humanTime(30.0f),
+		m_wolfTime(60.0f),
+		m_reset(0)
 	{}
 
 	Vec2 Player::GetInputState() const {
@@ -150,13 +154,16 @@ namespace basecross{
 		
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
 		m_idleTime += elapsedTime;//時間を変数に足す
-		if (m_idleTime >= 30.0f)
+		if (m_idleTime >= m_humanTime)
 		{
+			m_playerChange = static_cast<int>(PlayerModel::wolf);
 			auto transComp = AddComponent<Transform>();
 			auto ptrDraw = AddComponent<BcPNTStaticDraw>();
 			ptrDraw->SetMeshResource(L"DEFAULT_SPHERE");
-			if (m_idleTime >= 60.0f)
+			if (m_idleTime >= m_wolfTime)
 			{
+				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
+				
 				ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
 				m_idleTime = 0;
 		    }
@@ -169,9 +176,7 @@ namespace basecross{
 	}
 	void Player::OnPushA()
 	{
-		/*auto transComp = AddComponent<Transform>();
-		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_SPHERE");*/
+		
 	}
 }
 //end basecross
