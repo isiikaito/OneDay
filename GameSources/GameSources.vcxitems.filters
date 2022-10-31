@@ -42,6 +42,12 @@
       <Filter>Title</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageBuilding.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameOver.cpp">
+      <Filter>GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameOverStage.cpp">
+      <Filter>GameOver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h">
@@ -85,6 +91,12 @@
       <Filter>Title</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameOver.h">
+      <Filter>GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameOverStage.h">
+      <Filter>GameOver</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Stage">
@@ -110,6 +122,9 @@
     </Filter>
     <Filter Include="Title">
       <UniqueIdentifier>{cce705ed-2344-40ea-ba54-1f787b4a54c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameOver">
+      <UniqueIdentifier>{970a8b4d-2ad5-4578-bbbe-76f2299b7536}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
