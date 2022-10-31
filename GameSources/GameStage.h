@@ -13,7 +13,8 @@ namespace basecross {
 	//--------------------------------------------------------------------------------------
 	class GameStage : public Stage {
 		CsvFile m_StageCsv;          //!ステージCSVファイル
-		CsvFile m_EnemyCsv;
+		CsvFile m_EnemyCsv;//!敵のトランスフォームcsvファイル
+		CsvFile m_Point;//!巡回ポイントcsvファイル
 		void CreateViewLight();  //!ビューの作成
 		void CreateStageFloor(); //!ステージの床
 		void CreatePlayer();//!プレイヤーの作成
