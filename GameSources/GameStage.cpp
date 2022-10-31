@@ -128,10 +128,10 @@ namespace basecross {
 				(float)_wtof(Tokens[9].c_str())
 			);
 			//各値が揃ったのでオブジェクトの作成
-			
-			auto ptrBuilding=AddGameObject<StageBuilding>(Scale, Rot, Pos);
+
+			auto ptrBuilding = AddGameObject<StageBuilding>(Scale, Rot, Pos);
 		}
-		
+
 
 	}
 
@@ -160,16 +160,16 @@ namespace basecross {
 		Vec3 position = Vec3(0.0f);//!位置
 		wstring EnemykeyName = L"";//!ハンターの巡回ルートのキーフレームを取得
 
-		TransformCreateDate():
-			TransformCreateDate(Vec3(0.0f),Vec3(0.0f),Vec3(0.0f),wstring(L""))
+		TransformCreateDate() :
+			TransformCreateDate(Vec3(0.0f), Vec3(0.0f), Vec3(0.0f), wstring(L""))
 		{}
 		//!構造体の初期化
 		TransformCreateDate(
-			const Vec3&scale,
-			const Vec3&rotation,
-			const Vec3&position,
-			const wstring&EnemykeyName
-		):
+			const Vec3& scale,
+			const Vec3& rotation,
+			const Vec3& position,
+			const wstring& EnemykeyName
+		) :
 			scale(scale),
 			rotation(rotation),
 			position(position),
@@ -227,11 +227,11 @@ namespace basecross {
 	struct PointCreateDate {
 		std::vector<Vec3>m_patorlPositions = vector<Vec3>(0.0f);
 
-		PointCreateDate():
-			PointCreateDate(vector<Vec3>(0.0f)){}
-		PointCreateDate(const std::vector<Vec3>& patrolPoints):
-		m_patorlPositions(patrolPoints)
-	{}
+		PointCreateDate() :
+			PointCreateDate(vector<Vec3>(0.0f)) {}
+		PointCreateDate(const std::vector<Vec3>& patrolPoints) :
+			m_patorlPositions(patrolPoints)
+		{}
 	};
 
 	//!パトロールポイント
@@ -276,9 +276,9 @@ namespace basecross {
 		auto datas = TransformDate(L"", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
 
 		for (auto data : datas) {
-		
+
 			auto pointData = PointDate(L"", L"Point.csv", data.EnemykeyName);//!ハンターの大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
-			
+
 			AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
 		}
 	}
@@ -321,7 +321,12 @@ namespace basecross {
 		////スコアを更新する
 		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
 		ptrScor->SetScore(m_TotalTime);
-	}
 
+		m_InputHandler.PushHandle(GetThis<GameStage>());
+	}
+	//Aボタン
+	void GameStage::OnPushA() {
+		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+	}
 }
 //end basecross

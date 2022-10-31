@@ -20,6 +20,9 @@
 #include "Timer.h"
 #include "Title.h"
 #include"TitleStage.h"
+#include"GameOver.h"
+#include"GameOverStage.h"
+
 
 
 

@@ -12,9 +12,6 @@ namespace basecross {
 	//	ゲームステージクラス
 	//--------------------------------------------------------------------------------------
 	class GameStage : public Stage {
-
-		
-
 		CsvFile m_StageCsv;          //!ステージCSVファイル
 		CsvFile m_EnemyCsv;
 		void CreateViewLight();  //!ビューの作成
@@ -24,7 +21,9 @@ namespace basecross {
 		void CreateStageBuilding(); //!ステージの建物
 		void CerateHunter();//!ハンターの作成
 		void CreateTimerSprite();//!タイマースプライト作成
+
 		
+		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 
 		float m_TotalTime;//!トータル時間(タイマーの作成)
 
@@ -39,6 +38,10 @@ namespace basecross {
 		virtual void OnCreate()override;
 
 		virtual void OnUpdate()override;
+
+		
+		void OnPushA();//!Aボタン
+		
 	};
 }
 //end basecross

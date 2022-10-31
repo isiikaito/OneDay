@@ -95,8 +95,6 @@ namespace basecross
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		Coll->SetDrawActive(true);
 
-
-
 		//!障害物回避行動
 		vector<shared_ptr<GameObject>>obObjVec;
 		GetStage()->GetUsedTagObjectVec(L"StageBuilding", obObjVec);
@@ -127,9 +125,6 @@ namespace basecross
 		ApplyForce();
 		auto ptrUtil = GetBehavior<UtilBehavior>();
 		ptrUtil->RotToHead(1.0f);
-
-
-
 	}
 	//!動作
 	//!ステートが近い時の処理

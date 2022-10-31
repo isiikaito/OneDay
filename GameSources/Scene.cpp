@@ -24,6 +24,10 @@ namespace basecross{
 		//!タイトル画面
 		strTexture = dataDir + L"StageMessage.png";
 		App::GetApp()->RegisterTexture(L"MESSAGE_TX", strTexture);
+		//!ゲームオーバー画面
+		strTexture = dataDir + L"GameOver.jpg";
+		App::GetApp()->RegisterTexture(L"GAMEOVER_TX", strTexture);
+
 
 
 		//!床のモデル読み込み
@@ -73,6 +77,10 @@ namespace basecross{
 		else if (event->m_MsgStr == L"ToTitleStage")//!タイトルステージ
 		{
 			ResetActiveStage<TitleStage>();
+		}
+		else if (event->m_MsgStr == L"ToGameOverStage")//!ゲームオーバーステージ
+		{
+			ResetActiveStage<GameOverStage>();
 		}
 	}
 
