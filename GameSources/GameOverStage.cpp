@@ -7,9 +7,9 @@
 #include "Project.h"
 
 namespace basecross {
-//--------------------------------------------------------------------------------------
-//	ゲームオーバーステージクラス
-//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	//	ゲームオーバーステージクラス
+	//--------------------------------------------------------------------------------------
 	void GameOverStage::CreateViewLight()
 	{
 		auto PtrView = CreateView<SingleView>();
@@ -37,5 +37,15 @@ namespace basecross {
 		//スプライトの作成
 		CreateGameOverSprite();
 	}
+
+	void GameOverStage::OnUpdate(){
+		m_InputHandler.PushHandle(GetThis<GameOverStage>());
+	}
+
+	//Aボタン
+	void GameOverStage::OnPushA() {
+		PostEvent(0.0f, GetThis<GameOverStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+	}
+
 }
 //end basecross

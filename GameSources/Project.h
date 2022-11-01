@@ -22,6 +22,9 @@
 #include"TitleStage.h"
 #include"GameOver.h"
 #include"GameOverStage.h"
+#include"GameClear.h"
+#include"GameClearStage.h"
+
 
 
 

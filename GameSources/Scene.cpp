@@ -27,6 +27,9 @@ namespace basecross{
 		//!ゲームオーバー画面
 		strTexture = dataDir + L"GameOver.jpg";
 		App::GetApp()->RegisterTexture(L"GAMEOVER_TX", strTexture);
+		//!ゲームクリア画面
+		strTexture = dataDir + L"GameClear.png";
+		App::GetApp()->RegisterTexture(L"GAMECLEAR_TX", strTexture);
 
 		
 

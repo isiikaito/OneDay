@@ -51,6 +51,11 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp">
       <Filter>Stage\GameStage</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameClear.cpp">
+      <Filter>GameClear</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp">
+      <Filter>GameClear</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +109,11 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h">
       <Filter>Stage\GameStage</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameClear.h">
+      <Filter>GameClear</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h">
+      <Filter>GameClear</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +155,8 @@
     </Filter>
     <Filter Include="Stage\GameStage">
       <UniqueIdentifier>{500dbaa9-d351-47a5-b3d3-c517868992fa}</UniqueIdentifier>
+    <Filter Include="GameClear">
+      <UniqueIdentifier>{4aeee48e-304b-406f-a29c-44bbb6c95023}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
