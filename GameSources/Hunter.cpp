@@ -220,7 +220,16 @@ namespace basecross
 	}
 
 
+	void Hunter::OnCollisionEnter(shared_ptr<GameObject>& Other)
+	{
+		auto ptrHunter = dynamic_pointer_cast<Player>(Other);
+		if (ptrHunter) 
+		{
+			GetStage()->RemoveGameObject<Hunter>(GetThis<Hunter>());
+			PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+		}
 
+	}
 
 
 }

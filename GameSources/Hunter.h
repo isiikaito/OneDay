@@ -92,6 +92,7 @@ namespace basecross
 		virtual void FarBehavior();//!ステートがプレイヤーから遠い位置にあるときに毎ターン呼ばれる
 		virtual void OnCreate();//初期化
 		virtual void OnUpdate();//!更新
+		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other);//プレイヤーとエネミーの衝突判定
 
 	};
 
@@ -120,7 +121,6 @@ namespace basecross
 		virtual void Execute(const shared_ptr<Hunter>& Obj)override;
 		virtual void Exit(const shared_ptr<Hunter>& Obj)override;
 	};
-
 
 
 }
