@@ -25,6 +25,7 @@ namespace basecross {
 
 		
 		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
+		InputHandlerB<GameStage>m_InputHandlerB;//!Bボタンの入力ハンドラー
 
 		float m_TotalTime;//!トータル時間(タイマーの作成)
 
@@ -42,6 +43,7 @@ namespace basecross {
 
 		
 		void OnPushA();//!Aボタン
+		void OnPushB();//!Bボタン
 		
 	};
 }

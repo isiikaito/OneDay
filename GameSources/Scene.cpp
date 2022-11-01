@@ -85,6 +85,7 @@ namespace basecross{
 		{
 			ResetActiveStage<GameOverStage>();
 		}
+	
 	}
 
 }

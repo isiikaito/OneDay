@@ -323,10 +323,15 @@ namespace basecross {
 		ptrScor->SetScore(m_TotalTime);
 
 		m_InputHandler.PushHandle(GetThis<GameStage>());
+		m_InputHandlerB.PushHandleB(GetThis<GameStage>());
 	}
 	//Aƒ{ƒ^ƒ“
 	void GameStage::OnPushA() {
 		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+	}
+	void GameStage::OnPushB()
+	{
+		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameCrearStage");
 	}
 }
 //end basecross
