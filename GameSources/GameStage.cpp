@@ -331,7 +331,7 @@ namespace basecross {
 	}
 	void GameStage::OnPushB()
 	{
-		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameCrearStage");
+		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");
 	}
 }
 //end basecross

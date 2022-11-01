@@ -46,7 +46,7 @@ namespace basecross {
 
 	//Aƒ{ƒ^ƒ“
 	void GameClearStage::OnPushA() {
-		PostEvent(0.0f, GetThis<GameClearStage>(), App::GetApp()->GetScene<Scene>(), L"ToClearStage");
+		PostEvent(0.0f, GetThis<GameClearStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 	}
 }
 //end basecros

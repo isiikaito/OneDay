@@ -85,7 +85,12 @@ namespace basecross{
 		{
 			ResetActiveStage<GameOverStage>();
 		}
-	
+
+		else if (event->m_MsgStr == L"ToGameClearStage")//!ゲームクリアステージ
+		{
+			ResetActiveStage<GameClearStage>();
+		}
+
 	}
 
 }

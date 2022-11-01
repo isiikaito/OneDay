@@ -23,9 +23,11 @@ namespace basecross {
 		void CerateHunter();//!ハンターの作成
 		void CreateTimerSprite();//!タイマースプライト作成
 
+
 		
 		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 		InputHandlerB<GameStage>m_InputHandlerB;//!Bボタンの入力ハンドラー
+
 
 		float m_TotalTime;//!トータル時間(タイマーの作成)
 
@@ -41,10 +43,12 @@ namespace basecross {
 
 		virtual void OnUpdate()override;
 
+
 		
 		void OnPushA();//!Aボタン
 		void OnPushB();//!Bボタン
 		
+
 	};
 }
 //end basecross
