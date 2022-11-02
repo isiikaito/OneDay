@@ -18,12 +18,12 @@ namespace basecross {
 		m_RadY(0.5f),             //!カメラのY軸の位置
 		m_RadXZ(0),               //!カメラのZ軸の位置
 		m_CameraUpDownSpeed(2.0f),//!カメラの上下スビード
-		m_CameraUnderRot(0.1f),   //!カメラを下げる下限角度
+		m_CameraUnderRot(0.5f),   //!カメラを下げる下限角度
 		m_ArmLen(5.0f),           //!腕の長さの設定
-		m_MaxArm(100.0f),          //!腕の最大の長さ
+		m_MaxArm(200.0f),          //!腕の最大の長さ
 		m_MinArm(20.0f),           //!腕の最小の長さ
 		m_RotSpeed(1.0f),         //!回転スピード
-		m_ZoomSpeed(0.5f),        //!スムーズスピード
+		m_ZoomSpeed(1.0f),        //!スムーズスピード
 		m_LRBaseMode(true),       //!左右スティック変更のモード
 		m_UDBaseMode(true)        //!上下のスティック変更モード
 	{}
@@ -225,7 +225,7 @@ namespace basecross {
 
 
 		//!上下角度の変更
-		if (fThumbRY >= 0.1f) {
+		if (fThumbRY >= 1.0f) {
 			if (IsUDBaseMode()) {
 				m_RadY += m_CameraUpDownSpeed * elapsedTime;
 			}
