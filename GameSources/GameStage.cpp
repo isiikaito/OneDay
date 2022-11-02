@@ -294,7 +294,7 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 
 			//!ステージファイルの読み込み
-			m_StageCsv.SetFileName(DataDir + L"csvFolder\\"+L"stage0.csv");
+			m_StageCsv.SetFileName(DataDir + L"csvFolder\\"+L"stage1.csv");
 			m_StageCsv.ReadCsv();
 
 			

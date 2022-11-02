@@ -15,7 +15,7 @@ namespace basecross{
 	//!構築と破棄
 	Player::Player(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr),
-		m_Speed(30.0f),
+		m_Speed(50.0f),
 		m_idleTime(0.0f),
 		m_playerChange(0),
 		m_humanTime(30.0f),
@@ -96,12 +96,12 @@ namespace basecross{
 
 		//!初期位置などの設定
 		auto ptr = AddComponent<Transform>();
-		ptr->SetScale(4.0f, 4.0f, 4.0f);	//直径25センチの球体
+		ptr->SetScale(2.0f, 2.0f, 2.0f);	//直径25センチの球体
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
 		ptr->SetPosition(Vec3(0, 10.0f, -30));
 
 		
-		auto ptrColl = AddComponent<CollisionSphere>();//!CollisionSphere衝突判定を付ける
+		auto ptrColl = AddComponent<CollisionCapsule>();//!CollisionSphere衝突判定を付ける
 
 		//!各パフォーマンスを得る
 		GetStage()->SetCollisionPerformanceActive(true);
@@ -124,13 +124,13 @@ namespace basecross{
 		
 		auto shadowPtr = AddComponent<Shadowmap>();//!影をつける（シャドウマップを描画する）
 		
-		shadowPtr->SetMeshResource(L"DEFAULT_CUBE");//!影の形（メッシュ）を設定
+		shadowPtr->SetMeshResource(L"DEFAULT_CAPSULE");//!影の形（メッシュ）を設定
 
 		
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();//!描画コンポーネントの設定
-
+	
 		//!描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		ptrDraw->SetMeshResource(L"DEFAULT_CAPSULE");
 		ptrDraw->SetFogEnabled(true);
 		//描画するテクスチャを設定
 		/*ptrDraw->SetTextureResource(L"TRACE_TX");
