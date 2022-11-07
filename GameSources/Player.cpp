@@ -6,7 +6,7 @@
 #include "stdafx.h"
 #include "Project.h"
 
-namespace basecross{
+namespace basecross {
 
 	//--------------------------------------------------------------------------------------
 	//	class Player : public GameObject;
@@ -17,10 +17,11 @@ namespace basecross{
 		GameObject(StagePtr),
 		m_Speed(50.0f),
 		m_idleTime(0.0f),
-		m_playerChange(0),
-		m_humanTime(30.0f),
-		m_wolfTime(60.0f),
-		m_reset(0)
+		m_playerChange(static_cast<int>(PlayerModel::human)),
+		m_humanTime(31.0f),
+		m_wolfTime(61.0f),
+		m_reset(0),
+		m_KeyCount(0)
 	{}
 
 	Vec2 Player::GetInputState() const {
@@ -34,7 +35,7 @@ namespace basecross{
 			ret.x = cntlVec[0].fThumbLX;
 			ret.y = cntlVec[0].fThumbLY;
 		}
-		
+
 		return ret;
 	}
 	Vec3 Player::GetMoveVector() const {
@@ -54,23 +55,23 @@ namespace basecross{
 			auto front = ptrTransform->GetPosition() - ptrCamera->GetEye();
 			front.y = 0;
 			front.normalize();
-			
+
 			float frontAngle = atan2(front.z, front.x);//!進行方向向きからの角度を算出
 
 			//!コントローラの向き計算
 			Vec2 moveVec(moveX, moveZ);
 			float moveSize = moveVec.length();
-			
+
 			float cntlAngle = atan2(-moveX, moveZ);//!コントローラの向きから角度を計算
-			
+
 			float totalAngle = frontAngle + cntlAngle;//!トータルの角度を算出
-			
+
 			angle = Vec3(cos(totalAngle), 0, sin(totalAngle));//!角度からベクトルを作成
-			
+
 			angle.normalize();//!正規化する
-			
+
 			angle *= moveSize;//!移動サイズを設定。
-			
+
 			angle.y = 0;//!Y軸は変化させない
 		}
 		return angle;
@@ -100,62 +101,47 @@ namespace basecross{
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
 		ptr->SetPosition(Vec3(10.0f, 10.0f, -70.0f));
 
-		
+
 		auto ptrColl = AddComponent<CollisionCapsule>();//!CollisionSphere衝突判定を付ける
 
-		//!各パフォーマンスを得る
-		GetStage()->SetCollisionPerformanceActive(true);
-		GetStage()->SetUpdatePerformanceActive(true);
-		GetStage()->SetDrawPerformanceActive(true);
 
-
-		
 		auto ptrGra = AddComponent<Gravity>();//!重力をつける
-
-		GetStage()->SetCollisionPerformanceActive(true);
-		GetStage()->SetUpdatePerformanceActive(true);
-		GetStage()->SetDrawPerformanceActive(true);
 
 		//!文字列をつける
 		auto ptrString = AddComponent<StringSprite>();
 		ptrString->SetText(L"");
 		ptrString->SetTextRect(Rect2D<float>(16.0f, 16.0f, 640.0f, 480.0f));
 
-		
+
 		auto shadowPtr = AddComponent<Shadowmap>();//!影をつける（シャドウマップを描画する）
-		
+
 		shadowPtr->SetMeshResource(L"DEFAULT_CAPSULE");//!影の形（メッシュ）を設定
 
-		
+
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();//!描画コンポーネントの設定
-	
+
 		//!描画するメッシュを設定
 		ptrDraw->SetMeshResource(L"DEFAULT_CAPSULE");
 		ptrDraw->SetFogEnabled(true);
-		//描画するテクスチャを設定
-		/*ptrDraw->SetTextureResource(L"TRACE_TX");
-		SetAlphaActive(true);*/
+
 
 		//!カメラを得る
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
 		if (ptrCamera) {
-			
-			
+
+
 			ptrCamera->SetTargetObject(GetThis<GameObject>());//!MyCameraである
 			ptrCamera->SetTargetToAt(Vec3(0, 0.25f, 0));//!MyCameraに注目するオブジェクト（プレイヤー）の設定
 		}
 	}
-	//更新
-	void Player::OnUpdate() {
-		
-		m_InputHandler.PushHandle(GetThis<Player>());//!コントローラチェックして入力があればコマンド呼び出し
-		MovePlayer();
 
-		
+	void Player::AppearanceChange()
+	{
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
 		m_idleTime += elapsedTime;//時間を変数に足す
 		if (m_idleTime >= m_humanTime)
 		{
+
 			m_playerChange = static_cast<int>(PlayerModel::wolf);
 			auto transComp = AddComponent<Transform>();
 			auto ptrDraw = AddComponent<BcPNTStaticDraw>();
@@ -163,21 +149,45 @@ namespace basecross{
 			if (m_idleTime >= m_wolfTime)
 			{
 				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
-				
-				ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
-				m_idleTime = 0;
-		    }
+
+				ptrDraw->SetMeshResource(L"DEFAULT_CAPSULE");
+				m_idleTime = m_reset;
+			}
 			return;
-			
+
+		}
+	}
+	//更新
+	void Player::OnUpdate() {
+
+		m_InputHandler.PushHandle(GetThis<Player>());//!コントローラチェックして入力があればコマンド呼び出し
+		MovePlayer();
+		AppearanceChange();
+
+	}
+
+	//!プレイヤーが相手に当たったら
+	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other)
+	{
+		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
+		{
+
+			auto ptrKey = dynamic_pointer_cast<Key>(Other);
+
+			if (ptrKey)
+			{
+
+				auto keySprite = GetStage()->GetSharedGameObject<KeySprite>(L"KeySprite");
+				keySprite->SetDrawActive(true);
+				GetStage()->RemoveGameObject<Key>(Other);
+				m_KeyCount++;
+
+			}
 		}
 
-		
 
 	}
-	void Player::OnPushA()
-	{
-		
-	}
+
 }
 //end basecross
 

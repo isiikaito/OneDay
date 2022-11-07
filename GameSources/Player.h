@@ -24,11 +24,13 @@ namespace basecross{
 		float m_Speed;             //!スピード
 		float m_idleTime;          //!時間
 		int m_playerChange;//!プレイヤーの見た目の状態
+		int m_KeyCount;//!鍵を持っている個数カウント
 		const float m_humanTime;//!人間の時間
 		const float m_wolfTime;//!狼の時間
 		const int m_reset;//1ループリセット
 
 		InputHandler<Player> m_InputHandler;  //コントローラーのボタンの取得
+		
 
 	public:
 		//構築と破棄
@@ -50,7 +52,9 @@ namespace basecross{
 		virtual void OnCreate() override;
 		//更新
 		virtual void OnUpdate() ;
-		void OnPushA();//!//コントローラーのボタン判定A
+
+		void AppearanceChange();//!プレイヤーの見た目の変化
+		void OnPushA(){}//!//コントローラーのボタン判定A
 
 		int GetPlayerCange()const
 		{
@@ -60,6 +64,8 @@ namespace basecross{
 		{
 			m_playerChange = playerChange;
 		}
+
+		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other);//プレイヤーとカギの衝突判定
 	};
 }
 //end basecross
