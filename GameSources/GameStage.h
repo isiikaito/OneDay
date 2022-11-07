@@ -12,6 +12,7 @@ namespace basecross {
 	//	ゲームステージクラス
 	//--------------------------------------------------------------------------------------
 	class GameStage : public Stage {
+		CsvFile m_GameStageCsvA; // !建物の配置
 		CsvFile m_StageCsv;          //!ステージCSVファイル
 		CsvFile m_EnemyCsv;//!敵のトランスフォームcsvファイル
 		CsvFile m_Point;//!巡回ポイントcsvファイル
