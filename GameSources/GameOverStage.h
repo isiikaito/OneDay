@@ -16,6 +16,7 @@ namespace basecross {
 		//スプライトの作成
 		void CreateGameOverSprite();
 
+		InputHandler<GameOverStage> m_InputHandler;//!入力ハンドラー
 
 	public:
 		//構築と破棄
@@ -23,6 +24,11 @@ namespace basecross {
 		virtual ~GameOverStage() {}
 		//初期化
 		virtual void OnCreate()override;
+
+		void OnPushA();//!Aボタン
+
+		//更新
+		virtual void OnUpdate()override;
 
 	};
 

@@ -1,21 +1,13 @@
-/**
-*@file StageWall.cpp
-*@brief ゲームステージの壁の実装が定義されているソースファイル
-*@author Ayumu Muroi
-*@details ゲームステージの壁の実体実装
+/*!
+@file Character.cpp
+@brief キャラクターなど実体
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
-
-
-	//--------------------------------------------------------------------------------------
-	//	class FixedBox : public GameObject;
-	//--------------------------------------------------------------------------------------
-	//構築と破棄
-	StageWall::StageWall(const shared_ptr<Stage>& StagePtr,
+	Key::Key(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
 		const Vec3& Position
@@ -24,42 +16,55 @@ namespace basecross {
 		m_Scale(Scale),
 		m_Rotation(Rotation),
 		m_Position(Position)
+		
 	{
 	}
 
-	//初期化
-	void StageWall::OnCreate() {
-		//!衝突判定の設定
+	void Key::OnCreate() {
+
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(m_Scale);      //!大きさ
 		ptrTrans->SetRotation(m_Rotation);//!回転
 		ptrTrans->SetPosition(m_Position);//!位置
 
-		// モデルとトランスフォームの間の差分行列
+
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.8f, 0.045f, 0.0177f),//!大きさ
+			Vec3(0.2f, 0.1f, 0.5f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(0.0f, -0.35f, -0.005f)  //!位置
+			Vec3(0.0f, -0.5f, 0.0f)  //!位置
 		);
-		
+
+
 		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
 		auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
-		Coll->SetFixed(true);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
+		                            //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
 
 		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"STAGEWALL_MESH");
+		ptrShadow->SetMeshResource(L"KEY_MESH");
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 
 		//!メッシュの設定
-		ptrDraw->SetMeshResource(L"STAGEWALL_MESH");
+		ptrDraw->SetMeshResource(L"KEY_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		Coll->SetDrawActive(true);
 		//!RigidbodyBoxの追加
 		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
 		auto PsPtr = AddComponent<RigidbodyBox>(param);
+		GetStage()->SetSharedGameObject(L"Key", GetThis<Key>());
 
 	}
+	void Key::OnCollisionEnter(shared_ptr<GameObject>& Other)
+	{
+		auto ptrKey = dynamic_pointer_cast<Player>(Other);
+		if (ptrKey)
+		{
+		
+			GetStage()->RemoveGameObject<Key>(GetThis<Key>());
+
+		}
+	}
 }
+//end basecross

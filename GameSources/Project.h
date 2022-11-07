@@ -24,6 +24,8 @@
 #include"GameOverStage.h"
 #include"GameClear.h"
 #include"GameClearStage.h"
+#include"Key.h"
+#include"KeySprite.h"
 
 
 

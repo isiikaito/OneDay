@@ -228,9 +228,6 @@ namespace basecross
 			GetStage()->RemoveGameObject<Hunter>(GetThis<Hunter>());
 			PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 		}
-
 	}
-
-
 }
 //!end basecross

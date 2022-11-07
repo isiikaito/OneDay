@@ -22,15 +22,17 @@ namespace basecross{
 		wstring strTexture = dataDir +L"Texture\\"+ L"number.png";
 		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
 		//!タイトル画面
-		strTexture = dataDir + L"Texture\\"+L"StageMessage.png";
+		strTexture = dataDir + L"Texture\\"+L"GameStart.jpg";
 		App::GetApp()->RegisterTexture(L"MESSAGE_TX", strTexture);
 		//!ゲームオーバー画面
-		strTexture = dataDir + L"GameOver.jpg";
+		strTexture = dataDir + L"Texture\\" + L"GameOver.jpg";
 		App::GetApp()->RegisterTexture(L"GAMEOVER_TX", strTexture);
 		//!ゲームクリア画面
-		strTexture = dataDir + L"GameClear.png";
+		strTexture = dataDir + L"Texture\\"+ L"GameClear.png";
 		App::GetApp()->RegisterTexture(L"GAMECLEAR_TX", strTexture);
-
+		//!キースプライト
+		strTexture = dataDir + L"Texture\\" + L"Key.png";
+		App::GetApp()->RegisterTexture(L"KEY_TX", strTexture);
 		
 
 		//!床のモデル読み込み
@@ -48,6 +50,10 @@ namespace basecross{
 		//!建物のモデル読み込み
 		auto staticModelMesh4 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageBuilding.bmf");
 		App::GetApp()->RegisterResource(L"STAGEBUILDING_MESH", staticModelMesh4);
+
+		//!建物のモデル読み込み
+		auto staticModelMesh5 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Key.bmf");
+		App::GetApp()->RegisterResource(L"KEY_MESH", staticModelMesh5);
 
 	}
 	void Scene::OnCreate(){
@@ -85,12 +91,10 @@ namespace basecross{
 		{
 			ResetActiveStage<GameOverStage>();
 		}
-
 		else if (event->m_MsgStr == L"ToGameClearStage")//!ゲームクリアステージ
 		{
 			ResetActiveStage<GameClearStage>();
 		}
-
 	}
 
 }

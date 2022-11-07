@@ -21,8 +21,10 @@ namespace basecross {
 		void CreatePlayer();//!プレイヤーの作成
 		void CreateStageWall(); //!ステージの壁
 		void CreateStageBuilding(); //!ステージの建物
+		void CreateKey();//!鍵の作成
 		void CerateHunter();//!ハンターの作成
 		void CreateTimerSprite();//!タイマースプライト作成
+		void CreateKeySprite();//!キースプライト作成
 
 
 		

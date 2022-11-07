@@ -97,6 +97,37 @@ namespace basecross {
 
 	}
 
+	//!カギ
+	void GameStage::CreateKey()
+	{
+		vector<wstring>LineVec;
+		auto group = CreateSharedObjectGroup(L"Key");
+		m_StageCsv.GetSelect(LineVec, 0, L"Key");
+		for (auto& v : LineVec) {
+			vector<wstring>Tokens;
+			Util::WStrToTokenVector(Tokens, v, L',');
+			Vec3 Scale(
+				(float)_wtof(Tokens[1].c_str()),
+				(float)_wtof(Tokens[2].c_str()),
+				(float)_wtof(Tokens[3].c_str())
+			);
+			Vec3 Rot;
+			Rot.x = (Tokens[4] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[4].c_str());
+			Rot.y = (Tokens[5] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[5].c_str());
+			Rot.z = (Tokens[6] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[6].c_str());
+
+			Vec3 Pos(
+				(float)_wtof(Tokens[7].c_str()),
+				(float)_wtof(Tokens[8].c_str()),
+				(float)_wtof(Tokens[9].c_str())
+			);
+			//各値が揃ったのでオブジェクトの作成
+
+			AddGameObject<Key>(Scale, Rot, Pos);
+		}
+
+	}
+
 	// !ステージの建物
 	void GameStage::CreateStageBuilding()
 	{
@@ -129,6 +160,16 @@ namespace basecross {
 			Vec3(-550.0f, 330.0f, 10.0f));//元は(0.0f, 0.0f, 0.0f)
 
 	}
+
+	//カギスプライト作成
+	void GameStage::CreateKeySprite() {
+		AddGameObject<KeySprite>(
+			L"KEY_TX",
+			true,
+			Vec2(320.0f, 80.0f),
+			Vec2(450.0f, 330.0f ));
+	}
+
 	//!プレイヤーの作成
 	void GameStage::CreatePlayer()
 	{
@@ -294,8 +335,10 @@ namespace basecross {
 			CreateStageFloor();//!ステージの床の作成
 			CreateStageWall(); //!ステージの壁の作成
 			CreateStageBuilding(); //!ステージの建物の作成
+			CreateKey();//!カギの作成
 			CreatePlayer();//!プレーヤーの作成
 			CerateHunter();//!ハンターの作成
+			CreateKeySprite();//キーの作成
 		}
 		catch (...) {
 			throw;
