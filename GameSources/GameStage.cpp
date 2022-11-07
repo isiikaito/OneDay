@@ -100,39 +100,24 @@ namespace basecross {
 	// !ステージの建物
 	void GameStage::CreateStageBuilding()
 	{
-		//CSVの行単位の配列
-		vector<wstring>LineVec;
-		//0番目のカラムがL"stageObject"である行を抜き出す
-		m_StageCsv.GetSelect(LineVec, 0, L"StageBuilding");
-		for (auto& v : LineVec) {
-			//トークン（カラム）の配置
-			vector<wstring>Tokens;
-			//トークン（カラム）単位で文字列を抽出（L','）
-			Util::WStrToTokenVector(Tokens, v, L',');
-			//トークン（カラム）をスケール、回転、位置に読み込む
-			Vec3 Scale(
-				(float)_wtof(Tokens[1].c_str()),
-				(float)_wtof(Tokens[2].c_str()),
-				(float)_wtof(Tokens[3].c_str())
-
-			);
-			Vec3 Rot;
-			//回転は「XM_PLDIV2」の文字列になっている場合がある
-			Rot.x = (Tokens[4] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[4].c_str());
-			Rot.y = (Tokens[5] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[5].c_str());
-			Rot.z = (Tokens[6] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[6].c_str());
-
-			Vec3 Pos(
-				(float)_wtof(Tokens[7].c_str()),
-				(float)_wtof(Tokens[8].c_str()),
-				(float)_wtof(Tokens[9].c_str())
-			);
-			//各値が揃ったのでオブジェクトの作成
-
-			auto ptrBuilding = AddGameObject<StageBuilding>(Scale, Rot, Pos);
+		//CSVの全体の配列
+		//CSVからすべての行を抜き出す
+		auto& LineVec = m_GameStageCsvA.GetCsvVec();
+		for (size_t i = 0; i < LineVec.size(); i++) {
+			//トークン（カラム）の配列
+			vector<wstring> Tokens;
+			//トークン（カラム）単位で文字列を抽出(L','をデリミタとして区分け)
+			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
+			for (size_t j = 0; j < Tokens.size(); j++) {
+				//XとZの位置を計算
+				float XPos = (float)((int)j - 8.6f) * 10.0f;
+				float ZPos = (float)(8.6f - (int)i) * 10.0f;
+				if (Tokens[j] == L"1")
+				{
+					AddGameObject<StageBuilding>(Vec3(10.0f, 10.0f, 10.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 5.0f, ZPos));
+				}
+			}
 		}
-
-
 	}
 
 	//スコアスプライト作成
@@ -293,11 +278,16 @@ namespace basecross {
 			wstring DataDir;
 			App::GetApp()->GetDataDirectory(DataDir);
 
+			// フォルダの指定
+			auto csvDirectory = DataDir + L"csvFolder\\";
+
 			//!ステージファイルの読み込み
-			m_StageCsv.SetFileName(DataDir + L"csvFolder\\"+L"stage1.csv");
+			m_StageCsv.SetFileName(csvDirectory + L"stage1.csv");
 			m_StageCsv.ReadCsv();
 
-			
+			//!Buildingファイルの読み込み
+			m_GameStageCsvA.SetFileName(csvDirectory + L"GameStageA.csv");
+			m_GameStageCsvA.ReadCsv();
 		
             CreateTimerSprite();//!時間のスプライトの作成
 			CreateViewLight();//ビューとライトの作成
