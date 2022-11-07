@@ -100,33 +100,28 @@ namespace basecross {
 	//!カギ
 	void GameStage::CreateKey()
 	{
-		vector<wstring>LineVec;
-		auto group = CreateSharedObjectGroup(L"Key");
-		m_StageCsv.GetSelect(LineVec, 0, L"Key");
-		for (auto& v : LineVec) {
-			vector<wstring>Tokens;
-			Util::WStrToTokenVector(Tokens, v, L',');
-			Vec3 Scale(
-				(float)_wtof(Tokens[1].c_str()),
-				(float)_wtof(Tokens[2].c_str()),
-				(float)_wtof(Tokens[3].c_str())
-			);
-			Vec3 Rot;
-			Rot.x = (Tokens[4] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[4].c_str());
-			Rot.y = (Tokens[5] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[5].c_str());
-			Rot.z = (Tokens[6] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[6].c_str());
-
-			Vec3 Pos(
-				(float)_wtof(Tokens[7].c_str()),
-				(float)_wtof(Tokens[8].c_str()),
-				(float)_wtof(Tokens[9].c_str())
-			);
-			//各値が揃ったのでオブジェクトの作成
-
-			AddGameObject<Key>(Scale, Rot, Pos);
+		//CSVの全体の配列
+		//CSVからすべての行を抜き出す
+		auto group = CreateSharedObjectGroup(L"key");
+		auto& LineVec = m_GameStageCsvA.GetCsvVec();
+		for (size_t i = 0; i < LineVec.size(); i++) {
+			//トークン（カラム）の配列
+			vector<wstring> Tokens;
+			//トークン（カラム）単位で文字列を抽出(L','をデリミタとして区分け)
+			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
+			for (size_t j = 0; j < Tokens.size(); j++) {
+				//XとZの位置を計算
+				float XPos = (float)((int)j - 8.6f) * 10.0f;
+				float ZPos = (float)(8.6f - (int)i) * 10.0f;
+				if (Tokens[j] == L"2")
+				{
+					AddGameObject<Key>(Vec3(2.0f, 4.0f, 1.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
+				}
+			}
 		}
-
 	}
+
+
 
 	// !ステージの建物
 	void GameStage::CreateStageBuilding()

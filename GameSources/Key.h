@@ -29,7 +29,7 @@ namespace basecross {
 		virtual void OnCreate() override;
 	
 
-		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other);//プレイヤーとカギの衝突判定
+		
 	};
 }
 

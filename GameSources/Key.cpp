@@ -40,7 +40,7 @@ namespace basecross {
 		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
 		auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
-		                            //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
+		                           
 
 		//!影の形（メッシュ）を設定
 		ptrShadow->SetMeshResource(L"KEY_MESH");
@@ -54,17 +54,8 @@ namespace basecross {
 		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
 		auto PsPtr = AddComponent<RigidbodyBox>(param);
 		GetStage()->SetSharedGameObject(L"Key", GetThis<Key>());
-
+		auto group = GetStage()->GetSharedObjectGroup(L"key");
 	}
-	void Key::OnCollisionEnter(shared_ptr<GameObject>& Other)
-	{
-		auto ptrKey = dynamic_pointer_cast<Player>(Other);
-		if (ptrKey)
-		{
-		
-			GetStage()->RemoveGameObject<Key>(GetThis<Key>());
-
-		}
-	}
+	
 }
 //end basecross
