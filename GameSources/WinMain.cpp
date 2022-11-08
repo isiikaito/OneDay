@@ -10,7 +10,7 @@ LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 
 //定数
 const wchar_t* pClassName = L"BaseCrossFullClass";
-const wchar_t* pWndTitle = L"BaseCrossFullSample";
+const wchar_t* pWndTitle = L"ALLCRUSH";
 
 
 //--------------------------------------------------------------------------------------
@@ -61,8 +61,8 @@ HWND InitInstance(HINSTANCE hInstance, int nCmdShow, bool isFullScreen, int iCli
 						// 画面全体の幅と高さを取得
 						//もし画面全体の解像度で処理する場合は以下を有効に
 						//メモリを圧迫するので動作速度注意！
-						//        iClientWidth = GetSystemMetrics(SM_CXSCREEN);
-						//        iClientHeight = GetSystemMetrics(SM_CYSCREEN);
+						        iClientWidth = GetSystemMetrics(SM_CXSCREEN);
+						        iClientHeight = GetSystemMetrics(SM_CYSCREEN);
 		hWnd = CreateWindow(
 			pClassName,			// 登録されているクラス名
 			pWndTitle,			// ウインドウ名
@@ -229,12 +229,13 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	//ロケールの設定
 	setlocale(LC_ALL, "JPN");
 
-	//ウインドウの幅と高さ
+	////ウインドウの幅と高さ
 	int iClientWidth = 1280;
 	int iClientHeight = 800;
 	// フルスクリーンにするかどうかの判定
 	// コマンドラインに/fが設定されていたらフルスクリーンにする
-	bool isFullScreen = false;
+	bool isFullScreen = true;
+	
 	wstring wstrcmd = lpCmdLine;
 	if (wstrcmd == L"/f" || wstrcmd == L"/F") {
 		isFullScreen = true;     // フラグをtrueに設定
