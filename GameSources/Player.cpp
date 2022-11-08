@@ -15,7 +15,7 @@ namespace basecross {
 	//!構築と破棄
 	Player::Player(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr),
-		m_Speed(50.0f),
+		m_Speed(20.0f),
 		m_idleTime(0.0f),
 		m_playerChange(static_cast<int>(PlayerModel::human)),
 		m_humanTime(31.0f),
@@ -169,8 +169,7 @@ namespace basecross {
 	//!プレイヤーが相手に当たったら
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other)
 	{
-		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
-		{
+		
 
 			auto ptrKey = dynamic_pointer_cast<Key>(Other);
 
@@ -183,11 +182,20 @@ namespace basecross {
 				m_KeyCount++;
 
 			}
-		}
+		
 
+		
+			if (m_KeyCount == 1)
+			{
+				auto ptrGate = dynamic_pointer_cast<StageGate>(Other);
+				if (ptrGate)
+				{
+					PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");
+				}
+			}
+		
 
 	}
-
 }
 //end basecross
 

@@ -22,8 +22,8 @@ namespace basecross {
 		m_ArmLen(5.0f),           //!腕の長さの設定
 		m_MaxArm(200.0f),          //!腕の最大の長さ
 		m_MinArm(20.0f),           //!腕の最小の長さ
-		m_RotSpeed(1.0f),         //!回転スピード
-		m_ZoomSpeed(1.0f),        //!スムーズスピード
+		m_RotSpeed(2.0f),         //!回転スピード
+		m_ZoomSpeed(2.0f),        //!スムーズスピード
 		m_LRBaseMode(true),       //!左右スティック変更のモード
 		m_UDBaseMode(true)        //!上下のスティック変更モード
 	{}

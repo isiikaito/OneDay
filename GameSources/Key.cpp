@@ -55,6 +55,9 @@ namespace basecross {
 		auto PsPtr = AddComponent<RigidbodyBox>(param);
 		GetStage()->SetSharedGameObject(L"Key", GetThis<Key>());
 		auto group = GetStage()->GetSharedObjectGroup(L"key");
+		//グループに自分自身を追加
+		group->IntoGroup(GetThis<Key>());
+	
 	}
 	
 }
