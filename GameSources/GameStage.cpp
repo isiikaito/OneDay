@@ -146,6 +146,43 @@ namespace basecross {
 		}
 	}
 
+	// !ステージの門の作成
+	void GameStage::CreateStageGate()
+	{
+		//CSVの行単位の配列
+		vector<wstring>LineVec;
+		//0番目のカラムがL"stageObject"である行を抜き出す
+		m_StageCsv.GetSelect(LineVec, 0, L"StageGate");
+		for (auto& v : LineVec) {
+			//トークン（カラム）の配置
+			vector<wstring>Tokens;
+			//トークン（カラム）単位で文字列を抽出（L','）
+			Util::WStrToTokenVector(Tokens, v, L',');
+			//トークン（カラム）をスケール、回転、位置に読み込む
+			Vec3 Scale(
+				(float)_wtof(Tokens[1].c_str()),
+				(float)_wtof(Tokens[2].c_str()),
+				(float)_wtof(Tokens[3].c_str())
+
+			);
+			Vec3 Rot;
+			//回転は「XM_PLDIV2」の文字列になっている場合がある
+			Rot.x = (Tokens[4] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[4].c_str());
+			Rot.y = (Tokens[5] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[5].c_str());
+			Rot.z = (Tokens[6] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[6].c_str());
+
+			Vec3 Pos(
+				(float)_wtof(Tokens[7].c_str()),
+				(float)_wtof(Tokens[8].c_str()),
+				(float)_wtof(Tokens[9].c_str())
+			);
+			//各値が揃ったのでオブジェクトの作成
+			AddGameObject<StageGate>(Scale, Rot, Pos);
+		}
+
+	}
+
+
 	//スコアスプライト作成
 	void GameStage::CreateTimerSprite() {
 		AddGameObject<Timer>(2,
@@ -331,6 +368,7 @@ namespace basecross {
 			CreateStageWall(); //!ステージの壁の作成
 			CreateStageBuilding(); //!ステージの建物の作成
 			CreateKey();//!カギの作成
+			CreateStageGate(); //!ステージの門の作成
 			CreatePlayer();//!プレーヤーの作成
 			CerateHunter();//!ハンターの作成
 			CreateKeySprite();//キーの作成
