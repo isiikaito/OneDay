@@ -1,51 +1,195 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameClear.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameOver.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameOverStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Key.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)KeySprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageBuilding.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageFloor.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageGate.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageWall.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Timer.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Title.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp">
+      <Filter>Object\GameStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp">
+      <Filter>Object\GameStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameOverStage.cpp">
+      <Filter>Object\GameStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
+      <Filter>Object\GameStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp">
+      <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageBuilding.cpp">
+      <Filter>Object\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Key.cpp">
+      <Filter>Object\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp">
+      <Filter>Object\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageFloor.cpp">
+      <Filter>Object\StageFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageWall.cpp">
+      <Filter>Object\StageWall</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageGate.cpp">
+      <Filter>Object\StageGate</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameClear.cpp">
+      <Filter>Sprite\GameClear</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameOver.cpp">
+      <Filter>Sprite\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)KeySprite.cpp">
+      <Filter>Sprite\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Timer.cpp">
+      <Filter>Sprite\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Title.cpp">
+      <Filter>Sprite\Title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameClear.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameOver.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameOverStage.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Key.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)KeySprite.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Player.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ProjectShader.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageGate.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageWall.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Timer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Title.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h">
+      <Filter>Object\GameStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h">
+      <Filter>Object\GameStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameOverStage.h">
+      <Filter>Object\GameStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
+      <Filter>Object\GameStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Player.h">
+      <Filter>Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
+      <Filter>Object\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Key.h">
+      <Filter>Object\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
+      <Filter>Object\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h">
+      <Filter>Object\StageFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageWall.h">
+      <Filter>Object\StageWall</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageGate.h">
+      <Filter>Object\StageGate</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Project.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ProjectShader.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameClear.h">
+      <Filter>Sprite\GameClear</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameOver.h">
+      <Filter>Sprite\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)KeySprite.h">
+      <Filter>Sprite\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Timer.h">
+      <Filter>Sprite\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Title.h">
+      <Filter>Sprite\Title</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Sprite">
+      <UniqueIdentifier>{54291a69-9b40-405e-8894-834e24730e43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{3fc8834d-bbc3-4658-87ef-e3ce179047e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{897a3b98-473f-45cf-bc10-a0e07a11cb22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\GameClear">
+      <UniqueIdentifier>{f0704d8d-e92e-4aa1-8cb0-0deb368f5f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\GameOver">
+      <UniqueIdentifier>{a934e6c6-49fd-4124-abcb-ff51a7de4e16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\Key">
+      <UniqueIdentifier>{d3d9df79-1611-445a-92dd-8cc1a4b7f584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\Timer">
+      <UniqueIdentifier>{5fd87dde-7a84-4463-9135-8eae287877ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\Title">
+      <UniqueIdentifier>{e509f236-71c2-4ff5-8daa-8b9351b7d56e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{340b8f85-a3a6-4b80-ba49-06b05870253d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy">
+      <UniqueIdentifier>{0ea8547d-3b30-4d02-9d50-06b66bba0fa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Building">
+      <UniqueIdentifier>{6531460c-69f3-4392-a72a-44d15f595e46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Key">
+      <UniqueIdentifier>{1faf0b81-3585-488c-8a9b-44c8d3e30be2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\StageGate">
+      <UniqueIdentifier>{dc51d63b-6608-4414-83b8-40020c6d78bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\StageWall">
+      <UniqueIdentifier>{3fe7f276-5288-4609-a33b-cf09413b6d24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\StageFloor">
+      <UniqueIdentifier>{0738ea81-0b83-45a2-9542-4a861852fab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player">
+      <UniqueIdentifier>{f4fb9307-f087-4186-b594-871b7a19b262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Camera">
+      <UniqueIdentifier>{b927bd88-d5f1-4c2e-9f93-64c629d875b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\GameStage">
+      <UniqueIdentifier>{7b4bfff3-3ea0-43f8-9c7e-40358b46e3b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
