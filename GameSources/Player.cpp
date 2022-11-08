@@ -138,7 +138,6 @@ namespace basecross {
 		}
 	}
 
-	//!プレイヤーの姿変化
 	void Player::AppearanceChange()
 	{
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
@@ -162,7 +161,7 @@ namespace basecross {
 		}
 	}
 
-	//!村人を倒す処理
+	
 	void Player::Villagerkiller()
 	{
 		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
@@ -196,8 +195,8 @@ namespace basecross {
 
 		m_InputHandler.PushHandle(GetThis<Player>());//!コントローラチェックして入力があればコマンド呼び出し
 		MovePlayer();
-		AppearanceChange();
-		m_InputHandlerB.PushHandleB(GetThis<Player>());
+		AppearanceChange();//!プレイヤーの姿変化
+		m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
 
 	}
 
@@ -233,7 +232,7 @@ namespace basecross {
 	}
 	void Player::OnPushB()
 	{
-		Villagerkiller();
+		Villagerkiller();//!村人を倒す処理
 	}
 }
 //end basecross
