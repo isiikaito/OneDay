@@ -162,6 +162,7 @@ namespace basecross {
 		}
 	}
 
+	//!村人を倒す処理
 	void Player::Villagerkiller()
 	{
 		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
