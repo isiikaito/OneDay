@@ -171,18 +171,20 @@ namespace basecross {
 		//!村人を殺す
 		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");
 		auto vecHnter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
+		//!ハンター配列オブジェクトの配列分回す
 		for (auto& v : vecHnter)
 		{
-			auto HunterPtr = v.lock();
-			Vec3 ret;
-			auto ptrHunter = dynamic_pointer_cast<Hunter>(HunterPtr);
+			auto HunterPtr = v.lock();//!ハンターのグループから1つロックする
+			Vec3 ret;//!最近接点の代入
+			auto ptrHunter = dynamic_pointer_cast<Hunter>(HunterPtr);//!ロックした物を取り出す
 		
+			//!ハンターに当たったら
 			if (ptrHunter)
 			{
-				auto HunterObb = ptrHunter->GetComponent<CollisionObb>()->GetObb();
-				if (HitTest::SPHERE_OBB(playerSp, HunterObb, ret))
+				auto HunterObb = ptrHunter->GetComponent<CollisionObb>()->GetObb();//!ハンタ-のObbオブジェクトを取得
+				if (HitTest::SPHERE_OBB(playerSp, HunterObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 				{
-					GetStage()->RemoveGameObject<Hunter>(HunterPtr);
+					GetStage()->RemoveGameObject<Hunter>(HunterPtr);//!ハンタ-オブジェクトを消す
 
 		   }
 			}
