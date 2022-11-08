@@ -39,10 +39,10 @@ namespace basecross {
 		// モデルとトランスフォームの間の差分行列
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.039f, 1.0f, 0.038f),//!大きさ
+			Vec3(0.04f, 1.0f, 0.04f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(0.0f, 0.5f, -0.017f)  //!位置
+			Vec3(0.0f, 0.5f, -0.003f)  //!位置
 		);
 
 
@@ -52,11 +52,11 @@ namespace basecross {
 		Coll->SetFixed(true);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
 
 		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"STAGEFLOOR_MESH");
+		ptrShadow->SetMeshResource(L"GROUND_MESH");
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 
 		//!メッシュの設定
-		ptrDraw->SetMeshResource(L"STAGEFLOOR_MESH");
+		ptrDraw->SetMeshResource(L"GROUND_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		Coll->SetDrawActive(true);
 		//!RigidbodyBoxの追加
