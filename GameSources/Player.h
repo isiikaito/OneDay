@@ -30,7 +30,7 @@ namespace basecross{
 		const int m_reset;//1ループリセット
 
 		InputHandler<Player> m_InputHandler;  //コントローラーのボタンの取得
-		
+		InputHandlerB<Player> m_InputHandlerB;
 
 	public:
 		//構築と破棄
@@ -53,9 +53,10 @@ namespace basecross{
 		//更新
 		virtual void OnUpdate() ;
 
+		void Villagerkiller();//!村人を殺す処理
 		void AppearanceChange();//!プレイヤーの見た目の変化
 		void OnPushA(){}//!//コントローラーのボタン判定A
-
+		void OnPushB();
 		int GetPlayerCange()const
 		{
 			return m_playerChange;

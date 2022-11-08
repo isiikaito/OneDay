@@ -67,7 +67,7 @@ namespace basecross
 		);
 
 		AddTag(L"ObjGroup");//!オブジェクトタグの作成
-		auto group = GetStage()->GetSharedObjectGroup(L"ObjGroup");//!オブジェクトのグループを得る
+		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");//!オブジェクトのグループを得る
 		group->IntoGroup(GetThis<Hunter>());//!グループに自分自身を追加
 
 		//経路巡回を付ける

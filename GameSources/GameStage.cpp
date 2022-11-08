@@ -329,7 +329,7 @@ namespace basecross {
 	//!ハンターの作成
 	void GameStage::CerateHunter()
 	{
-		auto group = CreateSharedObjectGroup(L"ObjGroup");//!グループを取得
+		auto group = CreateSharedObjectGroup(L"Hunter_ObjGroup");//!グループを取得
 
 		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
 
@@ -389,15 +389,12 @@ namespace basecross {
 		ptrScor->SetScore(m_TotalTime);
 
 		m_InputHandler.PushHandle(GetThis<GameStage>());
-		m_InputHandlerB.PushHandleB(GetThis<GameStage>());
+		
 	}
 	//Aボタン
 	void GameStage::OnPushA() {
 		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 	}
-	void GameStage::OnPushB()
-	{
-		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");
-	}
+	
 }
 //end basecross

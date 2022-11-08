@@ -38,6 +38,8 @@ namespace basecross {
 
 		return ret;
 	}
+
+	//!プレイヤーのベクトルの取得
 	Vec3 Player::GetMoveVector() const {
 		Vec3 angle(0, 0, 0);
 
@@ -77,6 +79,7 @@ namespace basecross {
 		return angle;
 	}
 
+	//!プレイヤーを動かす処理
 	void Player::MovePlayer() {
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		auto angle = GetMoveVector();
@@ -135,6 +138,7 @@ namespace basecross {
 		}
 	}
 
+	//!プレイヤーの姿変化
 	void Player::AppearanceChange()
 	{
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
@@ -157,12 +161,40 @@ namespace basecross {
 
 		}
 	}
+
+	void Player::Villagerkiller()
+	{
+		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
+		auto position = transComp->GetPosition();//!現在のプレイヤーの位置の取得
+		SPHERE playerSp(position, 10.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
+
+		//!村人を殺す
+		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");
+		auto vecHnter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
+		for (auto& v : vecHnter)
+		{
+			auto HunterPtr = v.lock();
+			Vec3 ret;
+			auto ptrHunter = dynamic_pointer_cast<Hunter>(HunterPtr);
+		
+			if (ptrHunter)
+			{
+				auto HunterObb = ptrHunter->GetComponent<CollisionObb>()->GetObb();
+				if (HitTest::SPHERE_OBB(playerSp, HunterObb, ret))
+				{
+					GetStage()->RemoveGameObject<Hunter>(HunterPtr);
+
+		   }
+			}
+		}
+	}
 	//更新
 	void Player::OnUpdate() {
 
 		m_InputHandler.PushHandle(GetThis<Player>());//!コントローラチェックして入力があればコマンド呼び出し
 		MovePlayer();
 		AppearanceChange();
+		m_InputHandlerB.PushHandleB(GetThis<Player>());
 
 	}
 
@@ -172,7 +204,7 @@ namespace basecross {
 		
 
 			auto ptrKey = dynamic_pointer_cast<Key>(Other);
-
+			//!プレイヤーが鍵に当たったら
 			if (ptrKey)
 			{
 
@@ -184,7 +216,7 @@ namespace basecross {
 			}
 		
 
-		
+		//!プレイヤーが鍵を持っていたら
 			if (m_KeyCount == 1)
 			{
 				auto ptrGate = dynamic_pointer_cast<StageGate>(Other);
@@ -195,6 +227,10 @@ namespace basecross {
 			}
 		
 
+	}
+	void Player::OnPushB()
+	{
+		Villagerkiller();
 	}
 }
 //end basecross
