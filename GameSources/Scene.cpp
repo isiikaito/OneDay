@@ -51,7 +51,7 @@ namespace basecross{
 		auto staticModelMesh4 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageBuilding.bmf");
 		App::GetApp()->RegisterResource(L"STAGEBUILDING_MESH", staticModelMesh4);
 
-		//!建物のモデル読み込み
+		//!鍵のモデル読み込み
 		auto staticModelMesh5 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Key.bmf");
 		App::GetApp()->RegisterResource(L"KEY_MESH", staticModelMesh5);
 
@@ -59,6 +59,9 @@ namespace basecross{
 		auto staticModelMesh6 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageGate.bmf");
 		App::GetApp()->RegisterResource(L"STAGEGATE_MESH", staticModelMesh6);
 
+		//!地面のモデルの読み込み
+		auto staticModelMesh7 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Ground.bmf");
+		App::GetApp()->RegisterResource(L"GROUND_MESH", staticModelMesh7);
 	}
 	void Scene::OnCreate(){
 		try {
