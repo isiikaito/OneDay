@@ -58,6 +58,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp">
       <Filter>Other\Character</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageGate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Player.h">
@@ -117,6 +118,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
       <Filter>Other\Character</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageGate.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Player">
