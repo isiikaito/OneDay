@@ -10,7 +10,7 @@ LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 
 //定数
 const wchar_t* pClassName = L"BaseCrossFullClass";
-const wchar_t* pWndTitle = L"ALLCRUSH";
+const wchar_t* pWndTitle = L"BaseCrossFullSample";
 
 
 //--------------------------------------------------------------------------------------
@@ -229,13 +229,12 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	//ロケールの設定
 	setlocale(LC_ALL, "JPN");
 
-	////ウインドウの幅と高さ
+	//ウインドウの幅と高さ
 	int iClientWidth = 1280;
 	int iClientHeight = 800;
 	// フルスクリーンにするかどうかの判定
 	// コマンドラインに/fが設定されていたらフルスクリーンにする
 	bool isFullScreen = true;
-	
 	wstring wstrcmd = lpCmdLine;
 	if (wstrcmd == L"/f" || wstrcmd == L"/F") {
 		isFullScreen = true;     // フラグをtrueに設定
