@@ -102,7 +102,7 @@ namespace basecross {
 	{
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
-		auto group = CreateSharedObjectGroup(L"key");
+		auto group = CreateSharedObjectGroup(L"key_ObjGroup");
 		auto& LineVec = m_GameStageCsvA.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
 			//トークン（カラム）の配列
@@ -316,6 +316,7 @@ namespace basecross {
 		return PatorlPoint;
 	}
 
+	
 
 
 	//!ハンターの作成

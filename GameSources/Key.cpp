@@ -53,7 +53,9 @@ namespace basecross {
 		//!RigidbodyBoxの追加
 		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
 		auto PsPtr = AddComponent<RigidbodyBox>(param);
-		auto group = GetStage()->GetSharedObjectGroup(L"key");
+
+		auto group = GetStage()->GetSharedObjectGroup(L"key_ObjGroup");
+
 		//グループに自分自身を追加
 		group->IntoGroup(GetThis<Key>());
 	

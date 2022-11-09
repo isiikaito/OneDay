@@ -58,8 +58,9 @@ namespace basecross {
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		Coll->SetDrawActive(true);
 		//!RigidbodyBox‚Ì’Ç‰Á
-		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
-		auto PsPtr = AddComponent<RigidbodyBox>(param);
-
+		//PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
+		//auto PsPtr = AddComponent<RigidbodyBox>(param);
+		ptrDraw->SetDiffuse(Col4(0, 0, 0, 0.5f));
+		SetAlphaActive(true);
 	}
 }

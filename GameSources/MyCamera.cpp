@@ -222,6 +222,7 @@ namespace basecross {
 			fThumbRX = cntlVec[0].fThumbRX;
 			wButtons = cntlVec[0].wButtons;
 		}
+		
 
 
 		//!上下角度の変更
@@ -318,11 +319,12 @@ namespace basecross {
 		////目指したい場所にアームの値と腕ベクトルでEyeを調整
 		Vec3 toEye = newAt + armVec * m_ArmLen;
 		newEye = Lerp::CalculateLerp(GetEye(), toEye, 0, 1.0f, m_ToTargetLerp, Lerp::Linear);
-
+		
 		SetAt(newAt);
 		SetEye(newEye);
 		UpdateArmLengh();
 		Camera::OnUpdate();
+		/*HitTest::SEGMENT_OBB(, SetAt(), )*/
 	}
 
 }

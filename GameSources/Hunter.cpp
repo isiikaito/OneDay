@@ -66,7 +66,7 @@ namespace basecross
 			Vec3(0.0f, -0.5f, -0.05f)  //!位置
 		);
 
-		AddTag(L"ObjGroup");//!オブジェクトタグの作成
+		AddTag(L"Hunter_ObjGroup");//!オブジェクトタグの作成
 		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");//!オブジェクトのグループを得る
 		group->IntoGroup(GetThis<Hunter>());//!グループに自分自身を追加
 

@@ -154,7 +154,7 @@ namespace basecross {
 				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
 
 				ptrDraw->SetMeshResource(L"DEFAULT_CAPSULE");
-				m_idleTime = m_reset;
+				m_idleTime = (float)m_reset;
 			}
 			return;
 
@@ -185,7 +185,9 @@ namespace basecross {
 				if (HitTest::SPHERE_OBB(playerSp, HunterObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 				{
 
+
 					GetStage()->RemoveGameObject<Hunter>(HunterPtr);//!ハンタ-オブジェクトを消す
+
 
 		   }
 			}
