@@ -1,6 +1,6 @@
 /*!
-@file Character.h
-@brief キャラクターなど
+@file Key.h
+@brief カギに関する処理
 */
 
 #pragma once

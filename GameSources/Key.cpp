@@ -1,6 +1,6 @@
 /*!
-@file Character.cpp
-@brief キャラクターなど実体
+@file Key.cpp
+@brief カギに関する処理
 */
 
 #include "stdafx.h"
@@ -33,7 +33,7 @@ namespace basecross {
 			Vec3(0.2f, 0.1f, 0.5f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(0.0f, -0.5f, 0.0f)  //!位置
+			Vec3(0.0f, -0.5f, 0.0f) //!位置
 		);
 
 
@@ -53,7 +53,6 @@ namespace basecross {
 		//!RigidbodyBoxの追加
 		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
 		auto PsPtr = AddComponent<RigidbodyBox>(param);
-		GetStage()->SetSharedGameObject(L"Key", GetThis<Key>());
 		auto group = GetStage()->GetSharedObjectGroup(L"key");
 		//グループに自分自身を追加
 		group->IntoGroup(GetThis<Key>());

@@ -25,7 +25,7 @@ namespace basecross {
 		void CreateStageGate(); //!ステージの門
 		void CerateHunter();//!ハンターの作成
 		void CreateTimerSprite();//!タイマースプライト作成
-		void CreateKeySprite();//!キースプライト作成
+		
 
 
 		

@@ -113,7 +113,7 @@ namespace basecross {
 				//XとZの位置を計算
 				float XPos = (float)((int)j - 8.6f) * 10.0f;
 				float ZPos = (float)(8.6f - (int)i) * 10.0f;
-				if (Tokens[j] == L"2")
+				if (Tokens[j] == L"2")//2の時にゲームステージに追加
 				{
 					AddGameObject<Key>(Vec3(2.0f, 4.0f, 1.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
 				}
@@ -193,14 +193,6 @@ namespace basecross {
 
 	}
 
-	//カギスプライト作成
-	void GameStage::CreateKeySprite() {
-		AddGameObject<KeySprite>(
-			L"KEY_TX",
-			true,
-			Vec2(320.0f, 80.0f),
-			Vec2(450.0f, 330.0f ));
-	}
 
 	//!プレイヤーの作成
 	void GameStage::CreatePlayer()
@@ -371,7 +363,7 @@ namespace basecross {
 			CreateStageGate(); //!ステージの門の作成
 			CreatePlayer();//!プレーヤーの作成
 			CerateHunter();//!ハンターの作成
-			CreateKeySprite();//キーの作成
+			
 		}
 		catch (...) {
 			throw;

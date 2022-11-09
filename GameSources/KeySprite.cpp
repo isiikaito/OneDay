@@ -1,6 +1,6 @@
 /*!
-@file Character.cpp
-@brief キャラクターなど実体
+@file KeySprite.cpp
+@brief カギの表示
 */
 
 #include "stdafx.h"
@@ -8,7 +8,7 @@
 
 namespace basecross {
 	//--------------------------------------------------------------------------------------
-	///	タイトルスプライト
+	///	キースプライト
 	//--------------------------------------------------------------------------------------
 	KeySprite::KeySprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
 		const Vec2& StartScale, const Vec2& StartPos) :
@@ -40,8 +40,7 @@ namespace basecross {
 		auto PtrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
 		PtrDraw->SetSamplerState(SamplerState::LinearWrap);
 		PtrDraw->SetTextureResource(m_TextureKey);
-		SetDrawActive(false);
-		GetStage()->SetSharedGameObject(L"KeySprite", GetThis<KeySprite>());
+		SetDrawActive(true);
 	}
 	
 

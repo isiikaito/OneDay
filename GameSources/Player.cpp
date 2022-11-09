@@ -184,6 +184,7 @@ namespace basecross {
 				auto HunterObb = ptrHunter->GetComponent<CollisionObb>()->GetObb();//!ハンタ-のObbオブジェクトを取得
 				if (HitTest::SPHERE_OBB(playerSp, HunterObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 				{
+
 					GetStage()->RemoveGameObject<Hunter>(HunterPtr);//!ハンタ-オブジェクトを消す
 
 		   }
@@ -203,19 +204,23 @@ namespace basecross {
 	//!プレイヤーが相手に当たったら
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other)
 	{
-		
+		auto ptrKey = dynamic_pointer_cast<Key>(Other);
+		//!プレイヤーが鍵に当たったら
+		if (ptrKey)
+		{
+			/*auto keySprite = GetStage()->GetSharedGameObject<KeySprite>(L"KeySprite");
+			keySprite->SetDrawActive(true);*/
 
-			auto ptrKey = dynamic_pointer_cast<Key>(Other);
-			//!プレイヤーが鍵に当たったら
-			if (ptrKey)
-			{
+			m_KeyCount++;
+			GetStage()->RemoveGameObject<Key>(Other);
 
-				auto keySprite = GetStage()->GetSharedGameObject<KeySprite>(L"KeySprite");
-				keySprite->SetDrawActive(true);
-				GetStage()->RemoveGameObject<Key>(Other);
-				m_KeyCount++;
-
-			}
+			GetStage()->AddGameObject<KeySprite>(
+				L"KEY_TX",
+				true,
+				Vec2(320.0f, 80.0f),//大きさ
+				Vec2(300.0f + (100.0f * (m_KeyCount - 1)), 300.0f)//座標
+			);
+		}
 		
 
 		//!プレイヤーが鍵を持っていたら
