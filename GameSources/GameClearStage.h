@@ -13,14 +13,16 @@ namespace basecross {
 	//	ゲームクリアステージクラス
 	//--------------------------------------------------------------------------------------
 	class GameClearStage : public Stage {
+	private:
+		InputHandler<GameClearStage> m_InputHandler;//!入力ハンドラー
+
+	public:
+		
 		//ビューの作成
 		void CreateViewLight();
 		//スプライトの作成
 		void CreateGameClearSprite();
 
-		InputHandler<GameClearStage> m_InputHandler;//!入力ハンドラー
-
-	public:
 		//構築と破棄
 		GameClearStage() :Stage() {}
 		virtual ~GameClearStage() {}

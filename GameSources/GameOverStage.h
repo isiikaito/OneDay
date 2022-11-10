@@ -11,14 +11,16 @@ namespace basecross {
 	//	ゲームオーバーステージクラス
 	//--------------------------------------------------------------------------------------
 	class GameOverStage : public Stage {
+		
+	private:
+		InputHandler<GameOverStage> m_InputHandler;//!入力ハンドラー
+
+	public:
+		
 		//ビューの作成
 		void CreateViewLight();
 		//スプライトの作成
 		void CreateGameOverSprite();
-
-		InputHandler<GameOverStage> m_InputHandler;//!入力ハンドラー
-
-	public:
 		//構築と破棄
 		GameOverStage() :Stage() {}
 		virtual ~GameOverStage() {}

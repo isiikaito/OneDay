@@ -12,14 +12,15 @@ namespace basecross {
 	//	タイトルステージクラス
 	//--------------------------------------------------------------------------------------
 	class TitleStage : public Stage {
-		//ビューの作成
-		void CreateViewLight();
-		//スプライトの作成
-		void CreateTitleSprite();
+	private:
 		//入力ハンドラー
 		InputHandler<TitleStage> m_InputHandler;
 
 	public:
+		//ビューの作成
+		void CreateViewLight();
+		//スプライトの作成
+		void CreateTitleSprite();
 		//構築と破棄
 		TitleStage() :Stage() {}
 		virtual ~TitleStage() {}

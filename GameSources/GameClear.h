@@ -12,6 +12,7 @@ namespace basecross {
 ///	ゲームクリアスプライト
 //--------------------------------------------------------------------------------------
 	class GameClearSprite : public GameObject {
+	private:
 		bool m_Trace;
 		Vec2 m_StartScale;
 		Vec2 m_StartPos;

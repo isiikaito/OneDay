@@ -18,9 +18,7 @@ namespace basecross{
 
 	class Player : public GameObject
 	{
-		Vec2 GetInputState() const;//!プレイヤーが使用するコントローラーの入力
-		Vec3 GetMoveVector() const;//!コントローラから方向ベクトルを得る
-		void MovePlayer();         //!プレイヤーの移動
+	private:
 		float m_Speed;             //!スピード
 		float m_idleTime;          //!時間
 		int m_playerChange;//!プレイヤーの見た目の状態
@@ -52,7 +50,9 @@ namespace basecross{
 		virtual void OnCreate() override;
 		//更新
 		virtual void OnUpdate() ;
-
+        Vec2 GetInputState() const;//!プレイヤーが使用するコントローラーの入力
+		Vec3 GetMoveVector() const;//!コントローラから方向ベクトルを得る
+		void MovePlayer();         //!プレイヤーの移動
 		void Villagerkiller();//!村人を殺す処理
 		void AppearanceChange();//!プレイヤーの見た目の変化
 		void OnPushA(){}//!//コントローラーのボタン判定A

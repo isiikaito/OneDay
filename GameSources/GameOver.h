@@ -11,6 +11,7 @@ namespace basecross {
 ///	ゲームオーバースプライト
 //--------------------------------------------------------------------------------------
 	class GameOverSprite : public GameObject {
+	private:
 		bool m_Trace;
 		Vec2 m_StartScale;
 		Vec2 m_StartPos;

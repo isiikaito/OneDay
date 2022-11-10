@@ -12,6 +12,7 @@
 namespace basecross {
 
 	class Timer : public GameObject {
+	private:
 		bool m_Trace;         //!透明
 		Vec2 m_StartScale;    //!大きさ
 		Vec3 m_StartPos;      //!位置
@@ -21,14 +22,7 @@ namespace basecross {
 
 		vector<VertexPositionTexture> m_BackupVertices;//!バックアップ頂点データ
 
-		/**
-		* 桁ごとの数字の取得
-		* @param[out] verNum 何番目の頂点かを判別する
-		* @param[in] num 桁の中の数字を取得する
-		* @param[out] newVertices 位置とテクスチャを持つ頂点の定義
-		*/
-		void SetUVPos(int& verNum, UINT num, vector<VertexPositionTexture>& newVertices);
-
+		
 	public:
 
 		/**
@@ -51,6 +45,13 @@ namespace basecross {
 		void SetScore(float f) {
 			m_Score = f;
 		}
+        /**
+		* 桁ごとの数字の取得
+		* @param[out] verNum 何番目の頂点かを判別する
+		* @param[in] num 桁の中の数字を取得する
+		* @param[out] newVertices 位置とテクスチャを持つ頂点の定義
+		*/
+		void SetUVPos(int& verNum, UINT num, vector<VertexPositionTexture>& newVertices);
 
 		/**
 		* 数字のテクスチャの初期化をする関数

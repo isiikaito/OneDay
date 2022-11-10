@@ -8,6 +8,7 @@
 
 namespace basecross {
 	class KeySprite : public GameObject {
+	private:
 		bool m_Trace;         //!“§–¾
 		Vec2 m_StartScale;    //!‘å‚«‚³
 		Vec3 m_StartPos;      //!ˆÊ’u

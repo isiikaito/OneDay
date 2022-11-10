@@ -8,6 +8,7 @@
 
 namespace basecross {
 	class Key : public GameObject {
+	private:
 		Vec3 m_Scale;   //!‘å‚«‚³
 		Vec3 m_Rotation;//!‰ñ“]
 		Vec3 m_Position;//!ˆÊ’u

@@ -14,7 +14,7 @@ namespace basecross
 	//--------------------------------------------------------
 	class Hunter :public GameObject
 	{
-
+	private:
 		//ステートマシーン(状態を表す)
 		unique_ptr< StateMachine<Hunter> >  m_StateMachine;
 		Vec3  m_Position;//!位置
@@ -22,8 +22,7 @@ namespace basecross
 		Vec3 m_Scale;//!大きさ
 		Vec3 m_Force;//!動きの力
 		Vec3 m_Velocity;//!速度
-		float m_StateChangeSize;
-		void ApplyForce();//!適応力
+		float m_StateChangeSize;	
 		Vec3 m_PEvector;//!プレイヤーと敵のベクトル
 		std::vector<Vec3> m_patrolPoints;//!巡回ポイント
 		int m_playerChange;//!プレイヤーの状態
@@ -49,7 +48,7 @@ namespace basecross
 		//--------------------------------------------------------------------------------------
 		virtual ~Hunter();
 	public:
-
+       void ApplyForce();//!適応力
 		//アクセサ
 		const unique_ptr<StateMachine<Hunter>>& GetStateMachine() {
 			return m_StateMachine;
