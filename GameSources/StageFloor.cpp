@@ -55,6 +55,8 @@ namespace basecross {
 		ptrShadow->SetMeshResource(L"GROUND_MESH");
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 
+		ptrDraw->SetOwnShadowActive(true); // ‰e‚Ì‰f‚è‚±‚Ý‚ð—LŒø‚É‚·‚é
+
 		//!ƒƒbƒVƒ…‚ÌÝ’è
 		ptrDraw->SetMeshResource(L"GROUND_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
