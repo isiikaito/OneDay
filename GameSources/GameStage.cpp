@@ -64,6 +64,7 @@ namespace basecross {
 	// !ステージの壁
 	void GameStage::CreateStageWall()
 	{
+		auto group = CreateSharedObjectGroup(L"StageWall_Group");
 		//CSVの行単位の配列
 		vector<wstring>LineVec;
 		//0番目のカラムがL"stageObject"である行を抜き出す
