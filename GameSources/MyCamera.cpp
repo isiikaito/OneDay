@@ -15,15 +15,11 @@ namespace basecross {
 		Camera(),
 		m_ToTargetLerp(1.0f),     //!目標を追いかける際の補間地
 		m_TargetToAt(0, 0, 0),    //!目標から視点を調整する位置ベクトル
-		m_RadY(0.5f),             //!カメラのY軸の位置
-		m_RadXZ(0),               //!カメラのZ軸の位置
-		m_CameraUpDownSpeed(2.0f),//!カメラの上下スビード
-		m_CameraUnderRot(0.5f),   //!カメラを下げる下限角度
+		m_CameraUnderRot(2.0f),   //!カメラを下げる下限角度
+		m_RadXZ(0.0f),            //!カメラのZ軸の位置
 		m_ArmLen(5.0f),           //!腕の長さの設定
-		m_MaxArm(200.0f),          //!腕の最大の長さ
-		m_MinArm(20.0f),           //!腕の最小の長さ
-		m_RotSpeed(2.0f),         //!回転スピード
-		m_ZoomSpeed(2.0f),        //!スムーズスピード
+		m_MaxArm(60.0f),          //!腕の最大の長さ
+		m_MinArm(60.0f),          //!腕の最小の長さ
 		m_LRBaseMode(true),       //!左右スティック変更のモード
 		m_UDBaseMode(true)        //!上下のスティック変更モード
 	{}
@@ -32,15 +28,10 @@ namespace basecross {
 		Camera(),
 		m_ToTargetLerp(1.0f),
 		m_TargetToAt(0, 0, 0),
-		m_RadY(0.5f),
-		m_RadXZ(0),
-		m_CameraUpDownSpeed(10.0f),
-		m_CameraUnderRot(0.1f),
+		m_CameraUnderRot(2.0f),
 		m_ArmLen(5.0f),
-		m_MaxArm(20.0f),
-		m_MinArm(2.0f),
-		m_RotSpeed(1.0f),
-		m_ZoomSpeed(0.1f),
+		m_MaxArm(60.0f),
+		m_MinArm(60.0f),
 		m_LRBaseMode(true),
 		m_UDBaseMode(true)
 	{
@@ -127,16 +118,6 @@ namespace basecross {
 		m_MinArm = f;
 	}
 
-	//!カメラの回転スピードを得る
-	float MyCamera::GetRotSpeed() const {
-		return m_RotSpeed;
-
-	}
-
-	//!カメラの回転スピードの設定
-	void MyCamera::SetRotSpeed(float f) {
-		m_RotSpeed = abs(f);
-	}
 
 	//!ターゲットからカメラ視点への調整ベクトルを得る
 	bsm::Vec3 MyCamera::GetTargetToAt() const {
@@ -150,11 +131,6 @@ namespace basecross {
 	}
 
 
-	//!Rスティックの左右変更をBaseモードにするかどうかを得る
-	bool MyCamera::GetLRBaseMode() const {
-		return m_LRBaseMode;
-
-	}
 
 	//!Rスティックの左右変更をBaseモードにするかどうかを得る
 	bool MyCamera::IsLRBaseMode() const {
@@ -162,27 +138,6 @@ namespace basecross {
 
 	}
 
-	//!Rスティックの左右変更をBaseモードにするかどうか設定する
-	void MyCamera::SetLRBaseMode(bool b) {
-		m_LRBaseMode = b;
-	}
-
-	//!Rスティックの上下変更をBaseモードにするかどうか得る
-	bool MyCamera::GetUDBaseMode() const {
-		return m_UDBaseMode;
-
-	}
-
-	//!Rスティックの上下変更をBaseモードにするかどうか得る
-	bool MyCamera::IsUDBaseMode() const {
-		return m_UDBaseMode;
-	}
-
-	//!Rスティックの上下変更をBaseモードにするかどうか設定する
-	void MyCamera::SetUDBaseMode(bool b) {
-		m_UDBaseMode = b;
-
-	}
 	
 	//!カメラの視点の設定
 	void MyCamera::SetAt(const bsm::Vec3&At){
@@ -221,54 +176,12 @@ namespace basecross {
 			fThumbRY = cntlVec[0].fThumbRY;
 			fThumbRX = cntlVec[0].fThumbRX;
 			wButtons = cntlVec[0].wButtons;
+			
+			
 		}
 		
+		armVec.y = sin(2.0f); // 上下の角度を付ける
 
-
-		//!上下角度の変更
-		if (fThumbRY >= 1.0f) {
-			if (IsUDBaseMode()) {
-				m_RadY += m_CameraUpDownSpeed * elapsedTime;
-			}
-			else {
-				m_RadY -= m_CameraUpDownSpeed * elapsedTime;
-			}
-		}
-		else if (fThumbRY <= -0.1f) {
-			if (IsUDBaseMode()) {
-				m_RadY -= m_CameraUpDownSpeed * elapsedTime;
-			}
-			else {
-				m_RadY += m_CameraUpDownSpeed * elapsedTime;
-			}
-		}
-		if (m_RadY > XM_PI * 4 / 9.0f) {
-			m_RadY = XM_PI * 4 / 9.0f;
-		}
-		else if (m_RadY <= m_CameraUnderRot) {
-			//カメラが限界下に下がったらそれ以上下がらない
-			m_RadY = m_CameraUnderRot;
-		}
-		armVec.y = sin(m_RadY);
-
-		//ここでY軸回転を作成
-		if (fThumbRX != 0 ) {
-			//回転スピードを反映
-			if (fThumbRX != 0) {
-				if (IsLRBaseMode()) {
-					m_RadXZ += fThumbRX * elapsedTime * m_RotSpeed;
-				}
-				else {
-					m_RadXZ += -fThumbRX * elapsedTime * m_RotSpeed;
-				}
-			}
-			
-			
-			if (abs(m_RadXZ) >= XM_2PI) {
-				//1週回ったら0回転にする
-				m_RadXZ = 0;
-			}
-		}
 		//クオータニオンでY回転（つまりXZベクトルの値）を計算
 		Quat qtXZ;
 		qtXZ.rotation(m_RadXZ, bsm::Vec3(0, 1.0f, 0));
@@ -296,27 +209,7 @@ namespace basecross {
 			newAt = Lerp::CalculateLerp(GetAt(), toAt, 0, 1.0f, 1.0, Lerp::Linear);
 		}
 
-		//アームの変更
-		//Dパッド下
-		if (wButtons & XINPUT_GAMEPAD_DPAD_DOWN ) {
-			//カメラ位置を引く
-			m_ArmLen += m_ZoomSpeed;
-			if (m_ArmLen >= m_MaxArm) {
-				//m_MaxArm以上離れないようにする
-				m_ArmLen = m_MaxArm;
-			}
-		}
-
-		//Dパッド上
-		else if (wButtons & XINPUT_GAMEPAD_DPAD_UP) {
-			//カメラ位置を寄る
-			m_ArmLen -= m_ZoomSpeed;
-			if (m_ArmLen <= m_MinArm) {
-				//m_MinArm以下近づかないようにする
-				m_ArmLen = m_MinArm;
-			}
-		}
-		////目指したい場所にアームの値と腕ベクトルでEyeを調整
+		//目指したい場所にアームの値と腕ベクトルでEyeを調整
 		Vec3 toEye = newAt + armVec * m_ArmLen;
 		newEye = Lerp::CalculateLerp(GetEye(), toEye, 0, 1.0f, m_ToTargetLerp, Lerp::Linear);
 		
@@ -324,7 +217,43 @@ namespace basecross {
 		SetEye(newEye);
 		UpdateArmLengh();
 		Camera::OnUpdate();
-		/*HitTest::SEGMENT_OBB(, SetAt(), )*/
+		
+
+		auto& app = App::GetApp();//!アプリの取得
+		auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+	
+		auto Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+		
+		for (auto& Obj : Objects)//!オブジェクトの要素分
+		{
+			auto stageWall = dynamic_pointer_cast<StageWall>(Obj);//!壁の取得
+			if (stageWall)
+			{
+				auto StageWallObb = stageWall->GetComponent<CollisionObb>()->GetObb();//!ステージの壁のObbの取得
+				
+				if (HitTest::SEGMENT_OBB(GetEye(), GetAt(), StageWallObb))//!カメラと視点の間に壁が入ったら
+				{
+					stageWall->AddComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 0, 0.3f));//!壁を半透明にする
+					
+				}
+				
+				else//!カメラと視点の間に壁が無かったら
+				{
+					stageWall->AddComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 0, 1.0f));//!壁の半透明を解除する
+				}
+				
+			}
+		}
+
+
+
+
+
+
+
+
+
+		
 	}
 
 }
