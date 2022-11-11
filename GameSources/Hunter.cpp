@@ -25,7 +25,8 @@ namespace basecross
 		m_Force(0),
 		m_Velocity(0),
 		m_PEvector(0),
-		m_playerChange(0)
+		m_playerChange(0),
+		m_Speed(1)
 
 	{
 	}
@@ -38,7 +39,7 @@ namespace basecross
 		m_Velocity += m_Force * elapsedTime;//!行動の力に時間をかけて速度を求めている
 		auto ptrTrans = GetComponent<Transform>();//!敵のTransformを取得している
 		auto pos = ptrTrans->GetPosition();//!敵のポジションを取得している
-		pos += m_Velocity * elapsedTime * 2;//!敵のポジションに速度と時間を掛けたものを足す
+		pos += m_Velocity * elapsedTime * m_Speed;//!敵のポジションに速度と時間を掛けたものを足す
 		ptrTrans->SetPosition(pos);//!敵のポジションの設定
 	}
 
@@ -69,7 +70,7 @@ namespace basecross
 		AddTag(L"Hunter_ObjGroup");//!オブジェクトタグの作成
 		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");//!オブジェクトのグループを得る
 		group->IntoGroup(GetThis<Hunter>());//!グループに自分自身を追加
-
+		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 		//経路巡回を付ける
 		auto ptrFollowPath = GetBehavior<FollowPathSteering>();
 		list<Vec3> pathList = {};//!巡回ポイントのリスト
@@ -89,7 +90,7 @@ namespace basecross
 		//!影の形（メッシュ）を設定
 		ptrShadow->SetMeshResource(L"HUNTER_MESH");
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
-		auto ptrDraw = AddComponent<PNTStaticModelDraw>();    //!描画コンポーネントの設定            //!描画コンポーネント
+		auto ptrDraw = AddComponent<PNTStaticModelDraw>();    //!描画コンポーネントの設定 
 
 		//!メッシュの設定
 		ptrDraw->SetMeshResource(L"HUNTER_MESH");
@@ -136,7 +137,6 @@ namespace basecross
 	void Hunter::NearBehavior()
 	{
 
-
 		auto ptrArrive = GetBehavior<ArriveSteering>();                                  //!到着ステアリング
 		auto ptrTrans = GetComponent<Transform>();                                       //!敵のコンポーネントの取得
 		auto ptrPlayerTrans = GetTarget()->GetComponent<Transform>();                    //!プレイヤーのコンポーネントの取得
@@ -162,7 +162,6 @@ namespace basecross
 		SetForce(force);//!力を設定する
 		float f = bsm::length(ptrPlayerTrans->GetPosition() - ptrTrans->GetPosition());//!プレイヤーの位置ー敵の位置
 
-
 		Vec3 PEvector = ptrPlayerTrans->GetPosition() - ptrTrans->GetPosition();//!プレイヤーと敵のベクトルを取得
 		auto Enemyfront = ptrTrans->GetForword();//!敵の正面を取得
 		PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
@@ -177,14 +176,9 @@ namespace basecross
 				if (f <= GetStateChangeSize())
 				{
 					GetStateMachine()->ChangeState(NearState::Instance());//!ステートをチェンジする
-
 				}
 			}
 		}
-
-
-
-
 
 	}
 
@@ -200,7 +194,6 @@ namespace basecross
 	void FarState::Execute(const shared_ptr<Hunter>& Obj) {
 		Obj->FarBehavior();
 	}
-
 	void FarState::Exit(const shared_ptr<Hunter>& Obj) {
 	}
 
@@ -222,11 +215,13 @@ namespace basecross
 
 	void Hunter::OnCollisionEnter(shared_ptr<GameObject>& Other)
 	{
-		auto ptrHunter = dynamic_pointer_cast<Player>(Other);
-		if (ptrHunter) 
+		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
+		if (ptrPlayer)
 		{
-			GetStage()->RemoveGameObject<Hunter>(GetThis<Hunter>());
-			PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+			if (m_playerChange == static_cast<int>(PlayerModel::wolf))
+			{
+              PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+			}
 		}
 	}
 }

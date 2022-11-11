@@ -22,6 +22,7 @@ namespace basecross
 		Vec3 m_Scale;//!大きさ
 		Vec3 m_Force;//!動きの力
 		Vec3 m_Velocity;//!速度
+		int m_Speed;//!スピード
 		float m_StateChangeSize;	
 		Vec3 m_PEvector;//!プレイヤーと敵のベクトル
 		std::vector<Vec3> m_patrolPoints;//!巡回ポイント
@@ -54,7 +55,17 @@ namespace basecross
 			return m_StateMachine;
 		}
 
-	
+	   //!ハンターのスピードの取得
+		int GetSpeed()const
+		{
+			return m_Speed;
+	    }
+
+		//!ハンターのスピードの設定
+		void SetSpeed(int HunterSpeed)
+		{
+			m_Speed = HunterSpeed;
+		}
 
 		//!ステートチェンジサイズ
 		float GetStateChangeSize() const {

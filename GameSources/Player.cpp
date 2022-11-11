@@ -16,12 +16,14 @@ namespace basecross {
 	Player::Player(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr),
 		m_Speed(20.0f),
-		m_idleTime(0.0f),
+		m_ChangeTime(0.0f),
 		m_playerChange(static_cast<int>(PlayerModel::human)),
 		m_humanTime(31.0f),
 		m_wolfTime(61.0f),
 		m_reset(0),
-		m_KeyCount(0)
+		m_KeyCount(0),
+		m_MaxKeyCount(3),
+		m_Ded(0)
 	{}
 
 	Vec2 Player::GetInputState() const {
@@ -141,20 +143,20 @@ namespace basecross {
 	void Player::AppearanceChange()
 	{
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
-		m_idleTime += elapsedTime;//時間を変数に足す
-		if (m_idleTime >= m_humanTime)
+		m_ChangeTime += elapsedTime;//時間を変数に足す
+		if (m_ChangeTime >= m_humanTime)//!人間の時間が終わったら
 		{
 
-			m_playerChange = static_cast<int>(PlayerModel::wolf);
-			auto transComp = AddComponent<Transform>();
-			auto ptrDraw = AddComponent<BcPNTStaticDraw>();
-			ptrDraw->SetMeshResource(L"DEFAULT_SPHERE");
-			if (m_idleTime >= m_wolfTime)
+			m_playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
+			auto ptrDraw = AddComponent<BcPNTStaticDraw>();//!プレイヤーの描画コンポ―ネントを取得
+			ptrDraw->SetMeshResource(L"DEFAULT_SPHERE");//!プレイヤーのメッシュの変更
+
+			if (m_ChangeTime >= m_wolfTime)//!狼の時間になったら
 			{
 				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
 
-				ptrDraw->SetMeshResource(L"DEFAULT_CAPSULE");
-				m_idleTime = (float)m_reset;
+				ptrDraw->SetMeshResource(L"DEFAULT_CAPSULE");//!プレイヤーのメッシュの変更
+				m_ChangeTime = (float)m_reset;//!状態タイムをリセットする
 			}
 			return;
 
@@ -177,7 +179,7 @@ namespace basecross {
 			auto HunterPtr = v.lock();//!ハンターのグループから1つロックする
 			Vec3 ret;//!最近接点の代入
 			auto ptrHunter = dynamic_pointer_cast<Hunter>(HunterPtr);//!ロックした物を取り出す
-		
+
 			//!ハンターに当たったら
 			if (ptrHunter)
 			{
@@ -185,11 +187,13 @@ namespace basecross {
 				if (HitTest::SPHERE_OBB(playerSp, HunterObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 				{
 
+					auto HunterSpeed = ptrHunter->GetSpeed();
+					HunterSpeed = m_Ded;
+					ptrHunter->SetSpeed(HunterSpeed);
+					auto HunterDraw = ptrHunter->GetComponent<PNTStaticModelDraw>();
+					HunterDraw->SetDiffuse(Col4(1, 0, 0, 1));
 
-					GetStage()->RemoveGameObject<Hunter>(HunterPtr);//!ハンタ-オブジェクトを消す
-
-
-		   }
+				}
 			}
 		}
 	}
@@ -210,28 +214,25 @@ namespace basecross {
 		//!プレイヤーが鍵に当たったら
 		if (ptrKey)
 		{
-			/*auto keySprite = GetStage()->GetSharedGameObject<KeySprite>(L"KeySprite");
-			keySprite->SetDrawActive(true);*/
-
 			m_KeyCount++;
-			GetStage()->RemoveGameObject<Key>(Other);
+			GetStage()->RemoveGameObject<Key>(Other);//!鍵に当たったら
 
 			GetStage()->AddGameObject<KeySprite>(
-				L"KEY_TX",
+				L"KEY_TX",//!テクスチャ
 				true,
 				Vec2(320.0f, 80.0f),//大きさ
 				Vec2(300.0f + (100.0f * (m_KeyCount - 1)), 300.0f)//座標
 			);
 		}
 		
-
+		
 		//!プレイヤーが鍵を持っていたら
-			if (m_KeyCount == 1)
+			if (m_KeyCount == m_MaxKeyCount)
 			{
-				auto ptrGate = dynamic_pointer_cast<StageGate>(Other);
-				if (ptrGate)
+				auto ptrGate = dynamic_pointer_cast<StageGate>(Other);//!門のオブジェクト取得
+				if (ptrGate)//!プレイヤーが門に当たったら
 				{
-					PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");
+					PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");//!ゲームクリアステージに遷移
 				}
 			}
 		
