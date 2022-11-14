@@ -50,7 +50,10 @@ namespace basecross {
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
 		auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
 		Coll->SetFixed(true);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
-		
+		auto group = GetStage()->GetSharedObjectGroup(L"StageBuilding_Group");//!グループを取得
+		group->IntoGroup(GetThis<StageBuilding>());//!グループにステージの壁を入れる
+
+
 		AddTag(L"StageBuilding");//!タグをつける
 		//!影の形（メッシュ）を設定
 		ptrShadow->SetMeshResource(L"STAGEBUILDING_MESH");
@@ -59,11 +62,12 @@ namespace basecross {
 		//!メッシュの設定
 		ptrDraw->SetMeshResource(L"STAGEBUILDING_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		ptrDraw->SetDiffuse(Col4(0.0, 1.0, 1.0, 1.0));
+		
 		Coll->SetDrawActive(true);
 		//!RigidbodyBoxの追加
 		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
 		auto PsPtr = AddComponent<RigidbodyBox>(param);
+		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 
 	}
 }

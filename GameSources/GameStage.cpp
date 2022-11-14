@@ -127,6 +127,8 @@ namespace basecross {
 	// !ステージの建物
 	void GameStage::CreateStageBuilding()
 	{
+
+		auto group = CreateSharedObjectGroup(L"StageBuilding_Group");
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
 		auto& LineVec = m_GameStageCsvA.GetCsvVec();
