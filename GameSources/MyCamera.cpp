@@ -226,6 +226,7 @@ namespace basecross {
 		
 		for (auto& Obj : Objects)//!オブジェクトの要素分
 		{
+
 			auto stageWall = dynamic_pointer_cast<StageWall>(Obj);//!壁の取得
 			if (stageWall)
 			{
@@ -243,17 +244,35 @@ namespace basecross {
 				}
 				
 			}
+
+			auto stageBuilding = dynamic_pointer_cast<StageBuilding>(Obj);//!建物の取得
+			if (stageBuilding)
+			{
+				auto StageBuildingObb = stageBuilding->GetComponent<CollisionObb>()->GetObb();//!ステージの壁のObbの取得
+
+				if (HitTest::SEGMENT_OBB(GetEye(), GetAt(), StageBuildingObb))//!カメラと視点の間に壁が入ったら
+				{
+					stageBuilding->AddComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 1, 0.3f));//!壁を半透明にする
+
+				}
+
+				else//!カメラと視点の間に壁が無かったら
+				{
+					stageBuilding->AddComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 1, 1.0f));//!壁の半透明を解除する
+				}
+
+			}
+
+
+
+
+
 		}
 
-
-
-
-
-
-
-
-
 		
+			
+	
+
 	}
 
 }
