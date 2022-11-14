@@ -163,7 +163,7 @@ namespace basecross {
 		}
 	}
 
-	
+	//!村人を倒す処理
 	void Player::Villagerkiller()
 	{
 		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
@@ -180,23 +180,36 @@ namespace basecross {
 			Vec3 ret;//!最近接点の代入
 			auto ptrHunter = dynamic_pointer_cast<Hunter>(HunterPtr);//!ロックした物を取り出す
 
-			//!ハンターに当たったら
+			//!プレイヤーの範囲に敵が入ったら
 			if (ptrHunter)
 			{
 				auto HunterObb = ptrHunter->GetComponent<CollisionObb>()->GetObb();//!ハンタ-のObbオブジェクトを取得
 				if (HitTest::SPHERE_OBB(playerSp, HunterObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 				{
-
-					auto HunterSpeed = ptrHunter->GetSpeed();
-					HunterSpeed = m_Ded;
-					ptrHunter->SetSpeed(HunterSpeed);
-					auto HunterDraw = ptrHunter->GetComponent<PNTStaticModelDraw>();
-					HunterDraw->SetDiffuse(Col4(1, 0, 0, 1));
+					auto HunterDedDecision = ptrHunter->GetDedDecision();//!ハンターの生死の判定の取得
+					HunterDedDecision = true;//!ハンターの生死を死にする
+					ptrHunter->SetDedDecision(HunterDedDecision);//!ハンターの生死の設定
+					auto HunterSpeed = ptrHunter->GetSpeed();//!ハンターのスピードを取得
+					HunterSpeed = m_Ded;//!ハンターのスピードを０にする
+					ptrHunter->SetSpeed(HunterSpeed);//!ハンターのスピードを設定
+					auto HunterDraw = ptrHunter->GetComponent<PNTStaticModelDraw>();//!ハンターの描画コンポーネントを取得
+					HunterDraw->SetDiffuse(Col4(1, 0, 0, 1));//!ハンターの色の設定
 
 				}
 			}
 		}
 	}
+	//!鍵のスプライトの作成
+	void Player::CreateKeySprite()
+	{
+		GetStage()->AddGameObject<KeySprite>(
+			L"KEY_TX",//!テクスチャ
+			true,
+			Vec2(320.0f, 80.0f),//大きさ
+			Vec2(300.0f + (100.0f * (m_KeyCount - 1)), 300.0f)//座標
+			);
+	}
+
 	//更新
 	void Player::OnUpdate() {
 
@@ -215,14 +228,8 @@ namespace basecross {
 		if (ptrKey)
 		{
 			m_KeyCount++;
-			GetStage()->RemoveGameObject<Key>(Other);//!鍵に当たったら
-
-			GetStage()->AddGameObject<KeySprite>(
-				L"KEY_TX",//!テクスチャ
-				true,
-				Vec2(320.0f, 80.0f),//大きさ
-				Vec2(300.0f + (100.0f * (m_KeyCount - 1)), 300.0f)//座標
-			);
+			GetStage()->RemoveGameObject<Key>(Other);//!鍵オブジェクトの削除
+			CreateKeySprite();
 		}
 		
 		

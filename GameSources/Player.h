@@ -58,6 +58,7 @@ namespace basecross{
 		Vec3 GetMoveVector() const;//!コントローラから方向ベクトルを得る
 		void MovePlayer();         //!プレイヤーの移動
 		void Villagerkiller();//!村人を殺す処理
+		void CreateKeySprite();//!鍵のスプライトの作成
 		void AppearanceChange();//!プレイヤーの見た目の変化
 		void OnPushA(){}//!//コントローラーのボタン判定A
 		void OnPushB();//!コントローラーのボタン判定B

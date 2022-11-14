@@ -24,6 +24,7 @@ namespace basecross
 		Vec3 m_Velocity;//!速度
 		int m_Speed;//!スピード
 		float m_StateChangeSize;	
+		bool m_DedDecision;//!生死の判定
 		Vec3 m_PEvector;//!プレイヤーと敵のベクトル
 		std::vector<Vec3> m_patrolPoints;//!巡回ポイント
 		int m_playerChange;//!プレイヤーの状態
@@ -65,6 +66,17 @@ namespace basecross
 		void SetSpeed(int HunterSpeed)
 		{
 			m_Speed = HunterSpeed;
+		}
+
+		//!ハンターの生死の判定の取得
+		bool GetDedDecision()const
+		{
+			return m_DedDecision;
+		}
+		//!ハンターの生死の設定
+		void SetDedDecision(bool DedDecision)
+		{
+			m_DedDecision = DedDecision;
 		}
 
 		//!ステートチェンジサイズ
