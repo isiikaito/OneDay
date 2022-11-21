@@ -234,13 +234,13 @@ namespace basecross {
 				
 				if (HitTest::SEGMENT_OBB(GetEye(), GetAt(), StageWallObb))//!カメラと視点の間に壁が入ったら
 				{
-					stageWall->AddComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 0, 0.3f));//!壁を半透明にする
+					stageWall->GetComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 0, 0.3f));//!壁を半透明にする
 					
 				}
 				
 				else//!カメラと視点の間に壁が無かったら
 				{
-					stageWall->AddComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 0, 1.0f));//!壁の半透明を解除する
+					stageWall->GetComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 0, 1.0f));//!壁の半透明を解除する
 				}
 				
 			}
@@ -252,13 +252,13 @@ namespace basecross {
 
 				if (HitTest::SEGMENT_OBB(GetEye(), GetAt(), StageBuildingObb))//!カメラと視点の間に壁が入ったら
 				{
-					stageBuilding->AddComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 1, 0.3f));//!壁を半透明にする
+					stageBuilding->GetComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 1, 0.3f));//!壁を半透明にする
 
 				}
 
 				else//!カメラと視点の間に壁が無かったら
 				{
-					stageBuilding->AddComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 1, 1.0f));//!壁の半透明を解除する
+					stageBuilding->GetComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0, 0, 1, 1.0f));//!壁の半透明を解除する
 				}
 
 			}

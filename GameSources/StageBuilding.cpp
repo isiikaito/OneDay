@@ -64,9 +64,7 @@ namespace basecross {
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		
 		Coll->SetDrawActive(true);
-		//!RigidbodyBoxの追加
-		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
-		auto PsPtr = AddComponent<RigidbodyBox>(param);
+		
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 
 	}
