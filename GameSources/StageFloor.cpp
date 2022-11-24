@@ -61,9 +61,6 @@ namespace basecross {
 		ptrDraw->SetMeshResource(L"GROUND_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		Coll->SetDrawActive(true);
-		//!RigidbodyBox‚Ì’Ç‰Á
-		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
-		auto PsPtr = AddComponent<RigidbodyBox>(param);
-
+		
 	}
 }
