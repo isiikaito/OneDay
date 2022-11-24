@@ -62,6 +62,14 @@ namespace basecross{
 		//!地面のモデルの読み込み
 		auto staticModelMesh7 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Ground.bmf");
 		App::GetApp()->RegisterResource(L"GROUND_MESH", staticModelMesh7);
+
+		//!テストプレイヤーモデルの読み込み
+		auto multiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
+		App::GetApp()->RegisterResource(L"TestPlayerModel", multiModelMesh);
+
+		//!ボーンモデルのタンジェント付きリソース
+		multiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
+		App::GetApp()->RegisterResource(L"TestPlayerModel_TAN", multiModelMesh);
 	}
 	void Scene::OnCreate(){
 		try {

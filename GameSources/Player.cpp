@@ -102,31 +102,33 @@ namespace basecross {
 
 		//!初期位置などの設定
 		auto ptr = AddComponent<Transform>();
-		ptr->SetScale(2.0f, 2.0f, 2.0f);	//直径25センチの球体
+		ptr->SetScale(0.5f, 0.5f, 0.5f);	//直径25センチの球体
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
 		ptr->SetPosition(Vec3(0.0f, 10.0f, -90.0f));
 
 
-		auto ptrColl = AddComponent<CollisionCapsule>();//!CollisionSphere衝突判定を付ける
+		Mat4x4 spanMat;
+		spanMat.affineTransformation(
+			Vec3(0.2f, 0.2f, 0.2f),
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, XM_PI * -0.5f, 0.0f),
+			Vec3(0.0f, -1.0f, 0.0f)
+		);
 
+		auto ptrColl = AddComponent<CollisionCapsule>();//!CollisionSphere衝突判定を付ける
 
 		auto ptrGra = AddComponent<Gravity>();//!重力をつける
 
-		//!文字列をつける
-		auto ptrString = AddComponent<StringSprite>();
-		ptrString->SetText(L"");
-		ptrString->SetTextRect(Rect2D<float>(16.0f, 16.0f, 640.0f, 480.0f));
-
-
+	
 		auto shadowPtr = AddComponent<Shadowmap>();//!影をつける（シャドウマップを描画する）
 
-		shadowPtr->SetMeshResource(L"DEFAULT_CAPSULE");//!影の形（メッシュ）を設定
+		shadowPtr->SetMeshResource(L"TestPlayerModel");//!影の形（メッシュ）を設定
 
 
-		auto ptrDraw = AddComponent<BcPNTStaticDraw>();//!描画コンポーネントの設定
+		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの設定
 
 		//!描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"DEFAULT_CAPSULE");
+		ptrDraw->SetMeshResource(L"TestPlayerModel_TAN");
 		ptrDraw->SetFogEnabled(true);
 
 
@@ -213,7 +215,7 @@ namespace basecross {
 	//更新
 	void Player::OnUpdate() {
 
-		m_InputHandler.PushHandle(GetThis<Player>());//!コントローラチェックして入力があればコマンド呼び出し
+		
 		MovePlayer();
 		AppearanceChange();//!プレイヤーの姿変化
 		m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加

@@ -30,7 +30,7 @@ namespace basecross{
 		int m_MaxKeyCount;//!鍵の所持数の最大
 		int m_Ded;//!敵の死亡
 
-		InputHandler<Player> m_InputHandler;  //コントローラーのボタンの取得
+	
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
 
 
@@ -60,7 +60,6 @@ namespace basecross{
 		void Villagerkiller();//!村人を殺す処理
 		void CreateKeySprite();//!鍵のスプライトの作成
 		void AppearanceChange();//!プレイヤーの見た目の変化
-		void OnPushA(){}//!//コントローラーのボタン判定A
 		void OnPushB();//!コントローラーのボタン判定B
 
 		int GetPlayerCange()const//!プレイヤーの状態の取得
