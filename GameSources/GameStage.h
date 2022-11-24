@@ -14,6 +14,8 @@ namespace basecross {
 	class GameStage : public Stage {
 	private:
 		CsvFile m_GameStageCsvA; // !建物の配置
+		CsvFile m_GameStageCsvB; // !建物の配置2
+		CsvFile m_GameStageCsvC; // !建物の配置3
 		CsvFile m_StageCsv;          //!ステージCSVファイル
 		CsvFile m_EnemyCsv;//!敵のトランスフォームcsvファイル
 		CsvFile m_Point;//!巡回ポイントcsvファイル	
@@ -35,6 +37,7 @@ namespace basecross {
 		void CreateKey();//!鍵の作成
 		void CreateStageGate(); //!ステージの門
 		void CerateHunter();//!ハンターの作成
+		void CreateLightingCol();//!ライトの色を変える処理
 		void CreateTimerSprite();//!タイマースプライト作成
 
 		//初期化

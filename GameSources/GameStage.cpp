@@ -23,6 +23,8 @@ namespace basecross {
 		auto ptrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
 		ptrMultiLight->SetDefaultLighting();
+
+
 	}
 
 	// !ステージの床
@@ -104,7 +106,7 @@ namespace basecross {
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
 		auto group = CreateSharedObjectGroup(L"key_ObjGroup");
-		auto& LineVec = m_GameStageCsvA.GetCsvVec();
+		auto& LineVec = m_GameStageCsvC.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
 			//トークン（カラム）の配列
 			vector<wstring> Tokens;
@@ -131,7 +133,7 @@ namespace basecross {
 		auto group = CreateSharedObjectGroup(L"StageBuilding_Group");
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
-		auto& LineVec = m_GameStageCsvA.GetCsvVec();
+		auto& LineVec = m_GameStageCsvC.GetCsvVec(); // csvファイルをセットする
 		for (size_t i = 0; i < LineVec.size(); i++) {
 			//トークン（カラム）の配列
 			vector<wstring> Tokens;
@@ -338,6 +340,21 @@ namespace basecross {
 			AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
 		}
 	}
+
+	void GameStage::CreateLightingCol()
+	{
+		////ステージに置く場合
+		//auto ptrMulti = dynamic_pointer_cast<MultiLight>(GetLight());
+		//auto light0 = ptrMulti->GetLight(0);
+		//auto light1 = ptrMulti->GetLight(1);
+		//auto light2 = ptrMulti->GetLight(2);
+		////この後light0などを変更
+		//light2.m_DiffuseColor = Col4(1, 1, 1, 1);
+		//light2.m_SpecularColor = Col4(1, 1, 1, 1);
+		//ptrMulti->SetLight(1, light2);
+
+	}
+
 	void GameStage::OnCreate() {
 		try {
 
@@ -358,6 +375,14 @@ namespace basecross {
 			m_GameStageCsvA.SetFileName(csvDirectory + L"GameStageA.csv");
 			m_GameStageCsvA.ReadCsv();
 		
+			//!Buildingファイルの読み込み2
+			m_GameStageCsvB.SetFileName(csvDirectory + L"GameStageB.csv");
+			m_GameStageCsvB.ReadCsv();
+
+			//!Buildingファイルの読み込み3
+			m_GameStageCsvC.SetFileName(csvDirectory + L"GameStageC.csv");
+			m_GameStageCsvC.ReadCsv();
+
             CreateTimerSprite();//!時間のスプライトの作成
 			CreateViewLight();//ビューとライトの作成
 			CreateStageFloor();//!ステージの床の作成
@@ -385,8 +410,11 @@ namespace basecross {
 		ptrScor->SetScore(m_TotalTime);
 
 		m_InputHandler.PushHandle(GetThis<GameStage>());
+		CreateLightingCol();
 		
+
 	}
+
 	//Aボタン
 	void GameStage::OnPushA() {
 		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
