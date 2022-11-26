@@ -67,6 +67,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp">
       <Filter>Other\ProjectShader</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
@@ -135,6 +137,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectShader.h">
       <Filter>Other\ProjectShader</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StateMchine.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -211,6 +219,9 @@
     </Filter>
     <Filter Include="Other\ProjectShader">
       <UniqueIdentifier>{c66ec96e-40eb-4dbb-94db-0fd4c494f24d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State">
+      <UniqueIdentifier>{313835df-8628-4c9c-8baa-d41fca0c0a33}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

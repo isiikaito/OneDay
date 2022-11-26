@@ -27,6 +27,9 @@
 #include"GameClearStage.h"
 #include"Key.h"
 #include"KeySprite.h"
+#include "StateMchine.h"
+#include "EnemyState.h"
+#include "BaseEnemy.h"
 
 
 

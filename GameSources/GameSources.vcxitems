@@ -14,7 +14,9 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClear.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOver.h" />
@@ -33,12 +35,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageGate.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageWall.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StateMchine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Timer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Title.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClear.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOver.cpp" />
