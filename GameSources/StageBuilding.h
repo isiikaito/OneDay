@@ -14,6 +14,15 @@ namespace basecross {
 		Vec3 m_Scale;   //!大きさ
 		Vec3 m_Rotation;//!回転
 		Vec3 m_Position;//!位置
+		float m_shadowbuilding; // !影を付けた家にする
+		float m_Time; // !切り替える時間
+		float m_Color; // !色を変える
+		int m_oneday; // !朝と夜に変化する
+
+		enum class Oneday {
+			midday,
+			night
+		};
 
 	public:
 		/**
@@ -30,5 +39,6 @@ namespace basecross {
 		* ゲームステージの床の初期パラメータを初期化する関数
 		*/
 		virtual void OnCreate() override;
+		virtual void OnUpdate() override;
 	};
 }

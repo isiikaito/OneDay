@@ -67,5 +67,39 @@ namespace basecross {
 		
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 
+		
+		//ptrDraw->SetEmissive(Col4(0.0f, 0.0f, 0.0f, 1.0f)); // !暗くする処理
+
 	}
+
+	void StageBuilding::OnUpdate() {
+
+		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
+		float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
+
+		// !夜から昼になる処理
+		if (m_oneday == static_cast<int>(Oneday::midday))
+		{
+			m_Time += elapsedTime / 30; //!時間を変数に足す
+			ptrDraw->SetEmissive(Col4(m_Time, m_Time, m_Time, 1.0f)); // !夜にする処理
+			if (m_Time >= 1.0f)
+			{
+				m_oneday = static_cast<int>(Oneday::night);
+			}
+		}
+
+		// !昼から夜になる処理
+		if (m_oneday == static_cast<int>(Oneday::night))
+		{
+			m_Time += -elapsedTime / 30; //時間を変数に減らす
+			ptrDraw->SetEmissive(Col4(m_Time, m_Time, m_Time, 1.0f)); // !朝にする処理
+			if (m_Time <= 0.0f)
+			{
+				m_oneday = static_cast<int>(Oneday::midday);
+			}
+		}
+
+		return;
+	}
+
 }
