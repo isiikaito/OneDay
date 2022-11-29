@@ -29,11 +29,14 @@ namespace basecross
 		float m_StateChangeSize;//!ステートの変更
 		float m_MaxSpeed;//!最大の速度
 		int m_Enemypatorolindex;//!敵の巡回ポイントの数
+	
 
 	protected:
 		//!構造と破棄
 		BaseEnemy(const shared_ptr<Stage>& StagePtr);
-		virtual ~BaseEnemy()noexcept = default;//!デストラクタ
+
+		//!デストラクタ
+		virtual ~BaseEnemy()noexcept = default;
 
 	public:
 		//!アクセッサ
@@ -117,9 +120,17 @@ namespace basecross
 		
 		//!適応力
 		void ApplyForce();
+
+		//!ステートの変更
 		virtual void ChangeState(kaito::State<BaseEnemy>* NewState);
-		shared_ptr<GameObject>GetTarget()const;
-		virtual void OnCreate()override {};
+
+		//!ターゲットの取得
+		shared_ptr<Player>GetTarget()const;
+
+		//!初期化の処理
+		virtual void OnCreate()override ;
+
+		//!更新の処理
 		virtual void OnUpdate()override;
 	};
 

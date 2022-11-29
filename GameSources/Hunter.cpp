@@ -48,10 +48,10 @@ namespace basecross
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
-			Vec3(0.35f, 0.2f, 0.4f),//!大きさ
+			Vec3(0.4f, 0.4f, 0.4f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(0.0f, -0.5f, -0.05f)  //!位置
+			Vec3(0.0f, -1.0f, 0.0f)  //!位置
 		);
 
 		AddTag(L"Hunter_ObjGroup");//!オブジェクトタグの作成
@@ -60,18 +60,18 @@ namespace basecross
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 		
 		AddComponent<Gravity>(); //!重力をつける
-		auto Coll = AddComponent<CollisionObb>();//!CollisionObb衝突判定を付ける
+		auto Coll = AddComponent<CollisionCapsule>();//!CollisionObb衝突判定を付ける
 		auto ptrShadow = AddComponent<Shadowmap>();  //!影をつける（シャドウマップを描画する）
 
 		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"HUNTER_MESH");
+		ptrShadow->SetMeshResource(L"PLAYER_TEST");
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
-		auto ptrDraw = AddComponent<PNTStaticModelDraw>();    //!描画コンポーネントの設定 
+		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネントの設定 
 
 		//!メッシュの設定
-		ptrDraw->SetMeshResource(L"HUNTER_MESH");
+		ptrDraw->SetMeshResource(L"PLAYER_TEST");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		Coll->SetDrawActive(true);
+		Coll->SetDrawActive(false);
 
 		m_patrolPoints[m_patrolindex];
 		SetEnemyPatorolindex(m_patrolindex);

@@ -23,7 +23,11 @@ namespace basecross {
 		m_reset(0),
 		m_KeyCount(0),
 		m_MaxKeyCount(3),
-		m_Ded(0)
+		m_Ded(0),
+		m_GetPlayerPositionTime(0.5f),
+		m_PlayerPositionTime(0.0f),
+		m_PlayerPositionOnSecondMax(20)
+
 	{}
 
 	Vec2 Player::GetInputState() const {
@@ -102,40 +106,42 @@ namespace basecross {
 
 		//!初期位置などの設定
 		auto ptr = AddComponent<Transform>();
-		ptr->SetScale(0.5f, 0.5f, 0.5f);	//直径25センチの球体
+		ptr->SetScale(3.0f, 3.0f, 3.0f);	//直径25センチの球体
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
 		ptr->SetPosition(Vec3(0.0f, 10.0f, -90.0f));
 
 
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.2f, 0.2f, 0.2f),
+			Vec3(0.4f, 0.4f, 0.4f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, XM_PI * -0.5f, 0.0f),
-			Vec3(0.0f, -1.0f, 0.0f)
+			Vec3(0.0f, 0.0f, 0.0f),   //!回転
+			Vec3(0.0f, -1.0f, 0.0f)  //!位置
 		);
 
 		auto ptrColl = AddComponent<CollisionCapsule>();//!CollisionSphere衝突判定を付ける
 
+		ptrColl->SetDrawActive(false);
 		auto ptrGra = AddComponent<Gravity>();//!重力をつける
 
 	
 		auto shadowPtr = AddComponent<Shadowmap>();//!影をつける（シャドウマップを描画する）
 
-		shadowPtr->SetMeshResource(L"TestPlayerModel");//!影の形（メッシュ）を設定
+		shadowPtr->SetMeshResource(L"PLAYER_TEST");//!影の形（メッシュ）を設定
+		shadowPtr->SetMeshToTransformMatrix(spanMat);
 
-
-		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの設定
+		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネントの設定
 
 		//!描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"TestPlayerModel_TAN");
-		ptrDraw->SetFogEnabled(true);
-
+		ptrDraw->SetMeshResource(L"PLAYER_TEST");
+		ptrDraw->SetMeshToTransformMatrix(spanMat);
+		/*ptrDraw->SetFogEnabled(true);*/
+		ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));
+		
 
 		//!カメラを得る
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
 		if (ptrCamera) {
-
 
 			ptrCamera->SetTargetObject(GetThis<GameObject>());//!MyCameraである
 			ptrCamera->SetTargetToAt(Vec3(0, 0.25f, 0));//!MyCameraに注目するオブジェクト（プレイヤー）の設定
@@ -150,14 +156,14 @@ namespace basecross {
 		{
 
 			m_playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
-			auto ptrDraw = AddComponent<BcPNTStaticDraw>();//!プレイヤーの描画コンポ―ネントを取得
-			ptrDraw->SetMeshResource(L"TestPlayerModel_TAN");//!プレイヤーのメッシュの変更
-
+			auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
+			/*ptrDraw->SetMeshResource(L"PLAYER_TEST");*///!プレイヤーのメッシュの変更
+			ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));
 			if (m_ChangeTime >= m_wolfTime)//!狼の時間になったら
 			{
 				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
-
-				ptrDraw->SetMeshResource(L"TestPlayerModel_TAN");//!プレイヤーのメッシュの変更
+				ptrDraw->SetDiffuse(Col4(1.0f, 0.0f, 1.0f, 1.0f));
+				/*ptrDraw->SetMeshResource(L"PLAYER_TEST");*///!プレイヤーのメッシュの変更
 				m_ChangeTime = (float)m_reset;//!状態タイムをリセットする
 			}
 			return;
@@ -215,7 +221,22 @@ namespace basecross {
 	//更新
 	void Player::OnUpdate() {
 
+		auto PlayerTrans = GetComponent<Transform>();
+		auto PlayerPosition = PlayerTrans->GetPosition();
+		auto Time = App::GetApp()->GetElapsedTime();
+		m_PlayerPositionTime += Time;
+
+		if (m_PlayerPositionTime >= m_GetPlayerPositionTime)
+		{	
+			m_PlayerPositionOnSecond.push_back(PlayerPosition);
+
+			if (m_PlayerPositionOnSecond.size() >= m_PlayerPositionOnSecondMax)
+			{
+				m_PlayerPositionOnSecond.erase(m_PlayerPositionOnSecond.begin());
+			}
+		}
 		
+
 		MovePlayer();
 		AppearanceChange();//!プレイヤーの姿変化
 		m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
@@ -244,8 +265,6 @@ namespace basecross {
 					PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");//!ゲームクリアステージに遷移
 				}
 			}
-		
-
 	}
 	void Player::OnPushB()
 	{

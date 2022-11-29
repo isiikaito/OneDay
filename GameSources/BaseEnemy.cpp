@@ -18,12 +18,31 @@ namespace basecross
 		GameObject(StagePtr),
 		m_Force(0),
 		m_Velocity(0),
-		m_MaxSpeed(10),
+		m_MaxSpeed(30),
 		m_StateChangeSize(20.0f),
 		m_Enemypatorolindex(0)
 	{
 		m_StateMachine = new kaito::StateMachine<BaseEnemy>(this);
-		m_StateMachine->SetCurrentState(kaito::PatrolState::Instance());
+		m_StateMachine->SetCurrentState(kaito::BrettGramState::Instance());
+	}
+
+	void BaseEnemy::OnCreate()
+	{
+		//!è·äQï®âÒîçsìÆ
+		vector<shared_ptr<GameObject>>obObjVec;
+		GetStage()->GetUsedTagObjectVec(L"StageBuilding", obObjVec);
+		vector<SPHERE>obVec;
+		for (auto& v : obObjVec)
+		{
+			auto TransPtr = v->GetComponent<Transform>();
+
+			SPHERE sp;
+			sp.m_Center = TransPtr->GetPosition();
+			sp.m_Radius = TransPtr->GetScale().x * 1.414f * 0.5f;
+			obVec.push_back(sp);
+		}
+		auto ptrAvoidandce = GetBehavior<ObstacleAvoidanceSteering>();
+		ptrAvoidandce->SetObstacleSphereVec(obVec);
 	}
 	void BaseEnemy::ApplyForce()
 	{
@@ -40,14 +59,18 @@ namespace basecross
 		
 		m_StateMachine->ChangeState(NewState);
 	}
-
-	shared_ptr<GameObject>BaseEnemy::GetTarget()const {
-		return GetStage()->GetSharedObject(L"Player");
+	
+	shared_ptr<Player>BaseEnemy::GetTarget()const {
+		return std::dynamic_pointer_cast<Player>(GetStage()->GetSharedObject(L"Player"));
 	}
 
 	void BaseEnemy::OnUpdate()
 	{
+		
 		m_StateMachine->Update();
+
+		auto ptrAvoidance = GetBehavior<ObstacleAvoidanceSteering>();//!è·äQï®ÇîÇØÇÈçsìÆ
+		m_Force += ptrAvoidance->Execute(m_Force, GetVelocity());
 		ApplyForce();
 		m_Force = Vec3(0);
 

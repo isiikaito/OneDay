@@ -22,6 +22,7 @@ namespace basecross{
 	private:
 		float m_Speed;            //!スピード
 		float m_ChangeTime;          //!時間
+		float m_GetPlayerPositionTime;//!プレイヤーの位置の取得
 		int m_playerChange;//!プレイヤーの見た目の状態
 		int m_KeyCount;//!鍵を持っている個数カウント
 		const float m_humanTime;//!人間の時間
@@ -29,6 +30,9 @@ namespace basecross{
 		const int m_reset;//1ループリセット
 		int m_MaxKeyCount;//!鍵の所持数の最大
 		int m_Ded;//!敵の死亡
+		int m_PlayerPositionOnSecondMax;//!プレイヤーの位置の配列の最大の長さ
+		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
+		float m_PlayerPositionTime;//!プレイヤーの位置を取得するまでの時間
 
 	
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
@@ -62,14 +66,30 @@ namespace basecross{
 		void AppearanceChange();//!プレイヤーの見た目の変化
 		void OnPushB();//!コントローラーのボタン判定B
 
-		int GetPlayerCange()const//!プレイヤーの状態の取得
+        //!プレイヤーの状態の取得
+		int GetPlayerCange()const
 		{
 			return m_playerChange;
 		}
-		void SetPlayerChange(int playerChange)//!プレイヤーの状態の設定
+
+		//!プレイヤーの状態の設定
+		void SetPlayerChange(int playerChange)
 		{
 			m_playerChange = playerChange;
 		}
+
+		//!毎秒ごとのプレイヤーの位置の取得
+		std::vector<Vec3>GetPlayerPositionOnSecond()const
+		{
+			return m_PlayerPositionOnSecond;
+		}
+
+		//!毎秒ごとのプレイヤーの位置の設定
+		void SetPlayerPositionOnSecond(const std::vector<Vec3>PlayerPositionOnSecond)
+		{
+			m_PlayerPositionOnSecond = PlayerPositionOnSecond;
+		}
+
 
 		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other);//プレイヤーとカギの衝突判定
 	};
