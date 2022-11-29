@@ -67,7 +67,10 @@ namespace basecross{
 		auto staticModelMesh8 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
 		App::GetApp()->RegisterResource(L"PLAYER_TEST", staticModelMesh8);
 
-		
+		//!柵のモデルの読み込み
+		auto staticModelMesh9 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageFence.bmf");
+		App::GetApp()->RegisterResource(L"STAGE_FENCE", staticModelMesh9);
+
 
 		////!テストプレイヤーモデルの読み込み
 		//auto multiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
