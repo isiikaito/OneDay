@@ -39,11 +39,15 @@ namespace basecross {
 		void CerateHunter();//!ハンターの作成
 		void CreateLightingCol();//!ライトの色を変える処理
 		void CreateTimerSprite();//!タイマースプライト作成
+		shared_ptr<SoundItem>m_BGM;
+		void CreatePlayBGM();//!BGM作成
 
 		//初期化
 		virtual void OnCreate()override;
 
 		virtual void OnUpdate()override;
+
+		virtual void OnDestroy() override;
 
 
 		

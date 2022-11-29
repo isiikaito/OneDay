@@ -392,6 +392,7 @@ namespace basecross {
 			CreateStageGate(); //!ステージの門の作成
 			CreatePlayer();//!プレーヤーの作成
 			CerateHunter();//!ハンターの作成
+			CreatePlayBGM();//!BGMの作成
 			
 		}
 		catch (...) {
@@ -419,6 +420,19 @@ namespace basecross {
 	void GameStage::OnPushA() {
 		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 	}
-	
+
+	////BGMの再生
+	void GameStage::CreatePlayBGM()
+	{
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, 0.5f);
+	}
+
+	/// BGMのストップ
+	void GameStage::OnDestroy()
+	{
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		XAPtr->Stop(m_BGM);
+	}
 }
 //end basecross

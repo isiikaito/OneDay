@@ -1,0 +1,9 @@
+diff a/GameSources/Project.h b/GameSources/Project.h	(rejected hunks)
+@@ -27,6 +27,7 @@
+  #include"GameClearStage.h"
+  #include"Key.h"
+  #include"KeySprite.h"
+++<<<<<<< Updated upstream
+ +#include "StateMchine.h"
+ +#include "EnemyState.h"
+ +#include "BaseEnemy.h"

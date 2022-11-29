@@ -76,6 +76,15 @@ namespace basecross{
 		////!ボーンモデルのタンジェント付きリソース
 		//multiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
 		//App::GetApp()->RegisterResource(L"TestPlayerModel_TAN", multiModelMesh);
+		//!ボーンモデルのタンジェント付きリソース
+		/*multiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
+		App::GetApp()->RegisterResource(L"TestPlayerModel_TAN", multiModelMesh);*/
+
+		//!BGM
+		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";
+		App::GetApp()->RegisterWav(L"bgm", strMusic);
+
+
 	}
 	void Scene::OnCreate(){
 		try {
