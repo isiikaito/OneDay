@@ -31,9 +31,10 @@ namespace basecross{
 		int m_MaxKeyCount;//!鍵の所持数の最大
 		int m_Ded;//!敵の死亡
 		int m_PlayerPositionOnSecondMax;//!プレイヤーの位置の配列の最大の長さ
+		int m_PlayerHp;//!プレイヤーの体力
 		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 		float m_PlayerPositionTime;//!プレイヤーの位置を取得するまでの時間
-
+		
 	
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
 
@@ -62,6 +63,7 @@ namespace basecross{
 		Vec3 GetMoveVector() const;//!コントローラから方向ベクトルを得る
 		void MovePlayer();         //!プレイヤーの移動
 		void Villagerkiller();//!村人を殺す処理
+		void PlayerLife();
 		void CreateKeySprite();//!鍵のスプライトの作成
 		void AppearanceChange();//!プレイヤーの見た目の変化
 		void OnPushB();//!コントローラーのボタン判定B
@@ -88,6 +90,17 @@ namespace basecross{
 		void SetPlayerPositionOnSecond(const std::vector<Vec3>PlayerPositionOnSecond)
 		{
 			m_PlayerPositionOnSecond = PlayerPositionOnSecond;
+		}
+
+		//!プレイヤーのHP取得
+		int GetPlayerHp()
+		{
+			return m_PlayerHp;
+		}
+		//!プレイヤーのHPの設定
+		void SetPlayerHp(int PlayerHp)
+		{
+			m_PlayerHp = PlayerHp;
 		}
 
 

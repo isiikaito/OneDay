@@ -322,7 +322,34 @@ namespace basecross {
 	}
 
 	
+	void GameStage::CreateHeartSprite()
+	{
+		AddGameObject<PlayerHeartSpriteLeft>
+			(
+			L"PlayerHp_TX",
+			true,
+			Vec2(70.0f, 70.0f),//元は(320.0f,80,0f)
+			Vec2(550.0f, 360.0f)//元は(0.0f, 0.0f, 0.0f)
+			);
 
+		AddGameObject<PlayerHeartSpriteMiddle>
+			(
+				L"PlayerHp_TX",
+				true,
+				Vec2(70.0f, 70.0f),//元は(320.0f,80,0f)
+				Vec2(460.0f, 360.0f)//元は(0.0f, 0.0f, 0.0f)
+				);
+
+		AddGameObject<PlayerHeartSpriteRight>
+			(
+				L"PlayerHp_TX",
+				true,
+				Vec2(70.0f, 70.0f),//元は(320.0f,80,0f)
+				Vec2(370.0f, 360.0f)//元は(0.0f, 0.0f, 0.0f)
+				);
+
+		
+	}
 
 	//!ハンターの作成
 	void GameStage::CerateHunter()
@@ -392,6 +419,8 @@ namespace basecross {
 			CreateStageGate(); //!ステージの門の作成
 			CreatePlayer();//!プレーヤーの作成
 			CerateHunter();//!ハンターの作成
+			CreatePlayBGM();//!BGMの作成
+			CreateHeartSprite();//!プレイヤーのHPの作成
 			
 		}
 		catch (...) {
@@ -419,6 +448,19 @@ namespace basecross {
 	void GameStage::OnPushA() {
 		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 	}
-	
+
+	////BGMの再生
+	void GameStage::CreatePlayBGM()
+	{
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, 0.5f);
+	}
+
+	/// BGMのストップ
+	void GameStage::OnDestroy()
+	{
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		XAPtr->Stop(m_BGM);
+	}
 }
 //end basecross

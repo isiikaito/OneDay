@@ -31,9 +31,11 @@ namespace basecross{
 		strTexture = dataDir + L"Texture\\"+ L"GameClear.png";
 		App::GetApp()->RegisterTexture(L"GAMECLEAR_TX", strTexture);
 		//!キースプライト
-		strTexture = dataDir + L"Texture\\" + L"Key.png";
+		strTexture = dataDir + L"Texture\\" + L"key.png";
 		App::GetApp()->RegisterTexture(L"KEY_TX", strTexture);
-		
+		//!プレイヤーのHPスプライト
+		strTexture = dataDir + L"Texture\\" + L"HP.png";
+		App::GetApp()->RegisterTexture(L"PlayerHp_TX", strTexture);
 
 		//!床のモデル読み込み
 		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir,L"MayaModel\\" L"StageFloor.bmf");
@@ -76,6 +78,15 @@ namespace basecross{
 		////!ボーンモデルのタンジェント付きリソース
 		//multiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
 		//App::GetApp()->RegisterResource(L"TestPlayerModel_TAN", multiModelMesh);
+		//!ボーンモデルのタンジェント付きリソース
+		/*multiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
+		App::GetApp()->RegisterResource(L"TestPlayerModel_TAN", multiModelMesh);*/
+
+		//!BGM
+		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";
+		App::GetApp()->RegisterWav(L"bgm", strMusic);
+
+
 	}
 	void Scene::OnCreate(){
 		try {

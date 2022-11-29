@@ -26,7 +26,8 @@ namespace basecross {
 		m_Ded(0),
 		m_GetPlayerPositionTime(0.5f),
 		m_PlayerPositionTime(0.0f),
-		m_PlayerPositionOnSecondMax(20)
+		m_PlayerPositionOnSecondMax(20),
+		m_PlayerHp(3)
 
 	{}
 
@@ -171,6 +172,8 @@ namespace basecross {
 		}
 	}
 
+	
+
 	//!村人を倒す処理
 	void Player::Villagerkiller()
 	{
@@ -191,32 +194,41 @@ namespace basecross {
 			//!プレイヤーの範囲に敵が入ったら
 			if (ptrHunter)
 			{
-				auto HunterObb = ptrHunter->GetComponent<CollisionObb>()->GetObb();//!ハンタ-のObbオブジェクトを取得
-				if (HitTest::SPHERE_OBB(playerSp, HunterObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
+				auto HunterCapsrul = ptrHunter->GetComponent<CollisionCapsule>()->GetCapsule();//!ハンタ-のObbオブジェクトを取得
+				if (HitTest::SPHERE_CAPSULE(playerSp, HunterCapsrul, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 				{
+					
 					auto HunterDedDecision = ptrHunter->GetDedDecision();//!ハンターの生死の判定の取得
 					HunterDedDecision = true;//!ハンターの生死を死にする
 					ptrHunter->SetDedDecision(HunterDedDecision);//!ハンターの生死の設定
 					auto HunterSpeed = ptrHunter->GetSpeed();//!ハンターのスピードを取得
-					HunterSpeed = m_Ded;//!ハンターのスピードを０にする
+					if (!HunterSpeed == m_Ded)
+					{
+                    HunterSpeed = m_Ded;//!ハンターのスピードを０にする
 					ptrHunter->SetSpeed(HunterSpeed);//!ハンターのスピードを設定
 					auto HunterDraw = ptrHunter->GetComponent<PNTStaticModelDraw>();//!ハンターの描画コンポーネントを取得
 					HunterDraw->SetDiffuse(Col4(1, 0, 0, 1));//!ハンターの色の設定
+					m_PlayerHp--;
+					}
+					
 
 				}
 			}
 		}
 	}
+
 	//!鍵のスプライトの作成
 	void Player::CreateKeySprite()
 	{
 		GetStage()->AddGameObject<KeySprite>(
 			L"KEY_TX",//!テクスチャ
 			true,
-			Vec2(320.0f, 80.0f),//大きさ
-			Vec2(300.0f + (100.0f * (m_KeyCount - 1)), 300.0f)//座標
+			Vec2(150.0f, 150.0f),//大きさ
+			Vec2(300.0f + (100.0f * (m_KeyCount - 1)), -320.0f)//座標
 			);
 	}
+
+	
 
 	//更新
 	void Player::OnUpdate() {

@@ -30,7 +30,9 @@
 #include "StateMchine.h"
 #include "EnemyState.h"
 #include "BaseEnemy.h"
-
+#include"PlayerHeartSpriteLeft.h"
+#include"PlayerHeartSpriteMiddle.h"
+#include"PlayerHeartSpriteRight.h"
 
 
 

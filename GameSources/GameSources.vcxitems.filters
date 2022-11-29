@@ -4,9 +4,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp">
       <Filter>Object\Player</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp">
-      <Filter>Object\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageBuilding.cpp">
       <Filter>Object\Building</Filter>
     </ClCompile>
@@ -67,13 +64,26 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp">
       <Filter>Other\ProjectShader</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHurteSpriteLeft.cpp">
+      <Filter>Sprite\PlayerHeart\HeartLeft</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteMiddle.cpp">
+      <Filter>Sprite\PlayerHeart\HeartMiddle</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteRight.cpp">
+      <Filter>Sprite\PlayerHeart\HeartRight</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp">
+      <Filter>Object\Enemy\BaseEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp">
+      <Filter>Object\Enemy\Hunter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp">
+      <Filter>State\EnemyStage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
-      <Filter>Object\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
       <Filter>Object\Building</Filter>
     </ClInclude>
@@ -140,9 +150,27 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StateMchine.h">
       <Filter>State</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteMiddle.h">
+      <Filter>Sprite\PlayerHeart\HeartMiddle</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteRight.h">
+      <Filter>Sprite\PlayerHeart\HeartRight</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteLeft.h">
+      <Filter>Sprite\PlayerHeart\HeartLeft</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h">
+      <Filter>Object\Enemy\BaseEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
+      <Filter>Object\Enemy\Hunter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h">
+      <Filter>State\EnemyStage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -222,6 +250,27 @@
     </Filter>
     <Filter Include="State">
       <UniqueIdentifier>{313835df-8628-4c9c-8baa-d41fca0c0a33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\PlayerHeart">
+      <UniqueIdentifier>{de6815b6-15c2-4ccf-b600-9ea15467d71a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\PlayerHeart\HeartLeft">
+      <UniqueIdentifier>{1f34d589-843f-4cab-beef-cba64922807c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\PlayerHeart\HeartMiddle">
+      <UniqueIdentifier>{c5c8bf92-09d9-49dd-a58d-7bee42811af4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\PlayerHeart\HeartRight">
+      <UniqueIdentifier>{109a9606-0289-414c-aaa3-83e5510714f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\BaseEnemy">
+      <UniqueIdentifier>{2b65b0bd-0e1f-4f2a-b231-2722b20ad084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Hunter">
+      <UniqueIdentifier>{5ee0eb83-b99e-403a-89af-9742ca17c9a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\EnemyStage">
+      <UniqueIdentifier>{9d24c86d-2c4b-4681-8f5d-bfec65d359fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

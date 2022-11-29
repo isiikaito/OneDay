@@ -1,0 +1,9 @@
+diff a/GameSources/GameStage.cpp b/GameSources/GameStage.cpp	(rejected hunks)
+@@ -419,6 +419,7 @@
+ 			CreateStageGate(); //!�X�e�[�W�̖�̍쐬
+ 			CreatePlayer();//!�v���[���[�̍쐬
+ 			CerateHunter();//!�n���^�[�̍쐬
++<<<<<<< Updated upstream
+ 			CreatePlayBGM();//!BGM�̍쐬
+ =======
+ 			CreateHeartSprite();//!�v���C���[��HP�̍쐬

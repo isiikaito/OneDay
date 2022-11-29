@@ -53,7 +53,7 @@ namespace basecross
      
 	
 	   //!ハンターのスピードの取得
-		int GetSpeed()const
+		int GetSpeed()
 		{
 			return m_Speed;
 	    }

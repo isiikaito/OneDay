@@ -27,6 +27,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)KeySprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Player.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteLeft.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteMiddle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteRight.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectShader.h" />
@@ -54,6 +57,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Key.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)KeySprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteMiddle.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteRight.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHurteSpriteLeft.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
