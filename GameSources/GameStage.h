@@ -41,6 +41,7 @@ namespace basecross {
 		void CreateTimerSprite();//!タイマースプライト作成
 		shared_ptr<SoundItem>m_BGM;
 		void CreatePlayBGM();//!BGM作成
+		void CreateHeartSprite();
 
 		//初期化
 		virtual void OnCreate()override;

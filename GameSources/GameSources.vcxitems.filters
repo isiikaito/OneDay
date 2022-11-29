@@ -69,6 +69,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHurteSpriteLeft.cpp">
+      <Filter>Sprite\PlayerHeart\HeartLeft</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteMiddle.cpp">
+      <Filter>Sprite\PlayerHeart\HeartMiddle</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteRight.cpp">
+      <Filter>Sprite\PlayerHeart\HeartRight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
@@ -143,6 +152,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteMiddle.h">
+      <Filter>Sprite\PlayerHeart\HeartMiddle</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteRight.h">
+      <Filter>Sprite\PlayerHeart\HeartRight</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteLeft.h">
+      <Filter>Sprite\PlayerHeart\HeartLeft</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -222,6 +240,18 @@
     </Filter>
     <Filter Include="State">
       <UniqueIdentifier>{313835df-8628-4c9c-8baa-d41fca0c0a33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\PlayerHeart">
+      <UniqueIdentifier>{de6815b6-15c2-4ccf-b600-9ea15467d71a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\PlayerHeart\HeartLeft">
+      <UniqueIdentifier>{1f34d589-843f-4cab-beef-cba64922807c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\PlayerHeart\HeartMiddle">
+      <UniqueIdentifier>{c5c8bf92-09d9-49dd-a58d-7bee42811af4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\PlayerHeart\HeartRight">
+      <UniqueIdentifier>{109a9606-0289-414c-aaa3-83e5510714f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

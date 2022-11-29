@@ -31,9 +31,11 @@ namespace basecross{
 		strTexture = dataDir + L"Texture\\"+ L"GameClear.png";
 		App::GetApp()->RegisterTexture(L"GAMECLEAR_TX", strTexture);
 		//!キースプライト
-		strTexture = dataDir + L"Texture\\" + L"Key.png";
+		strTexture = dataDir + L"Texture\\" + L"key.png";
 		App::GetApp()->RegisterTexture(L"KEY_TX", strTexture);
-		
+		//!プレイヤーのHPスプライト
+		strTexture = dataDir + L"Texture\\" + L"HP.png";
+		App::GetApp()->RegisterTexture(L"PlayerHp_TX", strTexture);
 
 		//!床のモデル読み込み
 		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir,L"MayaModel\\" L"StageFloor.bmf");
