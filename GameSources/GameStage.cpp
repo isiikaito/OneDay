@@ -321,7 +321,17 @@ namespace basecross {
 		return PatorlPoint;
 	}
 
-	
+	void GameStage::CreateSuprisedSprite()
+	{
+		AddGameObject<SurprisedSprite>
+			(
+				L"Surprised_TX",
+				true,
+				Vec2(50.0f, 50.0f),
+				Vec2(0.0f, 80.0f)
+				);
+	}
+
 	void GameStage::CreateHeartSprite()
 	{
 		AddGameObject<PlayerHeartSpriteLeft>
@@ -421,6 +431,7 @@ namespace basecross {
 			CerateHunter();//!ハンターの作成
 			CreatePlayBGM();//!BGMの作成
 			CreateHeartSprite();//!プレイヤーのHPの作成
+			CreateSuprisedSprite();//!ビックリマークの作成
 			
 		}
 		catch (...) {

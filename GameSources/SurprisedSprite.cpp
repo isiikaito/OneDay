@@ -1,7 +1,7 @@
 /*!
-@file PlayerHeartSpriteMiddle.cpp
+@file SurprisedSprite.cpp
 @author Kaito Isii
-@brief プレイヤーのハートの表示
+@brief ビックリマークの表示
 */
 
 
@@ -10,22 +10,23 @@
 
 namespace basecross
 {
-	 //--------------------------------------------------------------------------------------
-	 ///	真ん中のハートスプライト
-	 //--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	///	ビックリマークスプライト
+	//--------------------------------------------------------------------------------------
 
-	PlayerHeartSpriteMiddle::PlayerHeartSpriteMiddle(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
+	SurprisedSprite::SurprisedSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
 		const Vec2& StartScale, const Vec2& StartPos) :
 		GameObject(StagePtr),
 		m_TextureKey(TextureKey),
 		m_Trace(Trace),
 		m_StartScale(StartScale),
 		m_StartPos(StartPos),
-		m_MiddleLife(1)
+		m_SurprisedTime(0.0f)
+
 	{}
 
-	PlayerHeartSpriteMiddle::~PlayerHeartSpriteMiddle() {}
-	void PlayerHeartSpriteMiddle::OnCreate()
+	SurprisedSprite::~SurprisedSprite() {}
+	void SurprisedSprite::OnCreate()
 	{
 		float HelfSize = 0.5f;
 
@@ -49,17 +50,37 @@ namespace basecross
 		auto PtrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
 		PtrDraw->SetSamplerState(SamplerState::LinearWrap);
 		PtrDraw->SetTextureResource(m_TextureKey);
-		SetDrawActive(true);
+		SetDrawActive(false);
+
+
 	}
 
-	void PlayerHeartSpriteMiddle::OnUpdate()
+	void SurprisedSprite::OnUpdate()
 	{
-		auto GetPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		auto PlayrHp = GetPlayer->GetPlayerHp();
-		if (PlayrHp == m_MiddleLife)
+		auto GetPlayer=GetStage()->GetSharedGameObject<Player>(L"Player");
+		auto PlayerFound=GetPlayer->GetPlayerFound();
+		//!プレイヤーが見つかったら
+		if (PlayerFound == true)
 		{
+			float Time = App::GetApp()->GetElapsedTime();//!時間の取得
+			m_SurprisedTime += Time;
+			
 			auto PtrDraw = GetComponent<PCTSpriteDraw>();
-			SetDrawActive(false);
+				SetDrawActive(true);
+			if (m_SurprisedTime >= 2)
+			{
+
+				PlayerFound = false;
+				GetPlayer->SetPlayerFound(PlayerFound);
+			}
+			
 		}
+		if (PlayerFound == false)
+		{
+			m_SurprisedTime = 0.0f;
+			SetDrawActive(false);
+			
+		}
+		
 	}
 }

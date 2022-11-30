@@ -11,7 +11,7 @@
 namespace basecross 
 {
 	    //--------------------------------------------------------------------------------------
-		///	キースプライト
+		///	左側のハートスプライト
 		//--------------------------------------------------------------------------------------
 
 	PlayerHeartSpriteLeft::PlayerHeartSpriteLeft(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,

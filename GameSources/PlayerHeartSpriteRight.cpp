@@ -10,6 +10,9 @@
 
 namespace basecross
 {
+	 //--------------------------------------------------------------------------------------
+	 ///	右側のハートスプライト
+	 //--------------------------------------------------------------------------------------
 
 	PlayerHeartSpriteRight::PlayerHeartSpriteRight(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
 		const Vec2& StartScale, const Vec2& StartPos) :

@@ -82,6 +82,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp">
       <Filter>State\EnemyStage</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SurprisedSprite.cpp">
+      <Filter>Sprite\Surprised</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -170,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h">
       <Filter>State\EnemyStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SurprisedSprite.h">
+      <Filter>Sprite\Surprised</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +277,9 @@
     </Filter>
     <Filter Include="State\EnemyStage">
       <UniqueIdentifier>{9d24c86d-2c4b-4681-8f5d-bfec65d359fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\Surprised">
+      <UniqueIdentifier>{1b6e1205-e679-4a00-9bdc-5833cea465d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

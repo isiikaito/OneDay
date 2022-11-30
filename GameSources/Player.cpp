@@ -27,7 +27,8 @@ namespace basecross {
 		m_GetPlayerPositionTime(0.5f),
 		m_PlayerPositionTime(0.0f),
 		m_PlayerPositionOnSecondMax(20),
-		m_PlayerHp(3)
+		m_PlayerHp(3),
+		m_IsPlayerFound(false)
 
 	{}
 

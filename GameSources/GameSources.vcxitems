@@ -39,6 +39,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageGate.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageWall.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StateMchine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SurprisedSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Timer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Title.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
@@ -67,6 +68,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageFloor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageGate.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageWall.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SurprisedSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Timer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Title.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
