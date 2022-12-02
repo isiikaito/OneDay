@@ -31,11 +31,12 @@ namespace basecross
 			return Qt;
 		}
 		float m_LoseSeghtOfTime;
+		const float m_spritePositionY;
 
 	public:
 		//!ç\ízÇ∆îjä¸
 		LoseSightOf(const std::shared_ptr<Stage>& stage, const std::shared_ptr<GameObject>& parent)
-		: GameObject(stage), parent(parent), m_LoseSeghtOfTime(0.0f) {}
+		: GameObject(stage), parent(parent), m_LoseSeghtOfTime(0.0f), m_spritePositionY(8.0f) {}
 		virtual ~LoseSightOf(){}
 		//!å©é∏Ç¡ÇΩÇÁ
 		void LoseSight();

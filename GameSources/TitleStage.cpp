@@ -28,7 +28,7 @@ namespace basecross {
 	//スプライトの作成
 	void TitleStage::CreateTitleSprite() {
 		AddGameObject<TitleSprite>(L"MESSAGE_TX", false,
-			Vec2(256.0f, 64.0f), Vec2(0.0f, 0.0f));
+			Vec2(1300.0f, 800.0f), Vec2(0.0f, 0.0f));
 
 	}
 

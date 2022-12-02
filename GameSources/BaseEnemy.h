@@ -30,7 +30,7 @@ namespace basecross
 		float m_MaxSpeed;//!最大の速度
 		int m_Enemypatorolindex;//!敵の巡回ポイントの数
 		
-bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
+        bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
 	protected:
 		
 

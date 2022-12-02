@@ -26,7 +26,7 @@ namespace basecross {
 		m_Ded(0),
 		m_GetPlayerPositionTime(0.8f),
 		m_PlayerPositionTime(0.0f),
-		m_PlayerPositionOnSecondMax(50),
+		m_PlayerPositionOnSecondMax(30),
 		m_PlayerHp(3),
 		m_IsPlayerFound(false)
 
@@ -173,7 +173,6 @@ namespace basecross {
 		}
 	}
 
-	
 
 	//!村人を倒す処理
 	void Player::Villagerkiller()
@@ -233,7 +232,10 @@ namespace basecross {
 
 	//更新
 	void Player::OnUpdate() {
-
+		//!敵の親クラスを取得できる
+		
+		
+		
 		auto PlayerTrans = GetComponent<Transform>();
 		auto PlayerPosition = PlayerTrans->GetPosition();
 		auto Time = App::GetApp()->GetElapsedTime();

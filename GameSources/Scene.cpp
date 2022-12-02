@@ -22,7 +22,7 @@ namespace basecross{
 		wstring strTexture = dataDir +L"Texture\\"+ L"number.png";
 		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
 		//!タイトル画面
-		strTexture = dataDir + L"Texture\\"+L"GameStart.jpg";
+		strTexture = dataDir + L"Texture\\"+L"Title.jpg";
 		App::GetApp()->RegisterTexture(L"MESSAGE_TX", strTexture);
 		//!ゲームオーバー画面
 		strTexture = dataDir + L"Texture\\" + L"GameOver.jpg";
@@ -73,7 +73,7 @@ namespace basecross{
 		App::GetApp()->RegisterResource(L"GROUND_MESH", staticModelMesh7);
 
 		//!プレイヤーのモデルの読み込み
-		auto staticModelMesh8 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
+		auto staticModelMesh8 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"MainCharacter.bmf");
 		App::GetApp()->RegisterResource(L"PLAYER_TEST", staticModelMesh8);
 
 		//!柵のモデルの読み込み

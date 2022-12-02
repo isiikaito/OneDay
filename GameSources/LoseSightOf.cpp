@@ -46,15 +46,16 @@ namespace basecross
 		SetAlphaActive(true);
 		SetDrawActive(false);
 		auto transComp = GetComponent<Transform>();  // トランスフォーム：変換行列(Transform Matrix)
-		transComp->SetParent(parent); // 親オブジェクトを指定する
-		transComp->SetPosition(0.0f, 5.0f, 0.0f);
-		transComp->SetScale(10, 10, 10);
+		//transComp->SetParent(parent); // 親オブジェクトを指定する
+		
+		transComp->SetScale(5, 5, 5);
 		auto EnemyTransform = parent->GetComponent<Transform>();
 		transComp->SetQuaternion(EnemyTransform->GetQuaternion());
 	}
 
 	void LoseSightOf::Billboard()
 	{
+		
 		auto ptrTransform = GetComponent<Transform>();
 		auto PtrCamera = GetStage()->GetView()->GetTargetCamera();
 
@@ -63,6 +64,10 @@ namespace basecross
 		Qt = Billboard(PtrCamera->GetAt() - PtrCamera->GetEye());
 
 		ptrTransform->SetQuaternion(Qt);
+		auto EnemyTransform = parent->GetComponent<Transform>();
+		auto EnemyPosition=EnemyTransform->GetPosition();
+		//!ビルボード処理はオブジェクトの回転まで反映してしまうためポジションを変更する
+		ptrTransform->SetPosition(EnemyPosition.x, m_spritePositionY, EnemyPosition.z);
 
 	}
 
@@ -74,41 +79,39 @@ namespace basecross
 	void LoseSightOf::OnUpdate()
 	{
 		Billboard();
-		//std::dynamic_pointer_cast<BaseEnemy>();
-		//auto group =GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");
-		//auto vecEnemy = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
-		////!ハンター配列オブジェクトの配列分回す
-		//for (auto& v : vecEnemy) {
-		//	auto HunterPtr = v.lock();//!ハンターのグループから1つロックする
-		//	auto loseSightOfTarget = dynamic_pointer_cast<Hunter>(HunterPtr);
+		auto hunter = std::dynamic_pointer_cast<Hunter>(parent);
 
-		//	auto loseSightOfTarget=loseSightOfTarget->GetloseSightOfTarget();
 
-		//	//!プレイヤーが見つかったら
-		//	if (loseSightOfTarget == true)
-		//	{
-		//		float Time = App::GetApp()->GetElapsedTime();//!時間の取得
-		//		m_LoseSeghtOfTime += Time;
 
-		//		auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
-		//		SetDrawActive(true);
-		//		//!2秒たったら
-		//		if (loseSightOfTarget >= 2)
-		//		{
 
-		//			loseSightOfTarget = false;//!発見をやめる
-		//			SetloseSightOfTarget(loseSightOfTarget);
-		//		}
 
-		//	}
-		//}
-		//////!見つけることをやめたら
-		////if (loseSightOfTarget == false)
-		////{
-		////	m_LoseSeghtOfTime = 0.0f;//!驚く時間を0秒にする
-		////	SetDrawActive(false);//!描画をやめる
+		auto loseSightOfTarget = hunter->GetloseSightOfTarget();
 
-		////}
+		//!プレイヤーが見つかったら
+		if (loseSightOfTarget == true)
+		{
+			float Time = App::GetApp()->GetElapsedTime();//!時間の取得
+			m_LoseSeghtOfTime += Time;
+
+			//auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
+			SetDrawActive(true);
+			//!2秒たったら
+			if (m_LoseSeghtOfTime >= 2)
+			{
+				loseSightOfTarget = false;
+				hunter->SetloseSightOfTarget(loseSightOfTarget);
+			}
+
+		}
+		//!巡回に戻る
+		if (loseSightOfTarget == false)
+		{
+			m_LoseSeghtOfTime = 0.0f;//!驚く時間を0秒にする
+			SetDrawActive(false);//!描画をやめる
+
+		}
+
+
 		///*LoseSight();*/
 	}
 }
