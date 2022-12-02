@@ -24,7 +24,8 @@ namespace basecross {
 		m_Scale(Scale),
 		m_Rotation(Rotation),
 		m_Position(Position),
-		m_oneday(0)
+		m_oneday(0),
+		m_Time(1)
 	{
 	}
 

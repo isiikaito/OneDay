@@ -23,7 +23,8 @@ namespace basecross {
 		GameObject(StagePtr),
 		m_Scale(Scale),
 		m_Rotation(Rotation),
-		m_Position(Position)
+		m_Position(Position),
+		m_Time(1)
 	{
 	}
 
@@ -39,10 +40,10 @@ namespace basecross {
 		// モデルとトランスフォームの間の差分行列
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.2f, 0.2f, 0.2f),//!大きさ
+			Vec3(0.09f, 0.09f, 0.09f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(-0.17f, -0.5f, 0.17f)  //!位置
+			Vec3(0.0f, -0.5f, 0.0f)  //!位置
 		);
 
 
@@ -63,7 +64,7 @@ namespace basecross {
 		ptrDraw->SetMeshResource(L"STAGEBUILDING_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		
-		/*Coll->SetDrawActive(true);*/
+		//Coll->SetDrawActive(true);
 		
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 

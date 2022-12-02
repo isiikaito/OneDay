@@ -24,7 +24,8 @@ namespace basecross {
 		m_Scale(Scale),
 		m_Rotation(Rotation),
 		m_Position(Position),
-		m_oneday(0)
+		m_oneday(0),
+		m_Time(1)
 	{
 	}
 	
@@ -85,7 +86,7 @@ namespace basecross {
 		// !’‹‚©‚ç–é‚É‚È‚éˆ—
 		if (m_oneday == static_cast<int>(Oneday::night))
 		{
-			m_Time +=-elapsedTime / 30; //ŠÔ‚ğ•Ï”‚ÉŒ¸‚ç‚·
+			m_Time += -elapsedTime / 30; //ŠÔ‚ğ•Ï”‚©‚çŒ¸‚ç‚·
 			ptrDraw->SetEmissive(Col4(m_Time, m_Time, m_Time, 1.0f)); // !’©‚É‚·‚éˆ—
 			if (m_Time <= 0.0f)
 			{
