@@ -85,6 +85,9 @@ namespace basecross{
 		//!BGM
 		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";
 		App::GetApp()->RegisterWav(L"bgm", strMusic);
+		strMusic = dataDir + L"Sound\\" L"Title.wav";
+		App::GetApp()->RegisterWav(L"TitleBGM", strMusic);
+
 
 
 	}
@@ -97,7 +100,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		}
 		catch (...) {
 			throw;

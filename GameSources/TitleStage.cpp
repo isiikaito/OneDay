@@ -37,12 +37,27 @@ namespace basecross {
 		CreateViewLight();
 		//スプライトの作成
 		CreateTitleSprite();
+		CreatePlayBGM();//!BGMの作成
 	}
 
 	//更新
 	void TitleStage::OnUpdate() {
 		//コントローラチェックして入力があればコマンド呼び出し
 		m_InputHandler.PushHandle(GetThis<TitleStage>());
+	}
+
+	////BGMの再生
+	void TitleStage::CreatePlayBGM()
+	{
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		m_BGM = XAPtr->Start(L"TitleBGM", XAUDIO2_LOOP_INFINITE, 0.5f);
+	}
+
+	/// BGMのストップ
+	void TitleStage::OnDestroy()
+	{
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		XAPtr->Stop(m_BGM);
 	}
 
 	//Aボタン

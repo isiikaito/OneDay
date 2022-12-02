@@ -459,16 +459,15 @@ namespace basecross {
 		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
 		ptrScor->SetScore(m_TotalTime);
 
-		m_InputHandler.PushHandle(GetThis<GameStage>());
 		CreateLightingCol();
 		
 
 	}
 
-	//Aボタン
-	void GameStage::OnPushA() {
-		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
-	}
+	////Aボタン
+	//void GameStage::OnPushA() {
+	//	PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+	//}
 
 	////BGMの再生
 	void GameStage::CreatePlayBGM()

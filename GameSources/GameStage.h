@@ -19,7 +19,7 @@ namespace basecross {
 		CsvFile m_StageCsv;          //!ステージCSVファイル
 		CsvFile m_EnemyCsv;//!敵のトランスフォームcsvファイル
 		CsvFile m_Point;//!巡回ポイントcsvファイル	
-       InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
+       //InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 		float m_TotalTime;//!トータル時間(タイマーの作成)
 		const float m_GameTime = 31.0f;
 
@@ -53,7 +53,7 @@ namespace basecross {
 
 
 		
-		void OnPushA();//!Aボタン
+		//void OnPushA();//!Aボタン
 		
 		
 

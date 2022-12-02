@@ -21,6 +21,10 @@ namespace basecross {
 		void CreateViewLight();
 		//スプライトの作成
 		void CreateTitleSprite();
+
+		shared_ptr<SoundItem>m_BGM;
+		void CreatePlayBGM();//!BGM作成
+
 		//構築と破棄
 		TitleStage() :Stage() {}
 		virtual ~TitleStage() {}
@@ -28,6 +32,8 @@ namespace basecross {
 		virtual void OnCreate()override;
 		//更新
 		virtual void OnUpdate()override;
+
+		virtual void OnDestroy() override;
 
 		//Aボタン
 		void OnPushA();

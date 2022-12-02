@@ -38,14 +38,14 @@ namespace basecross {
 		CreateGameOverSprite();
 	}
 
-	void GameOverStage::OnUpdate() {
+	/*void GameOverStage::OnUpdate() {
 		m_InputHandler.PushHandle(GetThis<GameOverStage>());
-	}
+	}*/
 
-	//Aボタン
+	/*Aボタン
 	void GameOverStage::OnPushA() {
 		PostEvent(0.0f, GetThis<GameOverStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
-	}
+	}*/
 
 }
 //end basecross
