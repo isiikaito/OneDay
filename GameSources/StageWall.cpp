@@ -60,7 +60,7 @@ namespace basecross {
 		//!ƒƒbƒVƒ…‚ÌÝ’è
 		ptrDraw->SetMeshResource(L"STAGE_FENCE");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		Coll->SetDrawActive(true);
+		/*Coll->SetDrawActive(true);*/
 		//!RigidbodyBox‚Ì’Ç‰Á
 		//PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
 		//auto PsPtr = AddComponent<RigidbodyBox>(param);

@@ -24,9 +24,9 @@ namespace basecross {
 		m_KeyCount(0),
 		m_MaxKeyCount(3),
 		m_Ded(0),
-		m_GetPlayerPositionTime(0.5f),
+		m_GetPlayerPositionTime(0.8f),
 		m_PlayerPositionTime(0.0f),
-		m_PlayerPositionOnSecondMax(20),
+		m_PlayerPositionOnSecondMax(50),
 		m_PlayerHp(3),
 		m_IsPlayerFound(false)
 

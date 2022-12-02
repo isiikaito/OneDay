@@ -20,7 +20,8 @@ namespace basecross
 		m_Velocity(0),
 		m_MaxSpeed(20),
 		m_StateChangeSize(20.0f),
-		m_Enemypatorolindex(0)
+		m_Enemypatorolindex(0),
+		m_loseSightOfTarget(false)
 	{
 		m_StateMachine = new kaito::StateMachine<BaseEnemy>(this);
 		m_StateMachine->SetCurrentState(kaito::PatrolState::Instance());

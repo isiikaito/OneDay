@@ -25,7 +25,7 @@ namespace basecross
 		m_playerChange(0),
 		m_Speed(1),
 		m_patrolindex(0),
-	    m_DedDecision(false)
+	    m_dedDecision(false)
 
 
 	{
@@ -91,7 +91,7 @@ namespace basecross
 	{
 	
 
-		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");             //!プレイヤーの取得
+		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		m_playerChange = ptrPlayer->GetPlayerCange();//!プレイヤーの状態の取得
 		ptrPlayer->SetPlayerChange(m_playerChange);//!プレイヤーの取得した状態の設定
 		BaseEnemy::OnUpdate();
@@ -103,7 +103,7 @@ namespace basecross
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		if (ptrPlayer)
 		{
-			if (m_playerChange == static_cast<int>(PlayerModel::wolf)&&m_DedDecision ==false)
+			if (m_playerChange == static_cast<int>(PlayerModel::wolf)&&m_dedDecision ==false)
 			{
               PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 			}

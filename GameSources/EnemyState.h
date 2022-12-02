@@ -16,7 +16,7 @@ namespace basecross
 			SurprisedState(const SurprisedState&) = delete;//!関数を削除する
 			SurprisedState& operator=(const SurprisedState&) = delete;//!operatorの中にある=を削除（コピーされないように）
 			float SeekArriveRange = 30.0f;//!追いかけるステートのステート変更の長さ
-			float BrettGramRange = 15.0f;
+			float BrettGramRange = 5.0f;
 
 		public:
 			static SurprisedState* Instance();
@@ -38,8 +38,8 @@ namespace basecross
 			//!シングルトンパターン
 			SeekState(const SeekState&) = delete;//!関数を削除する
 			SeekState& operator=(const SeekState&) = delete;//!operatorの中にある=を削除（コピーされないように）
-			float SeekArriveRange = 30.0f;//!追いかけるステートのステート変更の長さ
-			float BrettGramRange = 15.0f;
+			float SeekArriveRange = 10.0f;//!追いかけるステートのステート変更の長さ
+			float BrettGramRange = 10.0f;
 
 		public:
 			static SeekState* Instance();

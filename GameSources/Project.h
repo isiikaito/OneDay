@@ -34,6 +34,6 @@
 #include"PlayerHeartSpriteMiddle.h"
 #include"PlayerHeartSpriteRight.h"
 #include"SurprisedSprite.h"
-
+#include"LoseSightOf.h"
 
 

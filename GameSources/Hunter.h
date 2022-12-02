@@ -24,9 +24,7 @@ namespace basecross
 		int m_Speed;//!スピード
 		int m_patrolindex;
 		float m_StateChangeSize;	
-		bool m_DedDecision;//!生死の判定
-		
-		
+		bool m_dedDecision;//!生死の判定
 		
 
 	public:
@@ -67,12 +65,12 @@ namespace basecross
 		//!ハンターの生死の判定の取得
 		bool GetDedDecision()const
 		{
-			return m_DedDecision;
+			return m_dedDecision;
 		}
 		//!ハンターの生死の設定
 		void SetDedDecision(bool DedDecision)
 		{
-			m_DedDecision = DedDecision;
+			m_dedDecision = DedDecision;
 		}
 
 		//!ステートチェンジサイズ

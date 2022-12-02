@@ -58,13 +58,7 @@ namespace basecross
 
 			float f = bsm::length(PlayerPosition - EnemyPosition);//!プレイヤーと敵の距離
 
-			if (f > SeekArriveRange)//!プレイヤーと敵の距離より長くなったら
-			{
-				if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
-				{
-					Enemy->ChangeState(PatrolState::Instance());//!ステートを変更する
-				}
-			}
+			
 			if (f > BrettGramRange)//!プレイヤーと敵の距離より長くなったら
 			{
 				Enemy->ChangeState(BrettGramState::Instance());//!ステートを変更する
@@ -135,6 +129,7 @@ namespace basecross
 		void SeekState::Exit(BaseEnemy* Enemy)
 		{
 			//!首を振る動作をする
+			
 		}
 
 		//!巡回ステート-------------------------------------------------
@@ -145,7 +140,14 @@ namespace basecross
 		}
 
 		void PatrolState::Enter(BaseEnemy* Enemy)
-		{}
+		{
+			//!ハンターの頭上にビックリマークのテクスチャを出す
+			auto loseSightOfTarget=Enemy->GetloseSightOfTarget();
+			loseSightOfTarget = true;
+			Enemy->SetloseSightOfTarget(loseSightOfTarget);
+
+
+		}
 
 
 		void PatrolState::Execute(BaseEnemy* Enemy)
@@ -208,15 +210,15 @@ namespace basecross
 			auto playerChange = Enemy->GetTarget()->GetPlayerCange();
 
 			/*if (playerChange == static_cast<int>(PlayerModel::wolf)) 
-			{*/
-				if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
+			{
+			*/	if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
 				{
 					if (f < PatrolArriveRange)//!敵とプレイヤーの距離が一定距離近づいたら
 					{
 						Enemy->ChangeState(SurprisedState::Instance());//!ステートを変更する
 					}
 				}
-			/*}*/
+			//}
 		}
 
 		void PatrolState::Exit(BaseEnemy* Enemy)
@@ -281,7 +283,7 @@ namespace basecross
 
 				BrettGramindex++;//!次のポイントに移行する
 
-				if (BrettGramindex == 19)//!インデックスが19だからそれを越えた時。
+				if (BrettGramindex == 49)//!インデックスが19だからそれを越えた時。
 				{
 					BrettGramindex = 0;//!配列の一番最初をさす。
 				}
@@ -290,9 +292,13 @@ namespace basecross
 			Enemy->SetForce(Force);//!力を設定
 			float PEdistance = bsm::length(PlayerPosition - EnemyPosition);//!プレイヤーと敵の距離
 
-			if (PEdistance <= BrettGramArriveRange)//!5より近づいたら
+			if (PEdistance <= 10.0f)//!5より近づいたら
 			{
 				Enemy->ChangeState(SeekState::Instance());//!ステートの変更
+			}
+			if (PEdistance > 5)//!プレイヤーと敵の距離より長くなったら
+			{
+				Enemy->ChangeState(PatrolState::Instance());//!ステートを変更する
 			}
 		}
 		void BrettGramState::Exit(BaseEnemy* Enemy)

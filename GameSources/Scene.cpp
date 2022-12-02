@@ -39,6 +39,10 @@ namespace basecross{
 		//!ビックリマークのスプライト
 		strTexture = dataDir + L"Texture\\" + L"Surprised.png";
 		App::GetApp()->RegisterTexture(L"Surprised_TX", strTexture);
+		//!はてなマークのスプライト
+		strTexture = dataDir + L"Texture\\" + L"LoseSightOf.png";
+		App::GetApp()->RegisterTexture(L"LoseSightOf_TX", strTexture);
+
 
 		//!床のモデル読み込み
 		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir,L"MayaModel\\" L"StageFloor.bmf");
@@ -53,7 +57,7 @@ namespace basecross{
 		App::GetApp()->RegisterResource(L"STAGEWALL_MESH", staticModelMesh3);
 	
 		//!建物のモデル読み込み
-		auto staticModelMesh4 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageBuilding.bmf");
+		auto staticModelMesh4 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"House.bmf");
 		App::GetApp()->RegisterResource(L"STAGEBUILDING_MESH", staticModelMesh4);
 
 		//!鍵のモデル読み込み
@@ -77,17 +81,7 @@ namespace basecross{
 		App::GetApp()->RegisterResource(L"STAGE_FENCE", staticModelMesh9);
 
 
-		////!テストプレイヤーモデルの読み込み
-		//auto multiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
-		//App::GetApp()->RegisterResource(L"TestPlayerModel", multiModelMesh);
-
-		////!ボーンモデルのタンジェント付きリソース
-		//multiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
-		//App::GetApp()->RegisterResource(L"TestPlayerModel_TAN", multiModelMesh);
-		//!ボーンモデルのタンジェント付きリソース
-		/*multiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerTest.bmf");
-		App::GetApp()->RegisterResource(L"TestPlayerModel_TAN", multiModelMesh);*/
-
+		
 		//!BGM
 		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";
 		App::GetApp()->RegisterWav(L"bgm", strMusic);

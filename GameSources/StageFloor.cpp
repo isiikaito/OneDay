@@ -61,7 +61,7 @@ namespace basecross {
 		//!ƒƒbƒVƒ…‚Ìİ’è
 		ptrDraw->SetMeshResource(L"GROUND_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		Coll->SetDrawActive(true);
+	/*	Coll->SetDrawActive(true);*/
 		
 		//ptrDraw->SetEmissive(Col4(0.0f, 0.0f, 0.0f, 1.0f)); // !ˆÃ‚­‚·‚éˆ—
 	}

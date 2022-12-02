@@ -44,16 +44,16 @@
       <Filter>Sprite\Title</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp">
-      <Filter>Object\GameStage\ClearStage</Filter>
+      <Filter>Object\Stage\ClearStage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOverStage.cpp">
-      <Filter>Object\GameStage\GameOverStage</Filter>
+      <Filter>Object\Stage\GameOverStage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp">
-      <Filter>Object\GameStage\GameStage</Filter>
+      <Filter>Object\Stage\GameStage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
-      <Filter>Object\GameStage\TitleStage</Filter>
+      <Filter>Object\Stage\TitleStage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp">
       <Filter>Other\Character</Filter>
@@ -85,6 +85,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SurprisedSprite.cpp">
       <Filter>Sprite\Surprised</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -130,16 +131,16 @@
       <Filter>Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h">
-      <Filter>Object\GameStage\ClearStage</Filter>
+      <Filter>Object\Stage\ClearStage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOverStage.h">
-      <Filter>Object\GameStage\GameOverStage</Filter>
+      <Filter>Object\Stage\GameOverStage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h">
-      <Filter>Object\GameStage\GameStage</Filter>
+      <Filter>Object\Stage\GameStage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
-      <Filter>Object\GameStage\TitleStage</Filter>
+      <Filter>Object\Stage\TitleStage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
       <Filter>Other\Character</Filter>
@@ -177,6 +178,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SurprisedSprite.h">
       <Filter>Sprite\Surprised</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoseSightOf.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -230,21 +232,6 @@
     <Filter Include="Object\Camera">
       <UniqueIdentifier>{b927bd88-d5f1-4c2e-9f93-64c629d875b0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\GameStage">
-      <UniqueIdentifier>{7b4bfff3-3ea0-43f8-9c7e-40358b46e3b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\GameStage\ClearStage">
-      <UniqueIdentifier>{2e76b3da-14cb-4522-9d2d-1d6bf51d2bf4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\GameStage\GameOverStage">
-      <UniqueIdentifier>{ec257990-cd04-4f48-aa7e-bf75e1a2f435}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\GameStage\GameStage">
-      <UniqueIdentifier>{a2f75d8b-24a5-4721-a75b-99995e638c63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\GameStage\TitleStage">
-      <UniqueIdentifier>{f5fee2b4-c81c-48db-bb90-f40a249d2d5f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Other\Character">
       <UniqueIdentifier>{af119bd1-aeb1-43b7-9e17-776c20ba66ad}</UniqueIdentifier>
     </Filter>
@@ -280,6 +267,21 @@
     </Filter>
     <Filter Include="Sprite\Surprised">
       <UniqueIdentifier>{1b6e1205-e679-4a00-9bdc-5833cea465d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage">
+      <UniqueIdentifier>{7b4bfff3-3ea0-43f8-9c7e-40358b46e3b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage\ClearStage">
+      <UniqueIdentifier>{2e76b3da-14cb-4522-9d2d-1d6bf51d2bf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage\GameOverStage">
+      <UniqueIdentifier>{ec257990-cd04-4f48-aa7e-bf75e1a2f435}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage\GameStage">
+      <UniqueIdentifier>{a2f75d8b-24a5-4721-a75b-99995e638c63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage\TitleStage">
+      <UniqueIdentifier>{f5fee2b4-c81c-48db-bb90-f40a249d2d5f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -65,19 +65,21 @@ namespace basecross
 			float Time = App::GetApp()->GetElapsedTime();//!ŽžŠÔ‚ÌŽæ“¾
 			m_SurprisedTime += Time;
 			
-			auto PtrDraw = GetComponent<PCTSpriteDraw>();
+			auto PtrDraw = GetComponent<PCTSpriteDraw>();//!•`‰æƒRƒ“ƒ|[ƒlƒ“ƒg
 				SetDrawActive(true);
+				//!2•b‚½‚Á‚½‚ç
 			if (m_SurprisedTime >= 2)
 			{
 
-				PlayerFound = false;
+				PlayerFound = false;//!”­Œ©‚ð‚â‚ß‚é
 				GetPlayer->SetPlayerFound(PlayerFound);
 			}
 			
 		}
+		//!Œ©‚Â‚¯‚é‚±‚Æ‚ð‚â‚ß‚½‚ç
 		if (PlayerFound == false)
 		{
-			m_SurprisedTime = 0.0f;
+			m_SurprisedTime = 0.0f;//!‹Á‚­ŽžŠÔ‚ð0•b‚É‚·‚é
 			SetDrawActive(false);
 			
 		}

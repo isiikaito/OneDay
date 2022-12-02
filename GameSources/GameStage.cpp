@@ -367,14 +367,16 @@ namespace basecross {
 		auto group = CreateSharedObjectGroup(L"Hunter_ObjGroup");//!グループを取得
 
 		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
-
+		auto a=datas.size();
 		for (auto data : datas) {
 
 		
 			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!ハンターの大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
 			
 
-			AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
+			auto HunterPtr=AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
+		
+			AddGameObject<LoseSightOf>(HunterPtr);
 		}
 	}
 
