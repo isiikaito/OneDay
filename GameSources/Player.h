@@ -110,7 +110,7 @@ namespace basecross{
 		}
 
 		//!ƒvƒŒƒCƒ„[‚ªŒ©‚Â‚©‚Á‚½”»’è‚Ìİ’è
-		void SetPlayerFound(int PlayerFound)
+		void SetPlayerFound(bool PlayerFound)
 		{
 			m_IsPlayerFound = PlayerFound;
 		}

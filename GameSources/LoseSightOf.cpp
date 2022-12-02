@@ -74,32 +74,41 @@ namespace basecross
 	void LoseSightOf::OnUpdate()
 	{
 		Billboard();
-		auto loseSightOfTarget = GetloseSightOfTarget();
+		//std::dynamic_pointer_cast<BaseEnemy>();
+		//auto group =GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");
+		//auto vecEnemy = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
+		////!ハンター配列オブジェクトの配列分回す
+		//for (auto& v : vecEnemy) {
+		//	auto HunterPtr = v.lock();//!ハンターのグループから1つロックする
+		//	auto loseSightOfTarget = dynamic_pointer_cast<Hunter>(HunterPtr);
 
-		//!プレイヤーが見つかったら
-		if (m_loseSightOfTarget == true)
-		{
-			float Time = App::GetApp()->GetElapsedTime();//!時間の取得
-			m_LoseSeghtOfTime += Time;
+		//	auto loseSightOfTarget=loseSightOfTarget->GetloseSightOfTarget();
 
-			auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
-			SetDrawActive(true);
-			//!2秒たったら
-			if (m_LoseSeghtOfTime >= 2)
-			{
+		//	//!プレイヤーが見つかったら
+		//	if (loseSightOfTarget == true)
+		//	{
+		//		float Time = App::GetApp()->GetElapsedTime();//!時間の取得
+		//		m_LoseSeghtOfTime += Time;
 
-				m_loseSightOfTarget = false;//!発見をやめる
-				SetloseSightOfTarget(m_loseSightOfTarget);
-			}
+		//		auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
+		//		SetDrawActive(true);
+		//		//!2秒たったら
+		//		if (loseSightOfTarget >= 2)
+		//		{
 
-		}
-		////!見つけることをやめたら
-		//if (loseSightOfTarget == false)
-		//{
-		//	m_LoseSeghtOfTime = 0.0f;//!驚く時間を0秒にする
-		//	SetDrawActive(false);//!描画をやめる
+		//			loseSightOfTarget = false;//!発見をやめる
+		//			SetloseSightOfTarget(loseSightOfTarget);
+		//		}
 
+		//	}
 		//}
-		/*LoseSight();*/
+		//////!見つけることをやめたら
+		////if (loseSightOfTarget == false)
+		////{
+		////	m_LoseSeghtOfTime = 0.0f;//!驚く時間を0秒にする
+		////	SetDrawActive(false);//!描画をやめる
+
+		////}
+		///*LoseSight();*/
 	}
 }

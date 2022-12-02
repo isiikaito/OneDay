@@ -23,7 +23,7 @@ namespace basecross
 		m_patrolPoints(patrolPoints),
 		m_StateChangeSize(30.0f),
 		m_playerChange(0),
-		m_Speed(1),
+		m_Speed(20),
 		m_patrolindex(0),
 	    m_dedDecision(false)
 
@@ -90,6 +90,9 @@ namespace basecross
 	void Hunter::OnUpdate()
 	{
 
+		auto MaxSpeed = GetMaxSpeed();
+		MaxSpeed = m_Speed;
+		SetMaxSpeed(MaxSpeed);
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		m_playerChange = ptrPlayer->GetPlayerCange();//!プレイヤーの状態の取得

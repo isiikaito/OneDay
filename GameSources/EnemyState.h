@@ -38,7 +38,7 @@ namespace basecross
 			//!シングルトンパターン
 			SeekState(const SeekState&) = delete;//!関数を削除する
 			SeekState& operator=(const SeekState&) = delete;//!operatorの中にある=を削除（コピーされないように）
-			float SeekArriveRange = 10.0f;//!追いかけるステートのステート変更の長さ
+			float SeekArriveRange = 60.0f;//!追いかけるステートのステート変更の長さ
 			float BrettGramRange = 10.0f;
 
 		public:
@@ -93,6 +93,29 @@ namespace basecross
 			virtual void Execute(BaseEnemy* Enemy) override;
 			virtual void Exit(BaseEnemy* Enemy)override;
 		};
+
+		//!殺されたときのステート-------------------------------------------
+		class DedState :public State<BaseEnemy>
+		{
+
+		private:
+			DedState() {}
+
+			//!シングルトンパターン
+			DedState(const DedState&) = delete;//!関数を削除する
+			DedState& operator=(const DedState&) = delete;//!operatorの中にある=を削除（コピーされないように）
+		
+
+		public:
+			static DedState* Instance();
+
+			virtual void Enter(BaseEnemy* Enemy)override;
+			virtual void Execute(BaseEnemy* Enemy)override;
+			virtual void Exit(BaseEnemy* Enemy)override;
+
+		};
+		//!-------------------------------------------------------------
+
 
 	}
 }
