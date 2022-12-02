@@ -29,9 +29,11 @@ namespace basecross
 		float m_StateChangeSize;//!ステートの変更
 		float m_MaxSpeed;//!最大の速度
 		int m_Enemypatorolindex;//!敵の巡回ポイントの数
-	
+		
 
 	protected:
+		bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
+
 		//!構造と破棄
 		BaseEnemy(const shared_ptr<Stage>& StagePtr);
 
@@ -117,7 +119,18 @@ namespace basecross
 		{
 			m_Enemypatorolindex = patrolindex;
 		}
+
+		//!敵がプレイヤーを見失ったとき取得
+		bool GetloseSightOfTarget()const
+		{
+			return m_loseSightOfTarget;
+		}
 		
+		//!敵がプレイヤーを見失ったときの設定
+		void SetloseSightOfTarget(const bool& loseSightOfTarget)
+		{
+			m_loseSightOfTarget = loseSightOfTarget;
+		}
 		//!適応力
 		void ApplyForce();
 

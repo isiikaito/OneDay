@@ -5,6 +5,29 @@ namespace basecross
 {
 	namespace kaito
 	{
+
+		//!プレイヤーを発見したときの始めの追いかける処理-------------
+		class SurprisedState :public State<BaseEnemy>
+		{
+		private:
+			SurprisedState() {}
+
+			//!シングルトンパターン
+			SurprisedState(const SurprisedState&) = delete;//!関数を削除する
+			SurprisedState& operator=(const SurprisedState&) = delete;//!operatorの中にある=を削除（コピーされないように）
+			float SeekArriveRange = 30.0f;//!追いかけるステートのステート変更の長さ
+			float BrettGramRange = 5.0f;
+
+		public:
+			static SurprisedState* Instance();
+
+			virtual void Enter(BaseEnemy* Enemy)override;
+			virtual void Execute(BaseEnemy* Enemy)override;
+			virtual void Exit(BaseEnemy* Enemy)override;
+
+		};
+		//!-------------------------------------------------------------
+		
 		//!追いかけるステート-------------------------------------------
 		class SeekState :public State<BaseEnemy>
 		{
@@ -15,7 +38,8 @@ namespace basecross
 			//!シングルトンパターン
 			SeekState(const SeekState&) = delete;//!関数を削除する
 			SeekState& operator=(const SeekState&) = delete;//!operatorの中にある=を削除（コピーされないように）
-			float SeekArriveRange = 30.0f;//!追いかけるステートのステート変更の長さ
+			float SeekArriveRange = 10.0f;//!追いかけるステートのステート変更の長さ
+			float BrettGramRange = 10.0f;
 
 		public:
 			static SeekState* Instance();
@@ -56,7 +80,7 @@ namespace basecross
 			BrettGramState& operator=(const BrettGramState&) = delete;
 
 			
-			const float BrettGramArriveRange = 5.0f;//!ポイントまでの距離
+			const float BrettGramArriveRange = 10.0f;//!ポイントまでの距離
 			int BrettGramindex = 0;//!ブレットクラムの配列の要素数
 			std::vector<Vec3>m_BrettGramPoint;//!ブレットクラムの配列
 			float Neardistance = FLT_MAX;//!一番近い距離

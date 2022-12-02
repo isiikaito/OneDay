@@ -63,7 +63,7 @@ namespace basecross {
 		ptrDraw->SetMeshResource(L"STAGEBUILDING_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		
-		Coll->SetDrawActive(true);
+		/*Coll->SetDrawActive(true);*/
 		
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 

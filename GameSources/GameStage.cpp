@@ -321,8 +321,45 @@ namespace basecross {
 		return PatorlPoint;
 	}
 
-	
+	void GameStage::CreateSuprisedSprite()
+	{
+		AddGameObject<SurprisedSprite>
+			(
+				L"Surprised_TX",
+				true,
+				Vec2(50.0f, 50.0f),
+				Vec2(0.0f, 80.0f)
+				);
+	}
 
+	void GameStage::CreateHeartSprite()
+	{
+		AddGameObject<PlayerHeartSpriteLeft>
+			(
+			L"PlayerHp_TX",
+			true,
+			Vec2(70.0f, 70.0f),//元は(320.0f,80,0f)
+			Vec2(550.0f, 360.0f)//元は(0.0f, 0.0f, 0.0f)
+			);
+
+		AddGameObject<PlayerHeartSpriteMiddle>
+			(
+				L"PlayerHp_TX",
+				true,
+				Vec2(70.0f, 70.0f),//元は(320.0f,80,0f)
+				Vec2(460.0f, 360.0f)//元は(0.0f, 0.0f, 0.0f)
+				);
+
+		AddGameObject<PlayerHeartSpriteRight>
+			(
+				L"PlayerHp_TX",
+				true,
+				Vec2(70.0f, 70.0f),//元は(320.0f,80,0f)
+				Vec2(370.0f, 360.0f)//元は(0.0f, 0.0f, 0.0f)
+				);
+
+		
+	}
 
 	//!ハンターの作成
 	void GameStage::CerateHunter()
@@ -330,14 +367,16 @@ namespace basecross {
 		auto group = CreateSharedObjectGroup(L"Hunter_ObjGroup");//!グループを取得
 
 		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
-
+		auto a=datas.size();
 		for (auto data : datas) {
 
 		
 			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!ハンターの大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
 			
 
-			AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
+			auto HunterPtr=AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
+		
+			AddGameObject<LoseSightOf>(HunterPtr);
 		}
 	}
 
@@ -393,6 +432,8 @@ namespace basecross {
 			CreatePlayer();//!プレーヤーの作成
 			CerateHunter();//!ハンターの作成
 			CreatePlayBGM();//!BGMの作成
+			CreateHeartSprite();//!プレイヤーのHPの作成
+			CreateSuprisedSprite();//!ビックリマークの作成
 			
 		}
 		catch (...) {

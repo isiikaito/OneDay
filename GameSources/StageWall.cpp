@@ -23,7 +23,8 @@ namespace basecross {
 		GameObject(StagePtr),
 		m_Scale(Scale),
 		m_Rotation(Rotation),
-		m_Position(Position)
+		m_Position(Position),
+		m_oneday(0)
 	{
 	}
 
@@ -38,10 +39,10 @@ namespace basecross {
 		// モデルとトランスフォームの間の差分行列
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.8f, 0.045f, 0.0177f),//!大きさ
+			Vec3(0.8f, 0.14f, 0.045f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(0.0f, -0.35f, -0.005f)  //!位置
+			Vec3(-0.35f, -0.7f, 0.05f)  //!位置
 		);
 		
 		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
@@ -53,19 +54,19 @@ namespace basecross {
 
 			
 		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"STAGEWALL_MESH");
+		ptrShadow->SetMeshResource(L"STAGE_FENCE");
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 
 		//!メッシュの設定
-		ptrDraw->SetMeshResource(L"STAGEWALL_MESH");
+		ptrDraw->SetMeshResource(L"STAGE_FENCE");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		Coll->SetDrawActive(true);
+		/*Coll->SetDrawActive(true);*/
 		//!RigidbodyBoxの追加
 		//PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
 		//auto PsPtr = AddComponent<RigidbodyBox>(param);
 		
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
-		ptrDraw->SetEmissive(Col4(0.0f, 0.0f, 0.0f, 1.0f)); // !暗くする処理
+		//ptrDraw->SetEmissive(Col4(0.0f, 0.0f, 0.0f, 1.0f)); // !暗くする処理
 
 	}
 

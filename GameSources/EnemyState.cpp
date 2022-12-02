@@ -6,6 +6,70 @@ namespace basecross
 {
 	namespace kaito
 	{
+
+
+		//!プレイヤーを発見したときの始めの追いかける処理-------------
+		
+		
+	    //!インスタンスの生成(実体の作成)
+		SurprisedState* SurprisedState::Instance()
+		{
+			static SurprisedState instance;
+			return &instance;
+		}
+
+
+		void SurprisedState::Enter(BaseEnemy* Enemy)
+		{
+			//!ハンターの頭上にビックリマークのテクスチャを出す
+			auto Player = Enemy->GetTarget();
+			auto PlayerFound = Player->GetPlayerFound();
+			PlayerFound = true;
+			Player->SetPlayerFound(PlayerFound);
+
+
+		}
+
+		void SurprisedState::Execute(BaseEnemy* Enemy)
+		{
+
+			//!追いかける処理を書く
+			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得
+			auto EnemyPosition = ptrEnemyTrans->GetPosition();//!敵のポジションの取得
+			Vec3 EnemyVelocity = Enemy->GetVelocity();//!敵の速度の取得
+			Vec3 Force = Enemy->GetForce();//!敵の力の取得
+
+			auto ptrPlayerTrans = Enemy->GetTarget()->GetComponent<Transform>();//!ターゲット(プレイヤー)のトランスフォームの取得
+			auto PlayerPosition = ptrPlayerTrans->GetPosition();//!ターゲット(プレイヤー)の座標の取得
+
+
+			auto distance = PlayerPosition - EnemyPosition;//!プレイヤーの座標から敵の座標を引きベクトルの計算
+			distance.normalize();//!ベクトルをノーマライズ化
+			auto Requiredspeed = distance * Enemy->GetMaxSpeed();//!速度の取得
+			Force += Requiredspeed - EnemyVelocity;//!最高速度を現在の速度で引く(旋回の速さなどの力が求まる)
+			Enemy->SetForce(Force);//!力を設定
+
+
+			Vec3 PEvector = PlayerPosition - EnemyPosition;//!プレイヤーと敵のベクトルを取得
+			auto Enemyfront = ptrEnemyTrans->GetForword();//!敵の正面を取得
+			PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
+			auto angle = angleBetweenNormals(Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
+			auto chk = XM_PI / 6.0f;//!360を6で割って角度を出す。
+
+			float f = bsm::length(PlayerPosition - EnemyPosition);//!プレイヤーと敵の距離
+
+			
+			if (f > BrettGramRange)//!プレイヤーと敵の距離より長くなったら
+			{
+				Enemy->ChangeState(BrettGramState::Instance());//!ステートを変更する
+			}
+		}
+		void SurprisedState::Exit(BaseEnemy* Enemy)
+		{
+			//!首を振る動作をする
+		}
+		//!-----------------------------------------------------------
+		
 		//!追いかけるステート-----------------------------------------
 
 		//!インスタンスの生成(実体の作成)
@@ -18,7 +82,7 @@ namespace basecross
 
 		void SeekState::Enter(BaseEnemy* Enemy)
 		{
-			//!ハンターの頭上にビックリマークのテクスチャを出す
+			
 
 		}
 
@@ -57,16 +121,15 @@ namespace basecross
 					Enemy->ChangeState(PatrolState::Instance());//!ステートを変更する
 				}
 			}
-			if (f > 15)//!プレイヤーと敵の距離より長くなったら
+			if (f > BrettGramRange)//!プレイヤーと敵の距離より長くなったら
 			{
 				Enemy->ChangeState(BrettGramState::Instance());//!ステートを変更する
 			}
-
-
 		}
 		void SeekState::Exit(BaseEnemy* Enemy)
 		{
 			//!首を振る動作をする
+			
 		}
 
 		//!巡回ステート-------------------------------------------------
@@ -78,6 +141,11 @@ namespace basecross
 
 		void PatrolState::Enter(BaseEnemy* Enemy)
 		{
+			//!ハンターの頭上にビックリマークのテクスチャを出す
+			auto loseSightOfTarget=Enemy->GetloseSightOfTarget();
+			loseSightOfTarget = true;
+			Enemy->SetloseSightOfTarget(loseSightOfTarget);
+
 
 		}
 
@@ -141,25 +209,20 @@ namespace basecross
 
 			auto playerChange = Enemy->GetTarget()->GetPlayerCange();
 
-			if (playerChange == static_cast<int>(PlayerModel::wolf)) 
+			/*if (playerChange == static_cast<int>(PlayerModel::wolf)) 
 			{
-
-
-				if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
+			*/	if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
 				{
 					if (f < PatrolArriveRange)//!敵とプレイヤーの距離が一定距離近づいたら
 					{
-
-						Enemy->ChangeState(SeekState::Instance());//!ステートを変更する
+						Enemy->ChangeState(SurprisedState::Instance());//!ステートを変更する
 					}
 				}
-			}
+			//}
 		}
 
 		void PatrolState::Exit(BaseEnemy* Enemy)
-		{
-
-		}
+		{}
 
 		//!-------------------------------------------------------------
 
@@ -204,53 +267,42 @@ namespace basecross
 				return;
 			}
 
-
-			
-
-
 			start = m_BrettGramPoints[BrettGramindex];//!最初のブレットクラムポイントの設定
-
-
 			const int movePointsCount = m_BrettGramPoints.size();//!ブレットクラムの配列の大きさ
-
 			Vec3 end = m_BrettGramPoints[(BrettGramindex + 1) % movePointsCount];//!敵が向かうポイントの設定
-
-
 
 			auto distance = end - EnemyPosition;//!プレイヤーの座標から敵の座標を引きベクトルの計算
 			distance.normalize();//!ベクトルをノーマライズ化
 			auto Requiredspeed = distance * Enemy->GetMaxSpeed();//!速度の取得
 			Force += Requiredspeed - EnemyVelocity;//!最高速度を現在の速度で引く(旋回の速さなどの力が求まる)
 
-			float pointdistance = bsm::length(end - EnemyPosition);//!次に向かうブレットポイントと敵の位置の距離
+			float Brettpointdistance = bsm::length(end - EnemyPosition);//!次に向かうブレットポイントと敵の位置の距離
 
-			if (pointdistance <= BrettGramArriveRange)//!二つの距離が５以下になった時
+			if (Brettpointdistance <= BrettGramArriveRange)//!二つの距離が５以下になった時
 			{
 
 				BrettGramindex++;//!次のポイントに移行する
 
-				if (BrettGramindex == 19)//!インデックスが19だからそれを越えた時。
+				if (BrettGramindex == 49)//!インデックスが19だからそれを越えた時。
 				{
 					BrettGramindex = 0;//!配列の一番最初をさす。
 				}
-
 			}
 
 			Enemy->SetForce(Force);//!力を設定
-			float pointdistance1 = bsm::length(PlayerPosition - EnemyPosition);//!プレイヤーと敵の距離
+			float PEdistance = bsm::length(PlayerPosition - EnemyPosition);//!プレイヤーと敵の距離
 
-			//if (pointdistance1 <= 5)//!20より近づいたら
-			//{
-			//	Enemy->ChangeState(SeekState::Instance());//!ステートの変更
-			//}
-
-
-
+			if (PEdistance <= 10.0f)//!5より近づいたら
+			{
+				Enemy->ChangeState(SeekState::Instance());//!ステートの変更
+			}
+			if (PEdistance > 5)//!プレイヤーと敵の距離より長くなったら
+			{
+				Enemy->ChangeState(PatrolState::Instance());//!ステートを変更する
+			}
 		}
 		void BrettGramState::Exit(BaseEnemy* Enemy)
-		{
-
-		}
+		{}
 		//!-------------------------------------------------------------
 	}
 }

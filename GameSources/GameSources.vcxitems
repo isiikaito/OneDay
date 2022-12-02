@@ -25,8 +25,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Key.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)KeySprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoseSightOf.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Player.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteLeft.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteMiddle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteRight.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectShader.h" />
@@ -36,6 +40,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageGate.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageWall.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StateMchine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SurprisedSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Timer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Title.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
@@ -53,7 +58,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Key.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)KeySprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteMiddle.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteRight.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHurteSpriteLeft.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
@@ -61,6 +70,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageFloor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageGate.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageWall.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SurprisedSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Timer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Title.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />

@@ -31,9 +31,11 @@ namespace basecross{
 		int m_MaxKeyCount;//!鍵の所持数の最大
 		int m_Ded;//!敵の死亡
 		int m_PlayerPositionOnSecondMax;//!プレイヤーの位置の配列の最大の長さ
+		int m_PlayerHp;//!プレイヤーの体力
 		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 		float m_PlayerPositionTime;//!プレイヤーの位置を取得するまでの時間
-
+		bool m_IsPlayerFound;
+		
 	
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
 
@@ -90,6 +92,28 @@ namespace basecross{
 			m_PlayerPositionOnSecond = PlayerPositionOnSecond;
 		}
 
+		//!プレイヤーのHP取得
+		int GetPlayerHp()
+		{
+			return m_PlayerHp;
+		}
+		//!プレイヤーのHPの設定
+		void SetPlayerHp(int PlayerHp)
+		{
+			m_PlayerHp = PlayerHp;
+		}
+
+		//!プレイヤーが見つかった判定の取得
+		bool GetPlayerFound()
+		{
+			return m_IsPlayerFound;
+		}
+
+		//!プレイヤーが見つかった判定の設定
+		void SetPlayerFound(int PlayerFound)
+		{
+			m_IsPlayerFound = PlayerFound;
+		}
 
 		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other);//プレイヤーとカギの衝突判定
 	};
