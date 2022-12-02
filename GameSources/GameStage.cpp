@@ -377,6 +377,14 @@ namespace basecross {
 			auto HunterPtr=AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
 		
 			AddGameObject<LoseSightOf>(HunterPtr);
+
+			////!パトロールポイントの実体を表示する
+			//for (int i = 0; i < pointData.m_patorlPositions.size(); i++)
+			//{
+			//		AddGameObject<StageBuilding>(Vec3(1, 6, 1), Vec3(0, 0, 0),pointData.m_patorlPositions[i]);
+			//}
+				
+			
 		}
 	}
 

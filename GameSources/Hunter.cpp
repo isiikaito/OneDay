@@ -89,7 +89,7 @@ namespace basecross
 	//!更新
 	void Hunter::OnUpdate()
 	{
-	
+
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		m_playerChange = ptrPlayer->GetPlayerCange();//!プレイヤーの状態の取得

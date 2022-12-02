@@ -185,7 +185,7 @@ namespace basecross
 
 
 
-			if (pointdistance <= PatrolArriveRange)//!敵が向かうポイントから敵までの距離が一定の距離近づいたら
+			if (pointdistance <= 5)//!敵が向かうポイントから敵までの距離が一定の距離近づいたら
 			{
 
 				patrolPoint++;//!次のポイントに移動
