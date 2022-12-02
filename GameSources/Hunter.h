@@ -25,7 +25,7 @@ namespace basecross
 		int m_patrolindex;
 		float m_StateChangeSize;	
 		bool m_dedDecision;//!生死の判定
-		
+		bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
 
 	public:
 		//構築と破棄
@@ -77,7 +77,16 @@ namespace basecross
 		float GetStateChangeSize() const {
 			return m_StateChangeSize;
 		}
-
+		//!ハンターの生死の判定の取得
+		bool GetloseSightOfTarget()const
+		{
+			return m_loseSightOfTarget;
+		}
+		//!ハンターの生死の設定
+		void SetloseSightOfTarget(bool loseSightOfTarget)
+		{
+			m_loseSightOfTarget = loseSightOfTarget;
+		}
 	
 		
 		

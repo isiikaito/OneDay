@@ -160,11 +160,11 @@ namespace basecross {
 			m_playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
 			auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
 			/*ptrDraw->SetMeshResource(L"PLAYER_TEST");*///!プレイヤーのメッシュの変更
-			ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));
+			ptrDraw->SetDiffuse(Col4(1.0f, 0.0f, 1.0f, 1.0f));
 			if (m_ChangeTime >= m_wolfTime)//!狼の時間になったら
 			{
 				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
-				ptrDraw->SetDiffuse(Col4(1.0f, 0.0f, 1.0f, 1.0f));
+				ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));
 				/*ptrDraw->SetMeshResource(L"PLAYER_TEST");*///!プレイヤーのメッシュの変更
 				m_ChangeTime = (float)m_reset;//!状態タイムをリセットする
 			}

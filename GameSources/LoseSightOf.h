@@ -9,7 +9,7 @@
 namespace basecross
 {
 	
-	class LoseSightOf :public BaseEnemy
+	class LoseSightOf :public GameObject
 	{
 	private:
 		std::shared_ptr<GameObject> parent; // 親オブジェクト
@@ -35,7 +35,7 @@ namespace basecross
 	public:
 		//!構築と破棄
 		LoseSightOf(const std::shared_ptr<Stage>& stage, const std::shared_ptr<GameObject>& parent)
-		: BaseEnemy(stage), parent(parent), m_LoseSeghtOfTime(0.0f) {}
+		: GameObject(stage), parent(parent), m_LoseSeghtOfTime(0.0f) {}
 		virtual ~LoseSightOf(){}
 		//!見失ったら
 		void LoseSight();

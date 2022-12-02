@@ -30,9 +30,9 @@ namespace basecross
 		float m_MaxSpeed;//!最大の速度
 		int m_Enemypatorolindex;//!敵の巡回ポイントの数
 		
-
+bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
 	protected:
-		bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
+		
 
 		//!構造と破棄
 		BaseEnemy(const shared_ptr<Stage>& StagePtr);
@@ -96,6 +96,12 @@ namespace basecross
 			return m_MaxSpeed;
 		}
 
+		//!最大の速度の取得
+		void SetMaxSpeed(float& MaxSpeed)
+		{
+			m_MaxSpeed = MaxSpeed;
+		}
+
 		//!敵の巡回ポイントの取得
 		std::vector<Vec3>GetEnemyPatorolPoints()const
 		{
@@ -121,13 +127,13 @@ namespace basecross
 		}
 
 		//!敵がプレイヤーを見失ったとき取得
-		bool GetloseSightOfTarget()const
+		bool GetloseSightOfTarget()
 		{
 			return m_loseSightOfTarget;
 		}
 		
 		//!敵がプレイヤーを見失ったときの設定
-		void SetloseSightOfTarget(const bool& loseSightOfTarget)
+		void SetloseSightOfTarget( bool loseSightOfTarget)
 		{
 			m_loseSightOfTarget = loseSightOfTarget;
 		}
