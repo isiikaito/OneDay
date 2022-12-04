@@ -27,7 +27,7 @@ namespace basecross {
 	//スプライトの作成
 	void GameOverStage::CreateGameOverSprite() {
 		AddGameObject<GameOverSprite>(L"GAMEOVER_TX", false,
-			Vec2(256.0f, 64.0f), Vec2(0.0f, 0.0f));
+			Vec2(1280.0f, 800.0f), Vec2(0.0f, 0.0f));
 
 	}
 
@@ -38,14 +38,14 @@ namespace basecross {
 		CreateGameOverSprite();
 	}
 
-	/*void GameOverStage::OnUpdate() {
+	void GameOverStage::OnUpdate() {
 		m_InputHandler.PushHandle(GetThis<GameOverStage>());
-	}*/
+	}
 
-	/*Aボタン
+	//1Aボタン
 	void GameOverStage::OnPushA() {
 		PostEvent(0.0f, GetThis<GameOverStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
-	}*/
+	}
 
 }
 //end basecross

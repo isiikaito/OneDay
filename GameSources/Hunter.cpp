@@ -23,10 +23,9 @@ namespace basecross
 		m_patrolPoints(patrolPoints),
 		m_StateChangeSize(30.0f),
 		m_playerChange(0),
-		m_Speed(20),
+		m_Speed(25),
 		m_patrolindex(0),
 	    m_dedDecision(false)
-
 
 	{
 	}
@@ -64,12 +63,12 @@ namespace basecross
 		auto ptrShadow = AddComponent<Shadowmap>();  //!影をつける（シャドウマップを描画する）
 
 		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"PLAYER_TEST");
+		ptrShadow->SetMeshResource(L"PLAYER_HUMAN");
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネントの設定 
 
 		//!メッシュの設定
-		ptrDraw->SetMeshResource(L"PLAYER_TEST");
+		ptrDraw->SetMeshResource(L"PLAYER_HUMAN");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		Coll->SetDrawActive(false);
 
@@ -85,15 +84,18 @@ namespace basecross
 		SetpatorolPoints(patrolPoints);
 		ptrDraw->SetDiffuse(Col4(0.0f, 0.0f, 1.0f, 1.0f));
 
+	
+
 	}
 	//!更新
 	void Hunter::OnUpdate()
 	{
-
+		
 		auto MaxSpeed = GetMaxSpeed();
 		MaxSpeed = m_Speed;
 		SetMaxSpeed(MaxSpeed);
 
+		
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		m_playerChange = ptrPlayer->GetPlayerCange();//!プレイヤーの状態の取得
 		ptrPlayer->SetPlayerChange(m_playerChange);//!プレイヤーの取得した状態の設定
@@ -104,9 +106,10 @@ namespace basecross
 	void Hunter::OnCollisionEnter(shared_ptr<GameObject>& Other)
 	{
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
+		auto seekCondition = GetseekCondition();
 		if (ptrPlayer)
 		{
-			if (m_playerChange == static_cast<int>(PlayerModel::wolf)&&m_dedDecision ==false)
+			if (seekCondition ==true)
 			{
               PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 			}

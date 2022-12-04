@@ -26,7 +26,7 @@ namespace basecross {
 		m_Ded(0),
 		m_GetPlayerPositionTime(0.8f),
 		m_PlayerPositionTime(0.0f),
-		m_PlayerPositionOnSecondMax(30),
+		m_PlayerPositionOnSecondMax(39),
 		m_PlayerHp(3),
 		m_IsPlayerFound(false)
 
@@ -110,7 +110,7 @@ namespace basecross {
 		auto ptr = AddComponent<Transform>();
 		ptr->SetScale(3.0f, 3.0f, 3.0f);	//直径25センチの球体
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
-		ptr->SetPosition(Vec3(0.0f, 10.0f, -90.0f));
+		ptr->SetPosition(Vec3(0.0f, 4.0f, -90.0f));
 
 
 		Mat4x4 spanMat;
@@ -129,18 +129,17 @@ namespace basecross {
 	
 		auto shadowPtr = AddComponent<Shadowmap>();//!影をつける（シャドウマップを描画する）
 
-		shadowPtr->SetMeshResource(L"PLAYER_TEST");//!影の形（メッシュ）を設定
+		shadowPtr->SetMeshResource(L"PLAYER_HUMAN");//!影の形（メッシュ）を設定
 		shadowPtr->SetMeshToTransformMatrix(spanMat);
 
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネントの設定
 
 		//!描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"PLAYER_TEST");
+		ptrDraw->SetMeshResource(L"PLAYER_HUMAN");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		/*ptrDraw->SetFogEnabled(true);*/
 		ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));
 		
-
 		//!カメラを得る
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
 		if (ptrCamera) {
@@ -158,14 +157,19 @@ namespace basecross {
 		{
 
 			m_playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
-			auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
-			/*ptrDraw->SetMeshResource(L"PLAYER_TEST");*///!プレイヤーのメッシュの変更
+
+			auto ptrDraw = GetComponent<PNTStaticModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
+			auto shadowPtr = GetComponent<Shadowmap>();
+			ptrDraw->SetMeshResource(L"PLAYER_Wolf");//!プレイヤーのメッシュの変更
+			shadowPtr->SetMeshResource(L"PLAYER_Wolf");
 			ptrDraw->SetDiffuse(Col4(1.0f, 0.0f, 1.0f, 1.0f));
 			if (m_ChangeTime >= m_wolfTime)//!狼の時間になったら
 			{
+				ptrDraw->SetMeshResource(L"PLAYER_HUMAN");//!プレイヤーのメッシュの変更
+				shadowPtr->SetMeshResource(L"PLAYER_HUMAN");
 				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
 				ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));
-				/*ptrDraw->SetMeshResource(L"PLAYER_TEST");*///!プレイヤーのメッシュの変更
+				/*ptrDraw->SetMeshResource(L"PLAYER_HUMAN");*///!プレイヤーのメッシュの変更
 				m_ChangeTime = (float)m_reset;//!状態タイムをリセットする
 			}
 			return;
@@ -234,8 +238,6 @@ namespace basecross {
 	void Player::OnUpdate() {
 		//!敵の親クラスを取得できる
 		
-		
-		
 		auto PlayerTrans = GetComponent<Transform>();
 		auto PlayerPosition = PlayerTrans->GetPosition();
 		auto Time = App::GetApp()->GetElapsedTime();
@@ -270,7 +272,6 @@ namespace basecross {
 			CreateKeySprite();
 		}
 		
-		
 		//!プレイヤーが鍵を持っていたら
 			if (m_KeyCount == m_MaxKeyCount)
 			{
@@ -283,7 +284,11 @@ namespace basecross {
 	}
 	void Player::OnPushB()
 	{
-		Villagerkiller();//!村人を倒す処理
+		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
+		{
+          Villagerkiller();//!村人を倒す処理
+		}
+		
 	}
 }
 //end basecross

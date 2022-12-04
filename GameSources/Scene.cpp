@@ -25,7 +25,7 @@ namespace basecross{
 		strTexture = dataDir + L"Texture\\"+L"Title.jpg";
 		App::GetApp()->RegisterTexture(L"MESSAGE_TX", strTexture);
 		//!ゲームオーバー画面
-		strTexture = dataDir + L"Texture\\" + L"GameOver.jpg";
+		strTexture = dataDir + L"Texture\\" + L"GameOver.png";
 		App::GetApp()->RegisterTexture(L"GAMEOVER_TX", strTexture);
 		//!ゲームクリア画面
 		strTexture = dataDir + L"Texture\\"+ L"GameClear.png";
@@ -73,8 +73,13 @@ namespace basecross{
 		App::GetApp()->RegisterResource(L"GROUND_MESH", staticModelMesh7);
 
 		//!プレイヤーのモデルの読み込み
-		auto staticModelMesh8 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"MainCharacter.bmf");
-		App::GetApp()->RegisterResource(L"PLAYER_TEST", staticModelMesh8);
+		auto staticModelMesh8 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"PlayerWolf.bmf");
+		App::GetApp()->RegisterResource(L"PLAYER_Wolf", staticModelMesh8);
+
+		//!プレイヤーのモデルの読み込み
+		auto staticModelMesh10 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"MainCharacter.bmf");
+		App::GetApp()->RegisterResource(L"PLAYER_HUMAN", staticModelMesh10);
+
 
 		//!柵のモデルの読み込み
 		auto staticModelMesh9 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageFence.bmf");
@@ -89,7 +94,6 @@ namespace basecross{
 		App::GetApp()->RegisterWav(L"TitleBGM", strMusic);
 
 
-
 	}
 	void Scene::OnCreate(){
 		try {
@@ -100,7 +104,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
 		}
 		catch (...) {
 			throw;

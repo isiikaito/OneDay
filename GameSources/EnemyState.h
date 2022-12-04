@@ -6,28 +6,7 @@ namespace basecross
 	namespace kaito
 	{
 
-		//!プレイヤーを発見したときの始めの追いかける処理-------------
-		class SurprisedState :public State<BaseEnemy>
-		{
-		private:
-			SurprisedState() {}
-
-			//!シングルトンパターン
-			SurprisedState(const SurprisedState&) = delete;//!関数を削除する
-			SurprisedState& operator=(const SurprisedState&) = delete;//!operatorの中にある=を削除（コピーされないように）
-			float SeekArriveRange = 30.0f;//!追いかけるステートのステート変更の長さ
-			float BrettGramRange = 1.0f;
-
-		public:
-			static SurprisedState* Instance();
-
-			virtual void Enter(BaseEnemy* Enemy)override;
-			virtual void Execute(BaseEnemy* Enemy)override;
-			virtual void Exit(BaseEnemy* Enemy)override;
-
-		};
-		//!-------------------------------------------------------------
-		
+	
 		//!追いかけるステート-------------------------------------------
 		class SeekState :public State<BaseEnemy>
 		{
@@ -60,8 +39,9 @@ namespace basecross
 			PatrolState& operator=(const PatrolState&) = delete;
 
 			std::vector<Vec3>m_patrol;//!巡回ポイント
-			const float PatrolArriveRange = 20.0f;//!ステートを変更する条件の長さ
-
+			const float PatrolArriveRange = 30.0f;//!ステートを変更する条件の長さ
+			float m_lostTime = 0.0f;
+			bool m_IspositionLiset=false;
 		public:
 			static PatrolState* Instance();
 			virtual void Enter(BaseEnemy* Enemy)override;
@@ -82,9 +62,11 @@ namespace basecross
 			
 			const float BrettGramArriveRange = 10.0f;//!ポイントまでの距離
 			int BrettGramindex = 0;//!ブレットクラムの配列の要素数
+			int maxBrettGramindex = 40;
 			std::vector<Vec3>m_BrettGramPoint;//!ブレットクラムの配列
 			float Neardistance = FLT_MAX;//!一番近い距離
 			Vec3 start = Vec3(0);//!ブレットクラムの始まりのポイント
+			float m_lostTime = 0.0f;
 
 		public:
 			static BrettGramState* Instance();
@@ -105,7 +87,6 @@ namespace basecross
 			DedState(const DedState&) = delete;//!関数を削除する
 			DedState& operator=(const DedState&) = delete;//!operatorの中にある=を削除（コピーされないように）
 		
-
 		public:
 			static DedState* Instance();
 

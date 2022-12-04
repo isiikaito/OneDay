@@ -7,74 +7,6 @@ namespace basecross
 	namespace kaito
 	{
 
-
-		//!プレイヤーを発見したときの始めの追いかける処理-------------
-
-
-		//!インスタンスの生成(実体の作成)
-		SurprisedState* SurprisedState::Instance()
-		{
-			static SurprisedState instance;
-			return &instance;
-		}
-
-
-		void SurprisedState::Enter(BaseEnemy* Enemy)
-		{
-			//!ハンターの頭上にビックリマークのテクスチャを出す
-			auto Player = Enemy->GetTarget();
-			auto PlayerFound = Player->GetPlayerFound();
-			PlayerFound = true;
-			Player->SetPlayerFound(PlayerFound);
-
-
-		}
-
-		void SurprisedState::Execute(BaseEnemy* Enemy)
-		{
-
-			//!追いかける処理を書く
-			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得
-			auto EnemyPosition = ptrEnemyTrans->GetPosition();//!敵のポジションの取得
-			Vec3 EnemyVelocity = Enemy->GetVelocity();//!敵の速度の取得
-			Vec3 Force = Enemy->GetForce();//!敵の力の取得
-
-			auto ptrPlayerTrans = Enemy->GetTarget()->GetComponent<Transform>();//!ターゲット(プレイヤー)のトランスフォームの取得
-			auto PlayerPosition = ptrPlayerTrans->GetPosition();//!ターゲット(プレイヤー)の座標の取得
-			auto maxSpeed = Enemy->GetMaxSpeed();
-
-			auto distance = PlayerPosition - EnemyPosition;//!プレイヤーの座標から敵の座標を引きベクトルの計算
-			distance.normalize();//!ベクトルをノーマライズ化
-			auto Requiredspeed = distance * maxSpeed;//!速度の取得
-			Force += Requiredspeed - EnemyVelocity;//!最高速度を現在の速度で引く(旋回の速さなどの力が求まる)
-			Enemy->SetForce(Force);//!力を設定
-
-
-			Vec3 PEvector = PlayerPosition - EnemyPosition;//!プレイヤーと敵のベクトルを取得
-			auto Enemyfront = ptrEnemyTrans->GetForword();//!敵の正面を取得
-			PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
-			auto angle = angleBetweenNormals(Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-			auto chk = XM_PI / 6.0f;//!360を6で割って角度を出す。
-
-			float f = bsm::length(PlayerPosition - EnemyPosition);//!プレイヤーと敵の距離
-
-
-			if (f > BrettGramRange)//!プレイヤーと敵の距離より長くなったら
-			{
-				Enemy->ChangeState(BrettGramState::Instance());//!ステートを変更する
-			}
-
-			if (maxSpeed == 0)
-			{
-				Enemy->ChangeState(DedState::Instance());//!ステートを変更する
-			}
-		}
-		void SurprisedState::Exit(BaseEnemy* Enemy)
-		{
-			//!首を振る動作をする
-		}
-		//!-----------------------------------------------------------
-
 		//!追いかけるステート-----------------------------------------
 
 		//!インスタンスの生成(実体の作成)
@@ -84,10 +16,11 @@ namespace basecross
 			return &instance;
 		}
 
-
 		void SeekState::Enter(BaseEnemy* Enemy)
 		{
-
+			auto seekCondition=Enemy->GetseekCondition();
+			seekCondition = true;
+			Enemy->SetseekCondition(seekCondition);
 
 		}
 
@@ -99,11 +32,10 @@ namespace basecross
 			auto EnemyPosition = ptrEnemyTrans->GetPosition();//!敵のポジションの取得
 			Vec3 EnemyVelocity = Enemy->GetVelocity();//!敵の速度の取得
 			Vec3 Force = Enemy->GetForce();//!敵の力の取得
-			auto maxSpeed = Enemy->GetMaxSpeed();
+			auto maxSpeed = Enemy->GetMaxSpeed();//!敵の最大速度
 
 			auto ptrPlayerTrans = Enemy->GetTarget()->GetComponent<Transform>();//!ターゲット(プレイヤー)のトランスフォームの取得
 			auto PlayerPosition = ptrPlayerTrans->GetPosition();//!ターゲット(プレイヤー)の座標の取得
-
 
 			auto distance = PlayerPosition - EnemyPosition;//!プレイヤーの座標から敵の座標を引きベクトルの計算
 			distance.normalize();//!ベクトルをノーマライズ化
@@ -111,33 +43,28 @@ namespace basecross
 			Force += Requiredspeed - EnemyVelocity;//!最高速度を現在の速度で引く(旋回の速さなどの力が求まる)
 			Enemy->SetForce(Force);//!力を設定
 
-
-			Vec3 PEvector = PlayerPosition - EnemyPosition;//!プレイヤーと敵のベクトルを取得
-			auto Enemyfront = ptrEnemyTrans->GetForword();//!敵の正面を取得
-			PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
-			auto angle = angleBetweenNormals(Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-			auto chk = XM_PI / 6.0f;//!360を6で割って角度を出す。
-
 			float f = bsm::length(PlayerPosition - EnemyPosition);//!プレイヤーと敵の距離
 
+			//!障害物の取得
+			auto& app = App::GetApp();//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+			auto Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
 
-
-			//!プレイヤーと敵の距離より長くなったら
-			if (f > SeekArriveRange)
-			{   //!敵から見て+60度か-60度にプレイヤーが入ったら
-				if (angle <= chk && angle >= -chk)
+			for (auto& Obj : Objects)//!オブジェクトの要素分
+			{
+				auto stageBuilding = dynamic_pointer_cast<StageBuilding>(Obj);//!建物の取得
+				if (stageBuilding)
 				{
-					Enemy->ChangeState(PatrolState::Instance());//!ステートを変更する
+					auto StageBuildingObb = stageBuilding->GetComponent<CollisionObb>()->GetObb();//!ステージの壁のObbの取得
+
+					if (HitTest::SEGMENT_OBB(PlayerPosition, EnemyPosition, StageBuildingObb))//!カメラと視点の間に壁が入ったら
+					{
+						Enemy->ChangeState(BrettGramState::Instance());//!プレイヤーと敵の間に障害物が入ったときステートを変更する
+					}
 				}
 			}
 
-			//!プレイヤーと敵の距離より長くなったら
-			if (f > BrettGramRange)
-			{
-				Enemy->ChangeState(BrettGramState::Instance());//!ステートを変更する
-			}
-
-			//!敵のスピードが0になったとき
+			//!敵が殺されたとき死亡のステートに切り替わる
 			if (maxSpeed == 0)
 			{
 				Enemy->ChangeState(DedState::Instance());//!ステートを変更する
@@ -145,8 +72,9 @@ namespace basecross
 		}
 		void SeekState::Exit(BaseEnemy* Enemy)
 		{
-			//!首を振る動作をする
-
+			auto seekCondition = Enemy->GetseekCondition();
+			seekCondition = false;
+			Enemy->SetseekCondition(seekCondition);
 		}
 
 		//!巡回ステート-------------------------------------------------
@@ -163,45 +91,32 @@ namespace basecross
 			loseSightOfTarget = true;
 			Enemy->SetloseSightOfTarget(loseSightOfTarget);
 
-
 		}
-
 
 		void PatrolState::Execute(BaseEnemy* Enemy)
 		{
-
+			
+			//!敵のパラメーターの取得
 			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得
 			auto EnemyPosition = ptrEnemyTrans->GetPosition();//!敵のポジションの取得
 			Vec3 EnemyVelocity = Enemy->GetVelocity();//!敵の速度の取得
 			Vec3 Force = Enemy->GetForce();//!敵の力の取得
 			auto m_patrolPoints = Enemy->GetEnemyPatorolPoints();//!パトロールポイント
-			auto maxSpeed = Enemy->GetMaxSpeed();
-
+			auto maxSpeed = Enemy->GetMaxSpeed();//!敵の最大速度の取得
+			auto patrolPoint = Enemy->GetEnemyPatorolindex();//!パトロールポイントのインデックスの取得
+			//1プレイヤーのパラメーターの取得
 			auto ptrPlayerTrans = Enemy->GetTarget()->GetComponent<Transform>();//!ターゲット(プレイヤー)のトランスフォームの取得
 			auto PlayerPosition = ptrPlayerTrans->GetPosition();//!ターゲット(プレイヤー)の座標の取得
 
-			//!パトロールポイントを配列に入れる
-			std::vector<Vec3> patrol;
-			for (auto& a : m_patrolPoints)
-			{
-				patrol.push_back(a);
-			}
-
-			auto& app = App::GetApp();//!アプリの取得
-			float delta = app->GetElapsedTime();//!時間の取得
-			auto patrolPoint = Enemy->GetEnemyPatorolindex();//!パトロールポイントのインデックスの取得
-			Vec3 start = patrol[patrolPoint];//!スタートの位置にパトロールポイントを設定
-			const int movePointsCount = patrol.size();//!パトロールポイントの配列の長さ
-			Vec3 end = patrol[(patrolPoint + 1) % movePointsCount];//!敵が次に向かうポイントの設定
-
+			//!巡回する処理
+			const int movePointsCount = m_patrolPoints.size();//!パトロールポイントの配列の長さ
+			Vec3 end = m_patrolPoints[(patrolPoint + 1) % movePointsCount];//!敵が次に向かうポイントの設定
 			auto distance = end - EnemyPosition;//!プレイヤーの座標から敵の座標を引きベクトルの計算
 			distance.normalize();//!ベクトルをノーマライズ化
 			auto Requiredspeed = distance * maxSpeed;//!速度の取得
 			Force += Requiredspeed - EnemyVelocity;//!最高速度を現在の速度で引く(旋回の速さなどの力が求まる)
 
 			float pointdistance = bsm::length(end - EnemyPosition);//!敵が向かうポイントから敵までの距離
-
-
 
 			if (pointdistance <= 5)//!敵が向かうポイントから敵までの距離が一定の距離近づいたら
 			{
@@ -233,11 +148,11 @@ namespace basecross
 				{
 					if (f < PatrolArriveRange)//!敵とプレイヤーの距離が一定距離近づいたら
 					{
-						Enemy->ChangeState(SurprisedState::Instance());//!ステートを変更する
+						Enemy->ChangeState(SeekState::Instance());//!ステートを変更する
 					}
 				}
 			}
-
+			//!敵が殺されたとき
 			if (maxSpeed == 0)
 			{
 				Enemy->ChangeState(DedState::Instance());//!ステートを変更する
@@ -245,7 +160,17 @@ namespace basecross
 		}
 
 		void PatrolState::Exit(BaseEnemy* Enemy)
-		{}
+		{
+			//!ハンターの頭上にビックリマークのテクスチャを出す
+			auto Player = Enemy->GetTarget();
+			auto PlayerFound = Player->GetPlayerFound();
+			PlayerFound = true;
+			Player->SetPlayerFound(PlayerFound);
+		
+			m_lostTime = 0.0f;
+			m_IspositionLiset = false;
+			Enemy->SetIspositionLiset(m_IspositionLiset);
+		}
 
 		//!-------------------------------------------------------------
 
@@ -271,10 +196,16 @@ namespace basecross
 					start = NearPoint;//!ブレットクラムのスタートをそこに決定
 				}
 			}
+
+			auto seekCondition = Enemy->GetseekCondition();
+			seekCondition = true;
+			Enemy->SetseekCondition(seekCondition);
+			m_lostTime = 0l;
 		}
 
 		void BrettGramState::Execute(BaseEnemy* Enemy)
 		{
+			BrettGramindex = 0;
 			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得
 			auto EnemyPosition = ptrEnemyTrans->GetPosition();//!敵のポジションの取得
 			Vec3 EnemyVelocity = Enemy->GetVelocity();//!敵の速度の取得
@@ -304,10 +235,9 @@ namespace basecross
 
 			if (Brettpointdistance <= BrettGramArriveRange)//!二つの距離が５以下になった時
 			{
-
 				BrettGramindex++;//!次のポイントに移行する
 
-				if (BrettGramindex == 29)//!インデックスが19だからそれを越えた時。
+				if (BrettGramindex == maxBrettGramindex)//!インデックスが19だからそれを越えた時。
 				{
 					BrettGramindex = 0;//!配列の一番最初をさす。
 				}
@@ -321,19 +251,41 @@ namespace basecross
 			auto Enemyfront = ptrEnemyTrans->GetForword();//!敵の正面を取得
 			PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
 			auto angle = angleBetweenNormals(Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-			auto chk = XM_PI / 6.0f;//!360を6で割って角度を出す。
-
-
-			if (PEdistance <= 10.0f)//!5より近づいたら
-			{
-				Enemy->ChangeState(SeekState::Instance());//!ステートの変更
-			}
-
+			auto chk = XM_PI / 9.0f;//!360を6で割って角度を出す。
 			if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
 			{
-				if (PEdistance >= 30.0f)//!プレイヤーと敵の距離より長くなったら
+				if (PEdistance >= 100)
 				{
-					Enemy->ChangeState(PatrolState::Instance());//!ステートを変更する
+					Enemy->ChangeState(SeekState::Instance());//!ステートを変更する
+				}
+			}
+
+			//!障害物の取得
+			auto& app = App::GetApp();//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+			auto Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+
+			for (auto& Obj : Objects)//!オブジェクトの要素分
+			{
+				auto stageBuilding = dynamic_pointer_cast<StageBuilding>(Obj);//!建物の取得
+				if (stageBuilding)
+				{
+					auto StageBuildingObb = stageBuilding->GetComponent<CollisionObb>()->GetObb();//!ステージの壁のObbの取得
+
+					if (HitTest::SEGMENT_OBB(PlayerPosition, EnemyPosition, StageBuildingObb))//!カメラと視点の間に壁が入ったら
+					{
+						auto time=app->GetElapsedTime();
+						m_lostTime += time;
+						if ( PEdistance>=37&&m_lostTime >= 3)
+						{
+                               Enemy->ChangeState(PatrolState::Instance());//!ステートの変更
+						}
+						if ( PEdistance <= 37&&m_lostTime >= 3)
+						{
+							m_lostTime = 0.0f;
+						}
+						
+					}
 				}
 			}
 
@@ -345,10 +297,14 @@ namespace basecross
 
 		}
 		void BrettGramState::Exit(BaseEnemy* Enemy)
-		{}
+		{
+			auto seekCondition = Enemy->GetseekCondition();
+			seekCondition = false;
+			Enemy->SetseekCondition(seekCondition);
+		}
 		//!-------------------------------------------------------------
 
-			//!殺されたときのステート-----------------------------------------
+		//!殺されたときのステート-----------------------------------------
 
 		//!インスタンスの生成(実体の作成)
 		DedState* DedState::Instance()
@@ -359,17 +315,14 @@ namespace basecross
 		}
 
 		void DedState::Enter(BaseEnemy* Enemy)
-		{
-
-
-		}
+		{}
 
 		void DedState::Execute(BaseEnemy* Enemy)
 		{
 			Vec3 EnemyVelocity = Enemy->GetVelocity();//!敵の速度の取得
 			EnemyVelocity = Vec3(0);
 			Enemy->SetVelocity(EnemyVelocity);
-			Vec3 Force = Enemy->GetForce();//!敵の力の取得
+			
 
 
 		}

@@ -29,8 +29,9 @@ namespace basecross
 		float m_StateChangeSize;//!ステートの変更
 		float m_MaxSpeed;//!最大の速度
 		int m_Enemypatorolindex;//!敵の巡回ポイントの数
-		
+		bool m_seekCondition;//!敵が追いかけているかどうか
         bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
+		bool m_IspositionLiset;//!ポジションのリセット
 	protected:
 		
 
@@ -137,6 +138,32 @@ namespace basecross
 		{
 			m_loseSightOfTarget = loseSightOfTarget;
 		}
+
+		//!敵がプレイヤーを追いかけている状態の取得
+		bool GetseekCondition()
+		{
+			return m_seekCondition;
+		}
+
+		//!敵がプレイヤーを追いかけている状態の設定
+		void SetseekCondition(bool seekCondition)
+		{
+			m_seekCondition = seekCondition;
+		}
+
+		//!プレイヤーの位置のリセットの取得
+		bool GetIspositionLiset()
+		{
+			return m_IspositionLiset;
+		}
+
+		//!プレイヤーの位置のリセットの設定
+		void SetIspositionLiset(bool IspositionLiset)
+		{
+			m_IspositionLiset= IspositionLiset;
+		}
+
+		
 		//!適応力
 		void ApplyForce();
 

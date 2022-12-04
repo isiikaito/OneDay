@@ -27,10 +27,10 @@ namespace basecross {
 		//初期化
 		virtual void OnCreate()override;
 
-		//void OnPushA();//!Aボタン
+		void OnPushA();//!Aボタン
 
-		////更新
-		//virtual void OnUpdate()override;
+		//更新
+		virtual void OnUpdate()override;
 
 	};
 

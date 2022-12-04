@@ -25,6 +25,7 @@ namespace basecross
 		int m_patrolindex;
 		float m_StateChangeSize;	
 		bool m_dedDecision;//!¶€‚Ì”»’è
+		
 		//bool m_loseSightOfTarget;//!ƒvƒŒƒCƒ„[‚ğŒ©¸‚Á‚Ä‚¢‚é‚Æ‚«
 
 	public:
