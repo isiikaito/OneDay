@@ -86,7 +86,7 @@ namespace basecross
 
 		void PatrolState::Enter(BaseEnemy* Enemy)
 		{
-			//!ハンターの頭上にビックリマークのテクスチャを出す
+			//!村人の頭上にビックリマークのテクスチャを出す
 			auto loseSightOfTarget = Enemy->GetloseSightOfTarget();
 			loseSightOfTarget = true;
 			Enemy->SetloseSightOfTarget(loseSightOfTarget);
@@ -161,7 +161,7 @@ namespace basecross
 
 		void PatrolState::Exit(BaseEnemy* Enemy)
 		{
-			//!ハンターの頭上にビックリマークのテクスチャを出す
+			//!村人の頭上にビックリマークのテクスチャを出す
 			auto Player = Enemy->GetTarget();
 			auto PlayerFound = Player->GetPlayerFound();
 			PlayerFound = true;

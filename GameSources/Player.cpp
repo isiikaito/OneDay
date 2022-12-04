@@ -188,10 +188,10 @@ namespace basecross {
 		//!村人を殺す
 		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
 		auto vecHnter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
-		//!ハンター配列オブジェクトの配列分回す
+		//!村人配列オブジェクトの配列分回す
 		for (auto& v : vecHnter)
 		{
-			auto VillagerPtr = v.lock();//!ハンターのグループから1つロックする
+			auto VillagerPtr = v.lock();//!村人のグループから1つロックする
 			Vec3 ret;//!最近接点の代入
 			auto ptrVillager = dynamic_pointer_cast<Villager>(VillagerPtr);//!ロックした物を取り出す
 
@@ -202,16 +202,16 @@ namespace basecross {
 				if (HitTest::SPHERE_CAPSULE(playerSp, VillagerCapsrul, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 				{
 					
-					auto VillagerDedDecision = ptrVillager->GetDedDecision();//!ハンターの生死の判定の取得
-					VillagerDedDecision = true;//!ハンターの生死を死にする
-					ptrVillager->SetDedDecision(VillagerDedDecision);//!ハンターの生死の設定
-					auto VillagerSpeed = ptrVillager->GetSpeed();//!ハンターのスピードを取得
+					auto VillagerDedDecision = ptrVillager->GetDedDecision();//!村人の生死の判定の取得
+					VillagerDedDecision = true;//!村人の生死を死にする
+					ptrVillager->SetDedDecision(VillagerDedDecision);//!村人の生死の設定
+					auto VillagerSpeed = ptrVillager->GetSpeed();//!村人のスピードを取得
 					if (!VillagerSpeed == m_Ded)
 					{
-                    VillagerSpeed = m_Ded;//!ハンターのスピードを０にする
-					ptrVillager->SetSpeed(VillagerSpeed);//!ハンターのスピードを設定
-					auto VillagerDraw = ptrVillager->GetComponent<PNTStaticModelDraw>();//!ハンターの描画コンポーネントを取得
-					VillagerDraw->SetDiffuse(Col4(1, 0, 0, 1));//!ハンターの色の設定
+                    VillagerSpeed = m_Ded;//!村人のスピードを０にする
+					ptrVillager->SetSpeed(VillagerSpeed);//!村人のスピードを設定
+					auto VillagerDraw = ptrVillager->GetComponent<PNTStaticModelDraw>();//!村人の描画コンポーネントを取得
+					VillagerDraw->SetDiffuse(Col4(1, 0, 0, 1));//!村人の色の設定
 					m_PlayerHp--;
 					}
 					

@@ -1,6 +1,6 @@
 /*!
 @file Villager.h
-@brief ハンターの作成
+@brief 村人の作成
 *@author isii kaito
 */
 
@@ -10,7 +10,7 @@
 namespace basecross
 {
 	//--------------------------------------------------------
-	//!ハンター
+	//!村人
 	//--------------------------------------------------------
 	class Villager :public BaseEnemy
 	{
@@ -51,24 +51,24 @@ namespace basecross
 	public:
      
 	
-	   //!ハンターのスピードの取得
+	   //!村人のスピードの取得
 		int GetSpeed()
 		{
 			return m_Speed;
 	    }
 
-		//!ハンターのスピードの設定
+		//!村人のスピードの設定
 		void SetSpeed(int VillagerSpeed)
 		{
 			m_Speed = VillagerSpeed;
 		}
 
-		//!ハンターの生死の判定の取得
+		//!村人の生死の判定の取得
 		bool GetDedDecision()const
 		{
 			return m_dedDecision;
 		}
-		//!ハンターの生死の設定
+		//!村人の生死の設定
 		void SetDedDecision(bool DedDecision)
 		{
 			m_dedDecision = DedDecision;

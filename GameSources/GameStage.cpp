@@ -207,13 +207,13 @@ namespace basecross {
 		ptrPlayer->AddTag(L"Player");
 	}
 
-	//!ハンター(スケール、ローテイション、ポジション)の構造体
+	//!村人(スケール、ローテイション、ポジション)の構造体
 	struct TransformCreateDate {
 		//!構造体テンプレート
 		Vec3 scale = Vec3(0.0f);//!大きさ
 		Vec3 rotation = Vec3(0.0f);//!回転
 		Vec3 position = Vec3(0.0f);//!位置
-		wstring EnemykeyName = L"";//!ハンターの巡回ルートのキーフレームを取得
+		wstring EnemykeyName = L"";//!村人の巡回ルートのキーフレームを取得
 
 		TransformCreateDate() :
 			TransformCreateDate(Vec3(0.0f), Vec3(0.0f), Vec3(0.0f), wstring(L""))
@@ -232,7 +232,7 @@ namespace basecross {
 		{}
 	};
 
-	//!ハンター(スケール、ローテイション、ポジション)の関数
+	//!村人(スケール、ローテイション、ポジション)の関数
 	std::vector<TransformCreateDate>TransformDate(const wstring& folderName, const wstring& fileName, const wstring& keyName) {
 		std::vector<TransformCreateDate>result;//!変数名
 		vector<wstring>LineVec;//!CSVの行単位の配列
@@ -264,7 +264,7 @@ namespace basecross {
 			Rot.y = (Tokens[5] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[5].c_str());
 			Rot.z = (Tokens[6] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[6].c_str());
 
-			//!ハンターの位置
+			//!村人の位置
 			Vec3 Pos(
 				(float)_wtof(Tokens[7].c_str()),
 				(float)_wtof(Tokens[8].c_str()),
@@ -361,7 +361,7 @@ namespace basecross {
 		
 	}
 
-	//!ハンターの作成
+	//!村人の作成
 	void GameStage::CerateVillager()
 	{
 		auto group = CreateSharedObjectGroup(L"Villager_ObjGroup");//!グループを取得
@@ -371,7 +371,7 @@ namespace basecross {
 		for (auto data : datas) {
 
 		
-			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!ハンターの大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
+			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!村人の大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
 			
 
 			auto VillagerPtr=AddGameObject<Villager>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
@@ -438,7 +438,7 @@ namespace basecross {
 			CreateKey();//!カギの作成
 			CreateStageGate(); //!ステージの門の作成
 			CreatePlayer();//!プレーヤーの作成
-			CerateVillager();//!ハンターの作成
+			CerateVillager();//!村人の作成
 			CreatePlayBGM();//!BGMの作成
 			CreateHeartSprite();//!プレイヤーのHPの作成
 			CreateSuprisedSprite();//!ビックリマークの作成

@@ -1,6 +1,6 @@
 /*!
 @file Villager.cpp
-@brief ハンターの実体
+@brief 村人の実体
 *@author isii kaito
 */
 
@@ -102,7 +102,7 @@ namespace basecross
 		BaseEnemy::OnUpdate();
 	}
 	
-	//!ハンターがプレイヤーを捕まえたら
+	//!村人がプレイヤーを捕まえたら
 	void Villager::OnCollisionEnter(shared_ptr<GameObject>& Other)
 	{
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);

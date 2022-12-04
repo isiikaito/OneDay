@@ -77,7 +77,7 @@
       <Filter>Object\Enemy\BaseEnemy</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Villager.cpp">
-      <Filter>Object\Enemy\Hunter</Filter>
+      <Filter>Object\Enemy\Villager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp">
       <Filter>State\EnemyStage</Filter>
@@ -167,7 +167,7 @@
       <Filter>Object\Enemy\BaseEnemy</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Villager.h">
-      <Filter>Object\Enemy\Hunter</Filter>
+      <Filter>Object\Enemy\Villager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h">
       <Filter>Other</Filter>
@@ -259,9 +259,6 @@
     <Filter Include="Object\Enemy\BaseEnemy">
       <UniqueIdentifier>{2b65b0bd-0e1f-4f2a-b231-2722b20ad084}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Enemy\Hunter">
-      <UniqueIdentifier>{5ee0eb83-b99e-403a-89af-9742ca17c9a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="State\EnemyStage">
       <UniqueIdentifier>{9d24c86d-2c4b-4681-8f5d-bfec65d359fb}</UniqueIdentifier>
     </Filter>
@@ -282,6 +279,9 @@
     </Filter>
     <Filter Include="Object\Stage\TitleStage">
       <UniqueIdentifier>{f5fee2b4-c81c-48db-bb90-f40a249d2d5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Villager">
+      <UniqueIdentifier>{5ee0eb83-b99e-403a-89af-9742ca17c9a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
