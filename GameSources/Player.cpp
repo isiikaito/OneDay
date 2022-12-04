@@ -186,32 +186,32 @@ namespace basecross {
 		SPHERE playerSp(position, 10.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
 
 		//!村人を殺す
-		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");
+		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
 		auto vecHnter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
 		//!ハンター配列オブジェクトの配列分回す
 		for (auto& v : vecHnter)
 		{
-			auto HunterPtr = v.lock();//!ハンターのグループから1つロックする
+			auto VillagerPtr = v.lock();//!ハンターのグループから1つロックする
 			Vec3 ret;//!最近接点の代入
-			auto ptrHunter = dynamic_pointer_cast<Hunter>(HunterPtr);//!ロックした物を取り出す
+			auto ptrVillager = dynamic_pointer_cast<Villager>(VillagerPtr);//!ロックした物を取り出す
 
 			//!プレイヤーの範囲に敵が入ったら
-			if (ptrHunter)
+			if (ptrVillager)
 			{
-				auto HunterCapsrul = ptrHunter->GetComponent<CollisionCapsule>()->GetCapsule();//!ハンタ-のObbオブジェクトを取得
-				if (HitTest::SPHERE_CAPSULE(playerSp, HunterCapsrul, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
+				auto VillagerCapsrul = ptrVillager->GetComponent<CollisionCapsule>()->GetCapsule();//!ハンタ-のObbオブジェクトを取得
+				if (HitTest::SPHERE_CAPSULE(playerSp, VillagerCapsrul, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 				{
 					
-					auto HunterDedDecision = ptrHunter->GetDedDecision();//!ハンターの生死の判定の取得
-					HunterDedDecision = true;//!ハンターの生死を死にする
-					ptrHunter->SetDedDecision(HunterDedDecision);//!ハンターの生死の設定
-					auto HunterSpeed = ptrHunter->GetSpeed();//!ハンターのスピードを取得
-					if (!HunterSpeed == m_Ded)
+					auto VillagerDedDecision = ptrVillager->GetDedDecision();//!ハンターの生死の判定の取得
+					VillagerDedDecision = true;//!ハンターの生死を死にする
+					ptrVillager->SetDedDecision(VillagerDedDecision);//!ハンターの生死の設定
+					auto VillagerSpeed = ptrVillager->GetSpeed();//!ハンターのスピードを取得
+					if (!VillagerSpeed == m_Ded)
 					{
-                    HunterSpeed = m_Ded;//!ハンターのスピードを０にする
-					ptrHunter->SetSpeed(HunterSpeed);//!ハンターのスピードを設定
-					auto HunterDraw = ptrHunter->GetComponent<PNTStaticModelDraw>();//!ハンターの描画コンポーネントを取得
-					HunterDraw->SetDiffuse(Col4(1, 0, 0, 1));//!ハンターの色の設定
+                    VillagerSpeed = m_Ded;//!ハンターのスピードを０にする
+					ptrVillager->SetSpeed(VillagerSpeed);//!ハンターのスピードを設定
+					auto VillagerDraw = ptrVillager->GetComponent<PNTStaticModelDraw>();//!ハンターの描画コンポーネントを取得
+					VillagerDraw->SetDiffuse(Col4(1, 0, 0, 1));//!ハンターの色の設定
 					m_PlayerHp--;
 					}
 					

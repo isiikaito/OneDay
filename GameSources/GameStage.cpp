@@ -246,7 +246,7 @@ namespace basecross {
 		csvFile.SetFileName(fullPass);
 		csvFile.ReadCsv();
 
-		csvFile.GetSelect(LineVec, 0, keyName);//!0番目のカラムがL"Hunter"である行を抜き出す
+		csvFile.GetSelect(LineVec, 0, keyName);//!0番目のカラムがL"Villager"である行を抜き出す
 
 		for (auto& v : LineVec)
 		{
@@ -362,11 +362,11 @@ namespace basecross {
 	}
 
 	//!ハンターの作成
-	void GameStage::CerateHunter()
+	void GameStage::CerateVillager()
 	{
-		auto group = CreateSharedObjectGroup(L"Hunter_ObjGroup");//!グループを取得
+		auto group = CreateSharedObjectGroup(L"Villager_ObjGroup");//!グループを取得
 
-		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
+		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Villager");//!Excelのデータ指定
 		auto a=datas.size();
 		for (auto data : datas) {
 
@@ -374,9 +374,9 @@ namespace basecross {
 			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!ハンターの大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
 			
 
-			auto HunterPtr=AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
+			auto VillagerPtr=AddGameObject<Villager>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
 		
-			AddGameObject<LoseSightOf>(HunterPtr);
+			AddGameObject<LoseSightOf>(VillagerPtr);
 
 			////!パトロールポイントの実体を表示する
 			//for (int i = 0; i < pointData.m_patorlPositions.size(); i++)
@@ -438,7 +438,7 @@ namespace basecross {
 			CreateKey();//!カギの作成
 			CreateStageGate(); //!ステージの門の作成
 			CreatePlayer();//!プレーヤーの作成
-			CerateHunter();//!ハンターの作成
+			CerateVillager();//!ハンターの作成
 			CreatePlayBGM();//!BGMの作成
 			CreateHeartSprite();//!プレイヤーのHPの作成
 			CreateSuprisedSprite();//!ビックリマークの作成

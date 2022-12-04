@@ -1,5 +1,5 @@
 /*!
-@file Hunter.cpp
+@file Villager.cpp
 @brief ハンターの実体
 *@author isii kaito
 */
@@ -9,7 +9,7 @@
 
 namespace basecross
 {
-	Hunter::Hunter(const shared_ptr<Stage>& StagePtr,
+	Villager::Villager(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
 		const Vec3& Position,
@@ -31,12 +31,12 @@ namespace basecross
 	}
 
 	//!デストラクタ
-	Hunter::~Hunter() {}
+	Villager::~Villager() {}
 	
 
 
 	//!初期化
-	void Hunter::OnCreate()
+	void Villager::OnCreate()
 	{
 
 		//初期位置などの設定
@@ -53,9 +53,9 @@ namespace basecross
 			Vec3(0.0f, -1.0f, 0.0f)  //!位置
 		);
 
-		AddTag(L"Hunter_ObjGroup");//!オブジェクトタグの作成
-		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");//!オブジェクトのグループを得る
-		group->IntoGroup(GetThis<Hunter>());//!グループに自分自身を追加
+		AddTag(L"Villager_ObjGroup");//!オブジェクトタグの作成
+		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");//!オブジェクトのグループを得る
+		group->IntoGroup(GetThis<Villager>());//!グループに自分自身を追加
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 		
 		AddComponent<Gravity>(); //!重力をつける
@@ -88,7 +88,7 @@ namespace basecross
 
 	}
 	//!更新
-	void Hunter::OnUpdate()
+	void Villager::OnUpdate()
 	{
 		
 		auto MaxSpeed = GetMaxSpeed();
@@ -103,7 +103,7 @@ namespace basecross
 	}
 	
 	//!ハンターがプレイヤーを捕まえたら
-	void Hunter::OnCollisionEnter(shared_ptr<GameObject>& Other)
+	void Villager::OnCollisionEnter(shared_ptr<GameObject>& Other)
 	{
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto seekCondition = GetseekCondition();
@@ -111,7 +111,7 @@ namespace basecross
 		{
 			if (seekCondition ==true)
 			{
-              PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+              PostEvent(0.0f, GetThis<Villager>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 			}
 		}
 	}

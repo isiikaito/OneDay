@@ -76,7 +76,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp">
       <Filter>Object\Enemy\BaseEnemy</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Villager.cpp">
       <Filter>Object\Enemy\Hunter</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp">
@@ -166,7 +166,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h">
       <Filter>Object\Enemy\BaseEnemy</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Villager.h">
       <Filter>Object\Enemy\Hunter</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h">

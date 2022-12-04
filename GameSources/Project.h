@@ -17,7 +17,7 @@
 #include "StageBuilding.h"
 #include "StageGate.h"
 #include "MyCamera.h"
-#include "Hunter.h"
+#include "Villager.h"
 #include "Timer.h"
 #include "Title.h"
 #include"TitleStage.h"

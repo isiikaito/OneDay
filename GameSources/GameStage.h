@@ -36,7 +36,7 @@ namespace basecross {
 		void CreateStageBuilding(); //!ステージの建物
 		void CreateKey();//!鍵の作成
 		void CreateStageGate(); //!ステージの門
-		void CerateHunter();//!ハンターの作成
+		void CerateVillager();//!ハンターの作成
 		void CreateLightingCol();//!ライトの色を変える処理
 		void CreateTimerSprite();//!タイマースプライト作成
 		void CreateSuprisedSprite();

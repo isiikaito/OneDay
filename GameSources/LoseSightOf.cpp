@@ -79,13 +79,13 @@ namespace basecross
 	void LoseSightOf::OnUpdate()
 	{
 		Billboard();
-		auto hunter = std::dynamic_pointer_cast<Hunter>(parent);
+		auto GetVillager = std::dynamic_pointer_cast<Villager>(parent);
 
 
 
 
 
-		auto loseSightOfTarget = hunter->GetloseSightOfTarget();
+		auto loseSightOfTarget = GetVillager->GetloseSightOfTarget();
 
 		//!ƒvƒŒƒCƒ„[‚ªŒ©‚Â‚©‚Á‚½‚ç
 		if (loseSightOfTarget == true)
@@ -99,7 +99,7 @@ namespace basecross
 			if (m_LoseSeghtOfTime >= 2)
 			{
 				loseSightOfTarget = false;
-				hunter->SetloseSightOfTarget(loseSightOfTarget);
+				GetVillager->SetloseSightOfTarget(loseSightOfTarget);
 			}
 
 		}

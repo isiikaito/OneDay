@@ -1,5 +1,5 @@
 /*!
-@file Hunter.h
+@file Villager.h
 @brief ハンターの作成
 *@author isii kaito
 */
@@ -12,7 +12,7 @@ namespace basecross
 	//--------------------------------------------------------
 	//!ハンター
 	//--------------------------------------------------------
-	class Hunter :public BaseEnemy
+	class Villager :public BaseEnemy
 	{
 	private:
 
@@ -36,7 +36,7 @@ namespace basecross
 		@param[in]	StagePtr	ステージ
 		*/
 		//--------------------------------------------------------------------------------------
-		Hunter(const shared_ptr<Stage>& StagePtr,
+		Villager(const shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Rotation,
 			const Vec3& Position,
@@ -47,7 +47,7 @@ namespace basecross
 		@brief	デストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual ~Hunter();
+		virtual ~Villager();
 	public:
      
 	
@@ -58,9 +58,9 @@ namespace basecross
 	    }
 
 		//!ハンターのスピードの設定
-		void SetSpeed(int HunterSpeed)
+		void SetSpeed(int VillagerSpeed)
 		{
-			m_Speed = HunterSpeed;
+			m_Speed = VillagerSpeed;
 		}
 
 		//!ハンターの生死の判定の取得
