@@ -38,13 +38,14 @@ namespace basecross {
 		void CreateStageGate(); //!ステージの門
 		void CerateVillager();//!村人の作成
 		void CerateHunter();//!ハンターの作成
+		void CreateAlertlevelGauge();//!警戒度ゲージの作成
 		void CreateLightingCol();//!ライトの色を変える処理
 		void CreateTimerSprite();//!タイマースプライト作成
 		void CreateSuprisedSprite();
 		shared_ptr<SoundItem>m_BGM;
 		void CreatePlayBGM();//!BGM作成
 		void CreateHeartSprite();
-
+		void CreateArrow();//!矢印の作成
 		//初期化
 		virtual void OnCreate()override;
 

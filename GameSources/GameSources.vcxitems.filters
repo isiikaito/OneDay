@@ -38,7 +38,7 @@
       <Filter>Sprite\Key</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Timer.cpp">
-      <Filter>Sprite\Timer</Filter>
+      <Filter>Sprite\Surprised\Timer</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Title.cpp">
       <Filter>Sprite\Title</Filter>
@@ -89,6 +89,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Villager.cpp">
       <Filter>Object\Enemy\Villager</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Arrow.cpp">
+      <Filter>Sprite\Alertlevel\Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp">
+      <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -125,7 +131,7 @@
       <Filter>Sprite\Key</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Timer.h">
-      <Filter>Sprite\Timer</Filter>
+      <Filter>Sprite\Surprised\Timer</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Title.h">
       <Filter>Sprite\Title</Filter>
@@ -185,6 +191,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
       <Filter>Object\Enemy\Hunter</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Arrow.h">
+      <Filter>Sprite\Alertlevel\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AlertlevelGauge.h">
+      <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -204,9 +216,6 @@
     </Filter>
     <Filter Include="Sprite\Key">
       <UniqueIdentifier>{d3d9df79-1611-445a-92dd-8cc1a4b7f584}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\Timer">
-      <UniqueIdentifier>{5fd87dde-7a84-4463-9135-8eae287877ce}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sprite\Title">
       <UniqueIdentifier>{e509f236-71c2-4ff5-8daa-8b9351b7d56e}</UniqueIdentifier>
@@ -291,6 +300,18 @@
     </Filter>
     <Filter Include="Object\Enemy\Hunter">
       <UniqueIdentifier>{9b4effd6-8430-49b5-b67b-5e9874639f56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\Surprised\Timer">
+      <UniqueIdentifier>{5fd87dde-7a84-4463-9135-8eae287877ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\Alertlevel">
+      <UniqueIdentifier>{732c903e-58a9-42b6-83f0-63f52350281d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\Alertlevel\Arrow">
+      <UniqueIdentifier>{ef181345-41ff-46df-847e-5ae5d304742e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\Alertlevel\AlertlevelGauge">
+      <UniqueIdentifier>{0568939c-7403-44bd-8d7f-284d4ab5ac8e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

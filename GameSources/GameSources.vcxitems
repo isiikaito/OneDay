@@ -14,6 +14,8 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AlertlevelGauge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Arrow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h" />
@@ -48,6 +50,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Arrow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp" />
