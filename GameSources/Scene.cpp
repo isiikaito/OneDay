@@ -84,12 +84,22 @@ namespace basecross{
 
 		//モデル
 		//ボーンモデルの通常リソース
-		auto multiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"PlayerAnimetion.bmf");
-		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH", multiModelMesh);
+		auto humanMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"PlayerAnimetion.bmf");
+		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH", humanMultiModelMesh);
 
 		//ボーンモデルのタンジェント付きリソース
-		multiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerAnimetion.bmf");
-		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH_WITH_TAN", multiModelMesh);
+		humanMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerAnimetion.bmf");
+		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH_WITH_TAN", humanMultiModelMesh);
+
+		//モデル
+		//ボーンモデルの通常リソース
+		auto playrWolfMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"PlayerWolf_Animation.bmf");
+		App::GetApp()->RegisterResource(L"PlayerWolf_WalkAnimation_MESH", playrWolfMultiModelMesh);
+
+		//ボーンモデルのタンジェント付きリソース
+		playrWolfMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerWolf_Animation.bmf");
+		App::GetApp()->RegisterResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN", playrWolfMultiModelMesh);
+
 		//法線マップ
 		strTexture = dataDir + L"normal1.png";
 		App::GetApp()->RegisterTexture(L"OBJECT_NORMAL_TX", strTexture);
