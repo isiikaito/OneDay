@@ -109,12 +109,19 @@ namespace basecross{
 		playrWolfMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerWolf_Animation.bmf");
 		App::GetApp()->RegisterResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN", playrWolfMultiModelMesh);
 
+		//モデル
+			//ボーンモデルの通常リソース
+		auto EnemyWolfMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
+		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH", EnemyWolfMultiModelMesh);
+
+		//ボーンモデルのタンジェント付きリソース
+		EnemyWolfMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
+		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH_WITH_TAN", EnemyWolfMultiModelMesh);
+
 		//法線マップ
 		strTexture = dataDir + L"normal1.png";
 		App::GetApp()->RegisterTexture(L"OBJECT_NORMAL_TX", strTexture);
 
-		
-		
 		//!BGM
 		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";
 		App::GetApp()->RegisterWav(L"bgm", strMusic);
