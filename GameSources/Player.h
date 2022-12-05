@@ -122,6 +122,16 @@ namespace basecross{
 			return m_AlertleveCount;
 		}
 
+		//!スピードの取得
+		float GetSpeed()
+		{
+			return m_Speed;
+		}
+		void SetSpeed(float speed)
+		{
+			m_Speed = speed;
+		}
+
 		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other);//プレイヤーとカギの衝突判定
 	};
 }

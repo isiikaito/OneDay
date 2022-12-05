@@ -40,3 +40,4 @@
 #include"AlertlevelGauge.h"
 #include"Arrow.h"
 #include"WoodenBox.h"
+#include"FadeOut.h"

@@ -41,5 +41,13 @@ namespace basecross {
 		PtrDraw->SetSamplerState(SamplerState::LinearWrap);
 		PtrDraw->SetTextureResource(m_TextureKey);
 	}
+	
+	void GameOverSprite::OnUpdate()
+	{
+		auto PtrDraw = GetComponent<PCTSpriteDraw>();
+	
+
+		
+	}
 }
 //end basecross

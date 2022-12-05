@@ -25,7 +25,9 @@ namespace basecross
 		int m_Speed;//!スピード
 		int m_patrolindex;
 		float m_StateChangeSize;
-		
+		bool m_PlayerDed;//!プレイヤーの死亡
+		bool m_IsGameOver;
+		float m_lostTime;
 
 		//bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
 
