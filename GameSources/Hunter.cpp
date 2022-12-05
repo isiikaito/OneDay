@@ -9,7 +9,7 @@
 
 namespace basecross
 {
-	Villager::Villager(const shared_ptr<Stage>& StagePtr,
+	Hunter::Hunter(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
 		const Vec3& Position,
@@ -24,21 +24,19 @@ namespace basecross
 		m_StateChangeSize(30.0f),
 		m_playerChange(0),
 		m_Speed(25),
-		m_patrolindex(0),
-	    m_dedDecision(false)
+		m_patrolindex(0)
 
 	{
 	}
 
 	//!デストラクタ
-	Villager::~Villager() {}
-	
+	Hunter::~Hunter() {}
+
 
 
 	//!初期化
-	void Villager::OnCreate()
+	void Hunter::OnCreate()
 	{
-
 		//初期位置などの設定
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(m_Scale);//!大きさ
@@ -53,15 +51,16 @@ namespace basecross
 			Vec3(0.0f, -1.0f, 0.0f)  //!位置
 		);
 
-		AddTag(L"Villager_ObjGroup");//!オブジェクトタグの作成
-		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");//!オブジェクトのグループを得る
-		group->IntoGroup(GetThis<Villager>());//!グループに自分自身を追加
-		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 		
+		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");//!オブジェクトのグループを得る
+		group->IntoGroup(GetThis<Hunter>());//!グループに自分自身を追加
+		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
+
 		AddComponent<Gravity>(); //!重力をつける
 		auto Coll = AddComponent<CollisionCapsule>();//!CollisionObb衝突判定を付ける
 		auto ptrShadow = AddComponent<Shadowmap>();  //!影をつける（シャドウマップを描画する）
 
+		//!影の形（メッシュ）を設定
 		ptrShadow->SetMeshResource(L"Player_WalkAnimation_MESH");//!影の形（メッシュ）を設定
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 
@@ -74,7 +73,6 @@ namespace basecross
 		ptrDraw->AddAnimation(L"Move", 0, 15, true, 40.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Move");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
-		Coll->SetDrawActive(false);
 
 		m_patrolPoints[m_patrolindex];
 		SetEnemyPatorolindex(m_patrolindex);
@@ -86,33 +84,31 @@ namespace basecross
 		}
 
 		SetpatorolPoints(patrolPoints);
-	
-	}
+		ptrDraw->SetDiffuse(Col4(0.0f, 0.0f, 1.0f, 1.0f));
 
+
+
+	}
 	//!更新
-	void Villager::OnUpdate()
+	void Hunter::OnUpdate()
 	{
-		
-		auto MaxSpeed = GetMaxSpeed();
-		MaxSpeed = m_Speed;
-		SetMaxSpeed(MaxSpeed);
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		m_playerChange = ptrPlayer->GetPlayerCange();//!プレイヤーの状態の取得
 		ptrPlayer->SetPlayerChange(m_playerChange);//!プレイヤーの取得した状態の設定
 		BaseEnemy::OnUpdate();
 	}
-	
+
 	//!村人がプレイヤーを捕まえたら
-	void Villager::OnCollisionEnter(shared_ptr<GameObject>& Other)
+	void Hunter::OnCollisionEnter(shared_ptr<GameObject>& Other)
 	{
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto seekCondition = GetseekCondition();
 		if (ptrPlayer)
 		{
-			if (seekCondition ==true)
+			if (seekCondition == true)
 			{
-              PostEvent(0.0f, GetThis<Villager>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+				PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 			}
 		}
 	}

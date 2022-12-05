@@ -22,6 +22,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOver.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOverStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Villager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Key.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)KeySprite.h" />
@@ -55,6 +56,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOver.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOverStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Villager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Key.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)KeySprite.cpp" />

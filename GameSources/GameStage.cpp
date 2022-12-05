@@ -278,6 +278,8 @@ namespace basecross {
 		return result;
 	}
 
+
+	
 	//!パトロールポイントの構造体
 	struct PointCreateDate {
 		std::vector<Vec3>m_patorlPositions = vector<Vec3>(0.0f);
@@ -378,14 +380,30 @@ namespace basecross {
 		
 			AddGameObject<LoseSightOf>(VillagerPtr);
 
-			////!パトロールポイントの実体を表示する
-			//for (int i = 0; i < pointData.m_patorlPositions.size(); i++)
-			//{
-			//		AddGameObject<StageBuilding>(Vec3(1, 6, 1), Vec3(0, 0, 0),pointData.m_patorlPositions[i]);
-			//}
+			
 				
 			
 		}
+	}
+
+	//!ハンターの作成
+	void GameStage::CerateHunter()
+	{
+		auto group = CreateSharedObjectGroup(L"Hunter_ObjGroup");//!グループを取得
+
+		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
+		auto a = datas.size();
+		for (auto data : datas) {
+
+
+			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!村人の大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
+
+
+			auto HunterPtr = AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
+
+			AddGameObject<LoseSightOf>(HunterPtr);
+		}
+
 	}
 
 	void GameStage::CreateLightingCol()
@@ -442,7 +460,7 @@ namespace basecross {
 			CreatePlayBGM();//!BGMの作成
 			CreateHeartSprite();//!プレイヤーのHPの作成
 			CreateSuprisedSprite();//!ビックリマークの作成
-			
+			CerateHunter();//!ハンターの作成
 		}
 		catch (...) {
 			throw;

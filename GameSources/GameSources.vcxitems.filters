@@ -76,9 +76,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp">
       <Filter>Object\Enemy\BaseEnemy</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Villager.cpp">
-      <Filter>Object\Enemy\Villager</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp">
       <Filter>State\EnemyStage</Filter>
     </ClCompile>
@@ -86,6 +83,12 @@
       <Filter>Sprite\Surprised</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp">
+      <Filter>Object\Enemy\Hunter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Villager.cpp">
+      <Filter>Object\Enemy\Villager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -179,6 +182,9 @@
       <Filter>Sprite\Surprised</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)LoseSightOf.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
+      <Filter>Object\Enemy\Hunter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -282,6 +288,9 @@
     </Filter>
     <Filter Include="Object\Enemy\Villager">
       <UniqueIdentifier>{5ee0eb83-b99e-403a-89af-9742ca17c9a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Hunter">
+      <UniqueIdentifier>{9b4effd6-8430-49b5-b67b-5e9874639f56}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

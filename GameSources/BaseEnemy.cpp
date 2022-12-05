@@ -67,6 +67,9 @@ namespace basecross
 
 	void BaseEnemy::OnUpdate()
 	{
+		float elapsedTime = App::GetApp()->GetElapsedTime();
+		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
+		ptrDraw->UpdateAnimation(elapsedTime);
 		
 		m_StateMachine->Update();
 
