@@ -193,8 +193,8 @@ namespace basecross {
 		AddGameObject<Timer>(2,
 			L"NUMBER_TX",
 			true,
-			Vec2(160.0f, 80.0f),//元は(320.0f,80,0f)
-			Vec3(-550.0f, 330.0f, 10.0f));//元は(0.0f, 0.0f, 0.0f)
+			Vec2(80.0f, 40.0f),//元は(320.0f,80,0f)
+			Vec3(-360.0f, 240.0f, 10.0f));//元は(0.0f, 0.0f, 0.0f)
 
 	}
 
@@ -388,6 +388,19 @@ namespace basecross {
 
 	}
 
+	// !時計のスプライトの作成
+	void GameStage::CreateClockSprite()
+	{
+		AddGameObject<ClockSprite>
+			(
+				L"testTime_TX",
+				true,
+				Vec2(400.0f, 300.0f),
+				Vec2(-440.0f, 270.0f)
+				);
+
+	}
+
 	//!村人の作成
 	void GameStage::CerateVillager()
 	{
@@ -488,6 +501,7 @@ namespace basecross {
 			CerateHunter();//!ハンターの作成
 			CreateAlertlevelGauge();//!警戒度のゲージの作成
 			CreateArrow();//!矢印の作成
+			CreateClockSprite(); //!時計のスプライトの作成
 		}
 		catch (...) {
 			throw;

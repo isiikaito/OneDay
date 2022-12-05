@@ -95,6 +95,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -197,6 +198,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AlertlevelGauge.h">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
