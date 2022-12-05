@@ -84,11 +84,11 @@ namespace basecross{
 
 		//モデル
 		//ボーンモデルの通常リソース
-		auto multiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"P_Player_Animation.bmf");
+		auto multiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"PlayerAnimetion.bmf");
 		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH", multiModelMesh);
 
 		//ボーンモデルのタンジェント付きリソース
-		multiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"P_Player_Animation.bmf");
+		multiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerAnimetion.bmf");
 		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH_WITH_TAN", multiModelMesh);
 		//法線マップ
 		strTexture = dataDir + L"normal1.png";

@@ -158,7 +158,7 @@ namespace basecross {
 		ptrDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");
 		
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		ptrDraw->AddAnimation(L"Move", 0, 15, true, 40.0f);
+		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
 		ptrDraw->AddAnimation(L"Default", 30, 60, true, 15.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Default");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");

@@ -38,8 +38,10 @@ namespace basecross
 		LoseSightOf(const std::shared_ptr<Stage>& stage, const std::shared_ptr<GameObject>& parent)
 		: GameObject(stage), parent(parent), m_LoseSeghtOfTime(0.0f), m_spritePositionY(8.0f) {}
 		virtual ~LoseSightOf(){}
-		//!見失ったら
+		//!村人が見失ったら
 		void LoseSight();
+		//!ハンターが見失ったら
+		void loseSghtHunter();
 		//!ビルボード処理
 		void Billboard();
 		//!初期化
