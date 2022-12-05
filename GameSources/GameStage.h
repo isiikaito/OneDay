@@ -48,6 +48,7 @@ namespace basecross {
 		void CreatePlayBGM();//!BGM作成
 		void CreateHeartSprite();
 		void CreateArrow();//!矢印の作成
+		void CreateGameOver();//!ゲームオーバースプライト
 		//初期化
 		virtual void OnCreate()override;
 

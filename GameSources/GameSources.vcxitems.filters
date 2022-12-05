@@ -94,16 +94,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
     </ClCompile>
-
     <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
-
     <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp">
       <Filter>Sprite\LoseSightOf</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)WoodenBox.cpp">
       <Filter>Object\WoodenBox</Filter>
     </ClCompile>
-
+    <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -205,16 +203,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AlertlevelGauge.h">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
     </ClInclude>
-
     <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h" />
-
     <ClInclude Include="$(MSBuildThisFileDirectory)LoseSightOf.h">
       <Filter>Sprite\LoseSightOf</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)WoodenBox.h">
       <Filter>Object\WoodenBox</Filter>
     </ClInclude>
-
+    <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
