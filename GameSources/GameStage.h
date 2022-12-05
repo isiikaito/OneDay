@@ -35,11 +35,13 @@ namespace basecross {
 		void CreateStageWall(); //!ステージの壁
 		void CreateStageBuilding(); //!ステージの建物
 		void CreateKey();//!鍵の作成
+		void CreateClockSprite(); //!時計のスプライトの作成
 		void CreateStageGate(); //!ステージの門
 		void CerateVillager();//!村人の作成
 		void CerateHunter();//!ハンターの作成
 		void CreateAlertlevelGauge();//!警戒度ゲージの作成
 		void CreateLightingCol();//!ライトの色を変える処理
+		void CreateWoodenBox();//!木箱の作成
 		void CreateTimerSprite();//!タイマースプライト作成
 		void CreateSuprisedSprite();
 		shared_ptr<SoundItem>m_BGM;
@@ -52,7 +54,6 @@ namespace basecross {
 		virtual void OnUpdate()override;
 
 		virtual void OnDestroy() override;
-
 
 		
 		//void OnPushA();//!Aボタン

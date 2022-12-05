@@ -12,7 +12,7 @@ namespace basecross {
 		Vec3 m_Scale;   //!大きさ
 		Vec3 m_Rotation;//!回転
 		Vec3 m_Position;//!位置
-
+		float m_Time;
 	public:
 		/**
 		* コンストラクタ
@@ -28,7 +28,7 @@ namespace basecross {
 		* ゲームステージの床の初期パラメータを初期化する関数
 		*/
 		virtual void OnCreate() override;
-	
+		virtual void OnUpdate()override;
 
 		
 	};

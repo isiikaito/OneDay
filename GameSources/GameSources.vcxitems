@@ -18,6 +18,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Arrow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClear.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h" />
@@ -48,12 +49,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Title.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WoodenBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Arrow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClear.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp" />
@@ -82,5 +85,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WoodenBox.cpp" />
   </ItemGroup>
 </Project>

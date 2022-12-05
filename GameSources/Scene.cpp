@@ -19,7 +19,7 @@ namespace basecross{
 		App::GetApp()->GetAssetsDirectory(dataDir);
 
 		//!テクスチャ
-		wstring strTexture = dataDir +L"Texture\\"+ L"number.png";
+		wstring strTexture = dataDir +L"Texture\\"+ L"number2.png";
 		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
 		//!タイトル画面
 		strTexture = dataDir + L"Texture\\"+L"Title.jpg";
@@ -36,6 +36,9 @@ namespace basecross{
 		//!プレイヤーのHPスプライト
 		strTexture = dataDir + L"Texture\\" + L"PlayerHp.png";
 		App::GetApp()->RegisterTexture(L"PlayerHp_TX", strTexture);
+		//!時計のスプライト
+		strTexture = dataDir + L"Texture\\" + L"testTime.png";
+		App::GetApp()->RegisterTexture(L"testTime_TX", strTexture);
 		//!ビックリマークのスプライト
 		strTexture = dataDir + L"Texture\\" + L"Surprised.png";
 		App::GetApp()->RegisterTexture(L"Surprised_TX", strTexture);
@@ -106,12 +109,19 @@ namespace basecross{
 		playrWolfMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerWolf_Animation.bmf");
 		App::GetApp()->RegisterResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN", playrWolfMultiModelMesh);
 
+		//モデル
+			//ボーンモデルの通常リソース
+		auto EnemyWolfMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
+		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH", EnemyWolfMultiModelMesh);
+
+		//ボーンモデルのタンジェント付きリソース
+		EnemyWolfMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
+		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH_WITH_TAN", EnemyWolfMultiModelMesh);
+
 		//法線マップ
-		strTexture = dataDir + L"normal1.png";
+		strTexture = dataDir + L"PlalyerBanpMap.png";
 		App::GetApp()->RegisterTexture(L"OBJECT_NORMAL_TX", strTexture);
 
-		
-		
 		//!BGM
 		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";
 		App::GetApp()->RegisterWav(L"bgm", strMusic);

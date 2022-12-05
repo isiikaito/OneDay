@@ -150,17 +150,18 @@ namespace basecross {
 	
 		auto shadowPtr = AddComponent<Shadowmap>();//!影をつける（シャドウマップを描画する）
 
-		shadowPtr->SetMeshResource(L"Player_WalkAnimation_MESH");//!影の形（メッシュ）を設定
+		shadowPtr->SetMeshResource(L"Enemy_WalkAnimation_MESH");//!影の形（メッシュ）を設定
 		shadowPtr->SetMeshToTransformMatrix(spanMat);
 
 		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの設定
 
 		//!描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");
+		ptrDraw->SetMeshResource(L"Enemy_WalkAnimation_MESH_WITH_TAN");
 		
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
-		ptrDraw->AddAnimation(L"Default", 30, 60, true, 15.0f);
+		ptrDraw->AddAnimation(L"Default", 30, 30, true, 15.0f);
+		ptrDraw->AddAnimation(L"Ded", 60, 30, false, 15.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Default");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
 
@@ -255,6 +256,25 @@ namespace basecross {
 		}
 	}
 
+	void Player::Escape()
+	{
+		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
+		auto position = transComp->GetPosition();//!現在のプレイヤーの位置の取得
+		SPHERE playerSp(position, 10.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
+
+		auto gate=GetStage()->GetSharedGameObject<StageGate>(L"Gate");
+		Vec3 ret;
+				auto gateObb=gate->GetComponent<CollisionObb>()->GetObb();
+				if (HitTest::SPHERE_OBB(playerSp, gateObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
+				{
+
+					PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");//!ゲームクリアステージに遷移
+
+				}
+			
+		
+	}
+
 	//!鍵のスプライトの作成
 	void Player::CreateKeySprite()
 	{
@@ -314,21 +334,18 @@ namespace basecross {
 			CreateKeySprite();
 		}
 		
-		//!プレイヤーが鍵を持っていたら
-			if (m_KeyCount == m_MaxKeyCount)
-			{
-				auto ptrGate = dynamic_pointer_cast<StageGate>(Other);//!門のオブジェクト取得
-				if (ptrGate)//!プレイヤーが門に当たったら
-				{
-					PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");//!ゲームクリアステージに遷移
-				}
-			}
+	
 	}
 	void Player::OnPushB()
 	{
 		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
 		{
           Villagerkiller();//!村人を倒す処理
+		}
+		//!プレイヤーが鍵を持っていたら
+		if (m_KeyCount == m_MaxKeyCount)
+		{
+			Escape();
 		}
 		
 	}

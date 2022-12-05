@@ -32,6 +32,7 @@ namespace basecross
 		}
 		float m_LoseSeghtOfTime;
 		const float m_spritePositionY;
+		
 
 	public:
 		//!\’z‚Æ”jŠü
