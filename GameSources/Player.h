@@ -68,6 +68,8 @@ namespace basecross{
 		void Escape();//!脱出処理
 		void AppearanceChange();//!プレイヤーの見た目の変化
 		void OnPushB();//!コントローラーのボタン判定B
+		shared_ptr<SoundItem>m_BGM;
+		void CreatePlayBGM();//!BGM作成
 
         //!プレイヤーの状態の取得
 		int GetPlayerCange()const

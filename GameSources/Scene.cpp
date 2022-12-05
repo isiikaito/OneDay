@@ -133,10 +133,22 @@ namespace basecross{
 		App::GetApp()->RegisterTexture(L"OBJECT_NORMAL_TX", strTexture);
 
 		//!BGM
-		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";
+		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";//ゲーム中のBGM
 		App::GetApp()->RegisterWav(L"bgm", strMusic);
-		strMusic = dataDir + L"Sound\\" L"Title.wav";
+
+		strMusic = dataDir + L"Sound\\" L"Title.wav";//タイトル画面のBGM
 		App::GetApp()->RegisterWav(L"TitleBGM", strMusic);
+
+		strMusic = dataDir + L"Sound\\" L"walk.wav";//タイトル画面のBGM
+		App::GetApp()->RegisterWav(L"WalkBGM", strMusic);
+
+		wstring decisionWav = dataDir + "Sound\\" L"decision.wav";//ボタンを押したときの音
+		App::GetApp()->RegisterWav(L"decision", decisionWav);
+
+		wstring killWav = dataDir + "Sound\\" L"kill.wav";//敵を殺した時の音
+		App::GetApp()->RegisterWav(L"kill", killWav);
+
+		
 
 
 	}

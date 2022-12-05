@@ -104,13 +104,18 @@ namespace basecross {
 			//歩くアニメーション
 			if (AnimationName == L"Default") {
 				ptrDraw->ChangeCurrentAnimation(L"Move");
-
+				//歩く音再生
+				auto XAptr = App::GetApp()->GetXAudio2Manager();
+				m_BGM = XAptr->Start(L"WalkBGM", 0, 1.0f);
 			}
 		}
 		else {
 			//立ち止まるアニメーション
 			if (AnimationName == L"Move") {
 				ptrDraw->ChangeCurrentAnimation(L"Default");
+				auto XAptr = App::GetApp()->GetXAudio2Manager();
+				XAptr->Stop(m_BGM);
+
 
 			}
 		}
@@ -248,6 +253,10 @@ namespace basecross {
 					VillagerDraw->SetDiffuse(Col4(1, 0, 0, 1));//!村人の色の設定
 					m_PlayerHp--;
 					m_AlertleveCount++;
+
+					//サウンド再生
+					auto ptrXA = App::GetApp()->GetXAudio2Manager();
+					ptrXA->Start(L"kill", 0, 1.0f);
 					}
 					
 
