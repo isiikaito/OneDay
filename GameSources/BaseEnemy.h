@@ -32,7 +32,8 @@ namespace basecross
 		bool m_seekCondition;//!敵が追いかけているかどうか
         bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
 		bool m_IspositionLiset;//!ポジションのリセット
-		bool m_IsEnemyDed;
+		bool m_IsEnemyDed;//!敵の死亡判定
+		float m_eyeRange;//!敵の視野の長さ
 	protected:
 		
 
@@ -176,6 +177,17 @@ namespace basecross
 			m_IsEnemyDed = IsEnemyDed;
 		}
 
+		//!敵の視野の取得
+		float GetEyeRang()
+		{
+			return m_eyeRange;
+		}
+
+		//!敵の視野の設定
+		void SetEyeRang(float eyeRange)
+		{
+			m_eyeRange = eyeRange;
+		}
 
 		
 		//!適応力

@@ -109,7 +109,7 @@ namespace basecross
 		auto MaxSpeed = GetMaxSpeed();
 		MaxSpeed = m_Speed;
 		SetMaxSpeed(MaxSpeed);
-
+		SetEyeRang(20.0f);
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		m_playerChange = ptrPlayer->GetPlayerCange();//!プレイヤーの状態の取得
 		ptrPlayer->SetPlayerChange(m_playerChange);//!プレイヤーの取得した状態の設定

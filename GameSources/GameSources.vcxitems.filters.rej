@@ -1,0 +1,9 @@
+diff a/GameSources/GameSources.vcxitems.filters b/GameSources/GameSources.vcxitems.filters	(rejected hunks)
+@@ -94,6 +94,7 @@
+      <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp">
+        <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
+      </ClCompile>
+++<<<<<<< Updated upstream
+ +    <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
+ +=======
+      <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp">

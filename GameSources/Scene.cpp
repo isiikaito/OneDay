@@ -19,7 +19,7 @@ namespace basecross{
 		App::GetApp()->GetAssetsDirectory(dataDir);
 
 		//!テクスチャ
-		wstring strTexture = dataDir +L"Texture\\"+ L"number.png";
+		wstring strTexture = dataDir +L"Texture\\"+ L"number2.png";
 		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
 		//!タイトル画面
 		strTexture = dataDir + L"Texture\\"+L"Title.jpg";
@@ -119,7 +119,7 @@ namespace basecross{
 		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH_WITH_TAN", EnemyWolfMultiModelMesh);
 
 		//法線マップ
-		strTexture = dataDir + L"normal1.png";
+		strTexture = dataDir + L"PlalyerBanpMap.png";
 		App::GetApp()->RegisterTexture(L"OBJECT_NORMAL_TX", strTexture);
 
 		//!BGM

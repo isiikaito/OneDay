@@ -146,7 +146,7 @@ namespace basecross
 			{
 				if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
 				{
-					if (f < PatrolArriveRange)//!敵とプレイヤーの距離が一定距離近づいたら
+					if (f < Enemy->GetEyeRang())//!敵とプレイヤーの距離が一定距離近づいたら
 					{
 						Enemy->ChangeState(SeekState::Instance());//!ステートを変更する
 					}
@@ -278,7 +278,7 @@ namespace basecross
 						m_lostTime += time;
 						if ( PEdistance>=37&&m_lostTime >= 3)
 						{
-                               Enemy->ChangeState(PatrolState::Instance());//!ステートの変更
+                               Enemy->ChangeState(LostStage::Instance());//!ステートの変更
 						}
 						if ( PEdistance <= 37&&m_lostTime >= 3)
 						{
@@ -337,6 +337,48 @@ namespace basecross
 		}
 
 
+
+		//!インスタンスの生成(実体の作成)
+		LostStage* LostStage::Instance()
+		{
+			static LostStage instance;
+			return &instance;
+
+		}
+
+
+		void LostStage::Enter(BaseEnemy* Enemy)
+		{}
+
+		void LostStage::Execute(BaseEnemy* Enemy)
+		{
+			
+		auto EnemyTrans=Enemy->GetComponent<Transform>();
+		auto EnemyPosition = EnemyTrans->GetPosition();
+		auto patorolPoint=Enemy->GetEnemyPatorolPoints();
+		auto& app = App::GetApp();//!アプリの取得
+		auto time = app->GetElapsedTime();
+	    m_lostTime += time;
+		if (m_lostTime >=m_MaxlostTime)
+		{
+        EnemyPosition = patorolPoint[1];
+		EnemyTrans->SetPosition(EnemyPosition);
+		Enemy->ChangeState(PatrolState::Instance());//!ステートを変更する
+		}
+		
+
+
+		}
+		void LostStage::Exit(BaseEnemy* Enemy)
+		{
+			//!首を振る動作をする
+			//! 
+
+		}
+
+
 	}
 }
 //!見失うときは範囲外に行ってから数秒追いかけてから見失う処理をした方がいい
+//! ブレットクラムで見失うときは時間だけを利用してやってみるといい
+//! 見失ったときに元の位置に戻るのはそれ用のステートを用意してそのポイントに何秒後に戻るとやることが出来る

@@ -82,7 +82,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SurprisedSprite.cpp">
       <Filter>Sprite\Surprised</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp">
       <Filter>Object\Enemy\Hunter</Filter>
     </ClCompile>
@@ -95,7 +94,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
     </ClCompile>
+
     <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
+
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp">
+      <Filter>Sprite\LoseSightOf</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WoodenBox.cpp">
+      <Filter>Object\WoodenBox</Filter>
+    </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -188,7 +196,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SurprisedSprite.h">
       <Filter>Sprite\Surprised</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)LoseSightOf.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
       <Filter>Object\Enemy\Hunter</Filter>
     </ClInclude>
@@ -198,7 +205,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AlertlevelGauge.h">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
     </ClInclude>
+
     <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h" />
+
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoseSightOf.h">
+      <Filter>Sprite\LoseSightOf</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WoodenBox.h">
+      <Filter>Object\WoodenBox</Filter>
+    </ClInclude>
+
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -314,6 +330,12 @@
     </Filter>
     <Filter Include="Sprite\Alertlevel\AlertlevelGauge">
       <UniqueIdentifier>{0568939c-7403-44bd-8d7f-284d4ab5ac8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\LoseSightOf">
+      <UniqueIdentifier>{3736865d-3992-45ea-a504-6df8bdd8cfee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\WoodenBox">
+      <UniqueIdentifier>{088fdcb1-3b41-442a-a314-d8057cb3db50}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
