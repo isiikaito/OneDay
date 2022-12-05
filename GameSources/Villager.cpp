@@ -72,6 +72,7 @@ namespace basecross
 
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
+		ptrDraw->AddAnimation(L"Default", 30, 60, true, 15.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Move");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
 		Coll->SetDrawActive(false);
@@ -92,6 +93,18 @@ namespace basecross
 	//!更新
 	void Villager::OnUpdate()
 	{
+		auto HunterDed = GetIsEnemyDed();
+		if (HunterDed == true)
+		{
+			//アニメーション
+			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
+			auto AnimationName = ptrDraw->GetCurrentAnimation();
+			//立ち止まるアニメーション
+			if (AnimationName == L"Move") {
+				ptrDraw->ChangeCurrentAnimation(L"Default");
+
+			}
+		}
 		
 		auto MaxSpeed = GetMaxSpeed();
 		MaxSpeed = m_Speed;

@@ -29,13 +29,13 @@ namespace basecross{
 		const float m_wolfTime;//!狼の時間
 		const int m_reset;//1ループリセット
 		int m_MaxKeyCount;//!鍵の所持数の最大
-		int m_Ded;//!敵の死亡
+		int m_Ded;//!死亡
 		int m_PlayerPositionOnSecondMax;//!プレイヤーの位置の配列の最大の長さ
 		int m_PlayerHp;//!プレイヤーの体力
 		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 		float m_PlayerPositionTime;//!プレイヤーの位置を取得するまでの時間
-		bool m_IsPlayerFound;
-		
+		bool m_IsPlayerFound;//!プレイヤーが見つかった稼働羽化
+		int m_AlertleveCount;
 	
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
 
@@ -113,6 +113,12 @@ namespace basecross{
 		void SetPlayerFound(bool PlayerFound)
 		{
 			m_IsPlayerFound = PlayerFound;
+		}
+
+		//!警戒度のカウント
+		int GetAlertleveCount()const
+		{
+			return m_AlertleveCount;
 		}
 
 		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other);//プレイヤーとカギの衝突判定

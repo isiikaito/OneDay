@@ -32,6 +32,7 @@ namespace basecross
 		bool m_seekCondition;//!敵が追いかけているかどうか
         bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
 		bool m_IspositionLiset;//!ポジションのリセット
+		bool m_IsEnemyDed;
 	protected:
 		
 
@@ -162,6 +163,19 @@ namespace basecross
 		{
 			m_IspositionLiset= IspositionLiset;
 		}
+
+		//!ハンターの生死の取得
+		bool GetIsEnemyDed()
+		{
+			return m_IsEnemyDed;
+		}
+
+		//!ハンターの生死の設定
+		void SetIsEnemyDed(bool IsEnemyDed)
+		{
+			m_IsEnemyDed = IsEnemyDed;
+		}
+
 
 		
 		//!適応力

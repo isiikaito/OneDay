@@ -28,7 +28,8 @@ namespace basecross {
 		m_PlayerPositionTime(0.0f),
 		m_PlayerPositionOnSecondMax(39),
 		m_PlayerHp(3),
-		m_IsPlayerFound(false)
+		m_IsPlayerFound(false),
+		m_AlertleveCount(0)
 
 	{}
 
@@ -193,9 +194,13 @@ namespace basecross {
 
 			if (m_ChangeTime >= m_wolfTime)//!狼の時間になったら
 			{
-				//ptrDraw->SetMeshResource(L"PLAYER_HUMAN");//!プレイヤーのメッシュの変更
-				//shadowPtr->SetMeshResource(L"PLAYER_HUMAN");
+				
 				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
+				auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
+				auto shadowPtr = GetComponent<Shadowmap>();
+				shadowPtr->SetMeshResource(L"Player_WalkAnimation_MESH");
+				ptrDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
+
 				ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));
 				/*ptrDraw->SetMeshResource(L"PLAYER_HUMAN");*///!プレイヤーのメッシュの変更
 				m_ChangeTime = (float)m_reset;//!状態タイムをリセットする
@@ -238,9 +243,10 @@ namespace basecross {
 					{
                     VillagerSpeed = m_Ded;//!村人のスピードを０にする
 					ptrVillager->SetSpeed(VillagerSpeed);//!村人のスピードを設定
-					auto VillagerDraw = ptrVillager->GetComponent<PNTStaticModelDraw>();//!村人の描画コンポーネントを取得
+					auto VillagerDraw = ptrVillager->GetComponent<BcPNTnTBoneModelDraw>();//!村人の描画コンポーネントを取得
 					VillagerDraw->SetDiffuse(Col4(1, 0, 0, 1));//!村人の色の設定
 					m_PlayerHp--;
+					m_AlertleveCount++;
 					}
 					
 
@@ -288,6 +294,11 @@ namespace basecross {
 		MovePlayer();
 		
 		m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
+
+		if (m_PlayerHp== m_Ded)
+		{
+			PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+		}
 
 	}
 

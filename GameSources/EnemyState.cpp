@@ -315,7 +315,11 @@ namespace basecross
 		}
 
 		void DedState::Enter(BaseEnemy* Enemy)
-		{}
+		{
+			auto enemyDed=Enemy->GetIsEnemyDed();
+			enemyDed = true;
+			Enemy->SetIsEnemyDed(enemyDed);
+		}
 
 		void DedState::Execute(BaseEnemy* Enemy)
 		{

@@ -36,4 +36,5 @@
 #include"SurprisedSprite.h"
 #include"LoseSightOf.h"
 #include"Hunter.h"
-
+#include"AlertlevelGauge.h"
+#include"Arrow.h"

@@ -340,27 +340,52 @@ namespace basecross {
 			(
 			L"PlayerHp_TX",
 			true,
-			Vec2(70.0f, 70.0f),//元は(320.0f,80,0f)
-			Vec2(550.0f, 360.0f)//元は(0.0f, 0.0f, 0.0f)
+			Vec2(70.0f, 70.0f),
+			Vec2(550.0f, 270.0f)
 			);
 
 		AddGameObject<PlayerHeartSpriteMiddle>
 			(
 				L"PlayerHp_TX",
 				true,
-				Vec2(70.0f, 70.0f),//元は(320.0f,80,0f)
-				Vec2(460.0f, 360.0f)//元は(0.0f, 0.0f, 0.0f)
+				Vec2(70.0f, 70.0f),
+				Vec2(460.0f, 270.0f)
 				);
 
 		AddGameObject<PlayerHeartSpriteRight>
 			(
 				L"PlayerHp_TX",
 				true,
-				Vec2(70.0f, 70.0f),//元は(320.0f,80,0f)
-				Vec2(370.0f, 360.0f)//元は(0.0f, 0.0f, 0.0f)
+				Vec2(70.0f, 70.0f),
+				Vec2(370.0f, 270.0f)
 				);
 
 		
+	}
+
+	void GameStage::CreateAlertlevelGauge()
+	{
+
+		AddGameObject<AlertlevelGauge>
+			(
+				L"AlertlevelGaugeGauge_TX",
+				true,
+				Vec2(300.0f, 100.0f),
+				Vec2(460.0f, 350.0f)
+				);
+	}
+
+	void GameStage::CreateArrow()
+	{
+		//!矢印の作成
+		AddGameObject<Arrow>
+			(
+				L"Arrow_TX",
+				true,
+				Vec2(50.0f, 70.0f),
+				Vec2(390.0f, 330.0f)
+				);
+
 	}
 
 	//!村人の作成
@@ -461,6 +486,8 @@ namespace basecross {
 			CreateHeartSprite();//!プレイヤーのHPの作成
 			CreateSuprisedSprite();//!ビックリマークの作成
 			CerateHunter();//!ハンターの作成
+			CreateAlertlevelGauge();//!警戒度のゲージの作成
+			CreateArrow();//!矢印の作成
 		}
 		catch (...) {
 			throw;

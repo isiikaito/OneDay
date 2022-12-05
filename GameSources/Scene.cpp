@@ -42,6 +42,12 @@ namespace basecross{
 		//!はてなマークのスプライト
 		strTexture = dataDir + L"Texture\\" + L"LoseSightOf.png";
 		App::GetApp()->RegisterTexture(L"LoseSightOf_TX", strTexture);
+		//!危険度のゲージのスプライト
+		strTexture = dataDir + L"Texture\\" + L"testGauge.png";
+		App::GetApp()->RegisterTexture(L"AlertlevelGaugeGauge_TX", strTexture);
+		//!危険度のゲージのスプライト
+		strTexture = dataDir + L"Texture\\" + L"Arrow.png";
+		App::GetApp()->RegisterTexture(L"Arrow_TX", strTexture);
 
 
 		//!床のモデル読み込み
