@@ -184,10 +184,13 @@ namespace basecross {
 			m_playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
 
 			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
-			//auto shadowPtr = GetComponent<Shadowmap>();
-			//ptrDraw->SetMeshResource(L"PLAYER_Wolf");//!プレイヤーのメッシュの変更
-			//shadowPtr->SetMeshResource(L"PLAYER_Wolf");
+			auto shadowPtr = GetComponent<Shadowmap>();
+			shadowPtr->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH");
+			ptrDraw->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
+			
+
 			ptrDraw->SetDiffuse(Col4(1.0f, 0.0f, 1.0f, 1.0f));
+
 			if (m_ChangeTime >= m_wolfTime)//!狼の時間になったら
 			{
 				//ptrDraw->SetMeshResource(L"PLAYER_HUMAN");//!プレイヤーのメッシュの変更
@@ -260,10 +263,12 @@ namespace basecross {
 	//更新
 	void Player::OnUpdate() {
 		//!敵の親クラスを取得できる
-		
+		AppearanceChange();//!プレイヤーの姿変化
 		float elapsedTime = App::GetApp()->GetElapsedTime();
+
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
 		ptrDraw->UpdateAnimation(elapsedTime);
+
 		auto PlayerTrans = GetComponent<Transform>();
 		auto PlayerPosition = PlayerTrans->GetPosition();
 		auto Time = App::GetApp()->GetElapsedTime();
@@ -281,7 +286,7 @@ namespace basecross {
 		
 
 		MovePlayer();
-		AppearanceChange();//!プレイヤーの姿変化
+		
 		m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
 
 	}
