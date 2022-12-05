@@ -35,5 +35,5 @@
 #include"PlayerHeartSpriteRight.h"
 #include"SurprisedSprite.h"
 #include"LoseSightOf.h"
-
+#include"Hunter.h"
 

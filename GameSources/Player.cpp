@@ -89,18 +89,38 @@ namespace basecross {
 
 	//!プレイヤーを動かす処理
 	void Player::MovePlayer() {
+		//アニメーション
+		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
+		auto AnimationName = ptrDraw->GetCurrentAnimation();
+
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		auto angle = GetMoveVector();
 		if (angle.length() > 0.0f) {
 			auto pos = GetComponent<Transform>()->GetPosition();
 			pos += angle * elapsedTime * m_Speed;
 			GetComponent<Transform>()->SetPosition(pos);
+
+			//歩くアニメーション
+			if (AnimationName == L"Default") {
+				ptrDraw->ChangeCurrentAnimation(L"Move");
+
+			}
 		}
+		else {
+			//立ち止まるアニメーション
+			if (AnimationName == L"Move") {
+				ptrDraw->ChangeCurrentAnimation(L"Default");
+
+			}
+		}
+
 		//!回転の計算
 		if (angle.length() > 0.0f) {
 			auto utilPtr = GetBehavior<UtilBehavior>();
 			utilPtr->RotToHead(angle, 1.0f);
 		}
+
+	
 	}
 
 	//!初期化
@@ -129,16 +149,21 @@ namespace basecross {
 	
 		auto shadowPtr = AddComponent<Shadowmap>();//!影をつける（シャドウマップを描画する）
 
-		shadowPtr->SetMeshResource(L"PLAYER_HUMAN");//!影の形（メッシュ）を設定
+		shadowPtr->SetMeshResource(L"Player_WalkAnimation_MESH");//!影の形（メッシュ）を設定
 		shadowPtr->SetMeshToTransformMatrix(spanMat);
 
-		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネントの設定
+		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの設定
 
 		//!描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"PLAYER_HUMAN");
+		ptrDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");
+		
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		/*ptrDraw->SetFogEnabled(true);*/
-		ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));
+		ptrDraw->AddAnimation(L"Move", 0, 15, true, 40.0f);
+		ptrDraw->AddAnimation(L"Default", 30, 60, true, 15.0f);
+		ptrDraw->ChangeCurrentAnimation(L"Default");
+		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
+
+	/*	ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));*/
 		
 		//!カメラを得る
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
@@ -158,15 +183,15 @@ namespace basecross {
 
 			m_playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
 
-			auto ptrDraw = GetComponent<PNTStaticModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
-			auto shadowPtr = GetComponent<Shadowmap>();
-			ptrDraw->SetMeshResource(L"PLAYER_Wolf");//!プレイヤーのメッシュの変更
-			shadowPtr->SetMeshResource(L"PLAYER_Wolf");
+			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
+			//auto shadowPtr = GetComponent<Shadowmap>();
+			//ptrDraw->SetMeshResource(L"PLAYER_Wolf");//!プレイヤーのメッシュの変更
+			//shadowPtr->SetMeshResource(L"PLAYER_Wolf");
 			ptrDraw->SetDiffuse(Col4(1.0f, 0.0f, 1.0f, 1.0f));
 			if (m_ChangeTime >= m_wolfTime)//!狼の時間になったら
 			{
-				ptrDraw->SetMeshResource(L"PLAYER_HUMAN");//!プレイヤーのメッシュの変更
-				shadowPtr->SetMeshResource(L"PLAYER_HUMAN");
+				//ptrDraw->SetMeshResource(L"PLAYER_HUMAN");//!プレイヤーのメッシュの変更
+				//shadowPtr->SetMeshResource(L"PLAYER_HUMAN");
 				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
 				ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));
 				/*ptrDraw->SetMeshResource(L"PLAYER_HUMAN");*///!プレイヤーのメッシュの変更
@@ -232,12 +257,13 @@ namespace basecross {
 			);
 	}
 
-	
-
 	//更新
 	void Player::OnUpdate() {
 		//!敵の親クラスを取得できる
 		
+		float elapsedTime = App::GetApp()->GetElapsedTime();
+		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
+		ptrDraw->UpdateAnimation(elapsedTime);
 		auto PlayerTrans = GetComponent<Transform>();
 		auto PlayerPosition = PlayerTrans->GetPosition();
 		auto Time = App::GetApp()->GetElapsedTime();

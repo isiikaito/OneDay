@@ -82,7 +82,19 @@ namespace basecross{
 		auto staticModelMesh9 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageFence.bmf");
 		App::GetApp()->RegisterResource(L"STAGE_FENCE", staticModelMesh9);
 
+		//モデル
+		//ボーンモデルの通常リソース
+		auto multiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"P_Player_Animation.bmf");
+		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH", multiModelMesh);
 
+		//ボーンモデルのタンジェント付きリソース
+		multiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"P_Player_Animation.bmf");
+		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH_WITH_TAN", multiModelMesh);
+		//法線マップ
+		strTexture = dataDir + L"normal1.png";
+		App::GetApp()->RegisterTexture(L"OBJECT_NORMAL_TX", strTexture);
+
+		
 		
 		//!BGM
 		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";
