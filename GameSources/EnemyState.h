@@ -98,17 +98,17 @@ namespace basecross
 		//!-------------------------------------------------------------
 
 		//!見失った後のステート-----------------------------------------
-		class LostStage :public State<BaseEnemy>
+		class LostStata :public State<BaseEnemy>
 		{
 		private:
-			LostStage(){}
+			LostStata(){}
 			//!シングルトンパターン
-			LostStage(const LostStage&) = delete;//!関数を削除する
-			LostStage& operator=(const LostStage&) = delete;//!operatorの中にある=を削除（コピーされないように）
+			LostStata(const LostStata&) = delete;//!関数を削除する
+			LostStata& operator=(const LostStata&) = delete;//!operatorの中にある=を削除（コピーされないように）
 			float m_lostTime = 0.0f;
 			float m_MaxlostTime = 2.0f;
 		public:
-			static LostStage* Instance();
+			static LostStata* Instance();
 
 			virtual void Enter(BaseEnemy* Enemy)override;
 			virtual void Execute(BaseEnemy* Enemy)override;

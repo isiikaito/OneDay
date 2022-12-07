@@ -38,7 +38,7 @@
       <Filter>Sprite\Key</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Timer.cpp">
-      <Filter>Sprite\Surprised\Timer</Filter>
+      <Filter>Sprite\Timer</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Title.cpp">
       <Filter>Sprite\Title</Filter>
@@ -138,7 +138,7 @@
       <Filter>Sprite\Key</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Timer.h">
-      <Filter>Sprite\Surprised\Timer</Filter>
+      <Filter>Sprite\Timer</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Title.h">
       <Filter>Sprite\Title</Filter>
@@ -315,9 +315,6 @@
     <Filter Include="Object\Enemy\Hunter">
       <UniqueIdentifier>{9b4effd6-8430-49b5-b67b-5e9874639f56}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sprite\Surprised\Timer">
-      <UniqueIdentifier>{5fd87dde-7a84-4463-9135-8eae287877ce}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sprite\Alertlevel">
       <UniqueIdentifier>{732c903e-58a9-42b6-83f0-63f52350281d}</UniqueIdentifier>
     </Filter>
@@ -332,6 +329,9 @@
     </Filter>
     <Filter Include="Object\WoodenBox">
       <UniqueIdentifier>{088fdcb1-3b41-442a-a314-d8057cb3db50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\Timer">
+      <UniqueIdentifier>{5fd87dde-7a84-4463-9135-8eae287877ce}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

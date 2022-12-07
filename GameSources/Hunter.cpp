@@ -9,6 +9,7 @@
 
 namespace basecross
 {
+	constexpr float MaxPlayerCatch = 15.0f;
 	Hunter::Hunter(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
@@ -25,7 +26,9 @@ namespace basecross
 		m_playerChange(0),
 		m_Speed(25),
 		m_patrolindex(0),
-		m_IsGameOver(false)
+		m_IsGameOver(false),
+		m_dedTime(0),
+		m_playerDed(false)
 
 	{
 	}
@@ -52,7 +55,7 @@ namespace basecross
 			Vec3(0.0f, -1.0f, 0.0f)  //!位置
 		);
 
-		
+
 		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");//!オブジェクトのグループを得る
 		group->IntoGroup(GetThis<Hunter>());//!グループに自分自身を追加
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
@@ -75,8 +78,8 @@ namespace basecross
 		ptrDraw->ChangeCurrentAnimation(L"Move");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
 
-		m_patrolPoints[m_patrolindex];
-		SetEnemyPatorolindex(m_patrolindex);
+		
+		/*SetEnemyPatorolindex(m_patrolindex);*/
 
 		auto patrolPoints = GetEnemyPatorolPoints();
 		for (auto& v : m_patrolPoints)
@@ -90,58 +93,74 @@ namespace basecross
 
 
 	}
+
+	void Hunter::PlayerCatch()
+	{
+	
+		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
+		auto playerPosition = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		auto hunterPosition = GetComponent<Transform>()->GetPosition();
+		auto phdistans = playerPosition - hunterPosition;
+		auto playerCatch = bsm::length(phdistans);
+		auto seekCondition = GetseekCondition();
+		auto Enemyfront = GetComponent<Transform>()->GetForword();//!敵の正面を取得
+		auto angle = angleBetweenNormals(Enemyfront, phdistans);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
+		auto chk = XM_PI / 9.0f;//!360を6で割って角度を出す。
+
+		
+
+		if (m_seekCondition == true)
+		{
+			
+			if (angle <= chk && angle >= -chk)//!敵から見て+40度か-40度にプレイヤーが入ったら
+			{
+				if (playerCatch <= MaxPlayerCatch)
+				{
+
+					auto playerDed = ptrPlayer->GetIsplayerDed();
+
+
+					playerDed = true;
+					ptrPlayer->SetIsplayerDed(playerDed);
+
+					ptrPlayer->SetSpeed(0.0f);
+
+					GetStage()->AddGameObject<FadeOut>(true,
+						Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));
+					m_IsGameOver = true;
+					if (m_IsGameOver == true)
+					{
+						auto& app = App::GetApp();//!アプリの取得
+						auto time = app->GetElapsedTime();
+						m_dedTime += time;
+						if (m_dedTime >= 1.0f)
+						{
+							PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+						}
+					}
+
+				}
+
+			}
+		}
+
+	}
+
 	//!更新
 	void Hunter::OnUpdate()
 	{
-		if (m_IsGameOver == true)
-		{
-        auto& app = App::GetApp();//!アプリの取得
-		auto time = app->GetElapsedTime();
-		m_lostTime += time;
-		if (m_lostTime >= 1.0f)
-		{
-			PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
-		}
-	}
 		
-
+		PlayerCatch();
+		
+		
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		m_playerChange = ptrPlayer->GetPlayerCange();//!プレイヤーの状態の取得
 		ptrPlayer->SetPlayerChange(m_playerChange);//!プレイヤーの取得した状態の設定
 		BaseEnemy::OnUpdate();
+		
+
 	}
 
-	//!村人がプレイヤーを捕まえたら
-	void Hunter::OnCollisionEnter(shared_ptr<GameObject>& Other)
-	{
-		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
-		auto seekCondition = GetseekCondition();
-		if (ptrPlayer)
-		{
-			if (seekCondition == true)
-			{
-				m_PlayerDed = true;
-				if (m_PlayerDed = true)
-				{
-                auto ptrDraw =ptrPlayer-> GetComponent<BcPNTnTBoneModelDraw>();
-				auto AnimationName = ptrDraw->GetCurrentAnimation();
-				ptrDraw->ChangeCurrentAnimation(L"Ded");
-				ptrPlayer->SetSpeed(0.0f);
-				
-				GetStage()->AddGameObject<FadeOut>(true,
-					Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));
-				/*auto GameOver=GetStage()->GetSharedGameObject<GameOverSprite>(L"GameOverSprite");*/
-				m_IsGameOver = true;
-				
-	              
-				
-			
-				}
-				
-					
-				
-			}
-		}
-	}
+	
 }
 //!end basecross

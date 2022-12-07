@@ -25,9 +25,9 @@ namespace basecross
 		int m_Speed;//!スピード
 		int m_patrolindex;
 		float m_StateChangeSize;
-		bool m_PlayerDed;//!プレイヤーの死亡
+		bool m_playerDed;//!プレイヤーの死亡
 		bool m_IsGameOver;
-		float m_lostTime;
+		float m_dedTime;
 
 		//bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
 
@@ -73,11 +73,19 @@ namespace basecross
 			return m_StateChangeSize;
 		}
 
+		//!プレイヤーの死亡判定
+		bool GetPlayerDed()
+		{
+			return m_playerDed;
+		}
+		void SetPlayerDed(bool playerDed)
+		{
+			m_playerDed = playerDed;
+		}
 
-
+		void PlayerCatch();//!プレイヤーを捕まえる
 		virtual void OnCreate();//初期化
 		virtual void OnUpdate();//!更新
-		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other);//プレイヤーとエネミーの衝突判定
 
 	};
 

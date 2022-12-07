@@ -82,7 +82,8 @@ namespace basecross
 			return m_StateChangeSize;
 		}
 	
-		
+		void VillagerDed();
+		void VillagerDisappear();
 		
 		virtual void OnCreate();//‰Šú‰»
 		virtual void OnUpdate();//!XV

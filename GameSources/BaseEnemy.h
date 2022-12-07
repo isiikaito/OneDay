@@ -21,6 +21,7 @@ namespace basecross
 
 	class BaseEnemy :public GameObject
 	{
+	protected:
 		//!ステートマシーン
 		kaito::StateMachine<BaseEnemy>* m_StateMachine;//!ステートマシンクラスのインスタンスの生成
 		std::vector<Vec3>m_EnemyPatrolPoints;//!敵の巡回ポイント
@@ -31,6 +32,7 @@ namespace basecross
 		int m_Enemypatorolindex;//!敵の巡回ポイントの数
 		bool m_seekCondition;//!敵が追いかけているかどうか
         bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
+		bool m_SurprisedSprite;//!プレイヤーを見つけた時
 		bool m_IspositionLiset;//!ポジションのリセット
 		bool m_IsEnemyDed;//!敵の死亡判定
 		float m_eyeRange;//!敵の視野の長さ
@@ -187,6 +189,18 @@ namespace basecross
 		void SetEyeRang(float eyeRange)
 		{
 			m_eyeRange = eyeRange;
+		}
+
+		//!敵がプレイヤーを見つけた時の取得
+		bool GetSurprisedSprite()
+		{
+			return m_SurprisedSprite;
+		}
+
+		//!敵がプレイヤーを見つけた時の設定
+		void SetSurprisedSprite(bool SurprisedSprite)
+		{
+			m_SurprisedSprite = SurprisedSprite;
 		}
 
 		

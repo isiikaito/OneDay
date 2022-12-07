@@ -22,6 +22,8 @@ namespace basecross
 			seekCondition = true;
 			Enemy->SetseekCondition(seekCondition);
 
+		
+
 		}
 
 		void SeekState::Execute(BaseEnemy* Enemy)
@@ -86,11 +88,8 @@ namespace basecross
 
 		void PatrolState::Enter(BaseEnemy* Enemy)
 		{
-			//!村人の頭上にビックリマークのテクスチャを出す
-			auto loseSightOfTarget = Enemy->GetloseSightOfTarget();
-			loseSightOfTarget = true;
-			Enemy->SetloseSightOfTarget(loseSightOfTarget);
-
+			
+			
 		}
 
 		void PatrolState::Execute(BaseEnemy* Enemy)
@@ -161,15 +160,12 @@ namespace basecross
 
 		void PatrolState::Exit(BaseEnemy* Enemy)
 		{
-			//!村人の頭上にビックリマークのテクスチャを出す
-			auto Player = Enemy->GetTarget();
-			auto PlayerFound = Player->GetPlayerFound();
-			PlayerFound = true;
-			Player->SetPlayerFound(PlayerFound);
-		
-			m_lostTime = 0.0f;
-			m_IspositionLiset = false;
-			Enemy->SetIspositionLiset(m_IspositionLiset);
+			//!ビックリマークの出現
+			auto Surprised = Enemy->GetSurprisedSprite();
+			Surprised = true;
+			Enemy->SetSurprisedSprite(Surprised);
+
+			
 		}
 
 		//!-------------------------------------------------------------
@@ -197,9 +193,9 @@ namespace basecross
 				}
 			}
 
-			auto seekCondition = Enemy->GetseekCondition();
+		/*	auto seekCondition = Enemy->GetseekCondition();
 			seekCondition = true;
-			Enemy->SetseekCondition(seekCondition);
+			Enemy->SetseekCondition(seekCondition);*/
 			m_lostTime = 0l;
 		}
 
@@ -278,7 +274,7 @@ namespace basecross
 						m_lostTime += time;
 						if ( PEdistance>=37&&m_lostTime >= 3)
 						{
-                               Enemy->ChangeState(LostStage::Instance());//!ステートの変更
+                               Enemy->ChangeState(LostStata::Instance());//!ステートの変更
 						}
 						if ( PEdistance <= 37&&m_lostTime >= 3)
 						{
@@ -298,9 +294,9 @@ namespace basecross
 		}
 		void BrettGramState::Exit(BaseEnemy* Enemy)
 		{
-			auto seekCondition = Enemy->GetseekCondition();
+		/*	auto seekCondition = Enemy->GetseekCondition();
 			seekCondition = false;
-			Enemy->SetseekCondition(seekCondition);
+			Enemy->SetseekCondition(seekCondition);*/
 		}
 		//!-------------------------------------------------------------
 
@@ -327,7 +323,8 @@ namespace basecross
 			EnemyVelocity = Vec3(0);
 			Enemy->SetVelocity(EnemyVelocity);
 			
-
+			
+			
 
 		}
 		void DedState::Exit(BaseEnemy* Enemy)
@@ -339,18 +336,23 @@ namespace basecross
 
 
 		//!インスタンスの生成(実体の作成)
-		LostStage* LostStage::Instance()
+		LostStata* LostStata::Instance()
 		{
-			static LostStage instance;
+			static LostStata instance;
 			return &instance;
 
 		}
 
+		//!プレイヤーを見失う
+		void LostStata::Enter(BaseEnemy* Enemy)
+		{
+			//!村人の頭上にはてなマークのテクスチャを出す
+			auto loseSightOfTarget = Enemy->GetloseSightOfTarget();
+			loseSightOfTarget = true;
+			Enemy->SetloseSightOfTarget(loseSightOfTarget);
+		}
 
-		void LostStage::Enter(BaseEnemy* Enemy)
-		{}
-
-		void LostStage::Execute(BaseEnemy* Enemy)
+		void LostStata::Execute(BaseEnemy* Enemy)
 		{
 			
 		auto EnemyTrans=Enemy->GetComponent<Transform>();
@@ -369,10 +371,13 @@ namespace basecross
 
 
 		}
-		void LostStage::Exit(BaseEnemy* Enemy)
+		void LostStata::Exit(BaseEnemy* Enemy)
 		{
 			//!首を振る動作をする
-			//! 
+			//! //!村人の頭上にはてなマークのテクスチャを出す
+			auto loseSightOfTarget = Enemy->GetloseSightOfTarget();
+			loseSightOfTarget = false;
+			Enemy->SetloseSightOfTarget(loseSightOfTarget);
 
 		}
 
