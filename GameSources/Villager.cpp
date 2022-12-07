@@ -9,6 +9,7 @@
 
 namespace basecross
 {
+	
 	Villager::Villager(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
@@ -26,7 +27,9 @@ namespace basecross
 		m_Speed(25),
 		m_patrolindex(0),
 		m_dedDecision(false),
-		m_IsGameOver(false)
+		m_IsGameOver(false),
+		m_PlayerDed(false),
+		m_lostTime(0.0f)
 
 	{
 	}
@@ -78,9 +81,6 @@ namespace basecross
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
 		Coll->SetDrawActive(false);
 
-		m_patrolPoints[m_patrolindex];
-		SetEnemyPatorolindex(m_patrolindex);
-
 		auto patrolPoints = GetEnemyPatorolPoints();
 		for (auto& v : m_patrolPoints)
 		{
@@ -89,6 +89,28 @@ namespace basecross
 
 		SetpatorolPoints(patrolPoints);
 
+	}
+	void Villager::VillagerDisappear()
+	{
+		
+
+	}
+
+	void Villager::VillagerDed()
+	{
+		auto villagerDed = GetIsEnemyDed();
+		if (villagerDed == true)
+		{
+			//アニメーション
+			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
+			auto AnimationName = ptrDraw->GetCurrentAnimation();
+			//立ち止まるアニメーション
+			if (AnimationName == L"Move") {
+				ptrDraw->ChangeCurrentAnimation(L"Ded");
+				
+			}
+			VillagerDisappear();
+		}
 	}
 
 	//!更新
@@ -106,18 +128,7 @@ namespace basecross
 			}
 		}
 		
-		auto HunterDed = GetIsEnemyDed();
-		if (HunterDed == true)
-		{
-			//アニメーション
-			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
-			auto AnimationName = ptrDraw->GetCurrentAnimation();
-			//立ち止まるアニメーション
-			if (AnimationName == L"Move") {
-				ptrDraw->ChangeCurrentAnimation(L"Ded");
-
-			}
-		}
+		VillagerDed();
 
 		auto MaxSpeed = GetMaxSpeed();
 		MaxSpeed = m_Speed;
@@ -141,9 +152,15 @@ namespace basecross
 				m_PlayerDed = true;
 				if (m_PlayerDed = true)
 				{
-					auto ptrDraw = ptrPlayer->GetComponent<BcPNTnTBoneModelDraw>();
-					auto AnimationName = ptrDraw->GetCurrentAnimation();
-					ptrDraw->ChangeCurrentAnimation(L"Ded");
+					auto playerDed = ptrPlayer->GetIsplayerDed();
+
+
+					playerDed = true;
+					ptrPlayer->SetIsplayerDed(playerDed);
+
+					ptrPlayer->SetSpeed(0.0f);
+
+					
 					ptrPlayer->SetSpeed(0.0f);
 					GetStage()->AddGameObject<FadeOut>(true,
 						Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));

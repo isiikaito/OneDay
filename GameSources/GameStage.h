@@ -17,16 +17,13 @@ namespace basecross {
 		CsvFile m_GameStageCsvB; // !建物の配置2
 		CsvFile m_GameStageCsvC; // !建物の配置3
 		CsvFile m_StageCsv;          //!ステージCSVファイル
-		CsvFile m_EnemyCsv;//!敵のトランスフォームcsvファイル
-		CsvFile m_Point;//!巡回ポイントcsvファイル	
-       //InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 		float m_TotalTime;//!トータル時間(タイマーの作成)
-		const float m_GameTime = 31.0f;
+		const float m_GameTime;
 
 
 	public:
 		//構築と破棄
-		GameStage() :Stage(),m_TotalTime(m_GameTime) {}
+		GameStage() :Stage(),m_TotalTime(31.0f), m_GameTime(31.0f) {}
 		virtual ~GameStage() {}
 
 		void CreateViewLight();  //!ビューの作成
@@ -43,10 +40,9 @@ namespace basecross {
 		void CreateLightingCol();//!ライトの色を変える処理
 		void CreateWoodenBox();//!木箱の作成
 		void CreateTimerSprite();//!タイマースプライト作成
-		void CreateSuprisedSprite();
 		shared_ptr<SoundItem>m_BGM;
 		void CreatePlayBGM();//!BGM作成
-		void CreateHeartSprite();
+		void CreateHeartSprite();//!ハンターのライフの作成
 		void CreateArrow();//!矢印の作成
 		void CreateGameOver();//!ゲームオーバースプライト
 		//初期化

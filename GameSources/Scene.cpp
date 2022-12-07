@@ -19,7 +19,7 @@ namespace basecross{
 		App::GetApp()->GetAssetsDirectory(dataDir);
 
 		//!テクスチャ
-		wstring strTexture = dataDir +L"Texture\\"+ L"number2.png";
+		wstring strTexture = dataDir +L"Texture\\"+ L"Nomber_3.png";
 		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
 		//!タイトル画面
 		strTexture = dataDir + L"Texture\\"+L"Title.jpg";
@@ -102,11 +102,11 @@ namespace basecross{
 
 		//モデル
 		//ボーンモデルの通常リソース
-		auto playrWolfMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"PlayerWolf_Animation.bmf");
+		auto playrWolfMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Wolf_Animation.bmf");
 		App::GetApp()->RegisterResource(L"PlayerWolf_WalkAnimation_MESH", playrWolfMultiModelMesh);
 
 		//ボーンモデルのタンジェント付きリソース
-		playrWolfMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerWolf_Animation.bmf");
+		playrWolfMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Wolf_Animation.bmf");
 		App::GetApp()->RegisterResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN", playrWolfMultiModelMesh);
 
 		//モデル
@@ -149,6 +149,157 @@ namespace basecross{
 		App::GetApp()->RegisterWav(L"kill", killWav);
 
 		
+
+
+	}
+
+	//!駆け付けた敵の作成
+
+	//!敵(スケール、ローテイション、ポジション)の構造体
+	struct TransformCreate {
+		//!構造体テンプレート
+		Vec3 scale = Vec3(0.0f);//!大きさ
+		Vec3 rotation = Vec3(0.0f);//!回転
+		Vec3 position = Vec3(0.0f);//!位置
+		wstring EnemykeyName = L"";//!村人の巡回ルートのキーフレームを取得
+
+		TransformCreate() :
+			TransformCreate(Vec3(0.0f), Vec3(0.0f), Vec3(0.0f), wstring(L""))
+		{}
+		//!構造体の初期化
+		TransformCreate(
+			const Vec3& scale,
+			const Vec3& rotation,
+			const Vec3& position,
+			const wstring& EnemykeyName
+		) :
+			scale(scale),
+			rotation(rotation),
+			position(position),
+			EnemykeyName(EnemykeyName)
+		{}
+	};
+
+	//!敵(スケール、ローテイション、ポジション)の関数
+	std::vector<TransformCreate>TransformDate(const wstring& folderName, const wstring& fileName, const wstring& keyName) {
+		std::vector<TransformCreate>result;//!変数名
+		vector<wstring>LineVec;//!CSVの行単位の配列
+
+		auto& app = App::GetApp();//!アプリの取得
+		wstring DataDir;
+		App::GetApp()->GetDataDirectory(DataDir);
+		auto fullPass = DataDir + folderName + fileName;
+
+		CsvFile csvFile;
+		csvFile.SetFileName(fullPass);
+		csvFile.ReadCsv();
+
+		csvFile.GetSelect(LineVec, 0, keyName);//!0番目のカラムがL"Villager"である行を抜き出す
+
+		for (auto& v : LineVec)
+		{
+			vector<wstring>Tokens;//!トークン(カラム)の配置
+			Util::WStrToTokenVector(Tokens, v, L',');//!トークン(カラム)単位で文字列を抽出(',')
+			//!トークン(カラム)をスケール、回転、位置に読み込む
+			Vec3 Scale(
+				(float)_wtof(Tokens[1].c_str()),
+				(float)_wtof(Tokens[2].c_str()),
+				(float)_wtof(Tokens[3].c_str())
+			);
+			Vec3 Rot;
+			//!回転は「XM_PLDIV2」の文字列になっている場合がある
+			Rot.x = (Tokens[4] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[4].c_str());
+			Rot.y = (Tokens[5] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[5].c_str());
+			Rot.z = (Tokens[6] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[6].c_str());
+
+			//!村人の位置
+			Vec3 Pos(
+				(float)_wtof(Tokens[7].c_str()),
+				(float)_wtof(Tokens[8].c_str()),
+				(float)_wtof(Tokens[9].c_str())
+			);
+			wstring	EnemykeyName = Tokens[10];
+			result.push_back(TransformCreate(Scale, Rot, Pos, EnemykeyName));
+
+		}
+
+		return result;
+	}
+
+
+
+	//!パトロールポイントの構造体
+	struct PointCreate {
+		std::vector<Vec3>m_patorlPositions = vector<Vec3>(0.0f);
+
+		PointCreate() :
+			PointCreate(vector<Vec3>(0.0f)) {}
+		PointCreate(const std::vector<Vec3>& patrolPoints) :
+			m_patorlPositions(patrolPoints)
+		{}
+	};
+
+	//!パトロールポイント
+	PointCreate PointDate(const wstring& folderName, const wstring& fileName, const wstring& keyName)
+	{
+		PointCreate PatorlPoint;
+
+		vector<wstring>LineVec;
+		auto& app = App::GetApp();//!アプリの取得
+		wstring DataDir;
+		App::GetApp()->GetDataDirectory(DataDir);
+		auto fullPass = DataDir + folderName + fileName;//!
+
+		CsvFile csvFile;
+		csvFile.SetFileName(fullPass);
+		csvFile.ReadCsv();
+
+		csvFile.GetSelect(LineVec, 0, keyName);//!0番目のカラムがkeyNameである行を抜き出す
+		for (auto& v : LineVec)
+		{
+			vector<wstring>Tokens;//!トークン(カラム)の配置
+			Util::WStrToTokenVector(Tokens, v, L',');//!トークン(カラム)単位で文字列を抽出(',')
+
+			auto& routePositions = PatorlPoint.m_patorlPositions;
+
+			routePositions.push_back(
+				Vec3((float)_wtof(Tokens[1].c_str()),
+					(float)_wtof(Tokens[2].c_str()),
+					(float)_wtof(Tokens[3].c_str())));
+		}
+
+		return PatorlPoint;
+	}
+
+
+	void Scene::CreateEnemy()
+	{
+		
+		auto datasHunter = TransformDate(L"csvFolder\\", L"RushedEnemy.csv", L"Hunter");//!ハンターのExcelのデータ
+		for (auto dataHunter : datasHunter)
+		{
+			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", dataHunter.EnemykeyName);//!敵の巡回ポイントの名前を取り出す
+			auto HunterPtr = GetActiveStage()->AddGameObject<Hunter>(dataHunter.scale, dataHunter.rotation, dataHunter.position, pointData.m_patorlPositions);//!増員されるハンターの作成
+			GetActiveStage()->AddGameObject<LoseSightOf>(HunterPtr);
+			GetActiveStage()->AddGameObject<SurprisedSprite>(HunterPtr);
+
+		}
+		
+	}
+
+	void Scene::SetAlertlevelCount(int AlertlevelCount)
+	{
+		//m_alertLevelCountと違うなら
+		if (m_AlertlevelCount != AlertlevelCount) {
+
+			//アラートレベルが1なら
+			if (AlertlevelCount == 1) {
+
+				//敵の生成
+				CreateEnemy();
+			}
+
+		}
 
 
 	}

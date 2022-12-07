@@ -41,8 +41,7 @@ namespace basecross
 		virtual ~LoseSightOf(){}
 		//!村人が見失ったら
 		void LoseSight();
-		//!ハンターが見失ったら
-		void loseSghtHunter();
+	
 		//!ビルボード処理
 		void Billboard();
 		//!初期化

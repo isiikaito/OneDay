@@ -7,7 +7,7 @@
 #include "Project.h"
 
 namespace basecross {
-
+	constexpr float m_maxDisappearTime = 2.0f;
 	//--------------------------------------------------------------------------------------
 	//	class Player : public GameObject;
 	//	用途: プレイヤー
@@ -29,7 +29,8 @@ namespace basecross {
 		m_PlayerPositionOnSecondMax(39),
 		m_PlayerHp(3),
 		m_IsPlayerFound(false),
-		m_AlertleveCount(0)
+		m_IsplayerDed(false),
+		m_disappearTime(0.0f)
 
 	{}
 
@@ -92,6 +93,7 @@ namespace basecross {
 	void Player::MovePlayer() {
 		//アニメーション
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
+		auto animation = ptrDraw->GetCurrentAnimation();
 		auto AnimationName = ptrDraw->GetCurrentAnimation();
 
 		float elapsedTime = App::GetApp()->GetElapsedTime();
@@ -120,13 +122,23 @@ namespace basecross {
 			}
 		}
 
+		if (m_IsplayerDed == true)
+		{
+			//立ち止まるアニメーション
+			if (AnimationName == L"Move"|| AnimationName == L"Default") {
+				ptrDraw->ChangeCurrentAnimation(L"Ded");
+				auto XAptr = App::GetApp()->GetXAudio2Manager();
+				XAptr->Stop(m_BGM);
+
+			}
+		}
 		//!回転の計算
 		if (angle.length() > 0.0f) {
 			auto utilPtr = GetBehavior<UtilBehavior>();
 			utilPtr->RotToHead(angle, 1.0f);
 		}
 
-	
+
 	}
 
 	//!初期化
@@ -152,7 +164,7 @@ namespace basecross {
 		ptrColl->SetDrawActive(false);
 		auto ptrGra = AddComponent<Gravity>();//!重力をつける
 
-	
+
 		auto shadowPtr = AddComponent<Shadowmap>();//!影をつける（シャドウマップを描画する）
 
 		shadowPtr->SetMeshResource(L"Player_WalkAnimation_MESH");//!影の形（メッシュ）を設定
@@ -162,17 +174,17 @@ namespace basecross {
 
 		//!描画するメッシュを設定
 		ptrDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");
-		
+
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
 		ptrDraw->AddAnimation(L"Default", 30, 30, true, 15.0f);
-		ptrDraw->AddAnimation(L"Ded", 60, 30, false, 15.0f);
+		ptrDraw->AddAnimation(L"Ded", 61, 30, false, 30.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Default");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
 
-	/*	ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));*/
-		
-		//!カメラを得る
+		/*	ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));*/
+
+			//!カメラを得る
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
 		if (ptrCamera) {
 
@@ -194,13 +206,13 @@ namespace basecross {
 			auto shadowPtr = GetComponent<Shadowmap>();
 			shadowPtr->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH");
 			ptrDraw->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
-			
+
 
 			ptrDraw->SetDiffuse(Col4(1.0f, 0.0f, 1.0f, 1.0f));
 
 			if (m_ChangeTime >= m_wolfTime)//!狼の時間になったら
 			{
-				
+
 				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
 				auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
 				auto shadowPtr = GetComponent<Shadowmap>();
@@ -216,6 +228,46 @@ namespace basecross {
 		}
 	}
 
+	void Player::EnmeyDisappear()
+	{
+		auto position = GetComponent<Transform>()->GetPosition();//!現在のプレイヤーの位置の取得
+		SPHERE playerSp(position, 10.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
+		//!村人を殺す
+		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
+		auto& vecHnter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
+		//!村人配列オブジェクトの配列分回す
+		for (auto& v : vecHnter)
+		{
+
+			auto VillagerPtr = v.lock();//!村人のグループから1つロックする
+			Vec3 ret;//!最近接点の代入
+			auto ptrVillager = dynamic_pointer_cast<Villager>(VillagerPtr);//!ロックした物を取り出す
+
+			//!プレイヤーの範囲に敵が入ったら
+			if (ptrVillager)
+			{
+				auto VillagerCapsrul = ptrVillager->GetComponent<CollisionCapsule>()->GetCapsule();//!ハンタ-のObbオブジェクトを取得
+				if (HitTest::SPHERE_CAPSULE(playerSp, VillagerCapsrul, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
+				{
+					auto VillagerDedDecision = ptrVillager->GetDedDecision();//!村人の生死の判定の取得
+					ptrVillager->SetDedDecision(VillagerDedDecision);//!村人の生死の設定
+					auto VillagerSpeed = ptrVillager->GetSpeed();//!村人のスピードを取得
+					if (VillagerSpeed == m_Ded)
+					{
+						float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
+						m_disappearTime += elapsedTime;//時間を変数に足す
+						if (m_disappearTime >= m_maxDisappearTime)
+						{
+							GetStage()->RemoveGameObject<Villager>(VillagerPtr);
+							m_disappearTime = 0;
+						}
+					}
+
+
+				}
+			}
+		}
+	}
 
 	//!村人を倒す処理
 	void Player::Villagerkiller()
@@ -223,10 +275,11 @@ namespace basecross {
 		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
 		auto position = transComp->GetPosition();//!現在のプレイヤーの位置の取得
 		SPHERE playerSp(position, 10.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
-
+		auto scene = App::GetApp()->GetScene<Scene>();
+		int alertlevelCount = scene->GetAlertlevelCount();
 		//!村人を殺す
 		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
-		auto vecHnter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
+		auto& vecHnter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
 		//!村人配列オブジェクトの配列分回す
 		for (auto& v : vecHnter)
 		{
@@ -240,25 +293,25 @@ namespace basecross {
 				auto VillagerCapsrul = ptrVillager->GetComponent<CollisionCapsule>()->GetCapsule();//!ハンタ-のObbオブジェクトを取得
 				if (HitTest::SPHERE_CAPSULE(playerSp, VillagerCapsrul, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 				{
-					
+
 					auto VillagerDedDecision = ptrVillager->GetDedDecision();//!村人の生死の判定の取得
 					VillagerDedDecision = true;//!村人の生死を死にする
 					ptrVillager->SetDedDecision(VillagerDedDecision);//!村人の生死の設定
 					auto VillagerSpeed = ptrVillager->GetSpeed();//!村人のスピードを取得
-					if (!VillagerSpeed == m_Ded)
+					if (VillagerSpeed != m_Ded)
 					{
-                    VillagerSpeed = m_Ded;//!村人のスピードを０にする
-					ptrVillager->SetSpeed(VillagerSpeed);//!村人のスピードを設定
-					auto VillagerDraw = ptrVillager->GetComponent<BcPNTnTBoneModelDraw>();//!村人の描画コンポーネントを取得
-					VillagerDraw->SetDiffuse(Col4(1, 0, 0, 1));//!村人の色の設定
-					m_PlayerHp--;
-					m_AlertleveCount++;
+						VillagerSpeed = m_Ded;//!村人のスピードを０にする
+						ptrVillager->SetSpeed(VillagerSpeed);//!村人のスピードを設定
+						m_PlayerHp--;
+						alertlevelCount++;
+						scene->SetAlertlevelCount(alertlevelCount);
+						//サウンド再生
+						auto ptrXA = App::GetApp()->GetXAudio2Manager();
+						ptrXA->Start(L"kill", 0, 1.0f);
 
-					//サウンド再生
-					auto ptrXA = App::GetApp()->GetXAudio2Manager();
-					ptrXA->Start(L"kill", 0, 1.0f);
+
 					}
-					
+
 
 				}
 			}
@@ -271,17 +324,15 @@ namespace basecross {
 		auto position = transComp->GetPosition();//!現在のプレイヤーの位置の取得
 		SPHERE playerSp(position, 10.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
 
-		auto gate=GetStage()->GetSharedGameObject<StageGate>(L"Gate");
+		auto gate = GetStage()->GetSharedGameObject<StageGate>(L"Gate");
 		Vec3 ret;
-				auto gateObb=gate->GetComponent<CollisionObb>()->GetObb();
-				if (HitTest::SPHERE_OBB(playerSp, gateObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
-				{
+		auto gateObb = gate->GetComponent<CollisionObb>()->GetObb();
+		if (HitTest::SPHERE_OBB(playerSp, gateObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
+		{
 
-					PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");//!ゲームクリアステージに遷移
+			PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");//!ゲームクリアステージに遷移
 
-				}
-			
-		
+		}
 	}
 
 	//!鍵のスプライトの作成
@@ -310,7 +361,7 @@ namespace basecross {
 		m_PlayerPositionTime += Time;
 
 		if (m_PlayerPositionTime >= m_GetPlayerPositionTime)
-		{	
+		{
 			m_PlayerPositionOnSecond.push_back(PlayerPosition);
 
 			if (m_PlayerPositionOnSecond.size() >= m_PlayerPositionOnSecondMax)
@@ -318,13 +369,13 @@ namespace basecross {
 				m_PlayerPositionOnSecond.erase(m_PlayerPositionOnSecond.begin());
 			}
 		}
-		
 
+		EnmeyDisappear();
 		MovePlayer();
-		
+
 		m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
 
-		if (m_PlayerHp== m_Ded)
+		if (m_PlayerHp == m_Ded)
 		{
 			PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 		}
@@ -335,28 +386,37 @@ namespace basecross {
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other)
 	{
 		auto ptrKey = dynamic_pointer_cast<Key>(Other);
-		//!プレイヤーが鍵に当たったら
-		if (ptrKey)
+
+		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
 		{
-			m_KeyCount++;
-			GetStage()->RemoveGameObject<Key>(Other);//!鍵オブジェクトの削除
-			CreateKeySprite();
+			//!プレイヤーが鍵に当たったら
+			if (ptrKey)
+			{
+				m_KeyCount++;
+				GetStage()->RemoveGameObject<Key>(Other);//!鍵オブジェクトの削除
+				CreateKeySprite();
+			}
 		}
-		
-	
+
+
 	}
 	void Player::OnPushB()
 	{
 		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
 		{
-          Villagerkiller();//!村人を倒す処理
+			Villagerkiller();//!村人を倒す処理
 		}
-		//!プレイヤーが鍵を持っていたら
+
+		if (m_playerChange == static_cast<int>(PlayerModel::human))
+		{
+           //!プレイヤーが鍵を持っていたら
 		if (m_KeyCount == m_MaxKeyCount)
 		{
 			Escape();
 		}
+		}
 		
+
 	}
 }
 //end basecross

@@ -8,6 +8,7 @@
 
 namespace basecross {
 
+	constexpr int alertlevelFirst = 1;
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
@@ -141,7 +142,7 @@ namespace basecross {
 				float ZPos = (float)(8.6f - (int)i) * 10.0f;
 				if (Tokens[j] == L"3")//2の時にゲームステージに追加
 				{
-					AddGameObject<WoodenBox>(Vec3(2.0f, 4.0f, 1.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
+					AddGameObject<WoodenBox>(Vec3(2.0f, 2.0f, 1.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
 				}
 			}
 		}
@@ -238,7 +239,7 @@ namespace basecross {
 		ptrPlayer->AddTag(L"Player");
 	}
 
-	//!村人(スケール、ローテイション、ポジション)の構造体
+	//!敵(スケール、ローテイション、ポジション)の構造体
 	struct TransformCreateDate {
 		//!構造体テンプレート
 		Vec3 scale = Vec3(0.0f);//!大きさ
@@ -263,7 +264,7 @@ namespace basecross {
 		{}
 	};
 
-	//!村人(スケール、ローテイション、ポジション)の関数
+	//!敵(スケール、ローテイション、ポジション)の関数
 	std::vector<TransformCreateDate>TransformDate(const wstring& folderName, const wstring& fileName, const wstring& keyName) {
 		std::vector<TransformCreateDate>result;//!変数名
 		vector<wstring>LineVec;//!CSVの行単位の配列
@@ -354,16 +355,6 @@ namespace basecross {
 		return PatorlPoint;
 	}
 
-	void GameStage::CreateSuprisedSprite()
-	{
-		AddGameObject<SurprisedSprite>
-			(
-				L"Surprised_TX",
-				true,
-				Vec2(50.0f, 50.0f),
-				Vec2(0.0f, 80.0f)
-				);
-	}
 
 	void GameStage::CreateHeartSprite()
 	{
@@ -438,7 +429,7 @@ namespace basecross {
 		auto group = CreateSharedObjectGroup(L"Villager_ObjGroup");//!グループを取得
 
 		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Villager");//!Excelのデータ指定
-		auto a=datas.size();
+		
 		for (auto data : datas) {
 
 		
@@ -448,7 +439,7 @@ namespace basecross {
 			auto VillagerPtr=AddGameObject<Villager>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
 		
 			AddGameObject<LoseSightOf>(VillagerPtr);
-
+			AddGameObject<SurprisedSprite>(VillagerPtr);
 			
 		}
 	}
@@ -459,7 +450,7 @@ namespace basecross {
 		auto group = CreateSharedObjectGroup(L"Hunter_ObjGroup");//!グループを取得
 
 		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
-		auto a = datas.size();
+		
 		for (auto data : datas) {
 
 
@@ -468,10 +459,15 @@ namespace basecross {
 
 			auto HunterPtr = AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
 
+
 			AddGameObject<LoseSightOf>(HunterPtr);
+			AddGameObject<SurprisedSprite>(HunterPtr);
 		}
 
 	}
+
+
+	
 
 	void GameStage::CreateLightingCol()
 	{
@@ -495,6 +491,8 @@ namespace basecross {
 			auto& app = App::GetApp();
 			wstring DataDir;
 			App::GetApp()->GetDataDirectory(DataDir);
+			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+			auto alertlevelCount = scene->GetAlertlevelCount();//!警戒度の数値の取得
 
 			// フォルダの指定
 			auto csvDirectory = DataDir + L"csvFolder\\";
@@ -526,12 +524,14 @@ namespace basecross {
 			CerateVillager();//!村人の作成
 			CreatePlayBGM();//!BGMの作成
 			CreateHeartSprite();//!プレイヤーのHPの作成
-			CreateSuprisedSprite();//!ビックリマークの作成
 			CerateHunter();//!ハンターの作成
 			CreateAlertlevelGauge();//!警戒度のゲージの作成
 			CreateArrow();//!矢印の作成
 			CreateClockSprite(); //!時計のスプライトの作成
+			
 			//CreateGameOver();//!ゲームオーバー
+			
+			
 		}
 		catch (...) {
 			throw;

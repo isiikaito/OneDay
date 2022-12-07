@@ -14,20 +14,11 @@ namespace basecross
 	///	ビックリマークスプライト
 	//--------------------------------------------------------------------------------------
 
-	SurprisedSprite::SurprisedSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-		const Vec2& StartScale, const Vec2& StartPos) :
-		GameObject(StagePtr),
-		m_TextureKey(TextureKey),
-		m_Trace(Trace),
-		m_StartScale(StartScale),
-		m_StartPos(StartPos),
-		m_SurprisedTime(0.0f)
-
-	{}
-
-	SurprisedSprite::~SurprisedSprite() {}
+	constexpr float MaxSurprisedTime = 2;
 	void SurprisedSprite::OnCreate()
 	{
+		auto PtrTransform = GetComponent<Transform>();
+		// 頂点データ
 		float HelfSize = 0.5f;
 
 		//頂点配列(縦横5個ずつ表示)
@@ -38,51 +29,80 @@ namespace basecross
 			{ VertexPositionColorTexture(Vec3(HelfSize, -HelfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 1.0f)) },
 		};
 
-		//インデックス配列
-		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
-		SetAlphaActive(m_Trace);
-		auto PtrTransform = GetComponent<Transform>();
-		PtrTransform->SetScale(m_StartScale.x, m_StartScale.y, 1.0f);
-		PtrTransform->SetRotation(0, 0, 0);
-		PtrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 0.0f);
+		// 頂点インデックス（頂点をつなぐ順番）
+		std::vector<uint16_t> indices = {
+			// つなげる順番が「右回り(時計回り)」だと表面になる
+			0, 1, 2, // 左上の三角ポリゴン
+			2, 1, 3  // 右下の三角ポリゴン
+		};
 
-		//頂点とインデックスを指定してスプライト作成
-		auto PtrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
-		PtrDraw->SetSamplerState(SamplerState::LinearWrap);
-		PtrDraw->SetTextureResource(m_TextureKey);
+		// Position : 頂点座標
+		// Normal : 法線ベクトル（頂点の向き、ポリゴンの向き → 光の反射の計算に使う）
+		// Color : 頂点色
+		// Texture : テクスチャ座標(UV座標)
+		auto drawComp = AddComponent<PCTStaticDraw>();
+		//drawComp->SetMeshResource(L"DEFAULT_SQUARE");
+		drawComp->CreateOriginalMesh(vertices, indices);
+		drawComp->SetOriginalMeshUse(true);
+		drawComp->SetTextureResource(L"Surprised_TX");
+		drawComp->SetDepthStencilState(DepthStencilState::None); // 重ね合わせの問題を解消する
+		SetAlphaActive(true);
 		SetDrawActive(false);
+		auto transComp = GetComponent<Transform>();  // トランスフォーム：変換行列(Transform Matrix)		
+		transComp->SetScale(5, 5, 5);
+		auto EnemyTransform = parent->GetComponent<Transform>();
+		transComp->SetQuaternion(EnemyTransform->GetQuaternion());
+	}
+
+	void SurprisedSprite::Billboard()
+	{
+
+		auto ptrTransform = GetComponent<Transform>();
+		auto PtrCamera = GetStage()->GetView()->GetTargetCamera();
+
+		Quat Qt;
+		//向きをビルボードにする
+		Qt = Billboard(PtrCamera->GetAt() - PtrCamera->GetEye());
+
+		ptrTransform->SetQuaternion(Qt);
+		auto EnemyTransform = parent->GetComponent<Transform>();
+		auto EnemyPosition = EnemyTransform->GetPosition();
+		//!ビルボード処理はオブジェクトの回転まで反映してしまうためポジションを変更する
+		ptrTransform->SetPosition(EnemyPosition.x, m_spritePositionY, EnemyPosition.z);
+
+	}
 
 
+	void SurprisedSprite::Surprised()
+	{
+		auto GetHunter = std::dynamic_pointer_cast<BaseEnemy>(parent);
+
+		
+		auto SurprisedTarget = GetHunter->GetSurprisedSprite();
+
+		//!プレイヤーが見つかったら
+		if (SurprisedTarget == true)
+		{
+			float Time = App::GetApp()->GetElapsedTime();//!時間の取得
+			m_SurprisedTime += Time;
+
+			//auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
+			SetDrawActive(true);
+			//!2秒たったら
+			if (m_SurprisedTime >= MaxSurprisedTime)
+			{
+				SetDrawActive(false);//!描画をやめる
+				SurprisedTarget = false;
+				GetHunter->SetloseSightOfTarget(SurprisedTarget);
+			}
+
+		}
+		
 	}
 
 	void SurprisedSprite::OnUpdate()
 	{
-		auto GetPlayer=GetStage()->GetSharedGameObject<Player>(L"Player");
-		auto PlayerFound=GetPlayer->GetPlayerFound();
-		//!プレイヤーが見つかったら
-		if (PlayerFound == true)
-		{
-			float Time = App::GetApp()->GetElapsedTime();//!時間の取得
-			m_SurprisedTime += Time;
-			
-			auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
-				SetDrawActive(true);
-				//!2秒たったら
-			if (m_SurprisedTime >= 2)
-			{
-
-				PlayerFound = false;//!発見をやめる
-				GetPlayer->SetPlayerFound(PlayerFound);
-			}
-			
-		}
-		//!見つけることをやめたら
-		if (PlayerFound == false)
-		{
-			m_SurprisedTime = 0.0f;//!驚く時間を0秒にする
-			SetDrawActive(false);
-			
-		}
-		
+		Billboard();
+		Surprised();
 	}
 }
