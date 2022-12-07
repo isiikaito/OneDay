@@ -17,6 +17,10 @@ namespace basecross {
 		Vec3 m_StartPos;      //!位置
 		wstring m_TextureKey; //!テクスチャ
 		int m_RustLife;
+		float m_Time; // !切り替える時間
+		int m_hurtCount; // !HPの点滅回数
+		bool m_hurt; // !ハートのありなし
+		bool m_hurtDefise;
 
 
 	public:
