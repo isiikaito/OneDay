@@ -60,6 +60,22 @@ namespace basecross {
 		group->IntoGroup(GetThis<Key>());
 	
 	}
-	
+	void Key::OnUpdate()
+	{
+		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
+		auto ptrTrans = GetComponent<Transform>();
+		auto& app = App::GetApp();//!アプリの取得
+		auto time = app->GetElapsedTime();
+	    m_Time += time;
+		Mat4x4 spanMat;
+		spanMat.affineTransformation(
+			Vec3(0.2f, 0.1f, 0.5f),//!大きさ
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, m_Time, 0.0f),   //!回転
+			Vec3(0.0f, -0.5f, 0.0f) //!位置
+		);
+		ptrDraw->SetMeshToTransformMatrix(spanMat);
+		
+	}
 }
 //end basecross

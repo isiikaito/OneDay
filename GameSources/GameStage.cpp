@@ -124,6 +124,29 @@ namespace basecross {
 		}
 	}
 
+	//!木箱の作成
+	void GameStage::CreateWoodenBox()
+	{
+		//CSVの全体の配列
+		//CSVからすべての行を抜き出す
+		auto& LineVec = m_GameStageCsvC.GetCsvVec();
+		for (size_t i = 0; i < LineVec.size(); i++) {
+			//トークン（カラム）の配列
+			vector<wstring> Tokens;
+			//トークン（カラム）単位で文字列を抽出(L','をデリミタとして区分け)
+			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
+			for (size_t j = 0; j < Tokens.size(); j++) {
+				//XとZの位置を計算
+				float XPos = (float)((int)j - 8.6f) * 10.0f;
+				float ZPos = (float)(8.6f - (int)i) * 10.0f;
+				if (Tokens[j] == L"3")//2の時にゲームステージに追加
+				{
+					AddGameObject<WoodenBox>(Vec3(2.0f, 4.0f, 1.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
+				}
+			}
+		}
+	}
+
 
 
 	// !ステージの建物
@@ -154,6 +177,8 @@ namespace basecross {
 	// !ステージの門の作成
 	void GameStage::CreateStageGate()
 	{
+		
+		
 		//CSVの行単位の配列
 		vector<wstring>LineVec;
 		//0番目のカラムがL"stageObject"である行を抜き出す
@@ -182,19 +207,25 @@ namespace basecross {
 				(float)_wtof(Tokens[9].c_str())
 			);
 			//各値が揃ったのでオブジェクトの作成
-			AddGameObject<StageGate>(Scale, Rot, Pos);
+			auto ptrGate=AddGameObject<StageGate>(Scale, Rot, Pos);
+			SetSharedGameObject(L"Gate", ptrGate);
 		}
 
 	}
 
-
+	void GameStage:: CreateGameOver()
+	{
+		auto GameOver=AddGameObject<GameOverSprite>(L"GAMEOVER_TX", false,
+			Vec2(1280.0f, 800.0f), Vec2(0.0f, 0.0f));
+		SetSharedGameObject(L"GameOverSprite", GameOver);
+	}
 	//スコアスプライト作成
 	void GameStage::CreateTimerSprite() {
 		AddGameObject<Timer>(2,
 			L"NUMBER_TX",
 			true,
-			Vec2(80.0f, 40.0f),//元は(320.0f,80,0f)
-			Vec3(-360.0f, 240.0f, 10.0f));//元は(0.0f, 0.0f, 0.0f)
+			Vec2(50.0f, 40.0f),
+			Vec3(-430.0f, 265.0f, 10.0f));
 
 	}
 
@@ -395,8 +426,8 @@ namespace basecross {
 			(
 				L"testTime_TX",
 				true,
-				Vec2(400.0f, 300.0f),
-				Vec2(-440.0f, 270.0f)
+				Vec2(250.0f, 250.0f),
+				Vec2(-480.0f, 290.0f)
 				);
 
 	}
@@ -418,8 +449,6 @@ namespace basecross {
 		
 			AddGameObject<LoseSightOf>(VillagerPtr);
 
-			
-				
 			
 		}
 	}
@@ -502,6 +531,7 @@ namespace basecross {
 			CreateAlertlevelGauge();//!警戒度のゲージの作成
 			CreateArrow();//!矢印の作成
 			CreateClockSprite(); //!時計のスプライトの作成
+			//CreateGameOver();//!ゲームオーバー
 		}
 		catch (...) {
 			throw;
@@ -522,6 +552,8 @@ namespace basecross {
 		
 
 	}
+	//!ゲームオーバーはステージを変えない。
+	//! 倒れるモーションが入ってフェードアウトして一枚絵になる。
 
 	////Aボタン
 	//void GameStage::OnPushA() {

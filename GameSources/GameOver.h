@@ -16,6 +16,7 @@ namespace basecross {
 		Vec2 m_StartScale;
 		Vec2 m_StartPos;
 		wstring m_TextureKey;
+
 	public:
 
 		GameOverSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
@@ -25,7 +26,7 @@ namespace basecross {
 		//‰Šú‰»
 		virtual void OnCreate() override;
 		//XV
-		virtual void OnUpdate()override {}
+		virtual void OnUpdate()override;
 	};
 }
 //end basecross

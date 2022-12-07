@@ -62,6 +62,9 @@ namespace basecross {
 
 	//Aボタン
 	void TitleStage::OnPushA() {
+		//サウンド再生
+		auto ptrXA = App::GetApp()->GetXAudio2Manager();
+		ptrXA->Start(L"decision", 0, 1.0f);
 		PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
 	}
 

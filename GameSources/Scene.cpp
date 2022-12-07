@@ -19,7 +19,7 @@ namespace basecross{
 		App::GetApp()->GetAssetsDirectory(dataDir);
 
 		//!テクスチャ
-		wstring strTexture = dataDir +L"Texture\\"+ L"number.png";
+		wstring strTexture = dataDir +L"Texture\\"+ L"number2.png";
 		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
 		//!タイトル画面
 		strTexture = dataDir + L"Texture\\"+L"Title.jpg";
@@ -93,11 +93,11 @@ namespace basecross{
 
 		//モデル
 		//ボーンモデルの通常リソース
-		auto humanMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"PlayerAnimetion.bmf");
+		auto humanMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
 		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH", humanMultiModelMesh);
 
 		//ボーンモデルのタンジェント付きリソース
-		humanMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"PlayerAnimetion.bmf");
+		humanMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
 		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH_WITH_TAN", humanMultiModelMesh);
 
 		//モデル
@@ -110,23 +110,45 @@ namespace basecross{
 		App::GetApp()->RegisterResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN", playrWolfMultiModelMesh);
 
 		//モデル
-			//ボーンモデルの通常リソース
-		auto EnemyWolfMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
-		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH", EnemyWolfMultiModelMesh);
+		//ボーンモデルの通常リソース
+		auto EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"EnemyHunter_Animation.bmf");
+		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH", EnemyHunterMultiModelMesh);
 
 		//ボーンモデルのタンジェント付きリソース
-		EnemyWolfMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
-		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH_WITH_TAN", EnemyWolfMultiModelMesh);
+		EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"EnemyHunter_Animation.bmf");
+		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH_WITH_TAN", EnemyHunterMultiModelMesh);
+
+
+		//モデル
+	//ボーンモデルの通常リソース
+		auto EnemyVillagerMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"EnemyVillager_Animation.bmf");
+		App::GetApp()->RegisterResource(L"EnemyVillager_WalkAnimation_MESH", EnemyVillagerMultiModelMesh);
+
+		//ボーンモデルのタンジェント付きリソース
+		EnemyVillagerMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"EnemyVillager_Animation.bmf");
+		App::GetApp()->RegisterResource(L"EnemyVillager_WalkAnimation_MESH_WITH_TAN", EnemyVillagerMultiModelMesh);
 
 		//法線マップ
-		strTexture = dataDir + L"normal1.png";
+		strTexture = dataDir + L"PlalyerBanpMap.png";
 		App::GetApp()->RegisterTexture(L"OBJECT_NORMAL_TX", strTexture);
 
 		//!BGM
-		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";
+		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";//ゲーム中のBGM
 		App::GetApp()->RegisterWav(L"bgm", strMusic);
-		strMusic = dataDir + L"Sound\\" L"Title.wav";
+
+		strMusic = dataDir + L"Sound\\" L"Title.wav";//タイトル画面のBGM
 		App::GetApp()->RegisterWav(L"TitleBGM", strMusic);
+
+		strMusic = dataDir + L"Sound\\" L"walk.wav";//タイトル画面のBGM
+		App::GetApp()->RegisterWav(L"WalkBGM", strMusic);
+
+		wstring decisionWav = dataDir + "Sound\\" L"decision.wav";//ボタンを押したときの音
+		App::GetApp()->RegisterWav(L"decision", decisionWav);
+
+		wstring killWav = dataDir + "Sound\\" L"kill.wav";//敵を殺した時の音
+		App::GetApp()->RegisterWav(L"kill", killWav);
+
+		
 
 
 	}
@@ -139,7 +161,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		}
 		catch (...) {
 			throw;

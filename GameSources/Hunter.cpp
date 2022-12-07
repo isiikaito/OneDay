@@ -24,7 +24,8 @@ namespace basecross
 		m_StateChangeSize(30.0f),
 		m_playerChange(0),
 		m_Speed(25),
-		m_patrolindex(0)
+		m_patrolindex(0),
+		m_IsGameOver(false)
 
 	{
 	}
@@ -85,13 +86,24 @@ namespace basecross
 
 		SetpatorolPoints(patrolPoints);
 		ptrDraw->SetDiffuse(Col4(0.0f, 0.0f, 1.0f, 1.0f));
-
+		SetEyeRang(30.0f);
 
 
 	}
 	//!更新
 	void Hunter::OnUpdate()
 	{
+		if (m_IsGameOver == true)
+		{
+        auto& app = App::GetApp();//!アプリの取得
+		auto time = app->GetElapsedTime();
+		m_lostTime += time;
+		if (m_lostTime >= 1.0f)
+		{
+			PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+		}
+	}
+		
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		m_playerChange = ptrPlayer->GetPlayerCange();//!プレイヤーの状態の取得
@@ -108,7 +120,26 @@ namespace basecross
 		{
 			if (seekCondition == true)
 			{
-				PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+				m_PlayerDed = true;
+				if (m_PlayerDed = true)
+				{
+                auto ptrDraw =ptrPlayer-> GetComponent<BcPNTnTBoneModelDraw>();
+				auto AnimationName = ptrDraw->GetCurrentAnimation();
+				ptrDraw->ChangeCurrentAnimation(L"Ded");
+				ptrPlayer->SetSpeed(0.0f);
+				
+				GetStage()->AddGameObject<FadeOut>(true,
+					Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));
+				/*auto GameOver=GetStage()->GetSharedGameObject<GameOverSprite>(L"GameOverSprite");*/
+				m_IsGameOver = true;
+				
+	              
+				
+			
+				}
+				
+					
+				
 			}
 		}
 	}

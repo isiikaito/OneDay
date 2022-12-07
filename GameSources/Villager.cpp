@@ -25,14 +25,15 @@ namespace basecross
 		m_playerChange(0),
 		m_Speed(25),
 		m_patrolindex(0),
-	    m_dedDecision(false)
+		m_dedDecision(false),
+		m_IsGameOver(false)
 
 	{
 	}
 
 	//!デストラクタ
 	Villager::~Villager() {}
-	
+
 
 
 	//!初期化
@@ -57,18 +58,18 @@ namespace basecross
 		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");//!オブジェクトのグループを得る
 		group->IntoGroup(GetThis<Villager>());//!グループに自分自身を追加
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
-		
+
 		AddComponent<Gravity>(); //!重力をつける
 		auto Coll = AddComponent<CollisionCapsule>();//!CollisionObb衝突判定を付ける
 		auto ptrShadow = AddComponent<Shadowmap>();  //!影をつける（シャドウマップを描画する）
 
-		ptrShadow->SetMeshResource(L"Enemy_WalkAnimation_MESH");//!影の形（メッシュ）を設定
+		ptrShadow->SetMeshResource(L"EnemyVillager_WalkAnimation_MESH");//!影の形（メッシュ）を設定
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 
 		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの設定
 		ptrDraw->SetDiffuse(Col4(0.0f, 0.0f, 1.0f, 1.0f));
 		//!描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"Enemy_WalkAnimation_MESH_WITH_TAN");
+		ptrDraw->SetMeshResource(L"EnemyVillager_WalkAnimation_MESH_WITH_TAN");
 
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
@@ -87,12 +88,24 @@ namespace basecross
 		}
 
 		SetpatorolPoints(patrolPoints);
-	
+
 	}
 
 	//!更新
 	void Villager::OnUpdate()
 	{
+
+		if (m_IsGameOver == true)
+		{
+			auto& app = App::GetApp();//!アプリの取得
+			auto time = app->GetElapsedTime();
+			m_lostTime += time;
+			if (m_lostTime >= 1.0f)
+			{
+				PostEvent(0.0f, GetThis<Villager>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+			}
+		}
+		
 		auto HunterDed = GetIsEnemyDed();
 		if (HunterDed == true)
 		{
@@ -105,17 +118,17 @@ namespace basecross
 
 			}
 		}
-		
+
 		auto MaxSpeed = GetMaxSpeed();
 		MaxSpeed = m_Speed;
 		SetMaxSpeed(MaxSpeed);
-
+		SetEyeRang(20.0f);
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		m_playerChange = ptrPlayer->GetPlayerCange();//!プレイヤーの状態の取得
 		ptrPlayer->SetPlayerChange(m_playerChange);//!プレイヤーの取得した状態の設定
 		BaseEnemy::OnUpdate();
 	}
-	
+
 	//!村人がプレイヤーを捕まえたら
 	void Villager::OnCollisionEnter(shared_ptr<GameObject>& Other)
 	{
@@ -123,9 +136,23 @@ namespace basecross
 		auto seekCondition = GetseekCondition();
 		if (ptrPlayer)
 		{
-			if (seekCondition ==true)
+			if (seekCondition == true)
 			{
-              PostEvent(0.0f, GetThis<Villager>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+				m_PlayerDed = true;
+				if (m_PlayerDed = true)
+				{
+					auto ptrDraw = ptrPlayer->GetComponent<BcPNTnTBoneModelDraw>();
+					auto AnimationName = ptrDraw->GetCurrentAnimation();
+					ptrDraw->ChangeCurrentAnimation(L"Ded");
+					ptrPlayer->SetSpeed(0.0f);
+					GetStage()->AddGameObject<FadeOut>(true,
+						Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));
+					
+					
+					m_IsGameOver = true;
+					
+
+				}
 			}
 		}
 	}

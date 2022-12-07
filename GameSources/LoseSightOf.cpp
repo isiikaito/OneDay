@@ -9,9 +9,9 @@
 
 namespace basecross
 {
+	constexpr float MaxLoseSeghtOfTime = 2;
 	void LoseSightOf::OnCreate()
 	{
-
 		auto PtrTransform = GetComponent<Transform>();
 		// 頂点データ
 		float HelfSize = 0.5f;
@@ -73,39 +73,39 @@ namespace basecross
 
 	void LoseSightOf::LoseSight()
 	{
-		auto GetVillager = std::dynamic_pointer_cast<Villager>(parent);
+		//auto GetVillager = std::dynamic_pointer_cast<Villager>(parent);
 
 
-		auto loseSightOfTarget = GetVillager->GetloseSightOfTarget();
+		//auto loseSightOfTarget = GetVillager->GetloseSightOfTarget();
 
-		//!プレイヤーが見つかったら
-		if (loseSightOfTarget == true)
-		{
-			float Time = App::GetApp()->GetElapsedTime();//!時間の取得
-			m_LoseSeghtOfTime += Time;
+		////!プレイヤーが見つかったら
+		//if (loseSightOfTarget == true)
+		//{
+		//	float Time = App::GetApp()->GetElapsedTime();//!時間の取得
+		//	m_LoseSeghtOfTime += Time;
 
-			//auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
-			SetDrawActive(true);
-			//!2秒たったら
-			if (m_LoseSeghtOfTime >= 2)
-			{
-				loseSightOfTarget = false;
-				GetVillager->SetloseSightOfTarget(loseSightOfTarget);
-			}
+		//	//auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
+		//	SetDrawActive(true);
+		//	//!2秒たったら
+		//	if (m_LoseSeghtOfTime >= MaxLoseSeghtOfTime)
+		//	{
+		//		loseSightOfTarget = false;
+		//		GetVillager->SetloseSightOfTarget(loseSightOfTarget);
+		//	}
 
-		}
-		//!巡回に戻る
-		if (loseSightOfTarget == false)
-		{
-			m_LoseSeghtOfTime = 0.0f;//!驚く時間を0秒にする
-			SetDrawActive(false);//!描画をやめる
+		//}
+		////!巡回に戻る
+		//if (loseSightOfTarget == false)
+		//{
+		//	m_LoseSeghtOfTime = 0.0f;//!驚く時間を0秒にする
+		//	SetDrawActive(false);//!描画をやめる
 
-		}
+		//}
 	}
 
 	void LoseSightOf::loseSghtHunter()
 	{
-		auto GetHunter = std::dynamic_pointer_cast<Hunter>(parent);
+		auto GetHunter = std::dynamic_pointer_cast<BaseEnemy>(parent);
 
 
 		auto loseSightOfTarget = GetHunter->GetloseSightOfTarget();
@@ -119,7 +119,7 @@ namespace basecross
 			//auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
 			SetDrawActive(true);
 			//!2秒たったら
-			if (m_LoseSeghtOfTime >= 2)
+			if (m_LoseSeghtOfTime >= MaxLoseSeghtOfTime)
 			{
 				loseSightOfTarget = false;
 				GetHunter->SetloseSightOfTarget(loseSightOfTarget);
@@ -138,7 +138,7 @@ namespace basecross
 	void LoseSightOf::OnUpdate()
 	{
 		Billboard();
-		/*loseSghtHunter();
-		LoseSight();*/
+		loseSghtHunter();
+		LoseSight();
 	}
 }

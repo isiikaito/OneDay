@@ -35,7 +35,7 @@ namespace basecross{
 		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 		float m_PlayerPositionTime;//!プレイヤーの位置を取得するまでの時間
 		bool m_IsPlayerFound;//!プレイヤーが見つかった稼働羽化
-		int m_AlertleveCount;
+		int m_AlertleveCount;//!警戒度のカウント
 	
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
 
@@ -65,8 +65,11 @@ namespace basecross{
 		void MovePlayer();         //!プレイヤーの移動
 		void Villagerkiller();//!村人を殺す処理
 		void CreateKeySprite();//!鍵のスプライトの作成
+		void Escape();//!脱出処理
 		void AppearanceChange();//!プレイヤーの見た目の変化
 		void OnPushB();//!コントローラーのボタン判定B
+		shared_ptr<SoundItem>m_BGM;
+		void CreatePlayBGM();//!BGM作成
 
         //!プレイヤーの状態の取得
 		int GetPlayerCange()const
@@ -119,6 +122,16 @@ namespace basecross{
 		int GetAlertleveCount()const
 		{
 			return m_AlertleveCount;
+		}
+
+		//!スピードの取得
+		float GetSpeed()
+		{
+			return m_Speed;
+		}
+		void SetSpeed(float speed)
+		{
+			m_Speed = speed;
 		}
 
 		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other);//プレイヤーとカギの衝突判定

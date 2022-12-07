@@ -104,13 +104,18 @@ namespace basecross {
 			//歩くアニメーション
 			if (AnimationName == L"Default") {
 				ptrDraw->ChangeCurrentAnimation(L"Move");
-
+				//歩く音再生
+				auto XAptr = App::GetApp()->GetXAudio2Manager();
+				m_BGM = XAptr->Start(L"WalkBGM", 0, 1.0f);
 			}
 		}
 		else {
 			//立ち止まるアニメーション
 			if (AnimationName == L"Move") {
 				ptrDraw->ChangeCurrentAnimation(L"Default");
+				auto XAptr = App::GetApp()->GetXAudio2Manager();
+				XAptr->Stop(m_BGM);
+
 
 			}
 		}
@@ -160,7 +165,8 @@ namespace basecross {
 		
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
-		ptrDraw->AddAnimation(L"Default", 30, 60, true, 15.0f);
+		ptrDraw->AddAnimation(L"Default", 30, 30, true, 15.0f);
+		ptrDraw->AddAnimation(L"Ded", 60, 30, false, 15.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Default");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
 
@@ -247,12 +253,35 @@ namespace basecross {
 					VillagerDraw->SetDiffuse(Col4(1, 0, 0, 1));//!村人の色の設定
 					m_PlayerHp--;
 					m_AlertleveCount++;
+
+					//サウンド再生
+					auto ptrXA = App::GetApp()->GetXAudio2Manager();
+					ptrXA->Start(L"kill", 0, 1.0f);
 					}
 					
 
 				}
 			}
 		}
+	}
+
+	void Player::Escape()
+	{
+		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
+		auto position = transComp->GetPosition();//!現在のプレイヤーの位置の取得
+		SPHERE playerSp(position, 10.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
+
+		auto gate=GetStage()->GetSharedGameObject<StageGate>(L"Gate");
+		Vec3 ret;
+				auto gateObb=gate->GetComponent<CollisionObb>()->GetObb();
+				if (HitTest::SPHERE_OBB(playerSp, gateObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
+				{
+
+					PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");//!ゲームクリアステージに遷移
+
+				}
+			
+		
 	}
 
 	//!鍵のスプライトの作成
@@ -314,21 +343,18 @@ namespace basecross {
 			CreateKeySprite();
 		}
 		
-		//!プレイヤーが鍵を持っていたら
-			if (m_KeyCount == m_MaxKeyCount)
-			{
-				auto ptrGate = dynamic_pointer_cast<StageGate>(Other);//!門のオブジェクト取得
-				if (ptrGate)//!プレイヤーが門に当たったら
-				{
-					PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");//!ゲームクリアステージに遷移
-				}
-			}
+	
 	}
 	void Player::OnPushB()
 	{
 		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
 		{
           Villagerkiller();//!村人を倒す処理
+		}
+		//!プレイヤーが鍵を持っていたら
+		if (m_KeyCount == m_MaxKeyCount)
+		{
+			Escape();
 		}
 		
 	}
