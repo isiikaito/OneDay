@@ -6,7 +6,7 @@ namespace basecross
 {
 	namespace kaito
 	{
-		constexpr float m_maxLostTime=3.0f;
+		constexpr float m_maxLostTime=7.0f;
 		//!追いかけるステート-----------------------------------------
 
 		//!インスタンスの生成(実体の作成)
@@ -254,13 +254,7 @@ namespace basecross
 			PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
 			auto angle = angleBetweenNormals(Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
 			auto chk = XM_PI / 9.0f;//!360を6で割って角度を出す。
-			if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
-			{
-				if (PEdistance >= 100)
-				{
-					Enemy->ChangeState(SeekState::Instance());//!ステートを変更する
-				}
-			}
+			
 
 			//!障害物の取得
 			auto& app = App::GetApp();//!アプリの取得
@@ -286,6 +280,18 @@ namespace basecross
 						{
 							m_lostTime = 0.0f;
 						}
+						
+					}
+					else {
+						
+						if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
+						{
+							if (PEdistance <= 60)
+							{
+								Enemy->ChangeState(SeekState::Instance());//!ステートを変更する
+							}
+						}
+
 						
 					}
 				}
