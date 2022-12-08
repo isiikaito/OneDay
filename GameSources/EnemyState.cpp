@@ -6,7 +6,7 @@ namespace basecross
 {
 	namespace kaito
 	{
-
+		constexpr float m_maxLostTime=3.0f;
 		//!追いかけるステート-----------------------------------------
 
 		//!インスタンスの生成(実体の作成)
@@ -278,11 +278,11 @@ namespace basecross
 					{
 						auto time=app->GetElapsedTime();
 						m_lostTime += time;
-						if ( PEdistance>=37&&m_lostTime >= 3)
+						if (m_lostTime >= m_maxLostTime)
 						{
                                Enemy->ChangeState(LostStata::Instance());//!ステートの変更
 						}
-						if ( PEdistance <= 37&&m_lostTime >= 3)
+						if (m_lostTime >= m_maxLostTime)
 						{
 							m_lostTime = 0.0f;
 						}

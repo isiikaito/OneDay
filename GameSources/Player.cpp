@@ -9,7 +9,7 @@
 namespace basecross {
 	constexpr float m_maxDisappearTime = 2.0f;
 	constexpr float m_MaxwolfHowlingTime = 0.1f;
-	 
+
 
 	//--------------------------------------------------------------------------------------
 	//	class Player : public GameObject;
@@ -32,10 +32,10 @@ namespace basecross {
 		m_PlayerPositionOnSecondMax(39),
 		m_PlayerHp(3),
 		m_IsPlayerFound(false),
-		
+
 		m_AlertleveCount(0),
-	m_fastHowling(false),
-	m_wolfHowlingTime(0)
+		m_fastHowling(false),
+		m_wolfHowlingTime(0)
 
 	{}
 
@@ -130,7 +130,7 @@ namespace basecross {
 		if (m_IsplayerDed == true)
 		{
 			//立ち止まるアニメーション
-			if (AnimationName == L"Move"|| AnimationName == L"Default") {
+			if (AnimationName == L"Move" || AnimationName == L"Default") {
 				ptrDraw->ChangeCurrentAnimation(L"Ded");
 				auto XAptr = App::GetApp()->GetXAudio2Manager();
 				XAptr->Stop(m_BGM);
@@ -209,7 +209,7 @@ namespace basecross {
 
 			m_playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
 			m_fastHowling = true;
-			
+
 			if (m_fastHowling == true)
 			{
 				if (m_wolfHowlingTime <= m_MaxwolfHowlingTime)
@@ -218,14 +218,14 @@ namespace basecross {
 					auto ptrXA = App::GetApp()->GetXAudio2Manager();
 					ptrXA->Start(L"howling", 0, 1.0f);
 					m_fastHowling = false;
-				
+
 				}
 			}
 			else
 			{
 				m_wolfHowlingTime = 0.0f;
 			}
-			
+
 			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
 			auto shadowPtr = GetComponent<Shadowmap>();
 			shadowPtr->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH");
@@ -254,7 +254,7 @@ namespace basecross {
 	void Player::EnmeyDisappear()
 	{
 		auto position = GetComponent<Transform>()->GetPosition();//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, 10.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
+		SPHERE playerSp(position, 50);//!プレイヤーの座標を中心に半径2センチの円の作成
 		//!村人を殺す
 		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
 		auto& vecHnter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
@@ -318,7 +318,7 @@ namespace basecross {
 				{
 					auto VillagerDedDecision = ptrVillager->GetDedDecision();//!村人の生死の判定の取得
 					VillagerDedDecision = true;//!村人の生死を死にする
-					
+
 					ptrVillager->SetDedDecision(VillagerDedDecision);//!村人の生死の設定
 					auto VillagerSpeed = ptrVillager->GetSpeed();//!村人のスピードを取得
 					if (VillagerSpeed != m_Ded)
@@ -327,15 +327,15 @@ namespace basecross {
 						ptrVillager->SetSpeed(VillagerSpeed);//!村人のスピードを設定
 						alertlevelCount++;
 						scene->SetAlertlevelCount(alertlevelCount);
-						
 
 
-        
 
-					//サウンド再生
-					auto ptrXA = App::GetApp()->GetXAudio2Manager();
-					ptrXA->Start(L"kill", 0, 9.0f);
-					ptrXA->Start(L"scream", 0, 9.0f);
+
+
+						//サウンド再生
+						auto ptrXA = App::GetApp()->GetXAudio2Manager();
+						ptrXA->Start(L"kill", 0, 9.0f);
+						ptrXA->Start(L"scream", 0, 9.0f);
 					}
 				}
 			}
@@ -395,9 +395,9 @@ namespace basecross {
 		EnmeyDisappear();
 		MovePlayer();
 
-		
-		
-		
+
+
+
 		m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
 
 		if (m_PlayerHp == m_Ded)
@@ -421,10 +421,11 @@ namespace basecross {
 				m_KeyCount++;
 				GetStage()->RemoveGameObject<Key>(Other);//!鍵オブジェクトの削除
 				CreateKeySprite();
+				auto ptrXA = App::GetApp()->GetXAudio2Manager();
+				ptrXA->Start(L"acquisition", 0, 9.0f);
 			}
-			
-			auto ptrXA = App::GetApp()->GetXAudio2Manager();
-			ptrXA->Start(L"acquisition", 0, 9.0f);
+
+
 		}
 
 
@@ -438,13 +439,13 @@ namespace basecross {
 
 		if (m_playerChange == static_cast<int>(PlayerModel::human))
 		{
-           //!プレイヤーが鍵を持っていたら
-		if (m_KeyCount == m_MaxKeyCount)
-		{
-			Escape();
+			//!プレイヤーが鍵を持っていたら
+			if (m_KeyCount == m_MaxKeyCount)
+			{
+				Escape();
+			}
 		}
-		}
-		
+
 
 	}
 }
