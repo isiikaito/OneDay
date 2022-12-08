@@ -25,9 +25,9 @@ namespace basecross
 		int m_patrolindex;
 		float m_StateChangeSize;	
 		bool m_dedDecision;//!生死の判定
-		bool m_PlayerDed;
 		bool m_IsGameOver;
 		float m_lostTime;
+		int m_damage;
 		
 		//bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
 
@@ -82,8 +82,7 @@ namespace basecross
 			return m_StateChangeSize;
 		}
 	
-		void VillagerDed();
-		void VillagerDisappear();
+		void VillagerDed();//!村人を殺す判定
 		
 		virtual void OnCreate();//初期化
 		virtual void OnUpdate();//!更新

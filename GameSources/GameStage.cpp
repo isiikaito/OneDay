@@ -107,7 +107,7 @@ namespace basecross {
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
 		auto group = CreateSharedObjectGroup(L"key_ObjGroup");
-		auto& LineVec = m_GameStageCsvC.GetCsvVec();
+		auto& LineVec = m_GameStageCsvD.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
 			//トークン（カラム）の配列
 			vector<wstring> Tokens;
@@ -130,7 +130,7 @@ namespace basecross {
 	{
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
-		auto& LineVec = m_GameStageCsvC.GetCsvVec();
+		auto& LineVec = m_GameStageCsvD.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
 			//トークン（カラム）の配列
 			vector<wstring> Tokens;
@@ -157,7 +157,7 @@ namespace basecross {
 		auto group = CreateSharedObjectGroup(L"StageBuilding_Group");
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
-		auto& LineVec = m_GameStageCsvC.GetCsvVec(); // csvファイルをセットする
+		auto& LineVec = m_GameStageCsvD.GetCsvVec(); // csvファイルをセットする
 		for (size_t i = 0; i < LineVec.size(); i++) {
 			//トークン（カラム）の配列
 			vector<wstring> Tokens;
@@ -358,7 +358,7 @@ namespace basecross {
 
 	void GameStage::CreateHeartSprite()
 	{
-		AddGameObject<PlayerHeartSpriteLeft>
+		AddGameObject<PlayerHeartSpriteRight>
 			(
 			L"PlayerHp_TX",
 			true,
@@ -374,7 +374,7 @@ namespace basecross {
 				Vec2(460.0f, 270.0f)
 				);
 
-		AddGameObject<PlayerHeartSpriteRight>
+		AddGameObject<PlayerHeartSpriteLeft>
 			(
 				L"PlayerHp_TX",
 				true,
@@ -438,10 +438,13 @@ namespace basecross {
 
 			auto VillagerPtr=AddGameObject<Villager>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
 		
+			
+			
 			AddGameObject<LoseSightOf>(VillagerPtr);
 			AddGameObject<SurprisedSprite>(VillagerPtr);
 			
 		}
+		
 	}
 
 	//!ハンターの作成
@@ -513,6 +516,10 @@ namespace basecross {
 			m_GameStageCsvC.SetFileName(csvDirectory + L"GameStageC.csv");
 			m_GameStageCsvC.ReadCsv();
 
+			//!Buildingファイルの読み込み4
+			m_GameStageCsvD.SetFileName(csvDirectory + L"GameStageD.csv");
+			m_GameStageCsvD.ReadCsv();
+
             CreateTimerSprite();//!時間のスプライトの作成
 			CreateViewLight();//ビューとライトの作成
 			CreateStageFloor();//!ステージの床の作成
@@ -564,7 +571,7 @@ namespace basecross {
 	void GameStage::CreatePlayBGM()
 	{
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
-		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, 0.2f);
+		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, 0.0f);
 	}
 
 	/// BGMのストップ

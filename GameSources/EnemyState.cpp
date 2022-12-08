@@ -74,9 +74,7 @@ namespace basecross
 		}
 		void SeekState::Exit(BaseEnemy* Enemy)
 		{
-			auto seekCondition = Enemy->GetseekCondition();
-			seekCondition = false;
-			Enemy->SetseekCondition(seekCondition);
+			
 		}
 
 		//!巡回ステート-------------------------------------------------
@@ -88,8 +86,18 @@ namespace basecross
 
 		void PatrolState::Enter(BaseEnemy* Enemy)
 		{
-			
-			
+			auto patrolPoint = Enemy->GetEnemyPatorolindex();//!パトロールポイントのインデックスの取得
+			patrolPoint = 0;
+			Enemy->SetEnemyPatorolindex(patrolPoint);//!パトロールポイントのインデックスを設定する
+
+			auto seekCondition = Enemy->GetseekCondition();
+			seekCondition = false;
+			Enemy->SetseekCondition(seekCondition);
+
+			//!ビックリマークの初期化
+			auto Surprised = Enemy->GetSurprisedSprite();
+			Surprised = false;
+			Enemy->SetSurprisedSprite(Surprised);
 		}
 
 		void PatrolState::Execute(BaseEnemy* Enemy)
@@ -193,9 +201,7 @@ namespace basecross
 				}
 			}
 
-		/*	auto seekCondition = Enemy->GetseekCondition();
-			seekCondition = true;
-			Enemy->SetseekCondition(seekCondition);*/
+		
 			m_lostTime = 0l;
 		}
 
@@ -294,9 +300,7 @@ namespace basecross
 		}
 		void BrettGramState::Exit(BaseEnemy* Enemy)
 		{
-		/*	auto seekCondition = Enemy->GetseekCondition();
-			seekCondition = false;
-			Enemy->SetseekCondition(seekCondition);*/
+		
 		}
 		//!-------------------------------------------------------------
 
@@ -363,18 +367,16 @@ namespace basecross
 	    m_lostTime += time;
 		if (m_lostTime >=m_MaxlostTime)
 		{
-        EnemyPosition = patorolPoint[1];
+        EnemyPosition = patorolPoint[0];
 		EnemyTrans->SetPosition(EnemyPosition);
 		Enemy->ChangeState(PatrolState::Instance());//!ステートを変更する
 		}
 		
-
-
 		}
 		void LostStata::Exit(BaseEnemy* Enemy)
 		{
 			//!首を振る動作をする
-			//! //!村人の頭上にはてなマークのテクスチャを出す
+			//!村人の頭上にはてなマークのテクスチャを出す
 			auto loseSightOfTarget = Enemy->GetloseSightOfTarget();
 			loseSightOfTarget = false;
 			Enemy->SetloseSightOfTarget(loseSightOfTarget);
@@ -384,6 +386,3 @@ namespace basecross
 
 	}
 }
-//!見失うときは範囲外に行ってから数秒追いかけてから見失う処理をした方がいい
-//! ブレットクラムで見失うときは時間だけを利用してやってみるといい
-//! 見失ったときに元の位置に戻るのはそれ用のステートを用意してそのポイントに何秒後に戻るとやることが出来る

@@ -24,12 +24,12 @@ namespace basecross
 		m_patrolPoints(patrolPoints),
 		m_StateChangeSize(30.0f),
 		m_playerChange(0),
-		m_Speed(25),
+		m_Speed(20),
 		m_patrolindex(0),
 		m_dedDecision(false),
 		m_IsGameOver(false),
-		m_PlayerDed(false),
-		m_lostTime(0.0f)
+		m_lostTime(0.0f),
+		m_damage(-1)
 
 	{
 	}
@@ -88,13 +88,13 @@ namespace basecross
 		}
 
 		SetpatorolPoints(patrolPoints);
+		/*for (int i = 0; i < m_patrolPoints.size(); i++)
+		{
+			GetStage()->AddGameObject<StageBuilding>(Vec3(1, 10, 1), Vec3(0, 0, 0), m_patrolPoints[i]);
+		}*/
 
 	}
-	void Villager::VillagerDisappear()
-	{
-		
-
-	}
+	
 
 	void Villager::VillagerDed()
 	{
@@ -107,15 +107,18 @@ namespace basecross
 			//立ち止まるアニメーション
 			if (AnimationName == L"Move") {
 				ptrDraw->ChangeCurrentAnimation(L"Ded");
-				
+				auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
+				auto playerHp = ptrPlayer->GetPlayerHp();
+				playerHp+= m_damage;
+				ptrPlayer->SetPlayerHp(playerHp);
 			}
-			VillagerDisappear();
 		}
 	}
 
 	//!更新
 	void Villager::OnUpdate()
 	{
+		
 
 		if (m_IsGameOver == true)
 		{
@@ -149,11 +152,8 @@ namespace basecross
 		{
 			if (seekCondition == true)
 			{
-				m_PlayerDed = true;
-				if (m_PlayerDed = true)
-				{
+				
 					auto playerDed = ptrPlayer->GetIsplayerDed();
-
 
 					playerDed = true;
 					ptrPlayer->SetIsplayerDed(playerDed);
@@ -169,7 +169,7 @@ namespace basecross
 					m_IsGameOver = true;
 					
 
-				}
+				
 			}
 		}
 	}

@@ -316,16 +316,15 @@ namespace basecross {
 				auto VillagerCapsrul = ptrVillager->GetComponent<CollisionCapsule>()->GetCapsule();//!ハンタ-のObbオブジェクトを取得
 				if (HitTest::SPHERE_CAPSULE(playerSp, VillagerCapsrul, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 				{
-
 					auto VillagerDedDecision = ptrVillager->GetDedDecision();//!村人の生死の判定の取得
 					VillagerDedDecision = true;//!村人の生死を死にする
+					
 					ptrVillager->SetDedDecision(VillagerDedDecision);//!村人の生死の設定
 					auto VillagerSpeed = ptrVillager->GetSpeed();//!村人のスピードを取得
 					if (VillagerSpeed != m_Ded)
 					{
 						VillagerSpeed = m_Ded;//!村人のスピードを０にする
 						ptrVillager->SetSpeed(VillagerSpeed);//!村人のスピードを設定
-						m_PlayerHp--;
 						alertlevelCount++;
 						scene->SetAlertlevelCount(alertlevelCount);
 						
@@ -338,8 +337,6 @@ namespace basecross {
 					ptrXA->Start(L"kill", 0, 9.0f);
 					ptrXA->Start(L"scream", 0, 9.0f);
 					}
-
-
 				}
 			}
 		}
@@ -356,9 +353,7 @@ namespace basecross {
 		auto gateObb = gate->GetComponent<CollisionObb>()->GetObb();
 		if (HitTest::SPHERE_OBB(playerSp, gateObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 		{
-
 			PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");//!ゲームクリアステージに遷移
-
 		}
 	}
 

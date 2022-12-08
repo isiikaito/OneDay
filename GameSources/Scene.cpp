@@ -57,6 +57,9 @@ namespace basecross{
 		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir,L"MayaModel\\" L"StageFloor.bmf");
 		App::GetApp()->RegisterResource(L"STAGEFLOOR_MESH", staticModelMesh1);
 
+		//!ボックスの追加
+		auto staticModelMesh2 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Box.bmf");
+		App::GetApp()->RegisterResource(L"BOX_MESH", staticModelMesh2);
 	
 		//!壁のモデル読み込み
 		auto staticModelMesh3 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageWall.bmf");
@@ -78,18 +81,12 @@ namespace basecross{
 		auto staticModelMesh7 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Ground.bmf");
 		App::GetApp()->RegisterResource(L"GROUND_MESH", staticModelMesh7);
 
-		//!プレイヤーのモデルの読み込み
-		auto staticModelMesh8 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"PlayerWolf.bmf");
-		App::GetApp()->RegisterResource(L"PLAYER_Wolf", staticModelMesh8);
-
-		//!プレイヤーのモデルの読み込み
-		auto staticModelMesh10 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"MainCharacter.bmf");
-		App::GetApp()->RegisterResource(L"PLAYER_HUMAN", staticModelMesh10);
-
-
+	
 		//!柵のモデルの読み込み
 		auto staticModelMesh9 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageFence.bmf");
 		App::GetApp()->RegisterResource(L"STAGE_FENCE", staticModelMesh9);
+
+     
 
 		//モデル
 		//ボーンモデルの通常リソース
@@ -111,11 +108,11 @@ namespace basecross{
 
 		//モデル
 		//ボーンモデルの通常リソース
-		auto EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"EnemyHunter_Animation.bmf");
+		auto EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"HunterAnimation.bmf");
 		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH", EnemyHunterMultiModelMesh);
 
 		//ボーンモデルのタンジェント付きリソース
-		EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"EnemyHunter_Animation.bmf");
+		EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"HunterAnimation.bmf");
 		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH_WITH_TAN", EnemyHunterMultiModelMesh);
 
 

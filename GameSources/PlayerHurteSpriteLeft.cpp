@@ -23,7 +23,7 @@ namespace basecross
 		m_Trace(Trace),
 		m_StartScale(StartScale),
 		m_StartPos(StartPos),
-		m_RustLife(0),
+		m_RustLife(2),
 		m_hurt(false),
 		m_hurtCount(0),
 		m_hurtDefise(true)

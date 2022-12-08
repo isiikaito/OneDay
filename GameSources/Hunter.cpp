@@ -24,7 +24,7 @@ namespace basecross
 		m_patrolPoints(patrolPoints),
 		m_StateChangeSize(30.0f),
 		m_playerChange(0),
-		m_Speed(25),
+		m_Speed(20),
 		m_patrolindex(0),
 		m_IsGameOver(false),
 		m_dedTime(0),
@@ -65,22 +65,20 @@ namespace basecross
 		auto ptrShadow = AddComponent<Shadowmap>();  //!影をつける（シャドウマップを描画する）
 
 		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"Player_WalkAnimation_MESH");//!影の形（メッシュ）を設定
+		ptrShadow->SetMeshResource(L"Enemy_WalkAnimation_MESH");//!影の形（メッシュ）を設定
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 
 		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの設定
 		ptrDraw->SetDiffuse(Col4(0.0f, 0.0f, 1.0f, 1.0f));
 		//!描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");
+		ptrDraw->SetMeshResource(L"Enemy_WalkAnimation_MESH_WITH_TAN");
 
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Move");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
 
-		
-		/*SetEnemyPatorolindex(m_patrolindex);*/
-
+	
 		auto patrolPoints = GetEnemyPatorolPoints();
 		for (auto& v : m_patrolPoints)
 		{
@@ -96,7 +94,7 @@ namespace basecross
 
 	void Hunter::PlayerCatch()
 	{
-	
+
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		auto playerPosition = ptrPlayer->GetComponent<Transform>()->GetPosition();
 		auto hunterPosition = GetComponent<Transform>()->GetPosition();
@@ -107,11 +105,11 @@ namespace basecross
 		auto angle = angleBetweenNormals(Enemyfront, phdistans);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
 		auto chk = XM_PI / 9.0f;//!360を6で割って角度を出す。
 
-		
+
 
 		if (m_seekCondition == true)
 		{
-			
+
 			if (angle <= chk && angle >= -chk)//!敵から見て+40度か-40度にプレイヤーが入ったら
 			{
 				if (playerCatch <= MaxPlayerCatch)
@@ -124,6 +122,10 @@ namespace basecross
 					ptrPlayer->SetIsplayerDed(playerDed);
 
 					ptrPlayer->SetSpeed(0.0f);
+					if (playerDed = true)
+					{
+						
+					}
 
 					GetStage()->AddGameObject<FadeOut>(true,
 						Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));

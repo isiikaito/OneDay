@@ -41,25 +41,25 @@ namespace basecross {
 		// モデルとトランスフォームの間の差分行列
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.8f, 0.14f, 0.045f),//!大きさ
+			Vec3(0.08f, 0.08f, 0.08f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(-0.35f, -0.7f, 0.05f)  //!位置
+			Vec3(0.0f, -0.5f, 0.0f)  //!位置
 		);
 
 		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
 		auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
 		Coll->SetFixed(true);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
-		auto group = GetStage()->GetSharedObjectGroup(L"StageWall_Group");//!グループを取得
+		auto group = GetStage()->GetSharedObjectGroup(L"Box_Group");//!グループを取得
 		group->IntoGroup(GetThis<StageWall>());//!グループにステージの壁を入れる
 
 		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"STAGE_FENCE");
+		ptrShadow->SetMeshResource(L"BOX_MESH");
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 
 		//!メッシュの設定
-		ptrDraw->SetMeshResource(L"STAGE_FENCE");
+		ptrDraw->SetMeshResource(L"BOX_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		/*Coll->SetDrawActive(true);*/
 		
