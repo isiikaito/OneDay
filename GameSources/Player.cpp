@@ -8,6 +8,9 @@
 
 namespace basecross {
 	constexpr float m_maxDisappearTime = 2.0f;
+	constexpr float m_MaxwolfHowlingTime = 0.1f;
+	 
+
 	//--------------------------------------------------------------------------------------
 	//	class Player : public GameObject;
 	//	用途: プレイヤー
@@ -29,8 +32,10 @@ namespace basecross {
 		m_PlayerPositionOnSecondMax(39),
 		m_PlayerHp(3),
 		m_IsPlayerFound(false),
-		m_IsplayerDed(false),
-		m_disappearTime(0.0f)
+		
+		m_AlertleveCount(0),
+	m_fastHowling(false),
+	m_wolfHowlingTime(0)
 
 	{}
 
@@ -199,9 +204,28 @@ namespace basecross {
 		m_ChangeTime += elapsedTime;//時間を変数に足す
 		if (m_ChangeTime >= m_humanTime)//!人間の時間が終わったら
 		{
+			float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
+			m_wolfHowlingTime += elapsedTime;//時間を変数に足す
 
 			m_playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
-
+			m_fastHowling = true;
+			
+			if (m_fastHowling == true)
+			{
+				if (m_wolfHowlingTime <= m_MaxwolfHowlingTime)
+				{
+					//サウンド再生
+					auto ptrXA = App::GetApp()->GetXAudio2Manager();
+					ptrXA->Start(L"howling", 0, 1.0f);
+					m_fastHowling = false;
+				
+				}
+			}
+			else
+			{
+				m_wolfHowlingTime = 0.0f;
+			}
+			
 			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
 			auto shadowPtr = GetComponent<Shadowmap>();
 			shadowPtr->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH");
@@ -224,7 +248,6 @@ namespace basecross {
 				m_ChangeTime = (float)m_reset;//!状態タイムをリセットする
 			}
 			return;
-
 		}
 	}
 
@@ -305,11 +328,15 @@ namespace basecross {
 						m_PlayerHp--;
 						alertlevelCount++;
 						scene->SetAlertlevelCount(alertlevelCount);
-						//サウンド再生
-						auto ptrXA = App::GetApp()->GetXAudio2Manager();
-						ptrXA->Start(L"kill", 0, 1.0f);
+						
 
 
+        
+
+					//サウンド再生
+					auto ptrXA = App::GetApp()->GetXAudio2Manager();
+					ptrXA->Start(L"kill", 0, 9.0f);
+					ptrXA->Start(L"scream", 0, 9.0f);
 					}
 
 
@@ -373,6 +400,9 @@ namespace basecross {
 		EnmeyDisappear();
 		MovePlayer();
 
+		
+		
+		
 		m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
 
 		if (m_PlayerHp == m_Ded)
@@ -385,6 +415,7 @@ namespace basecross {
 	//!プレイヤーが相手に当たったら
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other)
 	{
+
 		auto ptrKey = dynamic_pointer_cast<Key>(Other);
 
 		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
@@ -396,6 +427,12 @@ namespace basecross {
 				GetStage()->RemoveGameObject<Key>(Other);//!鍵オブジェクトの削除
 				CreateKeySprite();
 			}
+			m_KeyCount++;
+			GetStage()->RemoveGameObject<Key>(Other);//!鍵オブジェクトの削除
+			CreateKeySprite();
+
+			auto ptrXA = App::GetApp()->GetXAudio2Manager();
+			ptrXA->Start(L"acquisition", 0, 9.0f);
 		}
 
 

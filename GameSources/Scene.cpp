@@ -139,7 +139,7 @@ namespace basecross{
 		strMusic = dataDir + L"Sound\\" L"Title.wav";//ƒ^ƒCƒgƒ‹‰æ–Ê‚ÌBGM
 		App::GetApp()->RegisterWav(L"TitleBGM", strMusic);
 
-		strMusic = dataDir + L"Sound\\" L"walk.wav";//ƒ^ƒCƒgƒ‹‰æ–Ê‚ÌBGM
+		strMusic = dataDir + L"Sound\\" L"walk.wav";//•à‚­‰¹
 		App::GetApp()->RegisterWav(L"WalkBGM", strMusic);
 
 		wstring decisionWav = dataDir + "Sound\\" L"decision.wav";//ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«‚Ì‰¹
@@ -147,6 +147,22 @@ namespace basecross{
 
 		wstring killWav = dataDir + "Sound\\" L"kill.wav";//“G‚ðŽE‚µ‚½Žž‚Ì‰¹
 		App::GetApp()->RegisterWav(L"kill", killWav);
+
+		wstring howlingWav = dataDir + "Sound\\" L"howling.wav";//˜T‚É•Ïg‚µ‚½Žž‚Ì‰“–i‚¦
+		App::GetApp()->RegisterWav(L"howling", howlingWav);
+
+		wstring screamWav = dataDir + "Sound\\" L"scream.wav";//‘ºl‚Ì‹©‚Ñº
+		App::GetApp()->RegisterWav(L"scream", screamWav);
+
+		wstring acquisitionWav = dataDir + "Sound\\" L"acquisition.wav";//ƒJƒM‚ðE‚¤‰¹
+		App::GetApp()->RegisterWav(L"acquisition", acquisitionWav);
+
+		wstring firingWav = dataDir + "Sound\\" L"firing.wav";//ƒJƒM‚ðE‚¤‰¹
+		App::GetApp()->RegisterWav(L"firing", firingWav);
+
+		
+
+		
 
 		
 

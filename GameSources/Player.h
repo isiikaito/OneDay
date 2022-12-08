@@ -38,6 +38,9 @@ namespace basecross{
 		bool m_IsplayerDed;
 		float m_disappearTime;
 		
+		int m_AlertleveCount;//!警戒度のカウント
+		bool m_fastHowling ;
+		float m_wolfHowlingTime;
 	
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
 
@@ -73,6 +76,10 @@ namespace basecross{
 		void OnPushB();//!コントローラーのボタン判定B
 	
 		shared_ptr<SoundItem>m_BGM;
+		void CreatePlayBGM();//!BGM作成
+		shared_ptr<SoundItem>m_Howling;
+		void CreatePlayHowling();//!遠吠えの音声
+		
 
         //!プレイヤーの状態の取得
 		int GetPlayerCange()const
