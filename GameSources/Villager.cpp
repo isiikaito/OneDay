@@ -24,7 +24,7 @@ namespace basecross
 		m_patrolPoints(patrolPoints),
 		m_StateChangeSize(30.0f),
 		m_playerChange(0),
-		m_Speed(20),
+		m_Speed(22),
 		m_patrolindex(0),
 		m_dedDecision(false),
 		m_IsGameOver(false),
@@ -92,6 +92,7 @@ namespace basecross
 		{
 			GetStage()->AddGameObject<StageBuilding>(Vec3(1, 10, 1), Vec3(0, 0, 0), m_patrolPoints[i]);
 		}*/
+		SetEyeRang(50.0f);
 
 	}
 	
