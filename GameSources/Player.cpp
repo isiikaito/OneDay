@@ -422,10 +422,7 @@ namespace basecross {
 				GetStage()->RemoveGameObject<Key>(Other);//!鍵オブジェクトの削除
 				CreateKeySprite();
 			}
-			m_KeyCount++;
-			GetStage()->RemoveGameObject<Key>(Other);//!鍵オブジェクトの削除
-			CreateKeySprite();
-
+			
 			auto ptrXA = App::GetApp()->GetXAudio2Manager();
 			ptrXA->Start(L"acquisition", 0, 9.0f);
 		}

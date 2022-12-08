@@ -9,7 +9,7 @@
 
 namespace basecross
 {
-	constexpr float MaxPlayerCatch = 15.0f;
+	constexpr float MaxPlayerCatch = 10.0f;
 	Hunter::Hunter(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
