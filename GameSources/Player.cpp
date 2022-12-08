@@ -297,7 +297,7 @@ namespace basecross {
 	{
 		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
 		auto position = transComp->GetPosition();//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, 10.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
+		SPHERE playerSp(position, 3.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
 		auto scene = App::GetApp()->GetScene<Scene>();
 		int alertlevelCount = scene->GetAlertlevelCount();
 		//!村人を殺す
