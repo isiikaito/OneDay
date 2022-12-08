@@ -15,6 +15,9 @@ namespace basecross
 		int m_hurtCount; // !HPの点滅回数
 		bool m_hurt; // !ハートのありなし
 		bool m_hurtDefise;
+		bool m_IsGameOver;
+		float m_dedTime;
+		bool m_GameOver;
 
 	public:
 

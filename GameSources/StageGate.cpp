@@ -43,7 +43,7 @@ namespace basecross {
 			Vec3(1.0f, 0.1f, 0.09f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(0.0f, -0.5f, 0.0f)  //!位置
+			Vec3(-0.1f, -0.5f, 0.0f)  //!位置
 		);
 
 
@@ -59,7 +59,7 @@ namespace basecross {
 		//!メッシュの設定
 		ptrDraw->SetMeshResource(L"STAGEGATE_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		/*Coll->SetDrawActive(true);*/
+		//Coll->SetDrawActive(true);
 		//!RigidbodyBoxの追加
 		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
 		auto PsPtr = AddComponent<RigidbodyBox>(param);

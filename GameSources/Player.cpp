@@ -402,7 +402,16 @@ namespace basecross {
 
 		if (m_PlayerHp == m_Ded)
 		{
-			PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+			GetStage()->AddGameObject<FadeOut>(true,
+				Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));
+			float Time = App::GetApp()->GetElapsedTime();
+			m_dedTime += Time;
+			if (m_dedTime >= 1.0f)
+			{
+				PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+				
+			}
+			
 		}
 
 	}

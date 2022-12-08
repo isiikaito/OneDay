@@ -37,6 +37,7 @@ namespace basecross{
 		bool m_IsPlayerFound;//!プレイヤーが見つかった稼働羽化
 		bool m_IsplayerDed;
 		float m_disappearTime;
+		float m_dedTime;//!プレイヤーが死んでからの時間
 		
 		int m_AlertleveCount;//!警戒度のカウント
 		bool m_fastHowling ;

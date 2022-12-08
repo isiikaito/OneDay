@@ -26,7 +26,9 @@ namespace basecross
 		m_RustLife(2),
 		m_hurt(false),
 		m_hurtCount(0),
-		m_hurtDefise(true)
+		m_hurtDefise(true),
+		m_dedTime(0),
+		m_GameOver(false)
 	{}
 
 	PlayerHeartSpriteLeft::~PlayerHeartSpriteLeft() {}
@@ -93,9 +95,11 @@ namespace basecross
 			{
 				m_hurtDefise = false;
 				SetDrawActive(false); //!ライフの表示を完全に消す
+				
 			}
 		}
 
+		
 	}
 
 }
