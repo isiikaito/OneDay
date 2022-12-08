@@ -42,7 +42,7 @@ namespace basecross {
 		spanMat.affineTransformation(
 			Vec3(0.09f, 0.09f, 0.09f),//!‘å‚«‚³
 			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f),   //!‰ñ“]
+			Vec3(0.0f, 80.1f, 0.0f),   //!‰ñ“]
 			Vec3(0.0f, -0.5f, 0.0f)  //!ˆÊ’u
 		);
 
