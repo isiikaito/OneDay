@@ -32,10 +32,14 @@ namespace basecross {
 		m_PlayerPositionOnSecondMax(39),
 		m_PlayerHp(3),
 		m_IsPlayerFound(false),
-
+		m_wolfPlayerSpeed(21.0f),
+		m_humanPlayerSpeed(20.0f),
 		m_AlertleveCount(0),
 		m_fastHowling(false),
-		m_wolfHowlingTime(0)
+		m_wolfHowlingTime(0),
+		m_dedTime(0.0f),
+		m_disappearTime(0.0f),
+		m_IsplayerDed(0.0f)
 
 	{}
 
@@ -221,6 +225,7 @@ namespace basecross {
 
 				}
 			}
+
 			else
 			{
 				m_wolfHowlingTime = 0.0f;
@@ -230,13 +235,13 @@ namespace basecross {
 			auto shadowPtr = GetComponent<Shadowmap>();
 			shadowPtr->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH");
 			ptrDraw->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
-
+			m_Speed = m_wolfPlayerSpeed;
 
 			ptrDraw->SetDiffuse(Col4(1.0f, 0.0f, 1.0f, 1.0f));
 
 			if (m_ChangeTime >= m_wolfTime)//!狼の時間になったら
 			{
-
+				m_Speed = m_humanPlayerSpeed;
 				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
 				auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
 				auto shadowPtr = GetComponent<Shadowmap>();

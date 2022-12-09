@@ -14,7 +14,7 @@ namespace basecross
 	///	ビックリマークスプライト
 	//--------------------------------------------------------------------------------------
 
-	constexpr float MaxSurprisedTime = 2;
+	constexpr float MaxSurprisedTime = 2.0f;
 	void SurprisedSprite::OnCreate()
 	{
 		auto PtrTransform = GetComponent<Transform>();
@@ -77,7 +77,7 @@ namespace basecross
 	{
 		auto GetHunter = std::dynamic_pointer_cast<BaseEnemy>(parent);
 
-		
+
 		auto SurprisedTarget = GetHunter->GetSurprisedSprite();
 
 		//!プレイヤーが見つかったら
@@ -86,18 +86,24 @@ namespace basecross
 			float Time = App::GetApp()->GetElapsedTime();//!時間の取得
 			m_SurprisedTime += Time;
 
-			//auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
-			SetDrawActive(true);
+			
+			m_IsFoundPlayer = true;
+		}
+
+		if (m_IsFoundPlayer == true)
+		{
+             SetDrawActive(true);
 			//!2秒たったら
 			if (m_SurprisedTime >= MaxSurprisedTime)
 			{
 				SetDrawActive(false);//!描画をやめる
 				SurprisedTarget = false;
 				GetHunter->SetloseSightOfTarget(SurprisedTarget);
+				
+				m_IsFoundPlayer = false;
 			}
-
 		}
-		
+
 	}
 
 	void SurprisedSprite::OnUpdate()

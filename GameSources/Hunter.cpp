@@ -9,6 +9,7 @@
 
 namespace basecross
 {
+	constexpr float eyeRang = 50.0f;
 	constexpr float MaxPlayerCatch = 10.0f;
 	Hunter::Hunter(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
@@ -24,7 +25,7 @@ namespace basecross
 		m_patrolPoints(patrolPoints),
 		m_StateChangeSize(30.0f),
 		m_playerChange(0),
-		m_Speed(22),
+		m_Speed(22.0f),
 		m_patrolindex(0),
 		m_IsGameOver(false),
 		m_dedTime(0),
@@ -87,9 +88,7 @@ namespace basecross
 
 		SetpatorolPoints(patrolPoints);
 		ptrDraw->SetDiffuse(Col4(0.0f, 0.0f, 1.0f, 1.0f));
-		SetEyeRang(50.0f);
-
-
+		SetEyeRang(eyeRang);
 	}
 
 	void Hunter::PlayerCatch()

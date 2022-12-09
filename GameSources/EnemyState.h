@@ -19,6 +19,7 @@ namespace basecross
 			SeekState& operator=(const SeekState&) = delete;//!operatorの中にある=を削除（コピーされないように）
 			float SeekArriveRange = 30.0f;//!追いかけるステートのステート変更の長さ
 			float BrettGramRange = 10.0f;
+			float m_SurprisedTime=0.0f;
 
 		public:
 			static SeekState* Instance();

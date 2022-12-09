@@ -22,7 +22,7 @@ namespace basecross
 		Vec3 m_Rotation;//!回転
 		Vec3 m_Scale;//!大きさ
 		int m_playerChange;//!プレイヤーの状態
-		int m_Speed;//!スピード
+		float m_Speed;//!スピード
 		int m_patrolindex;
 		float m_StateChangeSize;
 		bool m_playerDed;//!プレイヤーの死亡
