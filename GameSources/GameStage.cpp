@@ -571,7 +571,7 @@ namespace basecross {
 	void GameStage::CreatePlayBGM()
 	{
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
-		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, 0.0f);
+		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, 0.3f);
 	}
 
 	/// BGMのストップ
