@@ -35,12 +35,13 @@ namespace basecross {
 		}
 		float m_SurprisedTime;
 		const float m_spritePositionY;
+		bool m_IsFoundPlayer;
 
 
 	public:
 		//!\’z‚Æ”jŠü
 		SurprisedSprite(const std::shared_ptr<Stage>& stage, const std::shared_ptr<GameObject>& parent)
-			: GameObject(stage), parent(parent), m_SurprisedTime(0.0f), m_spritePositionY(8.0f) {}
+			: GameObject(stage), parent(parent), m_SurprisedTime(0.0f), m_spritePositionY(8.0f) , m_IsFoundPlayer(false) {}
 		virtual ~SurprisedSprite() {}
 		//!‘ºl‚ªŒ©¸‚Á‚½‚ç
 		void Surprised();

@@ -32,6 +32,8 @@ namespace basecross{
 		int m_Ded;//!死亡
 		int m_PlayerPositionOnSecondMax;//!プレイヤーの位置の配列の最大の長さ
 		int m_PlayerHp;//!プレイヤーの体力
+		float m_wolfPlayerSpeed;
+		float m_humanPlayerSpeed;
 		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 		float m_PlayerPositionTime;//!プレイヤーの位置を取得するまでの時間
 		bool m_IsPlayerFound;//!プレイヤーが見つかった稼働羽化
@@ -77,9 +79,9 @@ namespace basecross{
 		void OnPushB();//!コントローラーのボタン判定B
 	
 		shared_ptr<SoundItem>m_BGM;
-		void CreatePlayBGM();//!BGM作成
-		shared_ptr<SoundItem>m_Howling;
-		void CreatePlayHowling();//!遠吠えの音声
+		//void CreatePlayBGM();//!BGM作成
+		//shared_ptr<SoundItem>m_Howling;
+		//void CreatePlayHowling();//!遠吠えの音声
 		
 
         //!プレイヤーの状態の取得

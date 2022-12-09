@@ -6,7 +6,9 @@ namespace basecross
 {
 	namespace kaito
 	{
-		constexpr float m_maxLostTime=7.0f;
+		constexpr float m_maxSurprisedTime = 2.0f;
+		constexpr float eyeRang = 40.0f;
+		constexpr float m_maxLostTime=5.0f;
 		//!追いかけるステート-----------------------------------------
 
 		//!インスタンスの生成(実体の作成)
@@ -22,12 +24,24 @@ namespace basecross
 			seekCondition = true;
 			Enemy->SetseekCondition(seekCondition);
 
-		
+			
 
 		}
 
 		void SeekState::Execute(BaseEnemy* Enemy)
 		{
+			auto& app = App::GetApp();//!アプリの取得
+			auto Seektime = app->GetElapsedTime();
+			m_SurprisedTime += Seektime;
+			if (m_SurprisedTime >= m_maxSurprisedTime)
+			{
+				//!ビックリマークの出現
+				auto Surprised = Enemy->GetSurprisedSprite();
+				Surprised = false;
+				Enemy->SetSurprisedSprite(Surprised);
+			}
+			
+
 
 			//!追いかける処理を書く
 			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得
@@ -48,7 +62,7 @@ namespace basecross
 			float f = bsm::length(PlayerPosition - EnemyPosition);//!プレイヤーと敵の距離
 
 			//!障害物の取得
-			auto& app = App::GetApp();//!アプリの取得
+			
 			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
 			auto Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
 
@@ -94,10 +108,7 @@ namespace basecross
 			seekCondition = false;
 			Enemy->SetseekCondition(seekCondition);
 
-			//!ビックリマークの初期化
-			auto Surprised = Enemy->GetSurprisedSprite();
-			Surprised = false;
-			Enemy->SetSurprisedSprite(Surprised);
+			
 		}
 
 		void PatrolState::Execute(BaseEnemy* Enemy)
@@ -148,17 +159,20 @@ namespace basecross
 			float f = bsm::length(PlayerPosition - EnemyPosition);//!敵とプレイヤーの距離
 
 			auto playerChange = Enemy->GetTarget()->GetPlayerCange();
-
+			//!プレイヤーが狼男
 			if (playerChange == static_cast<int>(PlayerModel::wolf))
 			{
-				if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
+				if (f < eyeRang)//!敵とプレイヤーの距離が一定距離近づいたら
 				{
-					if (f < Enemy->GetEyeRang())//!敵とプレイヤーの距離が一定距離近づいたら
+					if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
 					{
+
 						Enemy->ChangeState(SeekState::Instance());//!ステートを変更する
 					}
 				}
+
 			}
+
 			//!敵が殺されたとき
 			if (maxSpeed == 0)
 			{
@@ -286,7 +300,7 @@ namespace basecross
 						
 						if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
 						{
-							if (PEdistance <= 60)
+							if (PEdistance <= 40)
 							{
 								Enemy->ChangeState(SeekState::Instance());//!ステートを変更する
 							}
