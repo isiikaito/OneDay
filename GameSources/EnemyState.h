@@ -27,6 +27,7 @@ namespace basecross
 			virtual void Enter(BaseEnemy* Enemy)override;
 			virtual void Execute(BaseEnemy* Enemy)override;
 			virtual void Exit(BaseEnemy* Enemy)override;
+			
 
 		};
 		//!-------------------------------------------------------------
@@ -75,6 +76,7 @@ namespace basecross
 			virtual void Enter(BaseEnemy* Enemy)override;
 			virtual void Execute(BaseEnemy* Enemy) override;
 			virtual void Exit(BaseEnemy* Enemy)override;
+			void HitStageBuildingObb(BaseEnemy* Enemy);
 		};
 
 		//!殺されたときのステート-------------------------------------------

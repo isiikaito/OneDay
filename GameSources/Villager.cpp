@@ -10,6 +10,7 @@
 namespace basecross
 {
 	constexpr float eyeRang = 30.0f;
+	constexpr float m_maxLostTime = 1.0f;
 	
 	Villager::Villager(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
@@ -89,10 +90,7 @@ namespace basecross
 		}
 
 		SetpatorolPoints(patrolPoints);
-		/*for (int i = 0; i < m_patrolPoints.size(); i++)
-		{
-			GetStage()->AddGameObject<StageBuilding>(Vec3(1, 10, 1), Vec3(0, 0, 0), m_patrolPoints[i]);
-		}*/
+		
 		
 		SetEyeRang(eyeRang);
 
@@ -128,7 +126,7 @@ namespace basecross
 			auto& app = App::GetApp();//!ƒAƒvƒŠ‚ÌŽæ“¾
 			auto time = app->GetElapsedTime();
 			m_lostTime += time;
-			if (m_lostTime >= 1.0f)
+			if (m_lostTime >= m_maxLostTime)
 			{
 				PostEvent(0.0f, GetThis<Villager>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 			}

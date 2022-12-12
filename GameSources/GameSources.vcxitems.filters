@@ -94,14 +94,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp">
       <Filter>Sprite\LoseSightOf</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)WoodenBox.cpp">
       <Filter>Object\WoodenBox</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp">
+      <Filter>Sprite\ClockSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp">
+      <Filter>Sprite\FadeOut</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -203,14 +207,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AlertlevelGauge.h">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoseSightOf.h">
       <Filter>Sprite\LoseSightOf</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)WoodenBox.h">
       <Filter>Object\WoodenBox</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h">
+      <Filter>Sprite\ClockSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h">
+      <Filter>Sprite\FadeOut</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -332,6 +340,12 @@
     </Filter>
     <Filter Include="Sprite\Timer">
       <UniqueIdentifier>{5fd87dde-7a84-4463-9135-8eae287877ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\ClockSprite">
+      <UniqueIdentifier>{bb56ebb7-a062-4bf6-b6d3-b7885ec0d9e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\FadeOut">
+      <UniqueIdentifier>{b157a514-c3ab-42fd-b7dc-33c61d73a658}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

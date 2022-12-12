@@ -20,33 +20,32 @@ namespace basecross{
 	class Player : public GameObject
 	{
 	private:
-		float m_Speed;            //!スピード
-		float m_ChangeTime;          //!時間
-		float m_GetPlayerPositionTime;//!プレイヤーの位置の取得
+		
 		int m_playerChange;//!プレイヤーの見た目の状態
 		int m_KeyCount;//!鍵を持っている個数カウント
-		const float m_humanTime;//!人間の時間
-		const float m_wolfTime;//!狼の時間
-		const int m_reset;//1ループリセット
+		int m_AlertleveCount;//!警戒度のカウント
 		int m_MaxKeyCount;//!鍵の所持数の最大
 		int m_Ded;//!死亡
 		int m_PlayerPositionOnSecondMax;//!プレイヤーの位置の配列の最大の長さ
 		int m_PlayerHp;//!プレイヤーの体力
+        const int m_reset;//1ループリセット
 		float m_wolfPlayerSpeed;
 		float m_humanPlayerSpeed;
-		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 		float m_PlayerPositionTime;//!プレイヤーの位置を取得するまでの時間
-		bool m_IsPlayerFound;//!プレイヤーが見つかった稼働羽化
-		bool m_IsplayerDed;
+		float m_wolfHowlingTime;
 		float m_disappearTime;
 		float m_dedTime;//!プレイヤーが死んでからの時間
+		float m_Speed;            //!スピード
+		float m_ChangeTime;          //!時間
+		float m_GetPlayerPositionTime;//!プレイヤーの位置の取得
+        const float m_humanTime;//!人間の時間
+		const float m_wolfTime;//!狼の時間
+		bool m_IsPlayerFound;//!プレイヤーが見つかった稼働羽化
+		bool m_IsPlayerDed;
+		bool m_IsFastHowling ;
 		
-		int m_AlertleveCount;//!警戒度のカウント
-		bool m_fastHowling ;
-		float m_wolfHowlingTime;
-	
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
-
+std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 
 	public:
 		//構築と破棄
@@ -143,11 +142,11 @@ namespace basecross{
 
 		bool GetIsplayerDed()
 		{
-			return m_IsplayerDed;
+			return m_IsPlayerDed;
 		}
 		void SetIsplayerDed(bool playerDed)
 		{
-			m_IsplayerDed = playerDed;
+			m_IsPlayerDed = playerDed;
 		}
 
 		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other);//プレイヤーとカギの衝突判定

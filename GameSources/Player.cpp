@@ -35,11 +35,11 @@ namespace basecross {
 		m_wolfPlayerSpeed(21.0f),
 		m_humanPlayerSpeed(20.0f),
 		m_AlertleveCount(0),
-		m_fastHowling(false),
+		m_IsFastHowling(false),
 		m_wolfHowlingTime(0),
 		m_dedTime(0.0f),
 		m_disappearTime(0.0f),
-		m_IsplayerDed(0.0f)
+		m_IsPlayerDed(0.0f)
 
 	{}
 
@@ -131,7 +131,7 @@ namespace basecross {
 			}
 		}
 
-		if (m_IsplayerDed == true)
+		if (m_IsPlayerDed == true)
 		{
 			//立ち止まるアニメーション
 			if (AnimationName == L"Move" || AnimationName == L"Default") {
@@ -212,16 +212,16 @@ namespace basecross {
 			m_wolfHowlingTime += elapsedTime;//時間を変数に足す
 
 			m_playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
-			m_fastHowling = true;
+			m_IsFastHowling = true;
 
-			if (m_fastHowling == true)
+			if (m_IsFastHowling == true)
 			{
 				if (m_wolfHowlingTime <= m_MaxwolfHowlingTime)
 				{
 					//サウンド再生
 					auto ptrXA = App::GetApp()->GetXAudio2Manager();
 					ptrXA->Start(L"howling", 0, 1.0f);
-					m_fastHowling = false;
+					m_IsFastHowling = false;
 
 				}
 			}

@@ -10,7 +10,9 @@
 
 namespace basecross {
 
-
+	constexpr float m_midDayTime = 1.0f;
+	constexpr float m_nightTime = 0.0f;
+	constexpr float m_TimeSpeed = 30.0f;
 	//--------------------------------------------------------------------------------------
 	//	class FixedBox : public GameObject;
 	//--------------------------------------------------------------------------------------
@@ -24,7 +26,9 @@ namespace basecross {
 		m_Scale(Scale),
 		m_Rotation(Rotation),
 		m_Position(Position),
-		m_Time(1)
+		m_Time(1),
+		m_oneday(0)
+		
 	{
 	}
 
@@ -64,13 +68,10 @@ namespace basecross {
 		ptrDraw->SetMeshResource(L"STAGEBUILDING_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		
-		//Coll->SetDrawActive(true);
 		
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 
 		
-		//ptrDraw->SetEmissive(Col4(0.0f, 0.0f, 0.0f, 1.0f)); // !暗くする処理
-
 	}
 
 	void StageBuilding::OnUpdate() {
@@ -81,9 +82,9 @@ namespace basecross {
 		// !夜から昼になる処理
 		if (m_oneday == static_cast<int>(Oneday::midday))
 		{
-			m_Time += elapsedTime / 30; //!時間を変数に足す
+			m_Time += elapsedTime / m_TimeSpeed; //!時間を変数に足す
 			ptrDraw->SetEmissive(Col4(m_Time, m_Time, m_Time, 1.0f)); // !夜にする処理
-			if (m_Time >= 1.0f)
+			if (m_Time >= m_midDayTime)
 			{
 				m_oneday = static_cast<int>(Oneday::night);
 			}
@@ -92,9 +93,9 @@ namespace basecross {
 		// !昼から夜になる処理
 		if (m_oneday == static_cast<int>(Oneday::night))
 		{
-			m_Time += -elapsedTime / 30; //時間を変数に減らす
+			m_Time += -elapsedTime / m_TimeSpeed; //時間を変数に減らす
 			ptrDraw->SetEmissive(Col4(m_Time, m_Time, m_Time, 1.0f)); // !朝にする処理
-			if (m_Time <= 0.0f)
+			if (m_Time <= m_nightTime)
 			{
 				m_oneday = static_cast<int>(Oneday::midday);
 			}

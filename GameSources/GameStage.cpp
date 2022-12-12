@@ -216,6 +216,7 @@ namespace basecross {
 
 	void GameStage:: CreateGameOver()
 	{
+
 		auto GameOver=AddGameObject<GameOverSprite>(L"GAMEOVER_TX", false,
 			Vec2(1280.0f, 800.0f), Vec2(0.0f, 0.0f));
 		SetSharedGameObject(L"GameOverSprite", GameOver);
@@ -536,7 +537,7 @@ namespace basecross {
 			CreateArrow();//!矢印の作成
 			CreateClockSprite(); //!時計のスプライトの作成
 			
-			//CreateGameOver();//!ゲームオーバー
+			CreateGameOver();//!ゲームオーバー
 			
 			
 		}
@@ -562,10 +563,7 @@ namespace basecross {
 	//!ゲームオーバーはステージを変えない。
 	//! 倒れるモーションが入ってフェードアウトして一枚絵になる。
 
-	////Aボタン
-	//void GameStage::OnPushA() {
-	//	PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
-	//}
+	
 
 	////BGMの再生
 	void GameStage::CreatePlayBGM()

@@ -10,7 +10,9 @@
 namespace basecross
 {
 	constexpr float eyeRang = 50.0f;
-	constexpr float MaxPlayerCatch = 10.0f;
+	constexpr float maxPlayerCatch = 10.0f;
+	constexpr float m_maxdedTime = 1.0f;
+	constexpr float dividedNumber = 9.0f;
 	Hunter::Hunter(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
@@ -89,7 +91,7 @@ namespace basecross
 		SetpatorolPoints(patrolPoints);
 		ptrDraw->SetDiffuse(Col4(0.0f, 0.0f, 1.0f, 1.0f));
 
-		SetEyeRang(60.0f);
+		SetEyeRang(eyeRang);
 
 
 	}
@@ -105,7 +107,7 @@ namespace basecross
 		auto seekCondition = GetseekCondition();
 		auto Enemyfront = GetComponent<Transform>()->GetForword();//!敵の正面を取得
 		auto angle = angleBetweenNormals(Enemyfront, phdistans);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-		auto chk = XM_PI / 9.0f;//!360を6で割って角度を出す。
+		auto chk = XM_PI / dividedNumber;//!360を6で割って角度を出す。
 
 
 
@@ -114,20 +116,15 @@ namespace basecross
 
 			if (angle <= chk && angle >= -chk)//!敵から見て+40度か-40度にプレイヤーが入ったら
 			{
-				if (playerCatch <= MaxPlayerCatch)
+				if (playerCatch <= maxPlayerCatch)
 				{
 
 					auto playerDed = ptrPlayer->GetIsplayerDed();
-
-
 					playerDed = true;
 					ptrPlayer->SetIsplayerDed(playerDed);
 
 					ptrPlayer->SetSpeed(0.0f);
-					if (playerDed = true)
-					{
-						
-					}
+					
 
 					GetStage()->AddGameObject<FadeOut>(true,
 						Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));
@@ -137,8 +134,11 @@ namespace basecross
 						auto& app = App::GetApp();//!アプリの取得
 						auto time = app->GetElapsedTime();
 						m_dedTime += time;
-						if (m_dedTime >= 1.0f)
+						if (m_dedTime >= m_maxdedTime)
 						{
+							auto GameOver=GetStage()->GetSharedGameObject<GameOverSprite>(L"GameOverSprite");
+							GameOver->SetDrawActive(true);
+
 							PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 						}
 					}

@@ -9,6 +9,7 @@ namespace basecross
 		constexpr float m_maxSurprisedTime = 2.0f;
 		constexpr float eyeRang = 40.0f;
 		constexpr float m_maxLostTime=5.0f;
+		constexpr float m_maxPEdistance=40.0f;
 		//!追いかけるステート-----------------------------------------
 
 		//!インスタンスの生成(実体の作成)
@@ -24,24 +25,10 @@ namespace basecross
 			seekCondition = true;
 			Enemy->SetseekCondition(seekCondition);
 
-			
-
 		}
 
 		void SeekState::Execute(BaseEnemy* Enemy)
 		{
-			auto& app = App::GetApp();//!アプリの取得
-			auto Seektime = app->GetElapsedTime();
-			m_SurprisedTime += Seektime;
-			if (m_SurprisedTime >= m_maxSurprisedTime)
-			{
-				//!ビックリマークの出現
-				auto Surprised = Enemy->GetSurprisedSprite();
-				Surprised = false;
-				Enemy->SetSurprisedSprite(Surprised);
-			}
-			
-
 
 			//!追いかける処理を書く
 			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得
@@ -62,7 +49,7 @@ namespace basecross
 			float f = bsm::length(PlayerPosition - EnemyPosition);//!プレイヤーと敵の距離
 
 			//!障害物の取得
-			
+			auto& app = App::GetApp();//!アプリの取得
 			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
 			auto Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
 
@@ -88,7 +75,6 @@ namespace basecross
 		}
 		void SeekState::Exit(BaseEnemy* Enemy)
 		{
-			
 		}
 
 		//!巡回ステート-------------------------------------------------
@@ -107,8 +93,6 @@ namespace basecross
 			auto seekCondition = Enemy->GetseekCondition();
 			seekCondition = false;
 			Enemy->SetseekCondition(seekCondition);
-
-			
 		}
 
 		void PatrolState::Execute(BaseEnemy* Enemy)
@@ -187,12 +171,54 @@ namespace basecross
 			Surprised = true;
 			Enemy->SetSurprisedSprite(Surprised);
 
-			
 		}
 
 		//!-------------------------------------------------------------
 
 	   //!ブレットグラムステート---------------------------------------
+		void BrettGramState::HitStageBuildingObb(BaseEnemy* Enemy)
+		{
+			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得
+			auto EnemyPosition = ptrEnemyTrans->GetPosition();//!敵のポジションの取得
+
+			auto ptrPlayerTrans = Enemy->GetTarget()->GetComponent<Transform>();//!ターゲット(プレイヤー)のトランスフォームの取得
+			auto PlayerPosition = ptrPlayerTrans->GetPosition();//!ターゲット(プレイヤー)の座標の取得
+
+			//!障害物の取得
+			auto& app = App::GetApp();//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+			auto Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+			
+			for (auto& Obj : Objects)//!オブジェクトの要素分
+
+			{
+				auto stageBuilding = dynamic_pointer_cast<StageBuilding>(Obj);//!建物の取得
+				if (stageBuilding)
+				{
+
+					auto StageBuildingObb = stageBuilding->GetComponent<CollisionObb>()->GetObb();//!ステージの壁のObbの取得
+
+					if (HitTest::SEGMENT_OBB(PlayerPosition, EnemyPosition, StageBuildingObb))//!カメラと視点の間に壁が入ったら
+					{
+						auto time = app->GetElapsedTime();
+						m_lostTime += time;
+						if (m_lostTime >= m_maxLostTime)
+						{
+
+							Enemy->ChangeState(LostStata::Instance());//!ステートの変更
+
+						}
+						if (m_lostTime >= m_maxLostTime)
+						{
+							m_lostTime = 0.0f;
+						}
+
+					}
+					
+				}
+			}
+	   }
+
 		BrettGramState* BrettGramState::Instance()
 		{
 			static BrettGramState instance;
@@ -214,8 +240,6 @@ namespace basecross
 					start = NearPoint;//!ブレットクラムのスタートをそこに決定
 				}
 			}
-
-		
 			m_lostTime = 0l;
 		}
 
@@ -270,54 +294,22 @@ namespace basecross
 			auto chk = XM_PI / 9.0f;//!360を6で割って角度を出す。
 			
 
-			//!障害物の取得
-			auto& app = App::GetApp();//!アプリの取得
-			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
-			auto Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
-
-			for (auto& Obj : Objects)//!オブジェクトの要素分
+			if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
 			{
-				auto stageBuilding = dynamic_pointer_cast<StageBuilding>(Obj);//!建物の取得
-				if (stageBuilding)
+				if (PEdistance <= m_maxPEdistance)
 				{
-					auto StageBuildingObb = stageBuilding->GetComponent<CollisionObb>()->GetObb();//!ステージの壁のObbの取得
-
-					if (HitTest::SEGMENT_OBB(PlayerPosition, EnemyPosition, StageBuildingObb))//!カメラと視点の間に壁が入ったら
-					{
-						auto time=app->GetElapsedTime();
-						m_lostTime += time;
-						if (m_lostTime >= m_maxLostTime)
-						{
-                               Enemy->ChangeState(LostStata::Instance());//!ステートの変更
-						}
-						if (m_lostTime >= m_maxLostTime)
-						{
-							m_lostTime = 0.0f;
-						}
-						
-					}
-					else {
-						
-						if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
-						{
-							if (PEdistance <= 40)
-							{
-								Enemy->ChangeState(SeekState::Instance());//!ステートを変更する
-							}
-						}
-
-						
-					}
+					Enemy->ChangeState(SeekState::Instance());//!ステートを変更する
 				}
 			}
 
-
+			HitStageBuildingObb(Enemy);
 			if (maxSpeed == 0)
 			{
 				Enemy->ChangeState(DedState::Instance());//!ステートを変更する
 			}
 
 		}
+
 		void BrettGramState::Exit(BaseEnemy* Enemy)
 		{
 		
@@ -346,8 +338,6 @@ namespace basecross
 			Vec3 EnemyVelocity = Enemy->GetVelocity();//!敵の速度の取得
 			EnemyVelocity = Vec3(0);
 			Enemy->SetVelocity(EnemyVelocity);
-			
-			
 			
 
 		}
