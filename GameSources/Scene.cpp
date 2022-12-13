@@ -86,6 +86,10 @@ namespace basecross{
 		auto staticModelMesh9 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageFence.bmf");
 		App::GetApp()->RegisterResource(L"STAGE_FENCE", staticModelMesh9);
 
+		//!ò‚Ìƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
+		auto staticModelMesh10 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Wood.bmf");
+		App::GetApp()->RegisterResource(L"STAGE_WOOD", staticModelMesh10);
+
      
 
 		//ƒ‚ƒfƒ‹

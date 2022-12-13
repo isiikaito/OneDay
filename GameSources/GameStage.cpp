@@ -140,9 +140,32 @@ namespace basecross {
 				//XとZの位置を計算
 				float XPos = (float)((int)j - 8.6f) * 10.0f;
 				float ZPos = (float)(8.6f - (int)i) * 10.0f;
-				if (Tokens[j] == L"3")//2の時にゲームステージに追加
+				if (Tokens[j] == L"3")//3の時にゲームステージに追加
 				{
-					AddGameObject<WoodenBox>(Vec3(2.0f, 2.0f, 1.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
+					AddGameObject<WoodenBox>(Vec3(5.0f, 5.0f, 5.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
+				}
+			}
+		}
+	}
+
+	//!木の作成
+	void GameStage::CreateWood()
+	{
+		//CSVの全体の配列
+		//CSVからすべての行を抜き出す
+		auto& LineVec = m_GameStageCsvD.GetCsvVec();
+		for (size_t i = 0; i < LineVec.size(); i++) {
+			//トークン（カラム）の配列
+			vector<wstring> Tokens;
+			//トークン（カラム）単位で文字列を抽出(L','をデリミタとして区分け)
+			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
+			for (size_t j = 0; j < Tokens.size(); j++) {
+				//XとZの位置を計算
+				float XPos = (float)((int)j - 8.6f) * 10.0f;
+				float ZPos = (float)(8.6f - (int)i) * 10.0f;
+				if (Tokens[j] == L"4")//4の時にゲームステージに追加
+				{
+					AddGameObject<Wood>(Vec3(10.0f, 10.0f, 10.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
 				}
 			}
 		}
@@ -536,6 +559,8 @@ namespace basecross {
 			CreateAlertlevelGauge();//!警戒度のゲージの作成
 			CreateArrow();//!矢印の作成
 			CreateClockSprite(); //!時計のスプライトの作成
+			CreateWoodenBox();//!箱の作成
+			CreateWood();
 			
 			CreateGameOver();//!ゲームオーバー
 			

@@ -40,6 +40,7 @@ namespace basecross {
 		void CreateAlertlevelGauge();//!警戒度ゲージの作成
 		void CreateLightingCol();//!ライトの色を変える処理
 		void CreateWoodenBox();//!木箱の作成
+		void CreateWood();//木の作成
 		void CreateTimerSprite();//!タイマースプライト作成
 		shared_ptr<SoundItem>m_BGM;
 		void CreatePlayBGM();//!BGM作成
