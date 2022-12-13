@@ -25,7 +25,6 @@ namespace basecross
 		int m_patrolindex;
 		float m_StateChangeSize;
 		bool m_dedDecision;//!¶€‚Ì”»’è
-		bool m_IsGameOver;
 		float m_lostTime;
 		int m_damage;
 

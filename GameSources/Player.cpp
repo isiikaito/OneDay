@@ -39,8 +39,8 @@ namespace basecross {
 		m_wolfHowlingTime(0),
 		m_dedTime(0.0f),
 		m_disappearTime(0.0f),
-		m_IsPlayerDed(0.0f)
-
+		m_IsPlayerDed(0.0f),
+		m_gameOverDrawActive(false)
 	{}
 
 	Vec2 Player::GetInputState() const {
@@ -102,7 +102,6 @@ namespace basecross {
 	void Player::MovePlayer() {
 		//アニメーション
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
-		auto animation = ptrDraw->GetCurrentAnimation();
 		auto AnimationName = ptrDraw->GetCurrentAnimation();
 
 		float elapsedTime = App::GetApp()->GetElapsedTime();
@@ -130,7 +129,6 @@ namespace basecross {
 
 			}
 		}
-
 		if (m_IsPlayerDed == true)
 		{
 			//立ち止まるアニメーション
@@ -141,6 +139,7 @@ namespace basecross {
 
 			}
 		}
+		
 		//!回転の計算
 		if (angle.length() > 0.0f) {
 			auto utilPtr = GetBehavior<UtilBehavior>();
@@ -186,12 +185,10 @@ namespace basecross {
 
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
-		ptrDraw->AddAnimation(L"Default", 30, 30, true, 15.0f);
+		ptrDraw->AddAnimation(L"Default", 31, 30, true, 15.0f);
 		ptrDraw->AddAnimation(L"Ded", 61, 30, false, 30.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Default");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
-
-		/*	ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));*/
 
 			//!カメラを得る
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
@@ -237,7 +234,6 @@ namespace basecross {
 			ptrDraw->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
 			m_Speed = m_wolfPlayerSpeed;
 
-			ptrDraw->SetDiffuse(Col4(1.0f, 0.0f, 1.0f, 1.0f));
 
 			if (m_ChangeTime >= m_wolfTime)//!狼の時間になったら
 			{
@@ -254,6 +250,42 @@ namespace basecross {
 			}
 			return;
 		}
+	}
+
+	void Player::PlayerGameOver()
+	{
+		auto scene=App::GetApp()->GetScene<Scene>();
+		auto gameOver = scene->GetGameOver();
+		gameOver = true;
+		scene->SetGameOver(gameOver);
+		GetStage()->AddGameObject<FadeOut>(true,
+			Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.1f));
+		float Time = App::GetApp()->GetElapsedTime();
+		m_dedTime += Time;
+		if (m_dedTime >= 1.0f)
+		{
+			m_gameOverDrawActive = true;
+			
+		}
+
+	}
+
+	void Player::PlayerDed()
+	{
+		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
+		auto AnimationName = ptrDraw->GetCurrentAnimation();
+		float elapsedTime = App::GetApp()->GetElapsedTime();
+
+		//立ち止まるアニメーション
+		if (AnimationName == L"Move" || AnimationName == L"Default")
+		{
+			ptrDraw->ChangeCurrentAnimation(L"Ded");
+			auto XAptr = App::GetApp()->GetXAudio2Manager();
+			XAptr->Stop(m_BGM);
+
+		}
+
+		PlayerGameOver();
 	}
 
 	void Player::EnmeyDisappear()
@@ -333,16 +365,32 @@ namespace basecross {
 						alertlevelCount++;
 						scene->SetAlertlevelCount(alertlevelCount);
 
-
-
-
-
 						//サウンド再生
 						auto ptrXA = App::GetApp()->GetXAudio2Manager();
 						ptrXA->Start(L"kill", 0, 9.0f);
 						ptrXA->Start(L"scream", 0, 9.0f);
 					}
 				}
+			}
+		}
+	}
+
+	void Player::GetPlayerPositionBrett()
+	{
+		
+
+		auto PlayerTrans = GetComponent<Transform>();
+		auto PlayerPosition = PlayerTrans->GetPosition();
+		auto Time = App::GetApp()->GetElapsedTime();
+		m_PlayerPositionTime += Time;
+
+		if (m_PlayerPositionTime >= m_GetPlayerPositionTime)
+		{
+			m_PlayerPositionOnSecond.push_back(PlayerPosition);
+
+			if (m_PlayerPositionOnSecond.size() >= m_PlayerPositionOnSecondMax)
+			{
+				m_PlayerPositionOnSecond.erase(m_PlayerPositionOnSecond.begin());
 			}
 		}
 	}
@@ -376,47 +424,34 @@ namespace basecross {
 	//更新
 	void Player::OnUpdate() {
 		//!敵の親クラスを取得できる
-		AppearanceChange();//!プレイヤーの姿変化
+		 AppearanceChange();//!プレイヤーの姿変化
 		float elapsedTime = App::GetApp()->GetElapsedTime();
-
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
 		ptrDraw->UpdateAnimation(elapsedTime);
 
-		auto PlayerTrans = GetComponent<Transform>();
-		auto PlayerPosition = PlayerTrans->GetPosition();
-		auto Time = App::GetApp()->GetElapsedTime();
-		m_PlayerPositionTime += Time;
-
-		if (m_PlayerPositionTime >= m_GetPlayerPositionTime)
-		{
-			m_PlayerPositionOnSecond.push_back(PlayerPosition);
-
-			if (m_PlayerPositionOnSecond.size() >= m_PlayerPositionOnSecondMax)
-			{
-				m_PlayerPositionOnSecond.erase(m_PlayerPositionOnSecond.begin());
-			}
-		}
-
+		auto scene = App::GetApp()->GetScene<Scene>();
+		auto gameOver = scene->GetGameOver();
+		//!ゲームオーバーになってない時に
+		/*if (gameOver == false)
+		{*/
+        GetPlayerPositionBrett();
 		EnmeyDisappear();
-		MovePlayer();
+		
+      
+		
+		/*}*/
+		 MovePlayer();
 
-
-
+		if (m_IsPlayerDed == true)
+		{
+			PlayerDed();
+		}
 
 		m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
 
 		if (m_PlayerHp == m_Ded)
 		{
-			GetStage()->AddGameObject<FadeOut>(true,
-				Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));
-			float Time = App::GetApp()->GetElapsedTime();
-			m_dedTime += Time;
-			if (m_dedTime >= 1.0f)
-			{
-				PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
-				
-			}
-			
+			PlayerGameOver();
 		}
 
 	}
@@ -446,21 +481,26 @@ namespace basecross {
 	}
 	void Player::OnPushB()
 	{
-		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
+		auto scene = App::GetApp()->GetScene<Scene>();
+		auto gameOver = scene->GetGameOver();
+		//!ゲームオーバーになってない時に
+		if (gameOver == false)
 		{
-			Villagerkiller();//!村人を倒す処理
-		}
-
-		if (m_playerChange == static_cast<int>(PlayerModel::human))
-		{
-			//!プレイヤーが鍵を持っていたら
-			if (m_KeyCount == m_MaxKeyCount)
+			if (m_playerChange == static_cast<int>(PlayerModel::wolf))
 			{
-				Escape();
+				Villagerkiller();//!村人を倒す処理
 			}
+
+			if (m_playerChange == static_cast<int>(PlayerModel::human))
+			{
+				//!プレイヤーが鍵を持っていたら
+				if (m_KeyCount == m_MaxKeyCount)
+				{
+					Escape();
+				}
+			}
+
 		}
-
-
 	}
 }
 //end basecross

@@ -45,8 +45,21 @@ namespace basecross {
 	
 	void GameOverSprite::OnUpdate()
 	{
-		auto PtrDraw = GetComponent<PCTSpriteDraw>();
-	
+		auto player = GetStage()->GetSharedGameObject<Player>(L"Player");
+		auto gameOver=player->GetGameOverDrawActive();
+		if (gameOver == true)
+		{
+			SetDrawActive(true);
+
+			auto scene=App::GetApp()->GetScene<Scene>();
+			auto gameOverSprite=scene->GetGameOverSprite();
+			gameOverSprite = true;
+			scene->SetGameOverSprite(gameOverSprite);
+
+			
+		}
+		
+
 		
 	}
 }

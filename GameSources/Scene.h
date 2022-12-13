@@ -14,6 +14,8 @@ namespace basecross{
 	class Scene : public SceneBase{
 	private:
 		int m_AlertlevelCount;
+		bool m_IsGameOver;
+		bool m_IsGameOverSprite;
 	public:
 
 		void CreateResourses();//リソース
@@ -22,7 +24,7 @@ namespace basecross{
 		@brief コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		Scene() :SceneBase(), m_AlertlevelCount(0) {}
+		Scene() :SceneBase(), m_AlertlevelCount(0), m_IsGameOver(false) , m_IsGameOverSprite(false) {}
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief デストラクタ
@@ -61,6 +63,50 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		void SetAlertlevelCount(int AlertlevelCount);
 		void CreateEnemy();
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief ゲームオーバーの取得
+		@return	ゲームオーバーしたかどうか
+		*/
+		//--------------------------------------------------------------------------------------
+		bool GetGameOver()
+		{
+			return m_IsGameOver;
+		}
+		
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief ゲームオーバーの設定
+		@return	ゲームオーバーしたかどうか
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetGameOver(bool gameOver)
+		{
+			m_IsGameOver = gameOver;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief ゲームオーバースプライト表示の取得
+		@return	ゲームオーバーしたかどうか
+		*/
+		//--------------------------------------------------------------------------------------
+		bool GetGameOverSprite()
+		{
+			return m_IsGameOverSprite;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief ゲームオーバースプライト表示の設定
+		@return	ゲームオーバーしたかどうか
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetGameOverSprite(bool gameOverSprite)
+		{
+			m_IsGameOverSprite = gameOverSprite;
+		}
 
 	};
 

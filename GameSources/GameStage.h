@@ -20,7 +20,7 @@ namespace basecross {
 		CsvFile m_StageCsv;          //!ステージCSVファイル
 		float m_TotalTime;//!トータル時間(タイマーの作成)
 		const float m_GameTime;
-
+		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 
 	public:
 		//構築と破棄
@@ -54,7 +54,7 @@ namespace basecross {
 		virtual void OnDestroy() override;
 
 		
-		//void OnPushA();//!Aボタン
+		void OnPushA();//!Aボタン
 		
 		
 
