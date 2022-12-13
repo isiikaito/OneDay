@@ -40,7 +40,6 @@ namespace basecross {
 		m_dedTime(0.0f),
 		m_disappearTime(0.0f),
 		m_IsPlayerDed(0.0f)
-
 	{}
 
 	Vec2 Player::GetInputState() const {
@@ -102,7 +101,6 @@ namespace basecross {
 	void Player::MovePlayer() {
 		//アニメーション
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
-		auto animation = ptrDraw->GetCurrentAnimation();
 		auto AnimationName = ptrDraw->GetCurrentAnimation();
 
 		float elapsedTime = App::GetApp()->GetElapsedTime();
@@ -131,16 +129,7 @@ namespace basecross {
 			}
 		}
 
-		if (m_IsPlayerDed == true)
-		{
-			//立ち止まるアニメーション
-			if (AnimationName == L"Move" || AnimationName == L"Default") {
-				ptrDraw->ChangeCurrentAnimation(L"Ded");
-				auto XAptr = App::GetApp()->GetXAudio2Manager();
-				XAptr->Stop(m_BGM);
-
-			}
-		}
+		
 		//!回転の計算
 		if (angle.length() > 0.0f) {
 			auto utilPtr = GetBehavior<UtilBehavior>();
@@ -190,8 +179,6 @@ namespace basecross {
 		ptrDraw->AddAnimation(L"Ded", 61, 30, false, 30.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Default");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
-
-		/*	ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));*/
 
 			//!カメラを得る
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
@@ -254,6 +241,43 @@ namespace basecross {
 			}
 			return;
 		}
+	}
+
+	void Player::PlayerGameOver()
+	{
+		GetStage()->AddGameObject<FadeOut>(true,
+			Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));
+		float Time = App::GetApp()->GetElapsedTime();
+		m_dedTime += Time;
+		if (m_dedTime >= 1.0f)
+		{
+			auto GameOver = GetStage()->GetSharedGameObject<GameOverSprite>(L"GameOverSprite");
+			GameOver->SetDrawActive(true);
+			PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+
+		}
+
+	}
+
+	void Player::PlayerDed()
+	{
+		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
+		auto AnimationName = ptrDraw->GetCurrentAnimation();
+		float elapsedTime = App::GetApp()->GetElapsedTime();
+
+
+		
+			//立ち止まるアニメーション
+			if (AnimationName == L"Move" || AnimationName == L"Default") {
+				ptrDraw->ChangeCurrentAnimation(L"Ded");
+				auto XAptr = App::GetApp()->GetXAudio2Manager();
+				XAptr->Stop(m_BGM);
+				m_Speed=0.0f;
+		}
+		
+
+		PlayerGameOver();
+
 	}
 
 	void Player::EnmeyDisappear()
@@ -347,6 +371,26 @@ namespace basecross {
 		}
 	}
 
+	void Player::GetPlayerPositionBrett()
+	{
+		
+
+		auto PlayerTrans = GetComponent<Transform>();
+		auto PlayerPosition = PlayerTrans->GetPosition();
+		auto Time = App::GetApp()->GetElapsedTime();
+		m_PlayerPositionTime += Time;
+
+		if (m_PlayerPositionTime >= m_GetPlayerPositionTime)
+		{
+			m_PlayerPositionOnSecond.push_back(PlayerPosition);
+
+			if (m_PlayerPositionOnSecond.size() >= m_PlayerPositionOnSecondMax)
+			{
+				m_PlayerPositionOnSecond.erase(m_PlayerPositionOnSecond.begin());
+			}
+		}
+	}
+
 	void Player::Escape()
 	{
 		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
@@ -378,45 +422,24 @@ namespace basecross {
 		//!敵の親クラスを取得できる
 		AppearanceChange();//!プレイヤーの姿変化
 		float elapsedTime = App::GetApp()->GetElapsedTime();
-
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
 		ptrDraw->UpdateAnimation(elapsedTime);
-
-		auto PlayerTrans = GetComponent<Transform>();
-		auto PlayerPosition = PlayerTrans->GetPosition();
-		auto Time = App::GetApp()->GetElapsedTime();
-		m_PlayerPositionTime += Time;
-
-		if (m_PlayerPositionTime >= m_GetPlayerPositionTime)
-		{
-			m_PlayerPositionOnSecond.push_back(PlayerPosition);
-
-			if (m_PlayerPositionOnSecond.size() >= m_PlayerPositionOnSecondMax)
-			{
-				m_PlayerPositionOnSecond.erase(m_PlayerPositionOnSecond.begin());
-			}
-		}
-
+		
+		GetPlayerPositionBrett();
 		EnmeyDisappear();
 		MovePlayer();
 
 
-
+		if (m_IsPlayerDed == true)
+		{
+			PlayerDed();
+		}
 
 		m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
 
 		if (m_PlayerHp == m_Ded)
 		{
-			GetStage()->AddGameObject<FadeOut>(true,
-				Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));
-			float Time = App::GetApp()->GetElapsedTime();
-			m_dedTime += Time;
-			if (m_dedTime >= 1.0f)
-			{
-				PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
-				
-			}
-			
+			PlayerGameOver();
 		}
 
 	}

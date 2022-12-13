@@ -23,7 +23,10 @@ namespace basecross
 		m_Enemypatorolindex(0),
 		m_loseSightOfTarget(false),
 		m_IsEnemyDed(false),
-		m_eyeRange(0)
+		m_eyeRange(0),
+		m_IspositionLiset(false),
+		m_SurprisedSprite(false),
+		m_seekCondition(false)
 	{
 		m_StateMachine = new kaito::StateMachine<BaseEnemy>(this);
 		m_StateMachine->SetCurrentState(kaito::PatrolState::Instance());

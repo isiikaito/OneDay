@@ -123,25 +123,6 @@ namespace basecross
 					playerDed = true;
 					ptrPlayer->SetIsplayerDed(playerDed);
 
-					ptrPlayer->SetSpeed(0.0f);
-					
-
-					GetStage()->AddGameObject<FadeOut>(true,
-						Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));
-					m_IsGameOver = true;
-					if (m_IsGameOver == true)
-					{
-						auto& app = App::GetApp();//!アプリの取得
-						auto time = app->GetElapsedTime();
-						m_dedTime += time;
-						if (m_dedTime >= m_maxdedTime)
-						{
-							auto GameOver=GetStage()->GetSharedGameObject<GameOverSprite>(L"GameOverSprite");
-							GameOver->SetDrawActive(true);
-
-							PostEvent(0.0f, GetThis<Hunter>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
-						}
-					}
 
 				}
 
@@ -155,14 +136,10 @@ namespace basecross
 	{
 		
 		PlayerCatch();
-		
-		
+
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
-		m_playerChange = ptrPlayer->GetPlayerCange();//!プレイヤーの状態の取得
-		ptrPlayer->SetPlayerChange(m_playerChange);//!プレイヤーの取得した状態の設定
 		BaseEnemy::OnUpdate();
 		
-
 	}
 
 	

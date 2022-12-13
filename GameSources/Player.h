@@ -6,21 +6,21 @@
 #pragma once
 #include "stdafx.h"
 
-namespace basecross{
+namespace basecross {
 
 	//--------------------------------------------------------------------------------------
-    ///	プレイヤー
+	///	プレイヤー
 	//--------------------------------------------------------------------------------------
 	enum class PlayerModel {
 		human,
 		wolf
 	};
-	
+
 
 	class Player : public GameObject
 	{
 	private:
-		
+
 		int m_playerChange;//!プレイヤーの見た目の状態
 		int m_KeyCount;//!鍵を持っている個数カウント
 		int m_AlertleveCount;//!警戒度のカウント
@@ -28,7 +28,7 @@ namespace basecross{
 		int m_Ded;//!死亡
 		int m_PlayerPositionOnSecondMax;//!プレイヤーの位置の配列の最大の長さ
 		int m_PlayerHp;//!プレイヤーの体力
-        const int m_reset;//1ループリセット
+		const int m_reset;//1ループリセット
 		float m_wolfPlayerSpeed;//!狼男になったときのスピード
 		float m_humanPlayerSpeed;//!人間の時のスピード
 		float m_PlayerPositionTime;//!プレイヤーの位置を取得するまでの時間
@@ -38,14 +38,14 @@ namespace basecross{
 		float m_Speed;            //!スピード
 		float m_ChangeTime;          //!時間
 		float m_GetPlayerPositionTime;//!プレイヤーの位置の取得
-        const float m_humanTime;//!人間の時間
+		const float m_humanTime;//!人間の時間
 		const float m_wolfTime;//!狼の時間
 		bool m_IsPlayerFound;//!プレイヤーが見つかった稼働羽化
 		bool m_IsPlayerDed;//!プレイヤーが死んだかどうかの判定
-		bool m_IsFastHowling ;//!初めて狼男が鳴くとき
-		
+		bool m_IsFastHowling;//!初めて狼男が鳴くとき
+
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
-std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
+		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 
 	public:
 		//構築と破棄
@@ -76,14 +76,14 @@ std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 		@brief	更新
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual void OnUpdate() ;
+		virtual void OnUpdate();
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	プレイヤーが使用するコントローラーの入力
 		*/
 		//--------------------------------------------------------------------------------------
-        Vec2 GetInputState() const;//!プレイヤーが使用するコントローラーの入力
+		Vec2 GetInputState() const;//!プレイヤーが使用するコントローラーの入力
 
 		//--------------------------------------------------------------------------------------
 		/*!
@@ -97,7 +97,7 @@ std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 		@brief	プレイヤーの移動
 		*/
 		//--------------------------------------------------------------------------------------
-		void MovePlayer();         
+		void MovePlayer();
 
 		//--------------------------------------------------------------------------------------
 		/*!
@@ -140,10 +140,10 @@ std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 		*/
 		//--------------------------------------------------------------------------------------
 		void OnPushB();
-	
+
 		shared_ptr<SoundItem>m_BGM;
 		shared_ptr<SoundItem>m_Howling;
-		
+
 
 		//--------------------------------------------------------------------------------------
 		/*!
@@ -271,6 +271,29 @@ std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 		*/
 		//--------------------------------------------------------------------------------------
 		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other);
+
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	プレイヤーが死んだ時の処理
+		*/
+		//--------------------------------------------------------------------------------------
+		void PlayerDed();
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	ゲームオーバーの処理
+		*/
+		//--------------------------------------------------------------------------------------
+		void PlayerGameOver();
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	プレイヤーのポジションを一定数取得の処理
+		*/
+		//--------------------------------------------------------------------------------------
+		void GetPlayerPositionBrett();
+
 	};
 }
 //end basecross

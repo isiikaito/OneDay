@@ -29,7 +29,6 @@ namespace basecross
 		m_Speed(22.0f),
 		m_patrolindex(0),
 		m_dedDecision(false),
-		m_IsGameOver(false),
 		m_lostTime(0.0f),
 		m_damage(-1)
 
@@ -121,16 +120,7 @@ namespace basecross
 	{
 		
 
-		if (m_IsGameOver == true)
-		{
-			auto& app = App::GetApp();//!ƒAƒvƒŠ‚ÌŽæ“¾
-			auto time = app->GetElapsedTime();
-			m_lostTime += time;
-			if (m_lostTime >= m_maxLostTime)
-			{
-				PostEvent(0.0f, GetThis<Villager>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
-			}
-		}
+	
 		
 		VillagerDed();
 
@@ -153,24 +143,10 @@ namespace basecross
 		{
 			if (seekCondition == true)
 			{
-				
-					auto playerDed = ptrPlayer->GetIsplayerDed();
-
-					playerDed = true;
-					ptrPlayer->SetIsplayerDed(playerDed);
-
-					ptrPlayer->SetSpeed(0.0f);
-
+				auto playerDed = ptrPlayer->GetIsplayerDed();
+				playerDed = true;
+				ptrPlayer->SetIsplayerDed(playerDed);
 					
-					ptrPlayer->SetSpeed(0.0f);
-					GetStage()->AddGameObject<FadeOut>(true,
-						Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.0f));
-					
-					
-					m_IsGameOver = true;
-					
-
-				
 			}
 		}
 	}
