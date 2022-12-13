@@ -558,7 +558,14 @@ namespace basecross {
 
 		CreateLightingCol();
 		
+		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+		auto gameOver = scene->GetGameOver();
+		if (gameOver == true)
+		{
+			OnDestroy();
+		}
 
+		m_InputHandler.PushHandle(GetThis<GameStage>());
 	}
 	//!ゲームオーバーはステージを変えない。
 	//! 倒れるモーションが入ってフェードアウトして一枚絵になる。
@@ -575,8 +582,30 @@ namespace basecross {
 	/// BGMのストップ
 	void GameStage::OnDestroy()
 	{
-		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		
+        auto XAPtr = App::GetApp()->GetXAudio2Manager();
 		XAPtr->Stop(m_BGM);
+		
+		
+	}
+
+	void GameStage::OnPushA()
+	{
+		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+		auto gameOver = scene->GetGameOverSprite();
+		if (gameOver == true)
+		{
+			auto gameOver = scene->GetGameOver();
+			gameOver = false;
+			scene->SetGameOver(gameOver);
+
+			//サウンド再生
+			auto ptrXA = App::GetApp()->GetXAudio2Manager();
+			ptrXA->Start(L"decision", 0, 1.0f);
+			PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+			gameOver == false;
+			scene->SetGameOverSprite(gameOver);
+		}
 	}
 }
 //end basecross

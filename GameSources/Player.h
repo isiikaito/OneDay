@@ -43,7 +43,7 @@ namespace basecross {
 		bool m_IsPlayerFound;//!プレイヤーが見つかった稼働羽化
 		bool m_IsPlayerDed;//!プレイヤーが死んだかどうかの判定
 		bool m_IsFastHowling;//!初めて狼男が鳴くとき
-
+		bool m_gameOverDrawActive;//!ゲームオーバースプライトの表示
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
 		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 
@@ -263,6 +263,26 @@ namespace basecross {
 		void SetIsplayerDed(bool playerDed)
 		{
 			m_IsPlayerDed = playerDed;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	ゲームオーバースプライトを表示するかの取得
+		*/
+		//--------------------------------------------------------------------------------------
+		bool GetGameOverDrawActive()
+		{
+			return m_gameOverDrawActive;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	ゲームオーバースプライトを表示するかの設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetGameOverDrawActive(bool gameOverDrawActive)
+		{
+			m_gameOverDrawActive = gameOverDrawActive;
 		}
 
 		//--------------------------------------------------------------------------------------

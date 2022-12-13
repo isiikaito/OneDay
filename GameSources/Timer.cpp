@@ -62,7 +62,7 @@ namespace basecross {
 		auto ptrTrans = GetComponent<Transform>();               //!トランスコンポーネントの取得
 		ptrTrans->SetScale(m_StartScale.x, m_StartScale.y, 1.0f);//!大きさの設定
 		ptrTrans->SetRotation(0, 0, 0);                          //!回転の設定
-		ptrTrans->SetPosition(m_StartPos.x, m_StartPos.y, 0.0f); //!位置の設定
+		ptrTrans->SetPosition(m_StartPos.x, m_StartPos.y, 0.1f); //!位置の設定
 		//!頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PTSpriteDraw>(m_BackupVertices, indices);//!描画コンポーネントの取得
 		ptrDraw->SetTextureResource(m_TextureKey);                           //!テクスチャの設定

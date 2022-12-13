@@ -104,7 +104,6 @@ namespace basecross
 		auto hunterPosition = GetComponent<Transform>()->GetPosition();
 		auto phdistans = playerPosition - hunterPosition;
 		auto playerCatch = bsm::length(phdistans);
-		auto seekCondition = GetseekCondition();
 		auto Enemyfront = GetComponent<Transform>()->GetForword();//!敵の正面を取得
 		auto angle = angleBetweenNormals(Enemyfront, phdistans);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
 		auto chk = XM_PI / dividedNumber;//!360を6で割って角度を出す。
