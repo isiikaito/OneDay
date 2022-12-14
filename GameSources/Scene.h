@@ -16,6 +16,7 @@ namespace basecross{
 		int m_AlertlevelCount;
 		bool m_IsGameOver;
 		bool m_IsGameOverSprite;
+		int m_keyNamber;
 	public:
 
 		void CreateResourses();//リソース
@@ -107,6 +108,29 @@ namespace basecross{
 		{
 			m_IsGameOverSprite = gameOverSprite;
 		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief 鍵のcsvのナンバーの取得
+		@return	ゲームオーバーしたかどうか
+		*/
+		//--------------------------------------------------------------------------------------
+		int GetKeyNamber()
+		{
+			return m_keyNamber;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief 鍵のcsvのナンバーの設定
+		@return	ゲームオーバーしたかどうか
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetKeyNamber(int keyNamber)
+		{
+			m_keyNamber = keyNamber;
+		}
+
 
 	};
 

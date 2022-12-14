@@ -6,6 +6,7 @@
 #include "stdafx.h"
 #include "Project.h"
 
+
 namespace basecross {
 	Key::Key(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
@@ -15,7 +16,8 @@ namespace basecross {
 		GameObject(StagePtr),
 		m_Scale(Scale),
 		m_Rotation(Rotation),
-		m_Position(Position)
+		m_Position(Position),
+		m_keyNamber(0)
 		
 	{
 	}
@@ -76,6 +78,11 @@ namespace basecross {
 		);
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		
+		
+		/*std::wstringstream ms;
+		ms << keyPosition.x << "\n";
+	    MessageBox(NULL, ms.str().c_str(), L"", MB_OK);*/
+
 	}
 }
 //end basecross

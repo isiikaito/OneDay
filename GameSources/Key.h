@@ -12,7 +12,8 @@ namespace basecross {
 		Vec3 m_Scale;   //!大きさ
 		Vec3 m_Rotation;//!回転
 		Vec3 m_Position;//!位置
-		float m_Time;
+		float m_Time; 
+		int m_keyNamber;
 	public:
 		/**
 		* コンストラクタ

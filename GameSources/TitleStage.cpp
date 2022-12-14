@@ -42,6 +42,16 @@ namespace basecross {
 
 	//更新
 	void TitleStage::OnUpdate() {
+		auto& app = App::GetApp();
+		auto scene = app->GetScene<Scene>();
+		
+		auto time = app->GetElapsedTime();
+		m_keyTime += time*22;
+		srand(m_keyTime);
+		m_keyNumber = rand() % 3;
+		scene->SetKeyNamber(m_keyNumber);
+
+
 		//コントローラチェックして入力があればコマンド呼び出し
 		m_InputHandler.PushHandle(GetThis<TitleStage>());
 	}

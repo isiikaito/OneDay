@@ -16,15 +16,17 @@ namespace basecross {
 		CsvFile m_GameStageCsvA; // !建物の配置
 		CsvFile m_GameStageCsvB; // !建物の配置2
 		CsvFile m_GameStageCsvC; // !建物の配置3
-		CsvFile m_GameStageCsvD;//!建物の配置4
+		CsvFile m_GameStageCsvD;// !建物の配置4
+		CsvFile m_GameStageCsvD2; // !建物の配置4-1
 		CsvFile m_StageCsv;          //!ステージCSVファイル
 		float m_TotalTime;//!トータル時間(タイマーの作成)
 		const float m_GameTime;
+		int m_keyNamber; //!鍵の配置
 		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 
 	public:
 		//構築と破棄
-		GameStage() :Stage(),m_TotalTime(31.0f), m_GameTime(31.0f) {}
+		GameStage() :Stage(),m_TotalTime(31.0f), m_GameTime(31.0f), m_keyNamber(0.0f) {}
 		virtual ~GameStage() {}
 
 		void CreateViewLight();  //!ビューの作成
