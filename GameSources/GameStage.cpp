@@ -338,10 +338,10 @@ namespace basecross {
 	
 	//!パトロールポイントの構造体
 	struct PointCreateDate {
-		std::vector<Vec3>m_patorlPositions = vector<Vec3>(0.0f);
+		std::vector<Vec3>m_patorlPositions = vector<Vec3>(0);
 
 		PointCreateDate() :
-			PointCreateDate(vector<Vec3>(0.0f)) {}
+			PointCreateDate(vector<Vec3>(0)) {}
 		PointCreateDate(const std::vector<Vec3>& patrolPoints) :
 			m_patorlPositions(patrolPoints)
 		{}
@@ -493,7 +493,18 @@ namespace basecross {
 
 	}
 
+	void GameStage::GameTime()
+	{
+		float elapsedTime = App::GetApp()->GetElapsedTime();
+		m_TotalTime -= elapsedTime;
+		if (m_TotalTime <= 0.0f) {
+			m_TotalTime = m_GameTime;
+		}
+		////スコアを更新する
+		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
+		ptrScor->SetScore(m_TotalTime);
 
+	}
 	
 
 	void GameStage::CreateLightingCol()
@@ -587,6 +598,7 @@ namespace basecross {
 		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
 		ptrScor->SetScore(m_TotalTime);
 
+		GameTime();
 		CreateLightingCol();
 		
 		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
@@ -637,7 +649,7 @@ namespace basecross {
 			auto ptrXA = App::GetApp()->GetXAudio2Manager();
 			ptrXA->Start(L"decision", 0, 1.0f);
 			PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
-			gameOver == false;
+			gameOver = false;
 			scene->SetGameOverSprite(gameOver);
 		}
 	}

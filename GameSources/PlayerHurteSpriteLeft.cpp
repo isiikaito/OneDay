@@ -28,7 +28,8 @@ namespace basecross
 		m_hurtCount(0),
 		m_hurtDefise(true),
 		m_dedTime(0),
-		m_GameOver(false)
+		m_GameOver(false),
+		m_Time(0.0f)
 	{}
 
 	PlayerHeartSpriteLeft::~PlayerHeartSpriteLeft() {}

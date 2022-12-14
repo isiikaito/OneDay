@@ -25,7 +25,7 @@ namespace basecross {
 		int m_KeyCount;//!鍵を持っている個数カウント
 		int m_AlertleveCount;//!警戒度のカウント
 		int m_MaxKeyCount;//!鍵の所持数の最大
-		int m_Ded;//!死亡
+		float m_Ded;//!死亡
 		int m_PlayerPositionOnSecondMax;//!プレイヤーの位置の配列の最大の長さ
 		int m_PlayerHp;//!プレイヤーの体力
 		const int m_reset;//1ループリセット

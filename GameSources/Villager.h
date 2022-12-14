@@ -57,7 +57,7 @@ namespace basecross
 		@brief	村人のスピードの取得
 		*/
 		//--------------------------------------------------------------------------------------
-		int GetSpeed()
+		float GetSpeed()
 		{
 			return m_Speed;
 		}
@@ -66,7 +66,7 @@ namespace basecross
 		@brief	村人のスピードの設定
 		*/
 		//--------------------------------------------------------------------------------------
-		void SetSpeed(int VillagerSpeed)
+		void SetSpeed(float VillagerSpeed)
 		{
 			m_Speed = VillagerSpeed;
 		}

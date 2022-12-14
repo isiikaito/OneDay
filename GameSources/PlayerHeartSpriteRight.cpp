@@ -10,7 +10,7 @@
 
 namespace basecross
 {
-	constexpr int m_MaxhurteCount = 3.0f; // !HP点滅の回数制限
+	constexpr int m_MaxhurteCount = 3; // !HP点滅の回数制限
 	
 	//--------------------------------------------------------------------------------------
 	 ///	右側のハートスプライト
@@ -28,7 +28,9 @@ namespace basecross
 		m_hurtCount(0),
 		m_hurtDefise(true),
 		m_dedTime(0),
-		m_GameOver(false)
+		m_GameOver(false),
+		m_IsGameOver(false),
+		m_Time(0.0f)
 	{}
 
 	PlayerHeartSpriteRight::~PlayerHeartSpriteRight() {}

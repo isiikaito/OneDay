@@ -26,7 +26,7 @@ namespace basecross {
 		m_reset(0),
 		m_KeyCount(0),
 		m_MaxKeyCount(3),
-		m_Ded(0),
+		m_Ded(0.0f),
 		m_GetPlayerPositionTime(0.8f),
 		m_PlayerPositionTime(0.0f),
 		m_PlayerPositionOnSecondMax(39),
@@ -103,6 +103,7 @@ namespace basecross {
 	void Player::MovePlayer() {
 		//アニメーション
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
+		auto animation = ptrDraw->GetCurrentAnimation();
 		auto AnimationName = ptrDraw->GetCurrentAnimation();
 
 		float elapsedTime = App::GetApp()->GetElapsedTime();
@@ -130,6 +131,7 @@ namespace basecross {
 
 			}
 		}
+
 		if (m_IsPlayerDed == true)
 		{
 			//立ち止まるアニメーション
@@ -140,7 +142,6 @@ namespace basecross {
 
 			}
 		}
-		
 		//!回転の計算
 		if (angle.length() > 0.0f) {
 			auto utilPtr = GetBehavior<UtilBehavior>();
@@ -425,7 +426,7 @@ namespace basecross {
 	//更新
 	void Player::OnUpdate() {
 		//!敵の親クラスを取得できる
-		 AppearanceChange();//!プレイヤーの姿変化
+		   AppearanceChange();//!プレイヤーの姿変化
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
 		ptrDraw->UpdateAnimation(elapsedTime);
@@ -433,10 +434,12 @@ namespace basecross {
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto gameOver = scene->GetGameOver();
 		//!ゲームオーバーになってない時に
-		/*if (gameOver == false)
-		{*/
+		if (gameOver == false)
+		{
         GetPlayerPositionBrett();
 		EnmeyDisappear();
+		 MovePlayer();
+    
 		
 		//コントローラーの振動
 		XINPUT_VIBRATION vibration;
@@ -445,22 +448,21 @@ namespace basecross {
 		vibration.wRightMotorSpeed = m_vibration; // use any value between 0-65535 here
 		XInputSetState(0, &vibration);
 		
+		}
 		
-		/*}*/
-		 MovePlayer();
 
 		if (m_IsPlayerDed == true)
 		{
 			PlayerDed();
 		}
 
-		m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
+		
 
 		if (m_PlayerHp == m_Ded)
 		{
 			PlayerGameOver();
 		}
-
+m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
 	}
 
 	//!プレイヤーが相手に当たったら

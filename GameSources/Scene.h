@@ -13,10 +13,12 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
 	class Scene : public SceneBase{
 	private:
-		int m_AlertlevelCount;
-		bool m_IsGameOver;
-		bool m_IsGameOverSprite;
+		
 		int m_keyNamber;
+		int m_AlertlevelCount;//!警戒度の数字
+		bool m_IsGameOver;//!ゲームオーバーしたかどうか
+		bool m_IsGameOverSprite;//!ゲームオーバースプライトの表示ができているか
+		float m_gameStageTime;//!昼と夜の時間
 	public:
 
 		void CreateResourses();//リソース
@@ -25,7 +27,7 @@ namespace basecross{
 		@brief コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		Scene() :SceneBase(), m_AlertlevelCount(0), m_IsGameOver(false) , m_IsGameOverSprite(false) {}
+		Scene() :SceneBase(), m_AlertlevelCount(0), m_IsGameOver(false) , m_IsGameOverSprite(false),m_gameStageTime(0.0f) {}
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief デストラクタ
@@ -119,6 +121,15 @@ namespace basecross{
 		{
 			return m_keyNamber;
 		}
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief ゲームの時間の取得
+		*/
+		//--------------------------------------------------------------------------------------
+		float GetGameTime()
+		{
+			return m_gameStageTime;
+		}
 
 		//--------------------------------------------------------------------------------------
 		/*!
@@ -131,6 +142,15 @@ namespace basecross{
 			m_keyNamber = keyNamber;
 		}
 
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief ゲームの時間の設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetGameTime(float gameStageTime)
+		{
+			m_gameStageTime = gameStageTime;
+		}
 
 	};
 

@@ -111,7 +111,7 @@ namespace basecross
 			auto PlayerPosition = ptrPlayerTrans->GetPosition();//!ターゲット(プレイヤー)の座標の取得
 
 			//!巡回する処理
-			const int movePointsCount = m_patrolPoints.size();//!パトロールポイントの配列の長さ
+			auto movePointsCount = m_patrolPoints.size();//!パトロールポイントの配列の長さ
 			Vec3 end = m_patrolPoints[(patrolPoint + 1) % movePointsCount];//!敵が次に向かうポイントの設定
 			auto distance = end - EnemyPosition;//!プレイヤーの座標から敵の座標を引きベクトルの計算
 			distance.normalize();//!ベクトルをノーマライズ化
@@ -263,7 +263,7 @@ namespace basecross
 			}
 
 			start = m_BrettGramPoints[BrettGramindex];//!最初のブレットクラムポイントの設定
-			const int movePointsCount = m_BrettGramPoints.size();//!ブレットクラムの配列の大きさ
+			auto movePointsCount = m_BrettGramPoints.size();//!ブレットクラムの配列の大きさ
 			Vec3 end = m_BrettGramPoints[(BrettGramindex + 1) % movePointsCount];//!敵が向かうポイントの設定
 
 			auto distance = end - EnemyPosition;//!プレイヤーの座標から敵の座標を引きベクトルの計算
