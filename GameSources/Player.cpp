@@ -40,7 +40,8 @@ namespace basecross {
 		m_dedTime(0.0f),
 		m_disappearTime(0.0f),
 		m_IsPlayerDed(0.0f),
-		m_gameOverDrawActive(false)
+		m_gameOverDrawActive(false),
+		m_vibration(0.0f)
 	{}
 
 	Vec2 Player::GetInputState() const {
@@ -437,7 +438,13 @@ namespace basecross {
         GetPlayerPositionBrett();
 		EnmeyDisappear();
 		
-      
+		//コントローラーの振動
+		XINPUT_VIBRATION vibration;
+		ZeroMemory(&vibration, sizeof(XINPUT_VIBRATION));
+		vibration.wLeftMotorSpeed = m_vibration; // use any value between 0-65535 here
+		vibration.wRightMotorSpeed = m_vibration; // use any value between 0-65535 here
+		XInputSetState(0, &vibration);
+		
 		
 		/*}*/
 		 MovePlayer();

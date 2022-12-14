@@ -105,6 +105,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Wood.cpp">
       <Filter>Object\Wood</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)KeyParticle.cpp">
+      <Filter>KeyParticle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -216,6 +219,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Wood.h">
       <Filter>Object\Wood</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)KeyParticle.h">
+      <Filter>KeyParticle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -341,6 +347,9 @@
     </Filter>
     <Filter Include="Object\Wood">
       <UniqueIdentifier>{f9ab9fe9-6747-43d7-8cca-9cb4fd8825ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KeyParticle">
+      <UniqueIdentifier>{5486842c-a282-4a77-b8c2-c90bb79499fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

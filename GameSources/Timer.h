@@ -64,7 +64,5 @@ namespace basecross {
 		virtual void OnUpdate();
 
 	};
-
-
 }
 //end basecross

@@ -46,6 +46,7 @@ namespace basecross {
 		bool m_gameOverDrawActive;//!ゲームオーバースプライトの表示
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
 		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
+		float m_vibration;//コントローラーの振動
 
 	public:
 		//構築と破棄
