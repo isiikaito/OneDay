@@ -107,7 +107,7 @@ namespace basecross {
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
 		auto group = CreateSharedObjectGroup(L"key_ObjGroup");
-		auto& LineVec = m_GameStageCsvD.GetCsvVec();
+		auto& LineVec = m_GameStageCsvD2.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
 			//トークン（カラム）の配列
 			vector<wstring> Tokens;
@@ -518,8 +518,9 @@ namespace basecross {
 			auto& app = App::GetApp();
 			wstring DataDir;
 			App::GetApp()->GetDataDirectory(DataDir);
-			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
-			auto alertlevelCount = scene->GetAlertlevelCount();//!警戒度の数値の取得
+			auto scene = App::GetApp()->GetScene<Scene>();
+			//!シーンの取得
+			auto m_keyNamber = scene->GetKeyNamber();
 
 			// フォルダの指定
 			auto csvDirectory = DataDir + L"csvFolder\\";
@@ -543,6 +544,10 @@ namespace basecross {
 			//!Buildingファイルの読み込み4
 			m_GameStageCsvD.SetFileName(csvDirectory + L"GameStageD.csv");
 			m_GameStageCsvD.ReadCsv();
+
+			//!Buildingファイルの読み込み4-1
+			m_GameStageCsvD2.SetFileName(csvDirectory + L"GameStageD" + Util::IntToWStr(m_keyNamber) + L".csv");
+			m_GameStageCsvD2.ReadCsv();
 
             CreateTimerSprite();//!時間のスプライトの作成
 			CreateViewLight();//ビューとライトの作成
@@ -572,6 +577,7 @@ namespace basecross {
 	}
 
 	void GameStage::OnUpdate() {
+
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		m_TotalTime -= elapsedTime;
 		if (m_TotalTime <= 0.0f) {
@@ -591,6 +597,9 @@ namespace basecross {
 		}
 
 		m_InputHandler.PushHandle(GetThis<GameStage>());
+
+	
+
 	}
 	//!ゲームオーバーはステージを変えない。
 	//! 倒れるモーションが入ってフェードアウトして一枚絵になる。

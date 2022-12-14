@@ -15,7 +15,8 @@ namespace basecross {
 	private:
 		//入力ハンドラー
 		InputHandler<TitleStage> m_InputHandler;
-
+		float m_keyTime;
+		int m_keyNumber;
 	public:
 		//ビューの作成
 		void CreateViewLight();
@@ -26,7 +27,7 @@ namespace basecross {
 		void CreatePlayBGM();//!BGM作成
 
 		//構築と破棄
-		TitleStage() :Stage() {}
+		TitleStage() :Stage(),m_keyTime(0.0f),m_keyNumber(0) {}
 		virtual ~TitleStage() {}
 		//初期化
 		virtual void OnCreate()override;
