@@ -17,7 +17,7 @@ namespace basecross {
 		CsvFile m_GameStageCsvB; // !建物の配置2
 		CsvFile m_GameStageCsvC; // !建物の配置3
 		CsvFile m_GameStageCsvD;// !建物の配置4
-		CsvFile m_GameStageCsvD2; // !建物の配置4-1
+		CsvFile m_KeyPositon; // !鍵の配置
 		CsvFile m_StageCsv;          //!ステージCSVファイル
 		float m_TotalTime;//!トータル時間(タイマーの作成)
 		const float m_GameTime;

@@ -107,7 +107,7 @@ namespace basecross {
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
 		auto group = CreateSharedObjectGroup(L"key_ObjGroup");
-		auto& LineVec = m_GameStageCsvD2.GetCsvVec();
+		auto& LineVec = m_KeyPositon.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
 			//トークン（カラム）の配列
 			vector<wstring> Tokens;
@@ -504,6 +504,9 @@ namespace basecross {
 		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
 		ptrScor->SetScore(m_TotalTime);
 
+		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+		scene->SetGameTime(elapsedTime);
+
 	}
 	
 
@@ -556,9 +559,9 @@ namespace basecross {
 			m_GameStageCsvD.SetFileName(csvDirectory + L"GameStageD.csv");
 			m_GameStageCsvD.ReadCsv();
 
-			//!Buildingファイルの読み込み4-1
-			m_GameStageCsvD2.SetFileName(csvDirectory + L"GameStageD" + Util::IntToWStr(m_keyNamber) + L".csv");
-			m_GameStageCsvD2.ReadCsv();
+			//!KeyPositonファイルの読み込み4-1
+			m_KeyPositon.SetFileName(csvDirectory + L"KeyPosition" + Util::IntToWStr(m_keyNamber) + L".csv");
+			m_KeyPositon.ReadCsv();
 
             CreateTimerSprite();//!時間のスプライトの作成
 			CreateViewLight();//ビューとライトの作成
@@ -589,14 +592,7 @@ namespace basecross {
 
 	void GameStage::OnUpdate() {
 
-		float elapsedTime = App::GetApp()->GetElapsedTime();
-		m_TotalTime -= elapsedTime;
-		if (m_TotalTime <= 0.0f) {
-			m_TotalTime = m_GameTime;
-		}
-		////スコアを更新する
-		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
-		ptrScor->SetScore(m_TotalTime);
+		
 
 		GameTime();
 		CreateLightingCol();

@@ -75,7 +75,7 @@ namespace basecross {
 		if (m_oneday == static_cast<int>(Oneday::midday))
 		{
 			m_Time += elapsedTime / 30; //!ŠÔ‚ğ•Ï”‚É‘«‚·
-			ptrDraw->SetEmissive(Col4(m_Time, m_Time, m_Time, 1.0f)); // !–é‚É‚·‚éˆ—
+			ptrDraw->SetEmissive(Col4(m_Time - 0.1f, m_Time - 0.1f, m_Time - 0.1f, 1.0f)); // !–é‚É‚·‚éˆ—
 			if (m_Time >= 1.0f)
 			{
 				m_oneday = static_cast<int>(Oneday::night);
@@ -86,7 +86,7 @@ namespace basecross {
 		if (m_oneday == static_cast<int>(Oneday::night))
 		{
 			m_Time += -elapsedTime / 30; //ŠÔ‚ğ•Ï”‚ÉŒ¸‚ç‚·
-			ptrDraw->SetEmissive(Col4(m_Time, m_Time, m_Time, 1.0f)); // !’©‚É‚·‚éˆ—
+			ptrDraw->SetEmissive(Col4(m_Time - 0.1f, m_Time - 0.1f, m_Time - 0.1f, 1.0f)); // !’©‚É‚·‚éˆ—
 			if (m_Time <= 0.0f)
 			{
 				m_oneday = static_cast<int>(Oneday::midday);

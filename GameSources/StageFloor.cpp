@@ -70,12 +70,12 @@ namespace basecross {
 	void StageFloor::OnUpdate() {
 
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
-		float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
-
+		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+		auto gameTime = scene->GetGameTime();
 		// !夜から昼になる処理
 		if ( m_oneday == static_cast<int>(Oneday::midday))
 		{
-			m_Time += elapsedTime / 30; //!時間を変数に足す
+			m_Time += gameTime / 31; //!時間を変数に足す
 			ptrDraw->SetEmissive(Col4(m_Time - 0.3f, m_Time - 0.3f, m_Time - 0.3f, 1.0f)); // !昼にする処理
 			if (m_Time >= 1.0f)
 			{
@@ -86,7 +86,7 @@ namespace basecross {
 		// !昼から夜になる処理
 		if (m_oneday == static_cast<int>(Oneday::night))
 		{
-			m_Time -= elapsedTime / 30; //!時間を変数から減らす
+			m_Time -= gameTime / 31; //!時間を変数から減らす
 			ptrDraw->SetEmissive(Col4(m_Time - 0.3f, m_Time - 0.3f, m_Time - 0.3f, 1.0f)); // !夜にする処理
 			if (m_Time <= 0.0f)
 			{
