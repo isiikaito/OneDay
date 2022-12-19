@@ -247,10 +247,10 @@ namespace basecross{
 
 	//!パトロールポイントの構造体
 	struct PointCreate {
-		std::vector<Vec3>m_patorlPositions = vector<Vec3>(0.0f);
+		std::vector<Vec3>m_patorlPositions = vector<Vec3>(0);
 
 		PointCreate() :
-			PointCreate(vector<Vec3>(0.0f)) {}
+			PointCreate(vector<Vec3>(0)) {}
 		PointCreate(const std::vector<Vec3>& patrolPoints) :
 			m_patorlPositions(patrolPoints)
 		{}
@@ -318,7 +318,6 @@ namespace basecross{
 
 		}
 
-
 	}
 	void Scene::OnCreate(){
 		try {
@@ -329,7 +328,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
 		}
 		catch (...) {
 			throw;

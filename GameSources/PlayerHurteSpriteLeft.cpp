@@ -10,7 +10,7 @@
 
 namespace basecross
 {
-	constexpr int m_MaxhurteCount = 3.0f; // !HP点滅の回数制限
+	constexpr int m_MaxhurteCount = 3; // !HP点滅の回数制限
 
 	//--------------------------------------------------------------------------------------
 	///	左側のハートスプライト

@@ -5,11 +5,12 @@
 
 #include "stdafx.h"
 #include "Project.h"
+#include "PlayerState.h"
 
 namespace basecross {
 	constexpr float m_maxDisappearTime = 2.0f;
 	constexpr float m_MaxwolfHowlingTime = 0.1f;
-
+	constexpr float m_maxDedTime = 1.0f;
 
 	//--------------------------------------------------------------------------------------
 	//	class Player : public GameObject;
@@ -41,8 +42,12 @@ namespace basecross {
 		m_disappearTime(0.0f),
 		m_IsPlayerDed(0.0f),
 		m_gameOverDrawActive(false),
-		m_vibration(0.0f)
-	{}
+		m_vibration(0.0f),
+		m_gameTime(0.0f)
+	{
+		m_StateMachine = new kaito::StateMachine<Player>(this);
+		m_StateMachine->SetCurrentState(kaito::HumanState::Instance());
+	}
 
 	Vec2 Player::GetInputState() const {
 		Vec2 ret;
@@ -201,58 +206,7 @@ namespace basecross {
 		}
 	}
 
-	void Player::AppearanceChange()
-	{
-		float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
-		m_ChangeTime += elapsedTime;//時間を変数に足す
-		if (m_ChangeTime >= m_humanTime)//!人間の時間が終わったら
-		{
-			float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
-			m_wolfHowlingTime += elapsedTime;//時間を変数に足す
-
-			m_playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
-			m_IsFastHowling = true;
-
-			if (m_IsFastHowling == true)
-			{
-				if (m_wolfHowlingTime <= m_MaxwolfHowlingTime)
-				{
-					//サウンド再生
-					auto ptrXA = App::GetApp()->GetXAudio2Manager();
-					ptrXA->Start(L"howling", 0, 1.0f);
-					m_IsFastHowling = false;
-
-				}
-			}
-
-			else
-			{
-				m_wolfHowlingTime = 0.0f;
-			}
-
-			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
-			auto shadowPtr = GetComponent<Shadowmap>();
-			shadowPtr->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH");
-			ptrDraw->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
-			m_Speed = m_wolfPlayerSpeed;
-
-
-			if (m_ChangeTime >= m_wolfTime)//!狼の時間になったら
-			{
-				m_Speed = m_humanPlayerSpeed;
-				m_playerChange = static_cast<int>(PlayerModel::human);//!プレイヤーの状態は人間
-				auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
-				auto shadowPtr = GetComponent<Shadowmap>();
-				shadowPtr->SetMeshResource(L"Player_WalkAnimation_MESH");
-				ptrDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
-
-				ptrDraw->SetDiffuse(Col4(1.0f, 1.0f, 0.0f, 1.0f));
-				/*ptrDraw->SetMeshResource(L"PLAYER_HUMAN");*///!プレイヤーのメッシュの変更
-				m_ChangeTime = (float)m_reset;//!状態タイムをリセットする
-			}
-			return;
-		}
-	}
+	
 
 	void Player::PlayerGameOver()
 	{
@@ -264,7 +218,7 @@ namespace basecross {
 			Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.1f));
 		float Time = App::GetApp()->GetElapsedTime();
 		m_dedTime += Time;
-		if (m_dedTime >= 1.0f)
+		if (m_dedTime >= m_maxDedTime)
 		{
 			m_gameOverDrawActive = true;
 			
@@ -423,16 +377,27 @@ namespace basecross {
 			);
 	}
 
+	void Player::ChangeState(kaito::State<Player>* NewState)
+	{
+		m_StateMachine->ChangeState(NewState);
+	}
+
 	//更新
 	void Player::OnUpdate() {
+
+		m_StateMachine->Update();
+
+		auto scene = App::GetApp()->GetScene<Scene>();
+		auto gameOver = scene->GetGameOver();
+		auto gameTime = scene->GetGameTime();
+		m_gameTime += gameTime;
+
 		//!敵の親クラスを取得できる
-		   AppearanceChange();//!プレイヤーの姿変化
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
 		ptrDraw->UpdateAnimation(elapsedTime);
 
-		auto scene = App::GetApp()->GetScene<Scene>();
-		auto gameOver = scene->GetGameOver();
+		
 		//!ゲームオーバーになってない時に
 		if (gameOver == false)
 		{

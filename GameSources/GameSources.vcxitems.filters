@@ -77,7 +77,7 @@
       <Filter>Object\Enemy\BaseEnemy</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp">
-      <Filter>State\EnemyStage</Filter>
+      <Filter>State\EnemyState</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SurprisedSprite.cpp">
       <Filter>Sprite\Surprised</Filter>
@@ -94,19 +94,26 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp">
       <Filter>Sprite\LoseSightOf</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)WoodenBox.cpp">
-      <Filter>Object\WoodenBox</Filter>
+      <Filter>Object\WoodBox</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Wood.cpp">
       <Filter>Object\Wood</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)KeyParticle.cpp">
       <Filter>KeyParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp">
+      <Filter>Sprite\ClockSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp">
+      <Filter>Sprite\FadeOut</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerState.cpp">
+      <Filter>State\PlayerState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -195,7 +202,7 @@
       <Filter>Other</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h">
-      <Filter>State\EnemyStage</Filter>
+      <Filter>State\EnemyState</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SurprisedSprite.h">
       <Filter>Sprite\Surprised</Filter>
@@ -209,19 +216,26 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AlertlevelGauge.h">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoseSightOf.h">
       <Filter>Sprite\LoseSightOf</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)WoodenBox.h">
-      <Filter>Object\WoodenBox</Filter>
+      <Filter>Object\WoodBox</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Wood.h">
       <Filter>Object\Wood</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)KeyParticle.h">
       <Filter>KeyParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h">
+      <Filter>Sprite\ClockSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h">
+      <Filter>Sprite\FadeOut</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)playerState.h">
+      <Filter>State\PlayerState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -300,9 +314,6 @@
     <Filter Include="Object\Enemy\BaseEnemy">
       <UniqueIdentifier>{2b65b0bd-0e1f-4f2a-b231-2722b20ad084}</UniqueIdentifier>
     </Filter>
-    <Filter Include="State\EnemyStage">
-      <UniqueIdentifier>{9d24c86d-2c4b-4681-8f5d-bfec65d359fb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sprite\Surprised">
       <UniqueIdentifier>{1b6e1205-e679-4a00-9bdc-5833cea465d1}</UniqueIdentifier>
     </Filter>
@@ -339,9 +350,6 @@
     <Filter Include="Sprite\LoseSightOf">
       <UniqueIdentifier>{3736865d-3992-45ea-a504-6df8bdd8cfee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\WoodenBox">
-      <UniqueIdentifier>{088fdcb1-3b41-442a-a314-d8057cb3db50}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sprite\Timer">
       <UniqueIdentifier>{5fd87dde-7a84-4463-9135-8eae287877ce}</UniqueIdentifier>
     </Filter>
@@ -350,6 +358,21 @@
     </Filter>
     <Filter Include="KeyParticle">
       <UniqueIdentifier>{5486842c-a282-4a77-b8c2-c90bb79499fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\ClockSprite">
+      <UniqueIdentifier>{520899fc-214f-47dc-ae95-b8d123f3d955}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\FadeOut">
+      <UniqueIdentifier>{0faa8958-a51e-49b9-8c1f-4792bfeba927}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\PlayerState">
+      <UniqueIdentifier>{d6213656-1c77-43fd-8f4c-948497df5c9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\EnemyState">
+      <UniqueIdentifier>{9d24c86d-2c4b-4681-8f5d-bfec65d359fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\WoodBox">
+      <UniqueIdentifier>{088fdcb1-3b41-442a-a314-d8057cb3db50}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

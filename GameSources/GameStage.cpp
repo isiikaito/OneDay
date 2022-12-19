@@ -594,10 +594,14 @@ namespace basecross {
 
 		
 
+		////---------------------------------
+		auto scene = App::GetApp()->GetScene<Scene>();
+		// scene->SetGameTime(elapsedTime);
+		////-------------------------------
 		GameTime();
 		CreateLightingCol();
 		
-		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+		//auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
 		auto gameOver = scene->GetGameOver();
 		if (gameOver == true)
 		{

@@ -27,7 +27,7 @@ namespace basecross{
 		@brief コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		Scene() :SceneBase(), m_AlertlevelCount(0), m_IsGameOver(false) , m_IsGameOverSprite(false),m_gameStageTime(0.0f) {}
+		Scene() :SceneBase(), m_AlertlevelCount(0), m_IsGameOver(false) , m_IsGameOverSprite(false),m_gameStageTime(0.0f),m_keyNamber(0) {}
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief デストラクタ
