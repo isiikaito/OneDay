@@ -527,6 +527,9 @@ namespace basecross {
 	void GameStage::OnCreate() {
 		try {
 
+			//!エフェクト作成
+			m_EfkInterface = ObjectFactory::Create<EfkInterface>();
+
 			SetPhysicsActive(true);//物理計算有効
 			//! 「アプリ」オブジェクトのインスタンスを取得する（インスタンス：クラスの実態、オブジェクト指向のオブジェクトのこと）
 			auto& app = App::GetApp();
@@ -592,12 +595,11 @@ namespace basecross {
 
 	void GameStage::OnUpdate() {
 
-		
+		m_EfkInterface->OnUpdate();
 
-		////---------------------------------
+		
 		auto scene = App::GetApp()->GetScene<Scene>();
-		// scene->SetGameTime(elapsedTime);
-		////-------------------------------
+		
 		GameTime();
 		CreateLightingCol();
 		
@@ -615,7 +617,12 @@ namespace basecross {
 	}
 	//!ゲームオーバーはステージを変えない。
 	//! 倒れるモーションが入ってフェードアウトして一枚絵になる。
-
+	void GameStage::OnDraw()
+	{
+		auto& camera = GetView()->GetTargetCamera();
+		m_EfkInterface->SetViewProj(camera->GetViewMatrix(), camera->GetProjMatrix());
+		m_EfkInterface->OnDraw();
+	}
 	
 
 	////BGMの再生

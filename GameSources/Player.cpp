@@ -137,16 +137,7 @@ namespace basecross {
 			}
 		}
 
-		if (m_IsPlayerDed == true)
-		{
-			//—§‚¿~‚Ü‚éƒAƒjƒ[ƒVƒ‡ƒ“
-			if (AnimationName == L"Move" || AnimationName == L"Default") {
-				ptrDraw->ChangeCurrentAnimation(L"Ded");
-				auto XAptr = App::GetApp()->GetXAudio2Manager();
-				XAptr->Stop(m_BGM);
-
-			}
-		}
+		
 		//!‰ñ“]‚ÌŒvZ
 		if (angle.length() > 0.0f) {
 			auto utilPtr = GetBehavior<UtilBehavior>();
@@ -158,6 +149,13 @@ namespace basecross {
 
 	//!‰Šú‰»
 	void Player::OnCreate() {
+
+		//ƒGƒtƒFƒNƒg‚Ì‰Šú‰»
+		wstring DataDir;
+		App::GetApp()->GetDataDirectory(DataDir);
+		wstring TestEffectStr = DataDir + L"Effects\\test1.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
+		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!ƒGƒtƒFƒNƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾
+		m_EfkEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, TestEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
 
 		//!‰ŠúˆÊ’u‚È‚Ç‚Ìİ’è
 		auto ptr = AddComponent<Transform>();
@@ -191,8 +189,8 @@ namespace basecross {
 		ptrDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");
 
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
-		ptrDraw->AddAnimation(L"Default", 31, 30, true, 15.0f);
+		ptrDraw->AddAnimation(L"Move", 0, 30, true, 20.0f);
+		ptrDraw->AddAnimation(L"Default", 31, 30, true, 10.0f);
 		ptrDraw->AddAnimation(L"Ded", 61, 30, false, 30.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Default");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
@@ -455,6 +453,12 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’
 	}
 	void Player::OnPushB()
 	{
+
+		auto Ptr = GetComponent<Transform>();
+		//ƒGƒtƒFƒNƒg‚ÌƒvƒŒƒC
+		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
+		m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_EfkEffect, Ptr->GetPosition());
+
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto gameOver = scene->GetGameOver();
 		//!ƒQ[ƒ€ƒI[ƒo[‚É‚È‚Á‚Ä‚È‚¢‚É

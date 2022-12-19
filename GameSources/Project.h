@@ -4,6 +4,17 @@
 */
 
 #pragma once
+#include <Effekseer.h>
+#include <EffekseerRendererDX11.h>
+
+#if _DEBUG
+#pragma comment(lib, "Effekseerd.lib" )
+#pragma comment(lib, "EffekseerRendererDX11d.lib" )
+#else
+#pragma comment(lib, "Effekseer.lib" )
+#pragma comment(lib, "EffekseerRendererDX11.lib" )
+#endif
+
 
 
 #include "ProjectShader.h"
@@ -43,3 +54,4 @@
 #include"FadeOut.h"
 #include"Wood.h"
 #include"KeyParticle.h"
+#include "EfkInterfece.h"

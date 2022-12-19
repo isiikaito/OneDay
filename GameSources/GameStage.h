@@ -5,7 +5,7 @@
 
 #pragma once
 #include "stdafx.h"
-
+#include "EfkInterfece.h"
 namespace basecross {
 
 	//--------------------------------------------------------------------------------------
@@ -24,6 +24,7 @@ namespace basecross {
 		int m_keyNamber; //!鍵の配置
 		
 		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
+		shared_ptr<EfkInterface> m_EfkInterface;
 
 	public:
 		//構築と破棄
@@ -55,7 +56,14 @@ namespace basecross {
 		//初期化
 		virtual void OnCreate()override;
 
+		shared_ptr<EfkInterface> GetEfkInterface() const
+		{
+			return m_EfkInterface;
+		}
+
 		virtual void OnUpdate()override;
+
+		virtual void OnDraw() override;
 
 		virtual void OnDestroy() override;
 

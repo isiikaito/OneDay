@@ -9,7 +9,7 @@
 #include "Project.h"
 
 namespace basecross {
-
+	constexpr float DrawTime = 31.0f;
 
 	//--------------------------------------------------------------------------------------
 	//	class FixedBox : public GameObject;
@@ -75,7 +75,7 @@ namespace basecross {
 		// !–é‚©‚ç’‹‚É‚È‚éˆ—
 		if ( m_oneday == static_cast<int>(Oneday::midday))
 		{
-			m_Time += gameTime / 31; //!ŠÔ‚ğ•Ï”‚É‘«‚·
+			m_Time += gameTime / DrawTime; //!ŠÔ‚ğ•Ï”‚É‘«‚·
 			ptrDraw->SetEmissive(Col4(m_Time - 0.3f, m_Time - 0.3f, m_Time - 0.3f, 1.0f)); // !’‹‚É‚·‚éˆ—
 			if (m_Time >= 1.0f)
 			{
@@ -86,7 +86,7 @@ namespace basecross {
 		// !’‹‚©‚ç–é‚É‚È‚éˆ—
 		if (m_oneday == static_cast<int>(Oneday::night))
 		{
-			m_Time -= gameTime / 31; //!ŠÔ‚ğ•Ï”‚©‚çŒ¸‚ç‚·
+			m_Time -= gameTime / DrawTime; //!ŠÔ‚ğ•Ï”‚©‚çŒ¸‚ç‚·
 			ptrDraw->SetEmissive(Col4(m_Time - 0.3f, m_Time - 0.3f, m_Time - 0.3f, 1.0f)); // !–é‚É‚·‚éˆ—
 			if (m_Time <= 0.0f)
 			{

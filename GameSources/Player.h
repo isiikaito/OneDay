@@ -59,7 +59,11 @@ namespace basecross {
 		kaito::StateMachine<Player>* m_StateMachine;//!プレイヤーのステートマシン
 		float m_gameTime;
 		float m_vibration;//コントローラーの振動
-
+		
+		//エフェクト
+		shared_ptr<EfkEffect> m_EfkEffect;
+		//エフェクト実行オブジェクト
+		shared_ptr<EfkPlay> m_EfkPlay;
 	public:
 		//構築と破棄
 		//--------------------------------------------------------------------------------------
