@@ -37,8 +37,13 @@ namespace basecross{
 		strTexture = dataDir + L"Texture\\" + L"PlayerHp.png";
 		App::GetApp()->RegisterTexture(L"PlayerHp_TX", strTexture);
 		//!時計のスプライト
-		strTexture = dataDir + L"Texture\\" + L"testTime.png";
-		App::GetApp()->RegisterTexture(L"testTime_TX", strTexture);
+		strTexture = dataDir + L"Texture\\" + L"Clock.png";
+		App::GetApp()->RegisterTexture(L"Clock_TX", strTexture);
+
+		//!時計の円盤のスプライト
+		strTexture = dataDir + L"Texture\\" + L"Circle.png";
+		App::GetApp()->RegisterTexture(L"Circle_TX", strTexture);
+
 		//!ビックリマークのスプライト
 		strTexture = dataDir + L"Texture\\" + L"Surprised.png";
 		App::GetApp()->RegisterTexture(L"Surprised_TX", strTexture);

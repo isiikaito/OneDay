@@ -250,7 +250,7 @@ namespace basecross {
 			L"NUMBER_TX",
 			true,
 			Vec2(50.0f, 40.0f),
-			Vec3(-430.0f, 265.0f, 10.0f));
+			Vec3(-420.0f, 265.0f, 10.0f));
 
 	}
 
@@ -439,10 +439,23 @@ namespace basecross {
 	{
 		AddGameObject<ClockSprite>
 			(
-				L"testTime_TX",
+				L"Clock_TX",
 				true,
-				Vec2(250.0f, 250.0f),
+				Vec2(350.0f, 250.0f),
 				Vec2(-480.0f, 290.0f)
+				);
+
+	}
+
+	// !時計の円盤のスプライトの作成
+	void GameStage::CreateCircleClockSprite()
+	{
+		AddGameObject<CircleClockSprite>
+			(
+				L"Circle_TX",
+				true,
+				Vec2(130.0f, 130.0f),
+				Vec2(-573.0f, 263.0f)
 				);
 
 	}
@@ -581,6 +594,7 @@ namespace basecross {
 			CreateAlertlevelGauge();//!警戒度のゲージの作成
 			CreateArrow();//!矢印の作成
 			CreateClockSprite(); //!時計のスプライトの作成
+			CreateCircleClockSprite(); //!時計の円盤のスプライトの作成
 			CreateWoodenBox();//!箱の作成
 			CreateWood();
 			

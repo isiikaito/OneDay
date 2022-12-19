@@ -1,26 +1,31 @@
 /*!
-@file ClockSprite.cpp
-@brief 時計の表示
+@file CircleClockSprite.cpp
+@brief 時計の円盤の表示
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
+
+	//!定数
+	constexpr float m_TimeSpeed = 30;
+	
 	//--------------------------------------------------------------------------------------
-	///	キースプライト
+	///	円盤のスプライト
 	//--------------------------------------------------------------------------------------
-	ClockSprite::ClockSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureClock, bool Trace,
+	CircleClockSprite::CircleClockSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureClock, bool Trace,
 		const Vec2& StartScale, const Vec2& StartPos) :
 		GameObject(StagePtr),
 		m_TextureClock(TextureClock),
 		m_Trace(Trace),
 		m_StartScale(StartScale),
-		m_StartPos(StartPos)
+		m_StartPos(StartPos),
+		m_CircleTime(0.0f)
 	{}
 
-	ClockSprite::~ClockSprite() {}
-	void ClockSprite::OnCreate() {
+	CircleClockSprite::~CircleClockSprite() {}
+	void CircleClockSprite::OnCreate() {
 		float HelfSize = 0.5f;
 		//頂点配列(縦横5個ずつ表示)
 		vector<VertexPositionColorTexture> vertices = {
@@ -35,7 +40,7 @@ namespace basecross {
 		auto PtrTransform = GetComponent<Transform>();
 		PtrTransform->SetScale(m_StartScale.x, m_StartScale.y, 1.0f);
 		PtrTransform->SetRotation(0, 0, 0);
-		PtrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 0.2f);
+		PtrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 1.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto PtrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
 		PtrDraw->SetSamplerState(SamplerState::LinearWrap);
@@ -44,6 +49,14 @@ namespace basecross {
 
 	}
 
+	void CircleClockSprite::OnUpdate() {
+
+		//!円盤が回転する処理
+		auto Time = App::GetApp()->GetElapsedTime();
+		m_CircleTime += Time / m_TimeSpeed;
+		auto SpriteTransform = GetComponent<Transform>();
+		SpriteTransform->SetRotation(0, 0, m_CircleTime);
+	}
 
 }
 //end basecross

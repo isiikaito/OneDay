@@ -116,6 +116,7 @@
       <Filter>State\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CircleClockSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -239,6 +240,7 @@
       <Filter>State\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)EfkInterfece.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CircleClockSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">

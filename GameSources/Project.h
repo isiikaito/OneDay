@@ -46,6 +46,7 @@
 #include"PlayerHeartSpriteRight.h"
 #include"SurprisedSprite.h"
 #include "ClockSprite.h"
+#include "CircleClockSprite.h"
 #include"LoseSightOf.h"
 #include"Hunter.h"
 #include"AlertlevelGauge.h"

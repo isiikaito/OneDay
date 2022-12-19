@@ -1,9 +1,9 @@
 diff a/GameSources/GameSources.vcxitems.filters b/GameSources/GameSources.vcxitems.filters	(rejected hunks)
-@@ -94,6 +94,7 @@
-      <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp">
-        <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
+@@ -115,6 +115,7 @@
+      <ClCompile Include="$(MSBuildThisFileDirectory)PlayerState.cpp">
+        <Filter>State\PlayerState</Filter>
       </ClCompile>
 ++<<<<<<< Updated upstream
- +    <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
+ +    <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp" />
  +=======
-      <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp">
+      <ClCompile Include="$(MSBuildThisFileDirectory)CircleClockSprite.cpp" />
