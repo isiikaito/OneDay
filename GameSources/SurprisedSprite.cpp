@@ -75,34 +75,23 @@ namespace basecross
 
 	void SurprisedSprite::Surprised()
 	{
-		auto GetHunter = std::dynamic_pointer_cast<BaseEnemy>(parent);
+		auto GetEnemy = std::dynamic_pointer_cast<BaseEnemy>(parent);
 
 
-		auto SurprisedTarget = GetHunter->GetSurprisedSprite();
+		auto SurprisedTarget = GetEnemy->GetSurprisedSprite();
 
 		//!ƒvƒŒƒCƒ„[‚ªŒ©‚Â‚©‚Á‚½‚ç
 		if (SurprisedTarget == true)
 		{
-			float Time = App::GetApp()->GetElapsedTime();//!ŽžŠÔ‚ÌŽæ“¾
-			m_SurprisedTime += Time;
-
-			
-			m_IsFoundPlayer = true;
+		
+			SetDrawActive(true);
 		}
 
-		if (m_IsFoundPlayer == true)
+		else
 		{
-             SetDrawActive(true);
-			//!2•b‚½‚Á‚½‚ç
-			if (m_SurprisedTime >= MaxSurprisedTime)
-			{
-				SetDrawActive(false);//!•`‰æ‚ð‚â‚ß‚é
-				SurprisedTarget = false;
-				GetHunter->SetloseSightOfTarget(SurprisedTarget);
-				
-				m_IsFoundPlayer = false;
-			}
+			SetDrawActive(false);
 		}
+		
 
 	}
 

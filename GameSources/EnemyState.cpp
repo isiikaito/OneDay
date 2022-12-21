@@ -10,6 +10,7 @@ namespace basecross
 		constexpr float eyeRang = 40.0f;
 		constexpr float m_maxLostTime=5.0f;
 		constexpr float m_maxPEdistance=40.0f;
+	
 		//!追いかけるステート-----------------------------------------
 
 		//!インスタンスの生成(実体の作成)
@@ -29,6 +30,9 @@ namespace basecross
 
 		void SeekState::Execute(BaseEnemy* Enemy)
 		{
+
+		
+			
 
 			//!追いかける処理を書く
 			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得

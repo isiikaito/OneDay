@@ -31,13 +31,11 @@ namespace basecross
 		m_dedDecision(false),
 		m_lostTime(0.0f),
 		m_damage(-1)
-
 	{
 	}
 
 	//!デストラクタ
 	Villager::~Villager() {}
-
 
 
 	//!初期化

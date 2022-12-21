@@ -30,12 +30,18 @@ namespace basecross
 		float m_StateChangeSize;//!ステートの変更
 		float m_MaxSpeed;//!最大の速度
 		int m_Enemypatorolindex;//!敵の巡回ポイントの数
+		int m_randomCount;//!特定の値になると敵が周りを見渡す
 		bool m_seekCondition;//!敵が追いかけているかどうか
         bool m_loseSightOfTarget;//!プレイヤーを見失っているとき
 		bool m_SurprisedSprite;//!プレイヤーを見つけた時
 		bool m_IspositionLiset;//!ポジションのリセット
 		bool m_IsEnemyDed;//!敵の死亡判定
 		float m_eyeRange;//!敵の視野の長さ
+		float m_surprisedTime;//!驚いている時間
+		float m_rotationTime;//!回転している速度
+		float m_randomTime;//!ランダムにするための時間
+		bool m_patrolRotation;//!巡回中に周りを見渡す
+
 	protected:
 		
 
@@ -206,6 +212,16 @@ namespace basecross
 		
 		//!適応力
 		void ApplyForce();
+		//!ビックリマークの表示時間
+		void SurprisedTime();
+		//!アニメーションの更新
+		void AnimationUpdate();
+		//!障害物を避ける行動
+		void ObstacleAvoidance();
+		//!移動方向に向く処理
+		void Facade();
+		//!敵のランダムで回転する
+		void EnemyRandomRotation();
 
 		//!ステートの変更
 		virtual void ChangeState(kaito::State<BaseEnemy>* NewState);

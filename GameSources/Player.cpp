@@ -76,7 +76,7 @@ namespace basecross {
 		if (moveX != 0 || moveZ != 0) {
 			float moveLength = 0;	//!動いた時のスピード
 			auto ptrTransform = GetComponent<Transform>();
-			auto ptrCamera = OnGetDrawCamera();
+			auto& ptrCamera = OnGetDrawCamera();
 
 			//!進行方向の向きを計算
 			auto front = ptrTransform->GetPosition() - ptrCamera->GetEye();
@@ -108,8 +108,7 @@ namespace basecross {
 	void Player::MovePlayer() {
 		//アニメーション
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
-		auto animation = ptrDraw->GetCurrentAnimation();
-		auto AnimationName = ptrDraw->GetCurrentAnimation();
+		auto& AnimationName = ptrDraw->GetCurrentAnimation();
 
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		auto angle = GetMoveVector();

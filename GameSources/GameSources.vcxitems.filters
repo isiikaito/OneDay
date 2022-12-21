@@ -115,8 +115,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerState.cpp">
       <Filter>State\PlayerState</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)CircleClockSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CircleClockSprite.cpp">
+      <Filter>CircleClockSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp">
+      <Filter>EfkInterfece</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -239,8 +243,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)playerState.h">
       <Filter>State\PlayerState</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)EfkInterfece.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)CircleClockSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CircleClockSprite.h">
+      <Filter>CircleClockSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EfkInterfece.h">
+      <Filter>EfkInterfece</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -377,6 +385,12 @@
     </Filter>
     <Filter Include="Object\WoodBox">
       <UniqueIdentifier>{088fdcb1-3b41-442a-a314-d8057cb3db50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CircleClockSprite">
+      <UniqueIdentifier>{5af14bf9-13fb-437b-bdba-5d3548085b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EfkInterfece">
+      <UniqueIdentifier>{77eb8001-fb2b-416a-af98-0d73451ea895}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

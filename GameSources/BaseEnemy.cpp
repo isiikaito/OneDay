@@ -9,12 +9,16 @@
 
 namespace basecross
 {
+	constexpr float m_maxSurprisedTime = 2.0f;
+	constexpr float m_maxRotationTime = 4.0f;
+	constexpr int m_randomRange = 6;
+	constexpr int m_randomNumber = 4;
 	//!-------------------------------------
 	//! 敵のオブジェクトの親
 	//! ------------------------------------
 
 	//!構造と破棄
-	BaseEnemy::BaseEnemy(const shared_ptr<Stage>&StagePtr):
+	BaseEnemy::BaseEnemy(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr),
 		m_Force(0),
 		m_Velocity(0),
@@ -26,7 +30,12 @@ namespace basecross
 		m_eyeRange(0),
 		m_IspositionLiset(false),
 		m_SurprisedSprite(false),
-		m_seekCondition(false)
+		m_seekCondition(false),
+		m_surprisedTime(0.0f),
+		m_patrolRotation(false),
+		m_rotationTime(0.0f),
+		m_randomTime(0.0f),
+		m_randomCount(0)
 	{
 		m_StateMachine = new kaito::StateMachine<BaseEnemy>(this);
 		m_StateMachine->SetCurrentState(kaito::PatrolState::Instance());
@@ -62,29 +71,109 @@ namespace basecross
 
 	void BaseEnemy::ChangeState(kaito::State<BaseEnemy>* NewState)
 	{
-		
+
 		m_StateMachine->ChangeState(NewState);
 	}
-	
+
 	shared_ptr<Player>BaseEnemy::GetTarget()const {
 		return std::dynamic_pointer_cast<Player>(GetStage()->GetSharedObject(L"Player"));
 	}
 
-	void BaseEnemy::OnUpdate()
+	void BaseEnemy::SurprisedTime()
+	{
+		if (m_SurprisedSprite == true)
+		{
+
+			auto Time = App::GetApp()->GetElapsedTime();
+			m_surprisedTime += Time;
+			if (m_surprisedTime >= m_maxSurprisedTime)
+			{
+				m_SurprisedSprite = false;
+			}
+
+		}
+		else
+		{
+			m_surprisedTime = 0.0f;
+		}
+	}
+
+	void BaseEnemy::AnimationUpdate()
 	{
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
 		ptrDraw->UpdateAnimation(elapsedTime);
-		
-		m_StateMachine->Update();
+	}
 
+	void BaseEnemy::ObstacleAvoidance()
+	{
 		auto ptrAvoidance = GetBehavior<ObstacleAvoidanceSteering>();//!障害物を避ける行動
 		m_Force += ptrAvoidance->Execute(m_Force, GetVelocity());
-		ApplyForce();
-		m_Force = Vec3(0);
+	}
 
+	void BaseEnemy::Facade()
+	{
 		auto ptrUtil = GetBehavior<UtilBehavior>();
 		ptrUtil->RotToHead(1.0f);
+	}
+
+	void BaseEnemy::EnemyRandomRotation()
+	{
+		auto& app = App::GetApp();//!アプリの取得
+		auto time = app->GetElapsedTime();//!時間の取得
+		m_randomTime += time;//!ランダムタイムに時間を足す
+
+		srand(m_randomTime);//!乱数の初期化
+		m_randomCount = rand() % m_randomRange;
+
+		if (m_randomCount == m_randomNumber)
+		{
+			m_patrolRotation = true;
+		}
+
+		if (m_patrolRotation == true)
+		{
+			auto EnemyTransform = GetComponent<Transform>();
+			auto Time = App::GetApp()->GetElapsedTime();
+			m_rotationTime += Time;
+			EnemyTransform->SetRotation(0, m_rotationTime, 0);
+
+			if (m_rotationTime >= m_maxRotationTime)
+			{
+				m_patrolRotation = false;
+			}
+
+			if (m_seekCondition == true)
+			{
+				m_patrolRotation = false;
+			}
+
+		}
+
+	}
+
+	void BaseEnemy::OnUpdate()
+	{
+		AnimationUpdate();
+
+		m_StateMachine->Update();
+
+		ObstacleAvoidance();
+
+		EnemyRandomRotation();
+		
+		if (m_patrolRotation == false)
+		{
+			m_rotationTime = 0.0f;
+			ApplyForce();
+		}
+
+		m_Force = Vec3(0);
+
+		Facade();
+
+		SurprisedTime();
+
 	}
 
 }

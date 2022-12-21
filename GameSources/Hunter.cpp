@@ -108,8 +108,6 @@ namespace basecross
 		auto angle = angleBetweenNormals(Enemyfront, phdistans);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
 		auto chk = XM_PI / dividedNumber;//!360を6で割って角度を出す。
 
-
-
 		if (m_seekCondition == true)
 		{
 

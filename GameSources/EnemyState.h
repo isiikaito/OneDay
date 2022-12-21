@@ -13,6 +13,7 @@ namespace basecross
 
 		private:
 			SeekState() {}
+			float m_surprisedTime = 0.0f;
 
 			//!シングルトンパターン
 			SeekState(const SeekState&) = delete;//!関数を削除する

@@ -8,6 +8,8 @@
 
 namespace basecross {
 	
+	constexpr int randomspeed = 22;
+	constexpr int randomNumber = 3;
 	//--------------------------------------------------------------------------------------
 //	タイトルステージクラス
 //--------------------------------------------------------------------------------------
@@ -46,9 +48,9 @@ namespace basecross {
 		auto scene = app->GetScene<Scene>();
 		
 		auto time = app->GetElapsedTime();
-		m_keyTime += time*22;
+		m_keyTime += time* randomspeed;
 		srand(m_keyTime);
-		m_keyNumber = rand() % 3;
+		m_keyNumber = rand() % randomNumber;
 		scene->SetKeyNamber(m_keyNumber);
 
 
