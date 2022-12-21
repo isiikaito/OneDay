@@ -17,6 +17,7 @@ namespace basecross {
 		Vec2 m_StartScale;
 		Vec2 m_StartPos;
 		wstring m_TextureKey;
+
 	public:
 
 		GameClearSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,

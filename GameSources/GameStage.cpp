@@ -250,7 +250,7 @@ namespace basecross {
 			L"NUMBER_TX",
 			true,
 			Vec2(50.0f, 40.0f),
-			Vec3(-420.0f, 265.0f, 10.0f));
+			Vec3(-400.0f, 265.0f, 10.0f));
 
 	}
 
@@ -442,7 +442,7 @@ namespace basecross {
 				L"Clock_TX",
 				true,
 				Vec2(350.0f, 250.0f),
-				Vec2(-480.0f, 290.0f)
+				Vec2(-460.0f, 290.0f)
 				);
 
 	}
@@ -455,7 +455,7 @@ namespace basecross {
 				L"Circle_TX",
 				true,
 				Vec2(130.0f, 130.0f),
-				Vec2(-573.0f, 263.0f)
+				Vec2(-553.0f, 263.0f)
 				);
 
 	}
@@ -600,7 +600,12 @@ namespace basecross {
 			
 			CreateGameOver();//!ゲームオーバー
 			
-			
+			auto gameOver = scene->GetGameOver();
+			if (gameOver == true)
+			{
+				CreateGameOverBGM();
+
+			}
 		}
 		catch (...) {
 			throw;
@@ -622,13 +627,14 @@ namespace basecross {
 		if (gameOver == true)
 		{
 			OnDestroy();
+
 		}
+		//else { DestroyGameOverBGM(); }
 
 		m_InputHandler.PushHandle(GetThis<GameStage>());
 
-	
-
 	}
+
 	//!ゲームオーバーはステージを変えない。
 	//! 倒れるモーションが入ってフェードアウトして一枚絵になる。
 	void GameStage::OnDraw()
@@ -639,21 +645,33 @@ namespace basecross {
 	}
 	
 
-	////BGMの再生
+	// !BGMの再生
 	void GameStage::CreatePlayBGM()
 	{
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
 		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, 0.3f);
 	}
 
-	/// BGMのストップ
+	// !ゲームオーバーのBGMの再生
+	void GameStage::CreateGameOverBGM()
+	{
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		m_GameOverBGM = XAPtr->Start(L"GameOver", XAUDIO2_LOOP_INFINITE, 0.3f);
+
+	}
+
+	// !BGMのストップ
 	void GameStage::OnDestroy()
 	{
-		
         auto XAPtr = App::GetApp()->GetXAudio2Manager();
-		XAPtr->Stop(m_BGM);
-		
-		
+		XAPtr->Stop(m_BGM);	
+	}
+
+	// !ゲームオーバーBGMの削除
+	void GameStage::DestroyGameOverBGM()
+	{
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		XAPtr->Stop(m_GameOverBGM);
 	}
 
 	void GameStage::OnPushA()

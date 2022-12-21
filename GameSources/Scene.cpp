@@ -166,12 +166,13 @@ namespace basecross{
 		wstring firingWav = dataDir + "Sound\\" L"firing.wav";//カギを拾う音
 		App::GetApp()->RegisterWav(L"firing", firingWav);
 
-		
+		wstring GameClearWav = dataDir + "Sound\\" L"GameClear.wav";//ゲームクリア音
+		App::GetApp()->RegisterWav(L"GameClear", GameClearWav);
 
-		
+		wstring GameOverWav = dataDir + "Sound\\" L"GameOver.wav";//ゲームオーバー音
+		App::GetApp()->RegisterWav(L"GameOver", GameOverWav);
 
-		
-
+	
 
 	}
 

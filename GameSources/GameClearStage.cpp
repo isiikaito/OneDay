@@ -38,15 +38,23 @@ namespace basecross {
 		CreateViewLight();
 		//スプライトの作成
 		CreateGameClearSprite();
+
+		//!BGM
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		m_BGM = XAPtr->Start(L"GameClear", XAUDIO2_LOOP_INFINITE, 0.3f);
+
 	}
 
 	void GameClearStage::OnUpdate() {
 		m_InputHandler.PushHandle(GetThis<GameClearStage>());
+
 	}
+
 
 	//Aボタン
 	void GameClearStage::OnPushA() {
 		PostEvent(0.0f, GetThis<GameClearStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 	}
+
 }
 //end basecros

@@ -14,7 +14,8 @@ namespace basecross {
 	//--------------------------------------------------------------------------------------
 	class GameClearStage : public Stage {
 	private:
-		InputHandler<GameClearStage> m_InputHandler;//!入力ハンドラー
+		InputHandler<GameClearStage> m_InputHandler;//!入力ハンドラー		
+		shared_ptr<SoundItem>m_BGM; //!BGM
 
 	public:
 		
@@ -30,6 +31,7 @@ namespace basecross {
 		virtual void OnCreate()override;
 
 		void OnPushA();//!Aボタン
+		//void OnDestroy();
 
 		//更新
 		virtual void OnUpdate()override;

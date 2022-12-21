@@ -18,7 +18,9 @@ namespace basecross {
 		CsvFile m_GameStageCsvC; // !建物の配置3
 		CsvFile m_GameStageCsvD;// !建物の配置4
 		CsvFile m_KeyPositon; // !鍵の配置
-		CsvFile m_StageCsv;          //!ステージCSVファイル
+		CsvFile m_StageCsv;   //!ステージCSVファイル
+		shared_ptr<SoundItem>m_BGM; //!BGM
+		shared_ptr<SoundItem>m_GameOverBGM; //!ゲームオーバーのBGM
 		float m_TotalTime;//!トータル時間(タイマーの作成)
 		const float m_GameTime;
 		int m_keyNamber; //!鍵の配置
@@ -47,8 +49,9 @@ namespace basecross {
 		void CreateWoodenBox();//!木箱の作成
 		void CreateWood();//木の作成
 		void CreateTimerSprite();//!タイマースプライト作成
-		shared_ptr<SoundItem>m_BGM;
 		void CreatePlayBGM();//!BGM作成
+		void CreateGameOverBGM(); //!ゲームオーバーのBGM
+		void DestroyGameOverBGM(); //!ゲームオーバーのBGMの削除
 		void CreateHeartSprite();//!ハンターのライフの作成
 		void CreateArrow();//!矢印の作成
 		void CreateGameOver();//!ゲームオーバースプライト
