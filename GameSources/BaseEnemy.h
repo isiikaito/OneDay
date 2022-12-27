@@ -173,13 +173,13 @@ namespace basecross
 			m_IspositionLiset= IspositionLiset;
 		}
 
-		//!ハンターの生死の取得
+		//!敵の生死の取得
 		bool GetIsEnemyDed()
 		{
 			return m_IsEnemyDed;
 		}
 
-		//!ハンターの生死の設定
+		//!敵の生死の設定
 		void SetIsEnemyDed(bool IsEnemyDed)
 		{
 			m_IsEnemyDed = IsEnemyDed;
