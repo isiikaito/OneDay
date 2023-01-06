@@ -56,7 +56,6 @@ namespace basecross
 			Vec3(0.0f, -1.0f, 0.0f)  //!位置
 		);
 
-		AddTag(L"Villager_ObjGroup");//!オブジェクトタグの作成
 		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");//!オブジェクトのグループを得る
 		group->IntoGroup(GetThis<Villager>());//!グループに自分自身を追加
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用

@@ -218,6 +218,9 @@ namespace basecross {
 		UpdateArmLengh();
 		Camera::OnUpdate();
 		
+		//!画角を変えることが出来る
+		//auto chk = XM_PI / 9.0f;//!360を6で割って角度を出す。
+		//SetFovY(chk);
 
 		auto& app = App::GetApp();//!アプリの取得
 		auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得

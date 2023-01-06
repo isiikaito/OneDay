@@ -95,7 +95,10 @@ namespace basecross{
 		auto staticModelMesh10 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Wood.bmf");
 		App::GetApp()->RegisterResource(L"STAGE_WOOD", staticModelMesh10);
 
-     
+	    //!肉のモデルの読み込み
+		auto staticModelMesh11 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Meat.bmf");
+		App::GetApp()->RegisterResource(L"MEAT_MESH", staticModelMesh11);
+
 
 		//モデル
 		//ボーンモデルの通常リソース

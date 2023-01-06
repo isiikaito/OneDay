@@ -38,6 +38,7 @@ namespace basecross {
 		const float m_Ded;//!死亡
 		int m_PlayerPositionOnSecondMax;//!プレイヤーの位置の配列の最大の長さ
 		int m_PlayerHp;//!プレイヤーの体力
+		int m_meatCount;//!肉を取得した数
 		const int m_reset;//1ループリセット
 		float m_wolfPlayerSpeed;//!狼男になったときのスピード
 		float m_humanPlayerSpeed;//!人間の時のスピード
@@ -165,7 +166,7 @@ namespace basecross {
 		//--------------------------------------------------------------------------------------
 		void OnPushB();
 
-		shared_ptr<SoundItem>m_BGM;
+		shared_ptr<SoundItem>m_Wolk;
 		shared_ptr<SoundItem>m_Howling;
 
 

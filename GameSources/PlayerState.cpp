@@ -2,12 +2,17 @@
 #include "Project.h"
 #include "Utility.h"
 #include "PlayerState.h"
+#include "Meat.h"
+
 namespace basecross
 {
 	namespace kaito
 	{
 		constexpr float m_maxHumanChangeTime = 31.0f;
 		constexpr float m_maxWolfChangeTime = 61.0f;
+		constexpr int randomNumber = 2;
+		constexpr float m_MeatTimeSpeed = 22.0f;
+		
 
 		//!人間状態の時----------------------------------------------------------
 		//!インスタンスの生成(実体の作成)
@@ -17,11 +22,59 @@ namespace basecross
 			return &instance;
 		}
 
+		void HumanState::ReadCsv(const wstring& FileNume)
+		{
+			wstring DataDir;
+			App::GetApp()->GetDataDirectory(DataDir);
+			auto scene = App::GetApp()->GetScene<Scene>();
+
+			//!シーンの取得
+			m_MeatNumber = scene->GetMeatNamber();
+
+			// フォルダの指定
+			auto csvDirectory = DataDir + L"csvFolder\\";
+			//!MetaPositonファイルの読み込み
+			m_MeatPositon.SetFileName(csvDirectory + FileNume + Util::IntToWStr(m_MeatNumber) + L".csv");
+			m_MeatPositon.ReadCsv();
+		}
+		
+		void HumanState:: CreateMeat()
+		{
+			
+			ReadCsv(L"MeatPosition");
+
+			//!肉の削除
+			auto& app = App::GetApp();//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+
+				//CSVの全体の配列
+				//CSVからすべての行を抜き出す
+				auto& LineVec = m_MeatPositon.GetCsvVec();
+				
+				for (size_t i = 0; i < LineVec.size(); i++) {
+					//トークン（カラム）の配列
+					vector<wstring> Tokens;
+					//トークン（カラム）単位で文字列を抽出(L','をデリミタとして区分け)
+					Util::WStrToTokenVector(Tokens, LineVec[i], L',');
+					for (size_t j = 0; j < Tokens.size(); j++) {
+						//XとZの位置を計算
+						float XPos = (float)((int)j - 8.6f) * 10.0f;
+						float ZPos = (float)(8.6f - (int)i) * 10.0f;
+						if (Tokens[j] == L"5")//5の時にゲームステージに追加
+						{
+							Stage->AddGameObject<Meat>(Vec3(5.0f, 5.0f, 5.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 4.0f, ZPos));
+						}
+					}
+				}
+		}
+
 		void  HumanState::Enter(Player* Player)
 		{
 			auto playerChange = Player->GetPlayerCange();
 			playerChange = static_cast<int>(PlayerModel::human);//!状態を狼にする
 			Player->SetPlayerChange(playerChange);
+			CreateMeat();
 		}
 
 		void HumanState::Execute(Player* Player)
@@ -71,6 +124,20 @@ namespace basecross
 			auto ptrXA = App::GetApp()->GetXAudio2Manager();
 			ptrXA->Start(L"howling", 0, 1.0f);
 
+			//!肉の削除
+			auto& app = App::GetApp();//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+
+			for (auto& Obj : Objects)//!オブジェクトの要素分
+			{
+				auto stageMeat = dynamic_pointer_cast<Meat>(Obj);//!建物の取得
+				if (stageMeat)
+				{
+					Stage->RemoveGameObject<Meat>(Obj);
+				}
+			}
+
 		}
 
 		void WolfState::Execute(Player* Player)
@@ -84,17 +151,12 @@ namespace basecross
 			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
 			ptrDraw->UpdateAnimation(elapsedTime);
 
-
-
-			
-
 			auto scene = App::GetApp()->GetScene<Scene>();
 			m_WolfChangeTime += scene->GetGameTime();
 			if (m_WolfChangeTime >= m_maxHumanChangeTime)
 			{
 				Player->ChangeState(HumanState::Instance());
 			}
-
 
 		}
 

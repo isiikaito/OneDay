@@ -121,6 +121,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp">
       <Filter>EfkInterfece</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)HeadMan.cpp">
+      <Filter>Object\Enemy\HeadMan</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)HeadManComment.cpp">
+      <Filter>Sprite\HeadManComment</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Meat.cpp">
+      <Filter>Object\Meat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -248,6 +257,15 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)EfkInterfece.h">
       <Filter>EfkInterfece</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HeadManComment.h">
+      <Filter>Sprite\HeadManComment</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HeadMan.h">
+      <Filter>Object\Enemy\HeadMan</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Meat.h">
+      <Filter>Object\Meat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -391,6 +409,15 @@
     </Filter>
     <Filter Include="EfkInterfece">
       <UniqueIdentifier>{77eb8001-fb2b-416a-af98-0d73451ea895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\HeadMan">
+      <UniqueIdentifier>{34dd0341-af5e-4343-af99-4f052b0f40b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\HeadManComment">
+      <UniqueIdentifier>{bc13c41f-26ef-4066-b0c6-2e520980d2e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Meat">
+      <UniqueIdentifier>{d335d273-4dc6-4230-9072-31fc151c1189}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,28 +1,29 @@
 /*!
-@file Key.h
-@brief カギに関する処理
+@file Meat.h
+@brief 肉の作成
 */
 
 #pragma once
 #include "stdafx.h"
 
 namespace basecross {
-	class Key : public GameObject {
+	class Meat : public GameObject {
 	private:
 		Vec3 m_Scale;   //!大きさ
 		Vec3 m_Rotation;//!回転
 		Vec3 m_Position;//!位置
-		float m_Time; 
+		float m_Time;
+		int m_MeatNamber;
 	public:
 		/**
 		* コンストラクタ
 		*/
-		Key(const shared_ptr<Stage>& StagePtr, const Vec3& Scale, const Vec3& Rotation, const Vec3& Position);
+		Meat(const shared_ptr<Stage>& StagePtr, const Vec3& Scale, const Vec3& Rotation, const Vec3& Position);
 
 		/**
 　　　　* デストラクタ
 　　　　*/
-		virtual ~Key() {}
+		virtual ~Meat() {}
 
 		/**
 		* ゲームステージの床の初期パラメータを初期化する関数
@@ -30,7 +31,7 @@ namespace basecross {
 		virtual void OnCreate() override;
 		virtual void OnUpdate()override;
 
-		
+
 	};
 }
 

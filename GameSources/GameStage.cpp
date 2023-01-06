@@ -5,10 +5,16 @@
 
 #include "stdafx.h"
 #include "Project.h"
+#include "HeadMan.h"
+#include "HeadManComment.h"
+#include "Meat.h"
+
 
 namespace basecross {
 
 	constexpr int alertlevelFirst = 1;
+	constexpr int randomNumber = 2;
+	constexpr float m_MeatTimeSpeed = 22.0f;
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
@@ -101,6 +107,32 @@ namespace basecross {
 
 	}
 
+	// !ステージの建物
+	void GameStage::CreateStageBuilding()
+	{
+
+		auto group = CreateSharedObjectGroup(L"StageBuilding_Group");
+		//CSVの全体の配列
+		//CSVからすべての行を抜き出す
+		auto& LineVec = m_GameStageCsvD.GetCsvVec(); // csvファイルをセットする
+		for (size_t i = 0; i < LineVec.size(); i++) {
+			//トークン（カラム）の配列
+			vector<wstring> Tokens;
+			//トークン（カラム）単位で文字列を抽出(L','をデリミタとして区分け)
+			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
+			for (size_t j = 0; j < Tokens.size(); j++) {
+				//XとZの位置を計算
+				float XPos = (float)((int)j - 8.6f) * 10.0f;
+				float ZPos = (float)(8.6f - (int)i) * 10.0f;
+				if (Tokens[j] == L"1")
+				{
+					AddGameObject<StageBuilding>(Vec3(10.0f, 10.0f, 10.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 5.0f, ZPos));
+				}
+			}
+		}
+	}
+
+
 	//!カギ
 	void GameStage::CreateKey()
 	{
@@ -171,16 +203,13 @@ namespace basecross {
 		}
 	}
 
-
-
-	// !ステージの建物
-	void GameStage::CreateStageBuilding()
+	void GameStage::CreateMeat()
 	{
-
-		auto group = CreateSharedObjectGroup(L"StageBuilding_Group");
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
-		auto& LineVec = m_GameStageCsvD.GetCsvVec(); // csvファイルをセットする
+		auto& LineVec = m_MeatPositon.GetCsvVec();
+		auto group = CreateSharedObjectGroup(L"Meat_ObjGroup");
+
 		for (size_t i = 0; i < LineVec.size(); i++) {
 			//トークン（カラム）の配列
 			vector<wstring> Tokens;
@@ -190,13 +219,15 @@ namespace basecross {
 				//XとZの位置を計算
 				float XPos = (float)((int)j - 8.6f) * 10.0f;
 				float ZPos = (float)(8.6f - (int)i) * 10.0f;
-				if (Tokens[j] == L"1")
+				if (Tokens[j] == L"5")//5の時にゲームステージに追加
 				{
-					AddGameObject<StageBuilding>(Vec3(10.0f, 10.0f, 10.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 5.0f, ZPos));
+					AddGameObject<Meat>(Vec3(5.0f, 5.0f, 5.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 4.0f, ZPos));
 				}
 			}
 		}
+
 	}
+
 
 	// !ステージの門の作成
 	void GameStage::CreateStageGate()
@@ -506,6 +537,20 @@ namespace basecross {
 
 	}
 
+	void GameStage::CreateHeadMan()
+	{
+		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"HeadMan");//!Excelのデータ指定
+
+		for (auto& data : datas) 
+		{
+
+			auto HeadManPtr = AddGameObject<HeadMan>(data.scale, data.rotation,data.position );
+			AddGameObject<HeadManComment>(HeadManPtr);
+
+		}
+
+	}
+
 	void GameStage::GameTime()
 	{
 		float elapsedTime = App::GetApp()->GetElapsedTime();
@@ -579,6 +624,10 @@ namespace basecross {
 			m_KeyPositon.SetFileName(csvDirectory + L"KeyPosition" + Util::IntToWStr(m_keyNamber) + L".csv");
 			m_KeyPositon.ReadCsv();
 
+			//!MetaPositonファイルの読み込み
+			m_MeatPositon.SetFileName(csvDirectory + L"MeatPosition" + Util::IntToWStr(m_MeatNumber) + L".csv");
+			m_MeatPositon.ReadCsv();
+
             CreateTimerSprite();//!時間のスプライトの作成
 			CreateViewLight();//ビューとライトの作成
 			CreateStageFloor();//!ステージの床の作成
@@ -588,7 +637,7 @@ namespace basecross {
 			CreateStageGate(); //!ステージの門の作成
 			CreatePlayer();//!プレーヤーの作成
 			CerateVillager();//!村人の作成
-			CreatePlayBGM();//!BGMの作成
+			//CreatePlayBGM();//!BGMの作成
 			CreateHeartSprite();//!プレイヤーのHPの作成
 			CerateHunter();//!ハンターの作成
 			CreateAlertlevelGauge();//!警戒度のゲージの作成
@@ -596,8 +645,9 @@ namespace basecross {
 			CreateClockSprite(); //!時計のスプライトの作成
 			CreateCircleClockSprite(); //!時計の円盤のスプライトの作成
 			CreateWoodenBox();//!箱の作成
-			CreateWood();
-			
+			CreateWood();//!木の作成
+			CreateHeadMan();//!村長の作成
+			CreateMeat();//!肉の作成
 			CreateGameOver();//!ゲームオーバー
 			
 			auto gameOver = scene->GetGameOver();
@@ -617,8 +667,18 @@ namespace basecross {
 		m_EfkInterface->OnUpdate();
 
 		
-		auto scene = App::GetApp()->GetScene<Scene>();
+
 		
+		auto scene = App::GetApp()->GetScene<Scene>();
+
+		auto& app = App::GetApp();
+		auto time = app->GetElapsedTime();
+		m_MeatTime += time* m_MeatTimeSpeed;
+		srand(m_MeatTime);
+		m_MeatNumber = rand() % randomNumber;
+		
+		scene->SetMeatNamber(m_MeatNumber);
+
 		GameTime();
 		CreateLightingCol();
 		
@@ -648,14 +708,14 @@ namespace basecross {
 	// !BGMの再生
 	void GameStage::CreatePlayBGM()
 	{
-		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		auto& XAPtr = App::GetApp()->GetXAudio2Manager();
 		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, 0.3f);
 	}
 
 	// !ゲームオーバーのBGMの再生
 	void GameStage::CreateGameOverBGM()
 	{
-		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		auto& XAPtr = App::GetApp()->GetXAudio2Manager();
 		m_GameOverBGM = XAPtr->Start(L"GameOver", XAUDIO2_LOOP_INFINITE, 0.3f);
 
 	}
@@ -663,14 +723,14 @@ namespace basecross {
 	// !BGMのストップ
 	void GameStage::OnDestroy()
 	{
-        auto XAPtr = App::GetApp()->GetXAudio2Manager();
+        auto& XAPtr = App::GetApp()->GetXAudio2Manager();
 		XAPtr->Stop(m_BGM);	
 	}
 
 	// !ゲームオーバーBGMの削除
 	void GameStage::DestroyGameOverBGM()
 	{
-		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		auto& XAPtr = App::GetApp()->GetXAudio2Manager();
 		XAPtr->Stop(m_GameOverBGM);
 	}
 

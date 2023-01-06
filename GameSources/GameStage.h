@@ -19,18 +19,20 @@ namespace basecross {
 		CsvFile m_GameStageCsvD;// !建物の配置4
 		CsvFile m_KeyPositon; // !鍵の配置
 		CsvFile m_StageCsv;   //!ステージCSVファイル
+		CsvFile m_MeatPositon;//!肉のポジションのCSVファイル
 		shared_ptr<SoundItem>m_BGM; //!BGM
 		shared_ptr<SoundItem>m_GameOverBGM; //!ゲームオーバーのBGM
 		float m_TotalTime;//!トータル時間(タイマーの作成)
 		const float m_GameTime;
-		int m_keyNamber; //!鍵の配置
+		float m_MeatTime;//!肉の位置をランダムにする時間
+		int m_MeatNumber;//!肉の位置を保存したCSVの番号
 		
 		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 		shared_ptr<EfkInterface> m_EfkInterface;
 
 	public:
 		//構築と破棄
-		GameStage() :Stage(),m_TotalTime(31.0f), m_GameTime(31.0f), m_keyNamber(0) {}
+		GameStage() :Stage(),m_TotalTime(31.0f), m_GameTime(31.0f), m_MeatNumber(0), m_MeatTime(0.0f) {}
 		virtual ~GameStage() {}
 
 		void CreateViewLight();  //!ビューの作成
@@ -55,8 +57,10 @@ namespace basecross {
 		void CreateHeartSprite();//!ハンターのライフの作成
 		void CreateArrow();//!矢印の作成
 		void CreateGameOver();//!ゲームオーバースプライト
-
+		void CreateHeadMan();//!村長の作成
 		void GameTime();//!昼と夜を変える時間
+		void CreateMeat();//!肉の作成
+	
 		//初期化
 		virtual void OnCreate()override;
 

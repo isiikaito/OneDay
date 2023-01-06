@@ -19,6 +19,7 @@ namespace basecross{
 		bool m_IsGameOver;//!ゲームオーバーしたかどうか
 		bool m_IsGameOverSprite;//!ゲームオーバースプライトの表示ができているか
 		float m_gameStageTime;//!昼と夜の時間
+		int m_meatNumber;//!肉の位置が保存されたCSVの数字
 	public:
 
 		void CreateResourses();//リソース
@@ -27,7 +28,7 @@ namespace basecross{
 		@brief コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		Scene() :SceneBase(), m_AlertlevelCount(0), m_IsGameOver(false) , m_IsGameOverSprite(false),m_gameStageTime(0.0f),m_keyNamber(0) {}
+		Scene() :SceneBase(), m_AlertlevelCount(0), m_IsGameOver(false) , m_IsGameOverSprite(false),m_gameStageTime(0.0f),m_keyNamber(0), m_meatNumber(0) {}
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief デストラクタ
@@ -150,6 +151,27 @@ namespace basecross{
 		void SetGameTime(float gameStageTime)
 		{
 			m_gameStageTime = gameStageTime;
+		}
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief 鍵のcsvのナンバーの取得
+		@return	ゲームオーバーしたかどうか
+		*/
+		//--------------------------------------------------------------------------------------
+		int GetMeatNamber()
+		{
+			return m_meatNumber;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief 鍵のcsvのナンバーの設定
+		@return	ゲームオーバーしたかどうか
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetMeatNamber(int MeatNamber)
+		{
+			m_meatNumber = MeatNamber;
 		}
 
 	};

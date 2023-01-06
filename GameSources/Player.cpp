@@ -6,6 +6,7 @@
 #include "stdafx.h"
 #include "Project.h"
 #include "PlayerState.h"
+#include "Meat.h"
 
 namespace basecross {
 	constexpr float m_maxDisappearTime = 2.0f;
@@ -43,7 +44,8 @@ namespace basecross {
 		m_IsPlayerDed(0.0f),
 		m_gameOverDrawActive(false),
 		m_vibration(0.0f),
-		m_gameTime(0.0f)
+		m_gameTime(0.0f),
+		m_meatCount(0)
 	{
 		m_StateMachine = new kaito::StateMachine<Player>(this);
 		m_StateMachine->SetCurrentState(kaito::HumanState::Instance());
@@ -121,8 +123,8 @@ namespace basecross {
 			if (AnimationName == L"Default") {
 				ptrDraw->ChangeCurrentAnimation(L"Move");
 				//ï‡Ç≠âπçƒê∂
-				auto XAptr = App::GetApp()->GetXAudio2Manager();
-				m_BGM = XAptr->Start(L"WalkBGM", 0, 1.0f);
+				auto& XAptr = App::GetApp()->GetXAudio2Manager();
+				m_Wolk = XAptr->Start(L"WalkBGM", 0, 1.0f);
 			}
 		}
 
@@ -130,8 +132,8 @@ namespace basecross {
 			//óßÇøé~Ç‹ÇÈÉAÉjÉÅÅ[ÉVÉáÉì
 			if (AnimationName == L"Move") {
 				ptrDraw->ChangeCurrentAnimation(L"Default");
-				auto XAptr = App::GetApp()->GetXAudio2Manager();
-				XAptr->Stop(m_BGM);
+				auto& XAptr = App::GetApp()->GetXAudio2Manager();
+				XAptr->Stop(m_Wolk);
 
 
 			}
@@ -227,15 +229,15 @@ namespace basecross {
 	void Player::PlayerDed()
 	{
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
-		auto AnimationName = ptrDraw->GetCurrentAnimation();
+		auto& AnimationName = ptrDraw->GetCurrentAnimation();
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 
 		//óßÇøé~Ç‹ÇÈÉAÉjÉÅÅ[ÉVÉáÉì
 		if (AnimationName == L"Move" || AnimationName == L"Default")
 		{
 			ptrDraw->ChangeCurrentAnimation(L"Ded");
-			auto XAptr = App::GetApp()->GetXAudio2Manager();
-			XAptr->Stop(m_BGM);
+			auto& XAptr = App::GetApp()->GetXAudio2Manager();
+			XAptr->Stop(m_Wolk);
 
 		}
 
@@ -538,6 +540,21 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!BÉ{É^ÉìÇÃÉCÉìÉvÉbÉgÉnÉìÉhÉâÇÃí
 				CreateKeySprite();
 				auto ptrXA = App::GetApp()->GetXAudio2Manager();
 				ptrXA->Start(L"acquisition", 0, 9.0f);
+			}
+
+
+		}
+
+		auto ptrMeat = dynamic_pointer_cast<Meat>(Other);
+
+		if (m_playerChange == static_cast<int>(PlayerModel::human))
+		{
+			//!ÉvÉåÉCÉÑÅ[Ç™ì˜Ç…ìñÇΩÇ¡ÇΩÇÁ
+			if (ptrMeat)
+			{
+				m_meatCount++;
+				GetStage()->RemoveGameObject<Meat>(Other);//!åÆÉIÉuÉWÉFÉNÉgÇÃçÌèú
+				
 			}
 
 

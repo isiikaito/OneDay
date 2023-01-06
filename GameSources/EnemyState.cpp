@@ -189,7 +189,7 @@ namespace basecross
 			//!障害物の取得
 			auto& app = App::GetApp();//!アプリの取得
 			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
-			auto Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
 			
 			for (auto& Obj : Objects)//!オブジェクトの要素分
 

@@ -1,16 +1,17 @@
 /*!
-@file LoseSightOf.cpp
+@file HeadManComment.cpp
 @author Kaito Isii
-@brief 敵のプレイヤーを見失ったときのはてなマークの表示
+@brief 村長のコメントの表示
 */
 
 #include "stdafx.h"
 #include "Project.h"
+#include "HeadManComment.h"
 
 namespace basecross
 {
 	constexpr float MaxLosefSeghtOfTime = 2.0f;
-	void LoseSightOf::OnCreate()
+	void HeadManComment::OnCreate()
 	{
 		auto PtrTransform = GetComponent<Transform>();
 		// 頂点データ
@@ -42,16 +43,16 @@ namespace basecross
 		drawComp->SetTextureResource(L"LoseSightOf_TX");
 		drawComp->SetDepthStencilState(DepthStencilState::None); // 重ね合わせの問題を解消する
 		SetAlphaActive(true);
-		SetDrawActive(false);
+		//SetDrawActive(false);
 		auto transComp = GetComponent<Transform>();  // トランスフォーム：変換行列(Transform Matrix)		
 		transComp->SetScale(5, 5, 5);
 		auto EnemyTransform = parent->GetComponent<Transform>();
 		transComp->SetQuaternion(EnemyTransform->GetQuaternion());
 	}
 
-	void LoseSightOf::Billboard()
+	void HeadManComment::Billboard()
 	{
-		
+
 		auto ptrTransform = GetComponent<Transform>();
 		auto PtrCamera = GetStage()->GetView()->GetTargetCamera();
 
@@ -61,49 +62,21 @@ namespace basecross
 
 		ptrTransform->SetQuaternion(Qt);
 		auto EnemyTransform = parent->GetComponent<Transform>();
-		auto EnemyPosition=EnemyTransform->GetPosition();
+		auto EnemyPosition = EnemyTransform->GetPosition();
 		//!ビルボード処理はオブジェクトの回転まで反映してしまうためポジションを変更する
 		ptrTransform->SetPosition(EnemyPosition.x, m_spritePositionY, EnemyPosition.z);
 
 	}
 
-	
-	void LoseSightOf::LoseSight()
+
+	void HeadManComment::Comment()
 	{
-		auto GetHunter = std::dynamic_pointer_cast<BaseEnemy>(parent);
-
-
-		auto loseSightOfTarget = GetHunter->GetloseSightOfTarget();
-
-		//!プレイヤーが見つかったら
-		if (loseSightOfTarget == true)
-		{
-			float Time = App::GetApp()->GetElapsedTime();//!時間の取得
-			m_LoseSeghtOfTime += Time;
-
-			//auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
-			SetDrawActive(true);
-			//!2秒たったら
-			if (m_LoseSeghtOfTime >= MaxLosefSeghtOfTime)
-			{
-				loseSightOfTarget = false;
-				GetHunter->SetloseSightOfTarget(loseSightOfTarget);
-			}
-
-		}
-		//!巡回に戻る
-		if (loseSightOfTarget == false)
-		{
-			m_LoseSeghtOfTime = 0.0f;//!見失った時間を0秒にする
-			SetDrawActive(false);//!描画をやめる
-
-		}
+		
 	}
 
-	void LoseSightOf::OnUpdate()
+	void HeadManComment::OnUpdate()
 	{
 		Billboard();
-		
-		LoseSight();
+
 	}
 }
