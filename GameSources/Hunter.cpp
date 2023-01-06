@@ -31,7 +31,8 @@ namespace basecross
 		m_patrolindex(0),
 		m_IsGameOver(false),
 		m_dedTime(0),
-		m_playerDed(false)
+		m_playerDed(false),
+		m_damage(1)
 
 	{
 	}
@@ -78,6 +79,7 @@ namespace basecross
 
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
+		ptrDraw->AddAnimation(L"Ded", 60, 30, false, 15.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Move");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
 
@@ -128,11 +130,33 @@ namespace basecross
 
 	}
 
+	void Hunter::HunterDed()
+	{
+		auto hunterDed = GetIsEnemyDed();
+		if (hunterDed == true)
+		{
+			//アニメーション
+			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
+			auto& AnimationName = ptrDraw->GetCurrentAnimation();
+			//立ち止まるアニメーション
+			if (AnimationName == L"Move") {
+				ptrDraw->ChangeCurrentAnimation(L"Ded");
+				auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
+				auto playerHp = ptrPlayer->GetPlayerHp();
+				playerHp += m_damage;
+				ptrPlayer->SetPlayerHp(playerHp);
+			}
+		}
+	}
 	//!更新
 	void Hunter::OnUpdate()
 	{
-		
+		HunterDed();
 		PlayerCatch();
+
+		auto MaxSpeed = GetMaxSpeed();
+		MaxSpeed = m_Speed;
+		SetMaxSpeed(MaxSpeed);
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		BaseEnemy::OnUpdate();

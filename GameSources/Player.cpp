@@ -125,6 +125,7 @@ namespace basecross {
 				m_BGM = XAptr->Start(L"WalkBGM", 0, 1.0f);
 			}
 		}
+
 		else {
 			//—§‚¿~‚Ü‚éƒAƒjƒ[ƒVƒ‡ƒ“
 			if (AnimationName == L"Move") {
@@ -136,7 +137,7 @@ namespace basecross {
 			}
 		}
 
-		
+
 		//!‰ñ“]‚ÌŒvZ
 		if (angle.length() > 0.0f) {
 			auto utilPtr = GetBehavior<UtilBehavior>();
@@ -241,15 +242,15 @@ namespace basecross {
 		PlayerGameOver();
 	}
 
-	void Player::EnmeyDisappear()
+	void Player::VillagerDisappear()
 	{
 		auto position = GetComponent<Transform>()->GetPosition();//!Œ»İ‚ÌƒvƒŒƒCƒ„[‚ÌˆÊ’u‚Ìæ“¾
-		SPHERE playerSp(position, 50);//!ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ’†S‚É”¼Œa2ƒZƒ“ƒ`‚Ì‰~‚Ìì¬
+		SPHERE playerSp(position, 100);//!ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ’†S‚É”¼Œa2ƒZƒ“ƒ`‚Ì‰~‚Ìì¬
 		//!‘ºl‚ğE‚·
 		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
-		auto& vecHnter = group->GetGroupVector();//!ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ‚Ìæ“¾
+		auto& vecVillager = group->GetGroupVector();//!ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ‚Ìæ“¾
 		//!‘ºl”z—ñƒIƒuƒWƒFƒNƒg‚Ì”z—ñ•ª‰ñ‚·
-		for (auto& v : vecHnter)
+		for (auto& v : vecVillager)
 		{
 
 			auto VillagerPtr = v.lock();//!‘ºl‚ÌƒOƒ‹[ƒv‚©‚ç1‚ÂƒƒbƒN‚·‚é
@@ -262,8 +263,7 @@ namespace basecross {
 				auto VillagerCapsrul = ptrVillager->GetComponent<CollisionCapsule>()->GetCapsule();//!ƒnƒ“ƒ^-‚ÌObbƒIƒuƒWƒFƒNƒg‚ğæ“¾
 				if (HitTest::SPHERE_CAPSULE(playerSp, VillagerCapsrul, ret))//!ƒvƒŒƒCƒ„[‚Ìü‚è‚ğˆÍ‚ñ‚Å‚¢‚éƒXƒtƒBƒA‚É“–‚½‚Á‚½‚ç
 				{
-					auto VillagerDedDecision = ptrVillager->GetDedDecision();//!‘ºl‚Ì¶€‚Ì”»’è‚Ìæ“¾
-					ptrVillager->SetDedDecision(VillagerDedDecision);//!‘ºl‚Ì¶€‚Ìİ’è
+					
 					auto VillagerSpeed = ptrVillager->GetSpeed();//!‘ºl‚ÌƒXƒs[ƒh‚ğæ“¾
 					if (VillagerSpeed == m_Ded)
 					{
@@ -282,6 +282,105 @@ namespace basecross {
 		}
 	}
 
+	void Player::HunterDisappear()
+	{
+		auto position = GetComponent<Transform>()->GetPosition();//!Œ»İ‚ÌƒvƒŒƒCƒ„[‚ÌˆÊ’u‚Ìæ“¾
+		SPHERE playerSp(position, 100);//!ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ’†S‚É”¼Œa2ƒZƒ“ƒ`‚Ì‰~‚Ìì¬
+		//!‘ºl‚ğE‚·
+		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");
+		auto& vecHunter = group->GetGroupVector();//!ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ‚Ìæ“¾
+		//!‘ºl”z—ñƒIƒuƒWƒFƒNƒg‚Ì”z—ñ•ª‰ñ‚·
+		for (auto& v : vecHunter)
+		{
+
+			auto hunterPtr = v.lock();//!‘ºl‚ÌƒOƒ‹[ƒv‚©‚ç1‚ÂƒƒbƒN‚·‚é
+			Vec3 ret;//!Å‹ßÚ“_‚Ì‘ã“ü
+			auto ptrHunter = dynamic_pointer_cast<Hunter>(hunterPtr);//!ƒƒbƒN‚µ‚½•¨‚ğæ‚èo‚·
+
+			//!ƒvƒŒƒCƒ„[‚Ì”ÍˆÍ‚É“G‚ª“ü‚Á‚½‚ç
+			if (ptrHunter)
+			{
+				auto hunterCapsrul = ptrHunter->GetComponent<CollisionCapsule>()->GetCapsule();//!ƒnƒ“ƒ^-‚ÌObbƒIƒuƒWƒFƒNƒg‚ğæ“¾
+				if (HitTest::SPHERE_CAPSULE(playerSp, hunterCapsrul, ret))//!ƒvƒŒƒCƒ„[‚Ìü‚è‚ğˆÍ‚ñ‚Å‚¢‚éƒXƒtƒBƒA‚É“–‚½‚Á‚½‚ç
+				{
+
+					auto hunterSpeed = ptrHunter->GetSpeed();//!‘ºl‚ÌƒXƒs[ƒh‚ğæ“¾
+					if (hunterSpeed == m_Ded)
+					{
+						float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTime‚ğæ“¾‚·‚é‚±‚Æ‚É‚æ‚èŠÔ‚ğg‚¦‚é
+						m_disappearTime += elapsedTime;//ŠÔ‚ğ•Ï”‚É‘«‚·
+						if (m_disappearTime >= m_maxDisappearTime)
+						{
+							GetStage()->RemoveGameObject<Hunter>(ptrHunter);
+							m_disappearTime = 0;
+						}
+					}
+
+
+				}
+			}
+		}
+	}
+
+	void Player::EnemyDedSound()
+	{
+		//ƒTƒEƒ“ƒhÄ¶
+		auto ptrXA = App::GetApp()->GetXAudio2Manager();
+		ptrXA->Start(L"kill", 0, 9.0f);
+		ptrXA->Start(L"scream", 0, 9.0f);
+	}
+
+	void Player::Hunterkiller()
+	{
+		auto transComp = GetComponent<Transform>();//!ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚ğæ“¾
+		auto position = transComp->GetPosition();//!Œ»İ‚ÌƒvƒŒƒCƒ„[‚ÌˆÊ’u‚Ìæ“¾
+		SPHERE playerSp(position, 5.0f);//!ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ’†S‚É”¼Œa5ƒZƒ“ƒ`‚Ì‰~‚Ìì¬
+		auto scene = App::GetApp()->GetScene<Scene>();//!ƒV[ƒ“‚Ìæ“¾
+		int alertlevelCount = scene->GetAlertlevelCount();//!Œx‰ú“x‚Ìæ“¾
+		//!ƒnƒ“ƒ^[‚ğE‚·
+		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");
+		auto& vecHunter = group->GetGroupVector();
+		//!ƒnƒ“ƒ^[‚Ì”z—ñƒIƒuƒWƒFƒNƒg‚Ì”z—ñ•ªfor•ª‚Å‰ñ‚·
+		for (auto& v : vecHunter)
+		{
+			auto HunterPtr = v.lock();//!ƒnƒ“ƒ^[‚ÌƒOƒ‹[ƒv‚©‚ç1‚ÂƒƒbƒN‚·‚é
+			Vec3 ret;//!Å‹ßÚ“_‚Ì‘ã“ü
+			auto ptrHunter = dynamic_pointer_cast<Hunter>(HunterPtr);//!ƒƒbƒN‚µ‚½•¨‚ğæ‚èo‚·
+
+			auto HunterTrans = GetComponent<Transform>();//!ƒnƒ“ƒ^[‚Ìƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚Ìæ“¾
+			auto HunterPosition = HunterTrans->GetPosition();//!ƒnƒ“ƒ^[‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ìæ“¾
+			Vec3 PEvector = position - HunterPosition;//!ƒvƒŒƒCƒ„[‚Æ“G‚ÌƒxƒNƒgƒ‹‚ğæ“¾
+			PEvector.normalize();//!ƒvƒŒƒCƒ„[‚Æ“G‚ÌƒxƒNƒgƒ‹‚ğ³‹K‰»
+			auto Enemyfront = HunterTrans->GetForword();//!“G‚Ì³–Ê‚ğæ“¾
+			auto angle = angleBetweenNormals(-Enemyfront, PEvector);//!“G‚Ì³–Ê‚ÆƒvƒŒƒCƒ„[‚Æ“G‚ÌƒxƒNƒgƒ‹‚ğæ“¾‚µŠp“x‚É•ÏŠ·
+			auto chk = XM_PI / 6.0f;//!360‚ğ6‚ÅŠ„‚Á‚ÄŠp“x‚ğo‚·B
+
+			//!ƒvƒŒƒCƒ„[‚Ì”ÍˆÍ‚É“G‚ª‚Í‚¢‚Á‚½‚ç
+			if (ptrHunter)
+			{
+				auto HunterCapsrul = ptrHunter->GetComponent<CollisionCapsule>()->GetCapsule();//!ƒnƒ“ƒ^-‚ÌObbƒIƒuƒWƒFƒNƒg‚ğæ“¾
+                
+				if (HitTest::SPHERE_CAPSULE(playerSp, HunterCapsrul, ret))//!ƒvƒŒƒCƒ„[‚Ìü‚è‚ğˆÍ‚ñ‚Å‚¢‚éƒXƒtƒBƒA‚É“–‚½‚Á‚½‚ç)
+				{
+					
+						auto HunterSpeed = ptrHunter->GetSpeed();//!‘ºl‚ÌƒXƒs[ƒh‚ğæ“¾
+						if (HunterSpeed != m_Ded)
+						{
+							HunterSpeed = m_Ded;//!‘ºl‚ÌƒXƒs[ƒh‚ğ‚O‚É‚·‚é
+							ptrHunter->SetSpeed(HunterSpeed);//!‘ºl‚ÌƒXƒs[ƒh‚ğİ’è
+							alertlevelCount++;
+							scene->SetAlertlevelCount(alertlevelCount);
+
+							//ƒTƒEƒ“ƒhÄ¶
+							EnemyDedSound();
+						}
+					
+				}
+			}
+
+		}
+	}
+
 	//!‘ºl‚ğ“|‚·ˆ—
 	void Player::Villagerkiller()
 	{
@@ -292,9 +391,9 @@ namespace basecross {
 		int alertlevelCount = scene->GetAlertlevelCount();
 		//!‘ºl‚ğE‚·
 		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
-		auto& vecHnter = group->GetGroupVector();//!ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ‚Ìæ“¾
+		auto& vecVillager = group->GetGroupVector();//!ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ‚Ìæ“¾
 		//!‘ºl”z—ñƒIƒuƒWƒFƒNƒg‚Ì”z—ñ•ª‰ñ‚·
-		for (auto& v : vecHnter)
+		for (auto& v : vecVillager)
 		{
 			auto VillagerPtr = v.lock();//!‘ºl‚ÌƒOƒ‹[ƒv‚©‚ç1‚ÂƒƒbƒN‚·‚é
 			Vec3 ret;//!Å‹ßÚ“_‚Ì‘ã“ü
@@ -306,10 +405,7 @@ namespace basecross {
 				auto VillagerCapsrul = ptrVillager->GetComponent<CollisionCapsule>()->GetCapsule();//!ƒnƒ“ƒ^-‚ÌObbƒIƒuƒWƒFƒNƒg‚ğæ“¾
 				if (HitTest::SPHERE_CAPSULE(playerSp, VillagerCapsrul, ret))//!ƒvƒŒƒCƒ„[‚Ìü‚è‚ğˆÍ‚ñ‚Å‚¢‚éƒXƒtƒBƒA‚É“–‚½‚Á‚½‚ç
 				{
-					auto VillagerDedDecision = ptrVillager->GetDedDecision();//!‘ºl‚Ì¶€‚Ì”»’è‚Ìæ“¾
-					VillagerDedDecision = true;//!‘ºl‚Ì¶€‚ğ€‚É‚·‚é
-
-					ptrVillager->SetDedDecision(VillagerDedDecision);//!‘ºl‚Ì¶€‚Ìİ’è
+					
 					auto VillagerSpeed = ptrVillager->GetSpeed();//!‘ºl‚ÌƒXƒs[ƒh‚ğæ“¾
 					if (VillagerSpeed != m_Ded)
 					{
@@ -319,9 +415,7 @@ namespace basecross {
 						scene->SetAlertlevelCount(alertlevelCount);
 
 						//ƒTƒEƒ“ƒhÄ¶
-						auto ptrXA = App::GetApp()->GetXAudio2Manager();
-						ptrXA->Start(L"kill", 0, 9.0f);
-						ptrXA->Start(L"scream", 0, 9.0f);
+						EnemyDedSound();
 					}
 				}
 			}
@@ -399,7 +493,8 @@ namespace basecross {
 		if (gameOver == false)
 		{
         GetPlayerPositionBrett();
-		EnmeyDisappear();
+		VillagerDisappear();
+		HunterDisappear();
 		 MovePlayer();
     
 		
@@ -466,6 +561,7 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’
 			if (m_playerChange == static_cast<int>(PlayerModel::wolf))
 			{
 				Villagerkiller();//!‘ºl‚ğ“|‚·ˆ—
+				Hunterkiller();//!ƒnƒ“ƒ^[‚ğ“|‚·ˆ—
 			}
 
 			if (m_playerChange == static_cast<int>(PlayerModel::human))

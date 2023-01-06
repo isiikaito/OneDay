@@ -32,8 +32,6 @@ namespace basecross
 		{
 
 		
-			
-
 			//!追いかける処理を書く
 			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得
 			auto EnemyPosition = ptrEnemyTrans->GetPosition();//!敵のポジションの取得
@@ -140,8 +138,8 @@ namespace basecross
 
 
 			Vec3 PEvector = PlayerPosition - EnemyPosition;//!プレイヤーと敵のベクトルを取得
-			auto Enemyfront = ptrEnemyTrans->GetForword();//!敵の正面を取得
 			PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
+			auto Enemyfront = ptrEnemyTrans->GetForword();//!敵の正面を取得
 			auto angle = angleBetweenNormals(Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
 			auto chk = XM_PI / 6.0f;//!360を6で割って角度を出す。
 			float f = bsm::length(PlayerPosition - EnemyPosition);//!敵とプレイヤーの距離
@@ -320,6 +318,7 @@ namespace basecross
 		}
 		//!-------------------------------------------------------------
 
+
 		//!殺されたときのステート-----------------------------------------
 
 		//!インスタンスの生成(実体の作成)
@@ -352,6 +351,7 @@ namespace basecross
 		}
 
 
+		//!敵が見失ったときのステート---------------------------------
 
 		//!インスタンスの生成(実体の作成)
 		LostStata* LostStata::Instance()
@@ -373,15 +373,15 @@ namespace basecross
 		void LostStata::Execute(BaseEnemy* Enemy)
 		{
 			
-		auto EnemyTrans=Enemy->GetComponent<Transform>();
-		auto EnemyPosition = EnemyTrans->GetPosition();
-		auto patorolPoint=Enemy->GetEnemyPatorolPoints();
+		auto EnemyTrans=Enemy->GetComponent<Transform>();//!敵のトランスフォームを取得する
+		auto EnemyPosition = EnemyTrans->GetPosition();//!敵のポジションを取得する
+		auto patorolPoint=Enemy->GetEnemyPatorolPoints();//!敵のパトロールポイントを取得
 		auto& app = App::GetApp();//!アプリの取得
-		auto time = app->GetElapsedTime();
+		auto time = app->GetElapsedTime();//!時間の取得
 	    m_lostTime += time;
-		if (m_lostTime >=m_MaxlostTime)
+		if (m_lostTime >=m_MaxlostTime)//!はてなマークの表示する時間
 		{
-        EnemyPosition = patorolPoint[0];
+        EnemyPosition = patorolPoint[0];//!敵のパトロールポイントのインデックスを0にする
 		EnemyTrans->SetPosition(EnemyPosition);
 		Enemy->ChangeState(PatrolState::Instance());//!ステートを変更する
 		}
@@ -399,4 +399,6 @@ namespace basecross
 
 
 	}
+	//!-------------------------------------------------------------
+
 }

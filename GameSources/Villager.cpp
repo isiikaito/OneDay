@@ -101,7 +101,7 @@ namespace basecross
 		{
 			//アニメーション
 			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
-			auto AnimationName = ptrDraw->GetCurrentAnimation();
+			auto& AnimationName = ptrDraw->GetCurrentAnimation();
 			//立ち止まるアニメーション
 			if (AnimationName == L"Move") {
 				ptrDraw->ChangeCurrentAnimation(L"Ded");
@@ -116,10 +116,7 @@ namespace basecross
 	//!更新
 	void Villager::OnUpdate()
 	{
-		
-
 	
-		
 		VillagerDed();
 
 		auto MaxSpeed = GetMaxSpeed();
@@ -135,16 +132,20 @@ namespace basecross
 	//!村人がプレイヤーを捕まえたら
 	void Villager::OnCollisionEnter(shared_ptr<GameObject>& Other)
 	{
-		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
-		auto seekCondition = GetseekCondition();
-		if (ptrPlayer)
+		auto villagerDed = GetIsEnemyDed();
+		if (villagerDed == false)
 		{
-			if (seekCondition == true)
+			auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
+			auto seekCondition = GetseekCondition();
+			if (ptrPlayer)
 			{
-				auto playerDed = ptrPlayer->GetIsplayerDed();
-				playerDed = true;
-				ptrPlayer->SetIsplayerDed(playerDed);
-					
+				if (seekCondition == true)
+				{
+					auto playerDed = ptrPlayer->GetIsplayerDed();
+					playerDed = true;
+					ptrPlayer->SetIsplayerDed(playerDed);
+
+				}
 			}
 		}
 	}
