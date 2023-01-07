@@ -13,7 +13,7 @@
 namespace basecross {
 
 	constexpr int alertlevelFirst = 1;
-	constexpr int randomNumber = 2;
+	constexpr int randomNumber = 4;
 	constexpr float m_MeatTimeSpeed = 22.0f;
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
