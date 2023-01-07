@@ -12,6 +12,7 @@ namespace basecross {
 	constexpr float m_maxDisappearTime = 2.0f;
 	constexpr float m_MaxwolfHowlingTime = 0.1f;
 	constexpr float m_maxDedTime = 1.0f;
+	constexpr float m_vibrationMaxTime = 1.0f;
 
 	//--------------------------------------------------------------------------------------
 	//	class Player : public GameObject;
@@ -45,7 +46,9 @@ namespace basecross {
 		m_gameOverDrawActive(false),
 		m_vibration(0.0f),
 		m_gameTime(0.0f),
-		m_meatCount(0)
+		m_meatCount(0),
+		m_vibrationTime(0.0f),
+		m_IsvibrationOn(false)
 	{
 		m_StateMachine = new kaito::StateMachine<Player>(this);
 		m_StateMachine->SetCurrentState(kaito::HumanState::Instance());
@@ -475,10 +478,46 @@ namespace basecross {
 		m_StateMachine->ChangeState(NewState);
 	}
 
+	//!コントローラの振動処理
+	void Player::Controllervibration()
+	{
+		
+		
+
+		//!振動がオンになっているとき
+		if (m_IsvibrationOn == true)
+		{
+			auto Time = App::GetApp()->GetElapsedTime();//!時間の取得
+			m_vibrationTime += Time;
+             m_vibration = 65535.0f;
+			
+			if (m_vibrationTime >= m_vibrationMaxTime)
+			{
+				
+				m_IsvibrationOn = false;
+			}
+		}
+		if (m_IsvibrationOn == false)
+		{
+			m_vibrationTime = 0.0f;
+			m_vibration = 0.0f;
+		}
+
+		//コントローラーの振動
+		XINPUT_VIBRATION vibration;
+		ZeroMemory(&vibration, sizeof(XINPUT_VIBRATION));
+		vibration.wLeftMotorSpeed = m_vibration; // use any value between 0-65535 here
+		vibration.wRightMotorSpeed = m_vibration; // use any value between 0-65535 here
+		XInputSetState(0, &vibration);
+	}
+
 	//更新
 	void Player::OnUpdate() {
 
 		m_StateMachine->Update();
+
+
+		Controllervibration();
 
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto gameOver = scene->GetGameOver();
@@ -500,12 +539,7 @@ namespace basecross {
 		 MovePlayer();
     
 		
-		//コントローラーの振動
-		XINPUT_VIBRATION vibration;
-		ZeroMemory(&vibration, sizeof(XINPUT_VIBRATION));
-		vibration.wLeftMotorSpeed = m_vibration; // use any value between 0-65535 here
-		vibration.wRightMotorSpeed = m_vibration; // use any value between 0-65535 here
-		XInputSetState(0, &vibration);
+		
 		
 		}
 		

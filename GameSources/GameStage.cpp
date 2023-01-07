@@ -291,7 +291,6 @@ namespace basecross {
 	{
 		auto ptrPlayer = AddGameObject<Player>();//!プレイヤーの作成
 		SetSharedGameObject(L"Player", ptrPlayer);
-		ptrPlayer->AddTag(L"Player");
 	}
 
 	//!敵(スケール、ローテイション、ポジション)の構造体
@@ -498,7 +497,7 @@ namespace basecross {
 
 		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Villager");//!Excelのデータ指定
 		
-		for (auto data : datas) {
+		for (auto& data : datas) {
 
 		
 			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!村人の大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
@@ -545,6 +544,8 @@ namespace basecross {
 		{
 
 			auto HeadManPtr = AddGameObject<HeadMan>(data.scale, data.rotation,data.position );
+			SetSharedGameObject(L"HeadMan", HeadManPtr);
+
 			AddGameObject<HeadManComment>(HeadManPtr);
 
 		}

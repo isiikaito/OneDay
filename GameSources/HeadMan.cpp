@@ -14,12 +14,13 @@ namespace basecross
 		const Vec3& Scale,
 		const Vec3& Rotation,
 		const Vec3& Position
-		) :
+	) :
 
 		GameObject(StagePtr),
 		m_Scale(Scale),
 		m_Rotation(Rotation),
-		m_Position(Position)
+		m_Position(Position),
+		m_IsheadManCommentOn(false)
 	{
 	}
 
@@ -34,7 +35,7 @@ namespace basecross
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
 			Vec3(0.4f, 0.4f, 0.4f),//!大きさ
-     		Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),   //!回転
 			Vec3(0.0f, -1.0f, 0.0f)  //!位置
 		);
@@ -53,14 +54,42 @@ namespace basecross
 
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
+		ptrDraw->AddAnimation(L"Default", 31, 30, true, 10.0f);
 		ptrDraw->AddAnimation(L"Ded", 60, 30, false, 15.0f);
-		ptrDraw->ChangeCurrentAnimation(L"Move");
+		ptrDraw->ChangeCurrentAnimation(L"Default");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
-		Coll->SetDrawActive(true);
+		Coll->SetDrawActive(false);
+	}
+
+	void HeadMan::HeadManComment()
+	{
+		auto position = GetComponent<Transform>()->GetPosition();//!現在のプレイヤーの位置の取得
+		SPHERE headManSp(position, 30);//!プレイヤーの座標を中心に半径2センチの円の作成
+		auto player = GetStage()->GetSharedGameObject<Player>(L"Player");
+		Vec3 ret;
+		auto playerCapsrul=player->GetComponent<CollisionCapsule>()->GetCapsule();//!プレイヤーのカプセルオブジェクトを取得
+				if (HitTest::SPHERE_CAPSULE(headManSp, playerCapsrul, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
+				{
+					m_IsheadManCommentOn = true;
+				}
+				else
+				{
+					m_IsheadManCommentOn = false;
+				}
+			
+	}
+
+	void HeadMan::HeadManAnimation()
+	{
+		float elapsedTime = App::GetApp()->GetElapsedTime();
+		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
+		ptrDraw->UpdateAnimation(elapsedTime);
 	}
 
 	void HeadMan::OnUpdate()
 	{
+		HeadManAnimation();
 
+		HeadManComment();
 	}
 }

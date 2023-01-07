@@ -212,8 +212,6 @@ namespace basecross
 		
 		//!適応力
 		void ApplyForce();
-		//!ビックリマークの表示時間
-		void SurprisedTime();
 		//!アニメーションの更新
 		void AnimationUpdate();
 		//!障害物を避ける行動

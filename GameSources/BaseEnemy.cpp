@@ -9,7 +9,6 @@
 
 namespace basecross
 {
-	constexpr float m_maxSurprisedTime = 2.0f;
 	constexpr float m_maxRotationTime = 4.0f;
 	constexpr int m_randomRange = 6;
 	constexpr int m_randomNumber = 4;
@@ -79,24 +78,6 @@ namespace basecross
 		return std::dynamic_pointer_cast<Player>(GetStage()->GetSharedObject(L"Player"));
 	}
 
-	void BaseEnemy::SurprisedTime()
-	{
-		if (m_SurprisedSprite == true)
-		{
-
-			auto Time = App::GetApp()->GetElapsedTime();
-			m_surprisedTime += Time;
-			if (m_surprisedTime >= m_maxSurprisedTime)
-			{
-				m_SurprisedSprite = false;
-			}
-
-		}
-		else
-		{
-			m_surprisedTime = 0.0f;
-		}
-	}
 
 	void BaseEnemy::AnimationUpdate()
 	{
@@ -172,7 +153,6 @@ namespace basecross
 
 		Facade();
 
-		SurprisedTime();
 
 	}
 

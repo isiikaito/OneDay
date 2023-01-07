@@ -37,7 +37,7 @@ namespace basecross
 	public:
 		//!\’z‚Æ”jŠü
 		HeadManComment(const std::shared_ptr<Stage>& stage, const std::shared_ptr<GameObject>& parent)
-			: GameObject(stage), parent(parent), m_LoseSeghtOfTime(0.0f), m_spritePositionY(8.0f) {}
+			: GameObject(stage), parent(parent), m_LoseSeghtOfTime(0.0f), m_spritePositionY(13.0f) {}
 		virtual ~HeadManComment() {}
 		//!‘ºl‚ªŒ©¸‚Á‚½‚ç
 		void Comment();

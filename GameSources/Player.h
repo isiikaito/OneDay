@@ -48,12 +48,14 @@ namespace basecross {
 		float m_dedTime;//!プレイヤーが死んでからの時間
 		float m_Speed;            //!スピード
 		float m_ChangeTime;          //!時間
+		float m_vibrationTime;//!振動している時間
 		float m_GetPlayerPositionTime;//!プレイヤーの位置の取得
 		const float m_humanTime;//!人間の時間
 		const float m_wolfTime;//!狼の時間
 		bool m_IsPlayerFound;//!プレイヤーが見つかった稼働羽化
 		bool m_IsPlayerDed;//!プレイヤーが死んだかどうかの判定
 		bool m_IsFastHowling;//!初めて狼男が鳴くとき
+		bool m_IsvibrationOn;//!振動しているかどうか
 		bool m_gameOverDrawActive;//!ゲームオーバースプライトの表示
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
 		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
@@ -312,6 +314,16 @@ namespace basecross {
 
 		//--------------------------------------------------------------------------------------
 		/*!
+		@brief	ゲームオーバースプライトを表示するかの設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetVibrationOn(bool VibrationOn)
+		{
+			m_IsvibrationOn = VibrationOn;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
 		@brief	ゲームステージの時間
 		*/
 		//--------------------------------------------------------------------------------------
@@ -385,6 +397,12 @@ namespace basecross {
 		//--------------------------------------------------------------------------------------
 
 		virtual void ChangeState(kaito::State<Player>* NewState);
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	コントローラの振動処理
+		*/
+		//--------------------------------------------------------------------------------------
+		void Controllervibration();
 
 
 		

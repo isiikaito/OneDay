@@ -172,9 +172,12 @@ namespace basecross
 			auto Surprised = Enemy->GetSurprisedSprite();
 			Surprised = true;
 			Enemy->SetSurprisedSprite(Surprised);
-
+			auto player = Enemy->GetTarget();
+			player->SetVibrationOn(true);
+			
+			
 		}
-
+		
 		//!-------------------------------------------------------------
 
 	   //!ブレットグラムステート---------------------------------------
@@ -334,6 +337,10 @@ namespace basecross
 			auto enemyDed=Enemy->GetIsEnemyDed();
 			enemyDed = true;
 			Enemy->SetIsEnemyDed(enemyDed);
+
+			auto player = Enemy->GetTarget();
+			player->SetVibrationOn(true);
+
 		}
 
 		void DedState::Execute(BaseEnemy* Enemy)

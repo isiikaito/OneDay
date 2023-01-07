@@ -173,7 +173,12 @@ namespace basecross{
 		{
 			m_meatNumber = MeatNamber;
 		}
-
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief テクスチャの読み込み
+		*/
+		//--------------------------------------------------------------------------------------
+		void RoadTexture(const wstring&TextureName, const wstring& UseTextureName);
 	};
 
 }

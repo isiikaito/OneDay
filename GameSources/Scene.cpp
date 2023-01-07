@@ -12,8 +12,25 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
 	///	ゲームシーン
 	//--------------------------------------------------------------------------------------
+	void Scene::RoadTexture(const wstring& TextureName, const wstring& UseTextureName)
+	{
+		wstring dataDir;
+		//サンプルのためアセットディレクトリを取得
+		App::GetApp()->GetAssetsDirectory(dataDir);
+
+		//!テクスチャ
+		wstring strTexture = dataDir + L"Texture\\" + TextureName;
+		App::GetApp()->RegisterTexture(UseTextureName, strTexture);
+	}
+
 	void Scene::CreateResourses()
 	{
+		//!時計の円盤のスプライト
+		RoadTexture(L"Circle.png", L"Circle_TX");
+
+
+
+
 		wstring dataDir;
 		//サンプルのためアセットディレクトリを取得
 		App::GetApp()->GetAssetsDirectory(dataDir);
@@ -39,10 +56,6 @@ namespace basecross{
 		//!時計のスプライト
 		strTexture = dataDir + L"Texture\\" + L"Clock.png";
 		App::GetApp()->RegisterTexture(L"Clock_TX", strTexture);
-
-		//!時計の円盤のスプライト
-		strTexture = dataDir + L"Texture\\" + L"Circle.png";
-		App::GetApp()->RegisterTexture(L"Circle_TX", strTexture);
 
 		//!ビックリマークのスプライト
 		strTexture = dataDir + L"Texture\\" + L"Surprised.png";

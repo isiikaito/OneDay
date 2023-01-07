@@ -16,7 +16,7 @@ namespace basecross {
 	{
 	private:
 		std::shared_ptr<GameObject> parent; // 親オブジェクト
-
+		float m_surprisedTime;
 		Quat Billboard(const Vec3& Line) {
 			Vec3 Temp = Line;
 			Mat4x4 RotMatrix;
@@ -41,7 +41,7 @@ namespace basecross {
 	public:
 		//!構築と破棄
 		SurprisedSprite(const std::shared_ptr<Stage>& stage, const std::shared_ptr<GameObject>& parent)
-			: GameObject(stage), parent(parent), m_SurprisedTime(0.0f), m_spritePositionY(8.0f) , m_IsFoundPlayer(false) {}
+			: GameObject(stage), parent(parent), m_SurprisedTime(0.0f), m_spritePositionY(8.0f) , m_IsFoundPlayer(false), m_surprisedTime(0.0f) {}
 		virtual ~SurprisedSprite() {}
 		//!村人が見失ったら
 		void Surprised();

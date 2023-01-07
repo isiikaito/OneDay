@@ -7,6 +7,7 @@
 #include "stdafx.h"
 #include "Project.h"
 #include "HeadManComment.h"
+#include "HeadMan.h"
 
 namespace basecross
 {
@@ -48,6 +49,8 @@ namespace basecross
 		transComp->SetScale(5, 5, 5);
 		auto EnemyTransform = parent->GetComponent<Transform>();
 		transComp->SetQuaternion(EnemyTransform->GetQuaternion());
+		SetDrawActive(false);
+
 	}
 
 	void HeadManComment::Billboard()
@@ -64,19 +67,29 @@ namespace basecross
 		auto EnemyTransform = parent->GetComponent<Transform>();
 		auto EnemyPosition = EnemyTransform->GetPosition();
 		//!ビルボード処理はオブジェクトの回転まで反映してしまうためポジションを変更する
-		ptrTransform->SetPosition(EnemyPosition.x, m_spritePositionY, EnemyPosition.z);
+		ptrTransform->SetPosition(EnemyPosition.x-4, m_spritePositionY, EnemyPosition.z);
 
 	}
 
 
 	void HeadManComment::Comment()
 	{
-		
+		auto headMan=GetStage()->GetSharedGameObject<HeadMan>(L"HeadMan");
+		auto CommentOn=headMan->GetHeadManComment();
+		if (CommentOn == true)
+		{
+			SetDrawActive(true);
+		}
+		else
+		{
+			SetDrawActive(false);
+
+		}
 	}
 
 	void HeadManComment::OnUpdate()
 	{
 		Billboard();
-
+		Comment();
 	}
 }

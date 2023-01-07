@@ -15,6 +15,8 @@ namespace basecross
 	//--------------------------------------------------------------------------------------
 
 	constexpr float MaxSurprisedTime = 2.0f;
+	constexpr float m_maxSurprisedTime = 2.0f;
+
 	void SurprisedSprite::OnCreate()
 	{
 		auto PtrTransform = GetComponent<Transform>();
@@ -83,14 +85,23 @@ namespace basecross
 		//!ƒvƒŒƒCƒ„[‚ªŒ©‚Â‚©‚Á‚½‚ç
 		if (SurprisedTarget == true)
 		{
+			auto Time = App::GetApp()->GetElapsedTime();
+			m_surprisedTime += Time;
+			if (m_surprisedTime >= m_maxSurprisedTime)
+			{
+				GetEnemy->SetSurprisedSprite(false);
+			}
 		
 			SetDrawActive(true);
 		}
 
 		else
 		{
+			m_surprisedTime = 0.0f;
 			SetDrawActive(false);
 		}
+		
+
 		
 
 	}
