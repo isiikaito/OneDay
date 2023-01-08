@@ -44,7 +44,7 @@ namespace basecross
 
 		public:
 			static WolfState* Instance();
-
+			void MeatEat(Player* Player);
 			virtual void Enter(Player* Player)override;
 			virtual void Execute(Player* Player)override;
 			virtual void Exit(Player* Player)override;
