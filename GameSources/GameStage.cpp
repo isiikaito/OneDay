@@ -436,7 +436,7 @@ namespace basecross {
 				Vec2(370.0f, 270.0f)
 				);
 
-		
+
 	}
 
 	void GameStage::CreateAlertlevelGauge()
@@ -460,6 +460,14 @@ namespace basecross {
 				true,
 				Vec2(50.0f, 70.0f),
 				Vec2(390.0f, 330.0f)
+				);
+
+		AddGameObject<Arrow>
+			(
+				L"Arrow_TX",
+				true,
+				Vec2(50.0f, 70.0f),
+				Vec2(-550.0f, 200.0f)
 				);
 
 	}

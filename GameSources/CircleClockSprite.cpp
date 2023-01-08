@@ -39,8 +39,8 @@ namespace basecross {
 		SetAlphaActive(m_Trace);
 		auto PtrTransform = GetComponent<Transform>();
 		PtrTransform->SetScale(m_StartScale.x, m_StartScale.y, 1.0f);
-		PtrTransform->SetRotation(0, 0, 0);
-		PtrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 1.0f);
+		PtrTransform->SetRotation(0, 0, 50);
+		PtrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 0.8f);
 		//頂点とインデックスを指定してスプライト作成
 		auto PtrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
 		PtrDraw->SetSamplerState(SamplerState::LinearWrap);
@@ -53,7 +53,7 @@ namespace basecross {
 
 		//!円盤が回転する処理
 		auto Time = App::GetApp()->GetElapsedTime();
-		m_CircleTime += Time / m_TimeSpeed;
+		m_CircleTime += Time / m_TimeSpeed * 3.0f;
 		auto SpriteTransform = GetComponent<Transform>();
 		SpriteTransform->SetRotation(0, 0, m_CircleTime);
 	}

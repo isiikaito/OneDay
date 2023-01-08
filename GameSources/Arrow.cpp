@@ -45,7 +45,7 @@ namespace basecross
 		auto ptrTransform = GetComponent<Transform>();
 		ptrTransform->SetScale(m_StartScale.x, m_StartScale.y, 1.0f);
 		ptrTransform->SetRotation(0, 0, 0);
-		ptrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 0.8f);
+		ptrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 0.1f); // 0.1が手前、0.9は奥
 
 		//頂点とインデックスを指定してスプライト作成
 		auto PtrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);

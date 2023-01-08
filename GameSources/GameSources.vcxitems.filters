@@ -89,7 +89,7 @@
       <Filter>Object\Enemy\Villager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Arrow.cpp">
-      <Filter>Sprite\Alertlevel\Arrow</Filter>
+      <Filter>Sprite\Arrow</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
@@ -226,7 +226,7 @@
       <Filter>Object\Enemy\Hunter</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Arrow.h">
-      <Filter>Sprite\Alertlevel\Arrow</Filter>
+      <Filter>Sprite\Arrow</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)AlertlevelGauge.h">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
@@ -371,9 +371,6 @@
     <Filter Include="Sprite\Alertlevel">
       <UniqueIdentifier>{732c903e-58a9-42b6-83f0-63f52350281d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sprite\Alertlevel\Arrow">
-      <UniqueIdentifier>{ef181345-41ff-46df-847e-5ae5d304742e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sprite\Alertlevel\AlertlevelGauge">
       <UniqueIdentifier>{0568939c-7403-44bd-8d7f-284d4ab5ac8e}</UniqueIdentifier>
     </Filter>
@@ -418,6 +415,9 @@
     </Filter>
     <Filter Include="Object\Meat">
       <UniqueIdentifier>{d335d273-4dc6-4230-9072-31fc151c1189}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\Arrow">
+      <UniqueIdentifier>{ef181345-41ff-46df-847e-5ae5d304742e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
