@@ -36,6 +36,9 @@ namespace basecross
 			//!MetaPositonƒtƒ@ƒCƒ‹‚Ì“Ç‚Ýž‚Ý
 			m_MeatPositon.SetFileName(csvDirectory + FileNume + Util::IntToWStr(m_MeatNumber) + L".csv");
 			m_MeatPositon.ReadCsv();
+
+			m_HumanChangeTime = 0.0f;
+
 		}
 		
 		void HumanState:: CreateMeat()
@@ -137,6 +140,8 @@ namespace basecross
 					Stage->RemoveGameObject<Meat>(Obj);
 				}
 			}
+
+			m_WolfChangeTime = 0.0f;
 
 		}
 

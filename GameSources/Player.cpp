@@ -127,7 +127,7 @@ namespace basecross {
 				ptrDraw->ChangeCurrentAnimation(L"Move");
 				//•à‚­‰¹Ä¶
 				auto& XAptr = App::GetApp()->GetXAudio2Manager();
-				m_Wolk = XAptr->Start(L"WalkBGM", 0, 1.0f);
+				m_Wolk = XAptr->Start(L"WalkBGM", 1, 1.0f);
 			}
 		}
 
