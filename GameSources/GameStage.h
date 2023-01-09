@@ -60,6 +60,11 @@ namespace basecross {
 		void CreateHeadMan();//!‘º’·‚Ìì¬
 		void GameTime();//!’‹‚Æ–é‚ğ•Ï‚¦‚éŠÔ
 		void CreateMeat();//!“÷‚Ìì¬
+		void CreateKeyFrame();//!ƒJƒM‚ÌƒtƒŒ[ƒ€
+		void CreateMeatGageBackGround();//!‚¨“÷‚ÌƒQ[ƒW‚Ì”wŒi
+		void CreateHungerGage();//!‹ó• ƒQ[ƒW‚Ìì¬
+		void CreateMeatGageFrame();//!‹ó• ƒQ[ƒW‚Ì˜g‚Ìì¬
+		
 	
 		//‰Šú‰»
 		virtual void OnCreate()override;

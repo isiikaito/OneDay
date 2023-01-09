@@ -8,6 +8,10 @@
 #include "HeadMan.h"
 #include "HeadManComment.h"
 #include "Meat.h"
+#include "KeyFrame.h"
+#include "MeatGageBackground.h"
+#include "MeatGageFrame.h"
+#include "HungerGage.h"
 
 
 namespace basecross {
@@ -408,7 +412,46 @@ namespace basecross {
 
 		return PatorlPoint;
 	}
+	void GameStage::CreateMeatGageFrame()
+	{
+		AddGameObject<MeatGageFrame>(
+			L"Frame_TX",//!テクスチャ
+			true,
+			Vec2(350.0f, 150.0f),//大きさ
+			Vec2(-440.0f, -300.0f)//座標
+			);
+	}
 
+	void GameStage::CreateHungerGage()
+	{
+		AddGameObject<HungerGage>(
+			L"Full_TX",//!テクスチャ
+			true,
+			Vec2(300.0f, 120.0f),//大きさ
+			Vec2(-440.0f, -300.0f)//座標
+			);
+	}
+
+	void GameStage::CreateMeatGageBackGround()
+	{
+		AddGameObject<MeatGageBackGround>
+			(
+			L"Background_TX",//!テクスチャ
+			true,
+			Vec2(350.0f, 150.0f),//大きさ
+			Vec2(-440.0f, -300.0f)//座標
+			);
+	}
+
+	void GameStage::CreateKeyFrame()
+	{
+		AddGameObject<KeyFrame>(
+			L"KEY_TX",//!テクスチャ
+			true,
+			Vec2(150.0f, 150.0f),//大きさ
+			Vec2(300.0f , -320.0f)//座標
+			);
+	}
 
 	void GameStage::CreateHeartSprite()
 	{
@@ -658,6 +701,9 @@ namespace basecross {
 			CreateHeadMan();//!村長の作成
 			CreateMeat();//!肉の作成
 			CreateGameOver();//!ゲームオーバー
+			CreateMeatGageBackGround();//!空腹ゲージの背景
+			CreateMeatGageFrame();//!空腹ゲージの枠
+			CreateHungerGage();//!空腹ゲージ
 			
 			auto gameOver = scene->GetGameOver();
 			if (gameOver == true)

@@ -83,6 +83,7 @@ namespace basecross
 			playerChange = static_cast<int>(PlayerModel::human);//!ó‘Ô‚ð˜T‚É‚·‚é
 			Player->SetPlayerChange(playerChange);
 			CreateMeat();
+			Player->SetMeatCount(0);
 
 		}
 

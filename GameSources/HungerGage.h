@@ -1,0 +1,42 @@
+/*!
+@file HungerGage.h
+@author isii kaito
+@brief ゲージの背景の表示
+*/
+
+#pragma once
+#include "stdafx.h"
+
+namespace basecross {
+
+		enum class EatCondition {
+		notEat,
+		firstEat,
+		secondEat,
+		thirdEat
+	};
+	class HungerGage : public GameObject {
+	private:
+		bool m_Trace;         //!透明
+		Vec2 m_StartScale;    //!大きさ
+		Vec3 m_StartPos;      //!位置
+		wstring m_TextureClock; //!テクスチャ
+
+
+	public:
+
+		HungerGage(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
+			const Vec2& StartScale, const Vec2& StartPos);
+		//破棄
+		virtual ~HungerGage() {}
+		//!ゲージの変更
+		void ChangeGage();
+		//初期化
+		virtual void OnCreate() override;
+		//更新
+		virtual void OnUpdate()override;
+
+	};
+}
+//end basecross
+

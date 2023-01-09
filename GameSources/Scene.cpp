@@ -27,8 +27,10 @@ namespace basecross{
 	{
 		//!時計の円盤のスプライト
 		RoadTexture(L"Circle.png", L"Circle_TX");
-
-
+		//!ゲージの背景
+		RoadTexture(L"Background.png", L"Background_TX");
+		RoadTexture(L"Frame.png", L"Frame_TX");
+		RoadTexture(L"FullGage.png", L"Full_TX");
 
 
 		wstring dataDir;

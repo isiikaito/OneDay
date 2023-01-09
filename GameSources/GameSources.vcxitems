@@ -30,9 +30,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeadMan.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeadManComment.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)HungerGage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)KeyFrame.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)KeyParticle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Meat.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MeatGageFrame.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MeatGageBackground.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)playerState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Villager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Key.h" />
@@ -77,9 +81,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HeadMan.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HeadManComment.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)HungerGage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)KeyFrame.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)KeyParticle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Meat.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MeatGageFrame.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MeatGageBackground.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Villager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Key.cpp" />

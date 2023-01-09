@@ -76,9 +76,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp">
       <Filter>Object\Enemy\BaseEnemy</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp">
-      <Filter>State\EnemyState</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SurprisedSprite.cpp">
       <Filter>Sprite\Surprised</Filter>
     </ClCompile>
@@ -89,7 +86,7 @@
       <Filter>Object\Enemy\Villager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Arrow.cpp">
-      <Filter>Sprite\Arrow</Filter>
+      <Filter>Sprite\Alertlevel\Arrow</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
@@ -129,6 +126,21 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Meat.cpp">
       <Filter>Object\Meat</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp">
+      <Filter>Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)KeyFrame.cpp">
+      <Filter>Sprite\KeyFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MeatGageBackground.cpp">
+      <Filter>Sprite\MeatGage\MeatGageBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)HungerGage.cpp">
+      <Filter>Sprite\MeatGage\HungerGage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MeatGageFrame.cpp">
+      <Filter>Sprite\MeatGage\MeatGageFrame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -226,7 +238,7 @@
       <Filter>Object\Enemy\Hunter</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Arrow.h">
-      <Filter>Sprite\Arrow</Filter>
+      <Filter>Sprite\Alertlevel\Arrow</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)AlertlevelGauge.h">
       <Filter>Sprite\Alertlevel\AlertlevelGauge</Filter>
@@ -266,6 +278,18 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Meat.h">
       <Filter>Object\Meat</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)KeyFrame.h">
+      <Filter>Sprite\KeyFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MeatGageBackground.h">
+      <Filter>Sprite\MeatGage\MeatGageBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HungerGage.h">
+      <Filter>Sprite\MeatGage\HungerGage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MeatGageFrame.h">
+      <Filter>Sprite\MeatGage\MeatGageFrame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -371,6 +395,9 @@
     <Filter Include="Sprite\Alertlevel">
       <UniqueIdentifier>{732c903e-58a9-42b6-83f0-63f52350281d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sprite\Alertlevel\Arrow">
+      <UniqueIdentifier>{ef181345-41ff-46df-847e-5ae5d304742e}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Sprite\Alertlevel\AlertlevelGauge">
       <UniqueIdentifier>{0568939c-7403-44bd-8d7f-284d4ab5ac8e}</UniqueIdentifier>
     </Filter>
@@ -416,8 +443,20 @@
     <Filter Include="Object\Meat">
       <UniqueIdentifier>{d335d273-4dc6-4230-9072-31fc151c1189}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sprite\Arrow">
-      <UniqueIdentifier>{ef181345-41ff-46df-847e-5ae5d304742e}</UniqueIdentifier>
+    <Filter Include="Sprite\KeyFrame">
+      <UniqueIdentifier>{077da185-5861-41d7-b660-7f77d39f73a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\MeatGage">
+      <UniqueIdentifier>{90925790-31e3-4a8d-9b05-5dcbcdc44529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\MeatGage\MeatGageBackground">
+      <UniqueIdentifier>{cc026a30-9762-4f0f-8b72-9b1786c1fbee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\MeatGage\HungerGage">
+      <UniqueIdentifier>{fab0f756-2ba8-4f56-a2c6-b637f0451870}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\MeatGage\MeatGageFrame">
+      <UniqueIdentifier>{93e0c53a-8847-411a-a3dd-8af1949ebbab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
