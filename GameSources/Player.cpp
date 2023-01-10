@@ -158,9 +158,14 @@ namespace basecross {
 		//ƒGƒtƒFƒNƒg‚Ì‰Šú‰»
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
-		wstring TestEffectStr = DataDir + L"Effects\\scratch.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
+		wstring TestEffectStr = DataDir + L"Effects\\key.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
 		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!ƒGƒtƒFƒNƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾
-		m_EfkEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, TestEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
+		m_keyEfkEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, TestEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
+
+		
+		wstring scratchEffectStr = DataDir + L"Effects\\scratch.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
+		auto scratchEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!ƒGƒtƒFƒNƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾
+		m_scratchEfkEffect = ObjectFactory::Create<EfkEffect>(scratchEfkInterface, scratchEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
 
 		//!‰ŠúˆÊ’u‚È‚Ç‚Ìİ’è
 		auto ptr = AddComponent<Transform>();
@@ -606,6 +611,12 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’
 				CreateKeySprite();
 				auto ptrXA = App::GetApp()->GetXAudio2Manager();
 				ptrXA->Start(L"acquisition", 0, 9.0f);
+
+				//ƒGƒtƒFƒNƒg‚ÌƒvƒŒƒC
+				auto Ptr = ptrKey->GetComponent<Transform>();
+				auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
+				m_keyEfkPlay = ObjectFactory::Create<EfkPlay>(m_keyEfkEffect, Ptr->GetPosition());
+
 			}
 
 
@@ -631,11 +642,11 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’
 	}
 	void Player::OnPushB()
 	{
-
-		auto Ptr = GetComponent<Transform>();
 		//ƒGƒtƒFƒNƒg‚ÌƒvƒŒƒC
+		auto Ptr = GetComponent<Transform>();
 		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
-		m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_EfkEffect, Ptr->GetPosition());
+		m_scratchEfkPlay = ObjectFactory::Create<EfkPlay>(m_scratchEfkEffect, Ptr->GetPosition());
+		
 
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto gameOver = scene->GetGameOver();
