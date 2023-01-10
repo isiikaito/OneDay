@@ -25,6 +25,8 @@ namespace basecross{
 
 	void Scene::CreateResourses()
 	{
+		//!テクスチャ
+
 		//!時計の円盤のスプライト
 		RoadTexture(L"Circle.png", L"Circle_TX");
 		//!ゲージの背景
@@ -34,50 +36,46 @@ namespace basecross{
 		RoadTexture(L"HeadManCommet1.png", L"HeadManCommet1_TX");
 		RoadTexture(L"HeadManCommet2.png", L"HeadManCommet2_TX");
 		RoadTexture(L"HeadManCommet3.png", L"HeadManCommet3_TX");
+
 		RoadTexture(L"CommentDay.png", L"CommentDay_TX");
+		//!昼から夜になったらでるテクスチャ
 		RoadTexture(L"CommentNignt.png", L"CommentNignt_TX");
+		//!数字の取得
+		RoadTexture(L"Nomber_3.png", L"NUMBER_TX");
+		//!危険度のゲージのスプライト
+		RoadTexture(L"Arrow.png", L"Arrow_TX");
+
+		RoadTexture(L"testGauge.png", L"AlertlevelGaugeGauge_TX");
+		//!はてなマークのスプライト
+		RoadTexture(L"LoseSightOf.png", L"LoseSightOf_TX");
+
+		//!ビックリマークのスプライト
+		RoadTexture(L"Surprised.png", L"Surprised_TX");
+		//!時計のスプライト
+		RoadTexture(L"Clock.png", L"Clock_TX");
+		//!プレイヤーのHPスプライト
+		RoadTexture(L"PlayerHp.png", L"PlayerHp_TX");
+		//!キースプライト
+		RoadTexture(L"key.png", L"KEY_TX");
+		//!ゲームクリア画面
+		RoadTexture(L"GameClear.png", L"GAMECLEAR_TX");
+		//!ゲームオーバー画面
+		RoadTexture(L"GameOver.png", L"GAMEOVER_TX");
+
+		RoadTexture(L"Title.jpg", L"MESSAGE_TX");
+		//!カギの枠
+		RoadTexture(L"ItemField.png", L"ItemField_TX");
 
 
-
+		
 		wstring dataDir;
 		//サンプルのためアセットディレクトリを取得
 		App::GetApp()->GetAssetsDirectory(dataDir);
 
-		//!テクスチャ
-		wstring strTexture = dataDir +L"Texture\\"+ L"Nomber_3.png";
-		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
-		//!タイトル画面
-		strTexture = dataDir + L"Texture\\"+L"Title.jpg";
-		App::GetApp()->RegisterTexture(L"MESSAGE_TX", strTexture);
-		//!ゲームオーバー画面
-		strTexture = dataDir + L"Texture\\" + L"GameOver.png";
-		App::GetApp()->RegisterTexture(L"GAMEOVER_TX", strTexture);
-		//!ゲームクリア画面
-		strTexture = dataDir + L"Texture\\"+ L"GameClear.png";
-		App::GetApp()->RegisterTexture(L"GAMECLEAR_TX", strTexture);
-		//!キースプライト
-		strTexture = dataDir + L"Texture\\" + L"key.png";
-		App::GetApp()->RegisterTexture(L"KEY_TX", strTexture);
-		//!プレイヤーのHPスプライト
-		strTexture = dataDir + L"Texture\\" + L"PlayerHp.png";
-		App::GetApp()->RegisterTexture(L"PlayerHp_TX", strTexture);
-		//!時計のスプライト
-		strTexture = dataDir + L"Texture\\" + L"Clock.png";
-		App::GetApp()->RegisterTexture(L"Clock_TX", strTexture);
-
-		//!ビックリマークのスプライト
-		strTexture = dataDir + L"Texture\\" + L"Surprised.png";
-		App::GetApp()->RegisterTexture(L"Surprised_TX", strTexture);
-		//!はてなマークのスプライト
-		strTexture = dataDir + L"Texture\\" + L"LoseSightOf.png";
-		App::GetApp()->RegisterTexture(L"LoseSightOf_TX", strTexture);
-		//!危険度のゲージのスプライト
-		strTexture = dataDir + L"Texture\\" + L"testGauge.png";
-		App::GetApp()->RegisterTexture(L"AlertlevelGaugeGauge_TX", strTexture);
-		//!危険度のゲージのスプライト
-		strTexture = dataDir + L"Texture\\" + L"Arrow.png";
-		App::GetApp()->RegisterTexture(L"Arrow_TX", strTexture);
-
+	
+	
+		
+	
 
 		//!床のモデル読み込み
 		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir,L"MayaModel\\" L"StageFloor.bmf");
@@ -160,7 +158,7 @@ namespace basecross{
 
 
 		//法線マップ
-		strTexture = dataDir + L"PlalyerBanpMap.png";
+		wstring strTexture = dataDir + L"PlalyerBanpMap.png";
 		App::GetApp()->RegisterTexture(L"OBJECT_NORMAL_TX", strTexture);
 
 		//!BGM
@@ -367,7 +365,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
 		}
 		catch (...) {
 			throw;

@@ -505,8 +505,8 @@ namespace basecross {
 		GetStage()->AddGameObject<KeySprite>(
 			L"KEY_TX",//!テクスチャ
 			true,
-			Vec2(150.0f, 150.0f),//大きさ
-			Vec2(-550.0f + (100.0f * (m_KeyCount - 1)), -320.0f)//座標
+			Vec2(120.0f, 120.0f),//大きさ
+			Vec2(-565.0f + (110.0f * (m_KeyCount - 1)), -280.0f)//座標
 			);
 	}
 

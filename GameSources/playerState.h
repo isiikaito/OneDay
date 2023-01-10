@@ -21,6 +21,7 @@ namespace basecross
 			float m_HumanChangeTime = 0.0f;
 			CsvFile m_MeatPositon;//!肉のポジションのCSVファイル
 			int m_MeatNumber=0;//!肉の位置が保存されたCSVファイルの番号
+			CsvFile m_GameStageCsvD;// !建物の配置4
 			//!シングルトンパターン
 			HumanState(const HumanState&) = delete;//!関数を削除する
 			HumanState& operator=(const HumanState&) = delete;//!operatorの中にある=を削除（コピーされないように）
@@ -47,6 +48,8 @@ namespace basecross
 			WolfState& operator=(const WolfState&) = delete;//!operatorの中にある=を削除(コピーされないように)
 			float m_WolfChangeTime = 0.0f;
 			int m_Date;//!日付
+		
+
 
 		public:
 			static WolfState* Instance();

@@ -470,10 +470,10 @@ namespace basecross {
 	void GameStage::CreateKeyFrame()
 	{
 		AddGameObject<KeyFrame>(
-			L"KEY_TX",//!テクスチャ
+			L"ItemField_TX",//!テクスチャ
 			true,
-			Vec2(150.0f, 150.0f),//大きさ
-			Vec2(300.0f , -320.0f)//座標
+			Vec2(390.0f, 260.0f),//大きさ
+			Vec2(-450.0f , -280.0f)//座標
 			);
 	}
 
@@ -740,6 +740,7 @@ namespace basecross {
 			CreateClockArrow();//!時計の針
 			CreateDateChangeCommentDay();//!夜から昼にでるテクスチャ
 			CreateDateChangeCommentNight();//!昼から夜にでるテクスチャ
+			CreateKeyFrame();//!カギの枠の作成
 			
 			auto gameOver = scene->GetGameOver();
 			if (gameOver == true)

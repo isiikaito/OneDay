@@ -85,6 +85,43 @@ namespace basecross
 			CreateMeat();
 			Player->SetMeatCount(0);
 
+			auto& app = App::GetApp();//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+
+
+			wstring DataDir;
+			App::GetApp()->GetDataDirectory(DataDir);
+			auto scene = App::GetApp()->GetScene<Scene>();
+
+
+			// フォルダの指定
+			auto csvDirectory = DataDir + L"csvFolder\\";
+			//!MetaPositonファイルの読み込み
+			m_GameStageCsvD.SetFileName(csvDirectory + L"GameStageD.csv");
+			m_GameStageCsvD.ReadCsv();
+
+
+
+			//CSVの全体の配列
+		//CSVからすべての行を抜き出す
+			auto& LineVec = m_GameStageCsvD.GetCsvVec();
+			for (size_t i = 0; i < LineVec.size(); i++) {
+				//トークン（カラム）の配列
+				vector<wstring> Tokens;
+				//トークン（カラム）単位で文字列を抽出(L','をデリミタとして区分け)
+				Util::WStrToTokenVector(Tokens, LineVec[i], L',');
+				for (size_t j = 0; j < Tokens.size(); j++) {
+					//XとZの位置を計算
+					float XPos = (float)((int)j - 8.6f) * 10.0f;
+					float ZPos = (float)(8.6f - (int)i) * 10.0f;
+					if (Tokens[j] == L"3")//3の時にゲームステージに追加
+					{
+						Stage->AddGameObject<WoodenBox>(Vec3(9.0f, 9.0f, 9.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
+					}
+				}
+			}
+
 		}
 
 		void HumanState::Execute(Player* Player)
@@ -205,6 +242,20 @@ namespace basecross
 			Player->SetMeatCount(0);
 			m_Date++;
 			scene->SetDate(m_Date);
+
+			//!木の箱の削除
+			auto& app = App::GetApp();//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+
+			for (auto& Obj : Objects)//!オブジェクトの要素分
+			{
+				auto stageMeat = dynamic_pointer_cast<WoodenBox>(Obj);//!建物の取得
+				if (stageMeat)
+				{
+					Stage->RemoveGameObject<WoodenBox>(Obj);
+				}
+			}
 		}
 	}
 }
