@@ -178,7 +178,7 @@ namespace basecross {
 				float ZPos = (float)(8.6f - (int)i) * 10.0f;
 				if (Tokens[j] == L"3")//3の時にゲームステージに追加
 				{
-					AddGameObject<WoodenBox>(Vec3(5.0f, 5.0f, 5.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
+					AddGameObject<WoodenBox>(Vec3(9.0f, 9.0f, 9.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
 				}
 			}
 		}

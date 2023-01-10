@@ -69,13 +69,13 @@ namespace basecross
 		auto ptrShadow = AddComponent<Shadowmap>();  //!影をつける（シャドウマップを描画する）
 
 		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"Enemy_WalkAnimation_MESH");//!影の形（メッシュ）を設定
+		ptrShadow->SetMeshResource(L"EnemyHunter_Animation_MESH");//!影の形（メッシュ）を設定
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 
 		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの設定
 		ptrDraw->SetDiffuse(Col4(0.0f, 0.0f, 1.0f, 1.0f));
 		//!描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"Enemy_WalkAnimation_MESH_WITH_TAN");
+		ptrDraw->SetMeshResource(L"EnemyHunter_Animation_MESH_WITH_TAN");
 
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);

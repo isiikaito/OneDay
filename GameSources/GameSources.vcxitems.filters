@@ -341,9 +341,6 @@
     <Filter Include="Object\Camera">
       <UniqueIdentifier>{b927bd88-d5f1-4c2e-9f93-64c629d875b0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Other\Character">
-      <UniqueIdentifier>{af119bd1-aeb1-43b7-9e17-776c20ba66ad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Other\ProjectBehavior">
       <UniqueIdentifier>{6334a5ad-110e-442c-b5c6-0be391cdc2aa}</UniqueIdentifier>
     </Filter>
@@ -457,6 +454,9 @@
     </Filter>
     <Filter Include="Sprite\MeatGage\MeatGageFrame">
       <UniqueIdentifier>{93e0c53a-8847-411a-a3dd-8af1949ebbab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Character">
+      <UniqueIdentifier>{af119bd1-aeb1-43b7-9e17-776c20ba66ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

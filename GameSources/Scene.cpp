@@ -135,22 +135,23 @@ namespace basecross{
 
 		//モデル
 		//ボーンモデルの通常リソース
-		auto EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"EnemyVillager_Animation.bmf");
-		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH", EnemyHunterMultiModelMesh);
+		auto EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Hunter_Animation.bmf");
+		App::GetApp()->RegisterResource(L"EnemyHunter_Animation_MESH", EnemyHunterMultiModelMesh);
 
 		//ボーンモデルのタンジェント付きリソース
-		EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"EnemyVillager_Animation.bmf");
-		App::GetApp()->RegisterResource(L"Enemy_WalkAnimation_MESH_WITH_TAN", EnemyHunterMultiModelMesh);
+		EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Hunter_Animation.bmf");
+		App::GetApp()->RegisterResource(L"EnemyHunter_Animation_MESH_WITH_TAN", EnemyHunterMultiModelMesh);
 
 
 		//モデル
-	//ボーンモデルの通常リソース
+		//ボーンモデルの通常リソース
 		auto EnemyVillagerMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"EnemyVillager_Animation.bmf");
 		App::GetApp()->RegisterResource(L"EnemyVillager_WalkAnimation_MESH", EnemyVillagerMultiModelMesh);
 
 		//ボーンモデルのタンジェント付きリソース
 		EnemyVillagerMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"EnemyVillager_Animation.bmf");
 		App::GetApp()->RegisterResource(L"EnemyVillager_WalkAnimation_MESH_WITH_TAN", EnemyVillagerMultiModelMesh);
+
 
 		//法線マップ
 		strTexture = dataDir + L"PlalyerBanpMap.png";
