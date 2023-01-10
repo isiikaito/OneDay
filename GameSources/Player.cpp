@@ -386,6 +386,38 @@ namespace basecross {
 		}
 	}
 
+	void Player::BreakWoodBox()
+	{
+		auto transComp = GetComponent<Transform>();//!ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚ğæ“¾
+		auto position = transComp->GetPosition();//!Œ»İ‚ÌƒvƒŒƒCƒ„[‚ÌˆÊ’u‚Ìæ“¾
+		SPHERE playerSp(position, 5.0f);//!ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ’†S‚É”¼Œa2ƒZƒ“ƒ`‚Ì‰~‚Ìì¬
+		auto scene = App::GetApp()->GetScene<Scene>();
+		//!‘ºl‚ğE‚·
+		auto group = GetStage()->GetSharedObjectGroup(L"WoodBox_ObjGroup");
+		auto& vecWoodBox = group->GetGroupVector();//!ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ‚Ìæ“¾
+		//!‘ºl”z—ñƒIƒuƒWƒFƒNƒg‚Ì”z—ñ•ª‰ñ‚·
+		for (auto& v : vecWoodBox)
+		{
+			auto WoodBox = v.lock();//!‘ºl‚ÌƒOƒ‹[ƒv‚©‚ç1‚ÂƒƒbƒN‚·‚é
+			Vec3 ret;//!Å‹ßÚ“_‚Ì‘ã“ü
+			auto ptrWoodBox = dynamic_pointer_cast<WoodenBox>(WoodBox);//!ƒƒbƒN‚µ‚½•¨‚ğæ‚èo‚·
+
+			//!ƒvƒŒƒCƒ„[‚Ì”ÍˆÍ‚É“G‚ª“ü‚Á‚½‚ç
+			if (ptrWoodBox)
+			{
+				auto WoodBoxOBB = ptrWoodBox->GetComponent<CollisionObb>()->GetObb();//!ƒnƒ“ƒ^-‚ÌObbƒIƒuƒWƒFƒNƒg‚ğæ“¾
+				if (HitTest::SPHERE_OBB(playerSp, WoodBoxOBB, ret))//!ƒvƒŒƒCƒ„[‚Ìü‚è‚ğˆÍ‚ñ‚Å‚¢‚éƒXƒtƒBƒA‚É“–‚½‚Á‚½‚ç
+				{
+					GetStage()->RemoveGameObject<WoodenBox>(ptrWoodBox);
+					//ƒTƒEƒ“ƒhÄ¶
+					auto& ptrXA = App::GetApp()->GetXAudio2Manager();
+					ptrXA->Start(L"WoodBoxBreak", 0, 1.0f);
+					
+				}
+			}
+		}
+	}
+
 	//!‘ºl‚ğ“|‚·ˆ—
 	void Player::Villagerkiller()
 	{
@@ -614,6 +646,7 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’
 			{
 				Villagerkiller();//!‘ºl‚ğ“|‚·ˆ—
 				Hunterkiller();//!ƒnƒ“ƒ^[‚ğ“|‚·ˆ—
+				BreakWoodBox();//!ƒ{ƒbƒNƒX‚ğ‰ó‚·
 			}
 
 			if (m_playerChange == static_cast<int>(PlayerModel::human))

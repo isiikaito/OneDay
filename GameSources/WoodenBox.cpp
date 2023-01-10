@@ -61,6 +61,9 @@ namespace basecross {
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		/*Coll->SetDrawActive(true);*/
 		
+		auto group = GetStage()->GetSharedObjectGroup(L"WoodBox_ObjGroup");
+		//グループに自分自身を追加
+		group->IntoGroup(GetThis<WoodenBox>());
 
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 

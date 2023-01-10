@@ -41,12 +41,12 @@ namespace basecross
 		//drawComp->SetMeshResource(L"DEFAULT_SQUARE");
 		drawComp->CreateOriginalMesh(vertices, indices);
 		drawComp->SetOriginalMeshUse(true);
-		drawComp->SetTextureResource(L"LoseSightOf_TX");
+		drawComp->SetTextureResource(L"HeadManCommet1_TX");
 		drawComp->SetDepthStencilState(DepthStencilState::None); // 重ね合わせの問題を解消する
 		SetAlphaActive(true);
 		//SetDrawActive(false);
 		auto transComp = GetComponent<Transform>();  // トランスフォーム：変換行列(Transform Matrix)		
-		transComp->SetScale(5, 5, 5);
+		transComp->SetScale(15, 15, 15);
 		auto EnemyTransform = parent->GetComponent<Transform>();
 		transComp->SetQuaternion(EnemyTransform->GetQuaternion());
 		SetDrawActive(false);
@@ -67,7 +67,7 @@ namespace basecross
 		auto EnemyTransform = parent->GetComponent<Transform>();
 		auto EnemyPosition = EnemyTransform->GetPosition();
 		//!ビルボード処理はオブジェクトの回転まで反映してしまうためポジションを変更する
-		ptrTransform->SetPosition(EnemyPosition.x-4, m_spritePositionY, EnemyPosition.z);
+		ptrTransform->SetPosition(EnemyPosition.x, m_spritePositionY, EnemyPosition.z);
 
 	}
 
