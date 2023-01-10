@@ -50,7 +50,7 @@ namespace basecross {
 		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
 		auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
-		Coll->SetFixed(false);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
+		Coll->SetFixed(true);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
 
 		//!影の形（メッシュ）を設定
 		ptrShadow->SetMeshResource(L"BOX_MESH");
@@ -70,6 +70,7 @@ namespace basecross {
 
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
+		
 
 		// !夜から昼になる処理
 		if (m_oneday == static_cast<int>(Oneday::midday))

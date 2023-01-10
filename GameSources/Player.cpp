@@ -158,7 +158,7 @@ namespace basecross {
 		//エフェクトの初期化
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
-		wstring TestEffectStr = DataDir + L"Effects\\test1.efk";//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
+		wstring TestEffectStr = DataDir + L"Effects\\scratch.efk";//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
 		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!エフェクトのインターフェースの取得
 		m_EfkEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, TestEffectStr);//!取得したエフェクトで作る
 
