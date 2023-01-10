@@ -127,9 +127,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Meat.cpp">
       <Filter>Object\Meat</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp">
-      <Filter>Sprite</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)KeyFrame.cpp">
       <Filter>Sprite\KeyFrame</Filter>
     </ClCompile>
@@ -141,6 +138,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MeatGageFrame.cpp">
       <Filter>Sprite\MeatGage\MeatGageFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp">
+      <Filter>State\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ClockArrow.cpp">
+      <Filter>Sprite\ClockArrow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +294,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MeatGageFrame.h">
       <Filter>Sprite\MeatGage\MeatGageFrame</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ClockArrow.h">
+      <Filter>Sprite\ClockArrow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -340,6 +346,9 @@
     </Filter>
     <Filter Include="Object\Camera">
       <UniqueIdentifier>{b927bd88-d5f1-4c2e-9f93-64c629d875b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Character">
+      <UniqueIdentifier>{af119bd1-aeb1-43b7-9e17-776c20ba66ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Other\ProjectBehavior">
       <UniqueIdentifier>{6334a5ad-110e-442c-b5c6-0be391cdc2aa}</UniqueIdentifier>
@@ -455,8 +464,8 @@
     <Filter Include="Sprite\MeatGage\MeatGageFrame">
       <UniqueIdentifier>{93e0c53a-8847-411a-a3dd-8af1949ebbab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Other\Character">
-      <UniqueIdentifier>{af119bd1-aeb1-43b7-9e17-776c20ba66ad}</UniqueIdentifier>
+    <Filter Include="Sprite\ClockArrow">
+      <UniqueIdentifier>{b4b70d30-db14-4912-aa84-99ce11205b10}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

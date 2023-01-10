@@ -26,13 +26,14 @@ namespace basecross {
 		const float m_GameTime;
 		float m_MeatTime;//!肉の位置をランダムにする時間
 		int m_MeatNumber;//!肉の位置を保存したCSVの番号
+		int m_Date;//!日付
 		
 		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 		shared_ptr<EfkInterface> m_EfkInterface;
 
 	public:
 		//構築と破棄
-		GameStage() :Stage(),m_TotalTime(31.0f), m_GameTime(31.0f), m_MeatNumber(0), m_MeatTime(0.0f) {}
+		GameStage() :Stage(),m_TotalTime(31.0f), m_GameTime(31.0f), m_MeatNumber(0), m_MeatTime(0.0f), m_Date(0) {}
 		virtual ~GameStage() {}
 
 		void CreateViewLight();  //!ビューの作成
@@ -64,7 +65,7 @@ namespace basecross {
 		void CreateMeatGageBackGround();//!お肉のゲージの背景
 		void CreateHungerGage();//!空腹ゲージの作成
 		void CreateMeatGageFrame();//!空腹ゲージの枠の作成
-		
+		void CreateClockArrow();//!時計の針
 	
 		//初期化
 		virtual void OnCreate()override;

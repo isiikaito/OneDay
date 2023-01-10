@@ -199,8 +199,12 @@ namespace basecross
 
 		void WolfState::Exit(Player* Player)
 		{
+			auto scene = App::GetApp()->GetScene<Scene>();
+
 			m_WolfChangeTime = 0.0f;
 			Player->SetMeatCount(0);
+			m_Date++;
+			scene->SetDate(m_Date);
 		}
 	}
 }

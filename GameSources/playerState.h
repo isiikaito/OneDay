@@ -46,7 +46,7 @@ namespace basecross
 			WolfState(const WolfState&) = delete;//!関数を削除する
 			WolfState& operator=(const WolfState&) = delete;//!operatorの中にある=を削除(コピーされないように)
 			float m_WolfChangeTime = 0.0f;
-		
+			int m_Date;//!日付
 
 		public:
 			static WolfState* Instance();

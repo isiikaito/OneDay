@@ -494,6 +494,17 @@ namespace basecross {
 				Vec2(460.0f, 350.0f)
 				);
 	}
+	void GameStage::CreateClockArrow()
+	{
+		AddGameObject<Arrow>
+			(
+				L"Arrow_TX",
+				true,
+				Vec2(50.0f, 70.0f),
+				90.0f,//!Z軸の回転
+				Vec2(-500.0f, 300.0f)
+				);
+	}
 
 	void GameStage::CreateArrow()
 	{
@@ -507,14 +518,7 @@ namespace basecross {
 				Vec2(390.0f, 330.0f)
 				);
 
-		AddGameObject<Arrow>
-			(
-				L"Arrow_TX",
-				true,
-				Vec2(50.0f, 70.0f),
-				90.0f,//!Z軸の回転
-				Vec2(-500.0f, 300.0f)
-				);
+	
 
 	}
 
@@ -575,7 +579,7 @@ namespace basecross {
 
 		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
 		
-		for (auto data : datas) {
+		for (auto& data : datas) {
 
 
 			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!村人の大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
@@ -608,10 +612,13 @@ namespace basecross {
 
 	void GameStage::GameTime()
 	{
+
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		m_TotalTime -= elapsedTime;
 		if (m_TotalTime <= 0.0f) {
 			m_TotalTime = m_GameTime;
+			
+			
 		}
 		////スコアを更新する
 		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
@@ -707,6 +714,7 @@ namespace basecross {
 			CreateMeatGageBackGround();//!空腹ゲージの背景
 			CreateMeatGageFrame();//!空腹ゲージの枠
 			CreateHungerGage();//!空腹ゲージ
+			CreateClockArrow();//!時計の針
 			
 			auto gameOver = scene->GetGameOver();
 			if (gameOver == true)
@@ -744,6 +752,7 @@ namespace basecross {
 		auto gameOver = scene->GetGameOver();
 		if (gameOver == true)
 		{
+
 			OnDestroy();
 
 		}

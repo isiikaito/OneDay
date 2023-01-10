@@ -85,6 +85,33 @@ namespace basecross
 			SetDrawActive(false);
 
 		}
+
+		//!Œã‚Å’¼‚·
+		auto drawComp = AddComponent<PCTStaticDraw>();
+		auto scene = App::GetApp()->GetScene<Scene>();
+		auto date = scene->GetDate();
+
+		if (date < 3)
+		{
+			drawComp->SetTextureResource(L"HeadManCommet1_TX");
+
+		}
+		if (date > 3)
+		{
+			drawComp->SetTextureResource(L"HeadManCommet2_TX");
+
+		}
+
+		if (date > 6)
+		{
+			drawComp->SetTextureResource(L"HeadManCommet2_TX");
+
+		}
+
+		
+
+
+
 	}
 
 	void HeadManComment::OnUpdate()

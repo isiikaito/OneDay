@@ -19,6 +19,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CircleClockSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ClockArrow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EfkInterfece.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h" />
@@ -70,6 +71,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CircleClockSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ClockArrow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp" />

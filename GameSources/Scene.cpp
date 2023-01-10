@@ -32,8 +32,9 @@ namespace basecross{
 		RoadTexture(L"Frame.png", L"Frame_TX");
 		RoadTexture(L"FullGage.png", L"Full_TX");
 		RoadTexture(L"HeadManCommet1.png", L"HeadManCommet1_TX");
+		RoadTexture(L"HeadManCommet2.png", L"HeadManCommet2_TX");
+		RoadTexture(L"HeadManCommet3.png", L"HeadManCommet3_TX");
 
-		
 
 
 		wstring dataDir;
