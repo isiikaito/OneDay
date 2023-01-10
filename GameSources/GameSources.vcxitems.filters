@@ -145,6 +145,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ClockArrow.cpp">
       <Filter>Sprite\ClockArrow</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DateChangeCommentDay.cpp">
+      <Filter>Sprite\DateChangeComment\DateChangeCommentDay</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.cpp">
+      <Filter>Sprite\DateChangeComment\DateChangeCommentNight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -296,6 +302,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ClockArrow.h">
       <Filter>Sprite\ClockArrow</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DateChangeCommentDay.h">
+      <Filter>Sprite\DateChangeComment\DateChangeCommentDay</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.h">
+      <Filter>Sprite\DateChangeComment\DateChangeCommentNight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -466,6 +478,15 @@
     </Filter>
     <Filter Include="Sprite\ClockArrow">
       <UniqueIdentifier>{b4b70d30-db14-4912-aa84-99ce11205b10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\DateChangeComment">
+      <UniqueIdentifier>{081f865f-13af-461c-90d2-4ed5e18b7e7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\DateChangeComment\DateChangeCommentDay">
+      <UniqueIdentifier>{696fc0ae-dce6-4a14-a1f7-dfee81cdfbe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\DateChangeComment\DateChangeCommentNight">
+      <UniqueIdentifier>{daf85ace-1938-4323-b63a-e3fc0467e3de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
