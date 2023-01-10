@@ -55,7 +55,7 @@ namespace basecross
 		spanMat.affineTransformation(
 			Vec3(0.4f, 0.4f, 0.4f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f),   //!回転
+			Vec3(0.0f, 59.7f, 0.0f),   //!回転
 			Vec3(0.0f, -1.0f, 0.0f)  //!位置
 		);
 
@@ -160,6 +160,8 @@ namespace basecross
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		BaseEnemy::OnUpdate();
+
+	
 		
 	}
 

@@ -418,8 +418,8 @@ namespace basecross {
 		AddGameObject<MeatGageFrame>(
 			L"Frame_TX",//!テクスチャ
 			true,
-			Vec2(350.0f, 150.0f),//大きさ
-			Vec2(-440.0f, -300.0f)//座標
+			Vec2(400.0f, 100.0f),//大きさ
+			Vec2(420.0f, -320.0f)//座標
 			);
 	}
 
@@ -428,8 +428,8 @@ namespace basecross {
 		AddGameObject<HungerGage>(
 			L"Full_TX",//!テクスチャ
 			true,
-			Vec2(300.0f, 120.0f),//大きさ
-			Vec2(-440.0f, -300.0f)//座標
+			Vec2(400.0f, 100.0f),//大きさ
+			Vec2(420.0f, -320.0f)//座標
 			);
 	}
 
@@ -439,8 +439,8 @@ namespace basecross {
 			(
 			L"Background_TX",//!テクスチャ
 			true,
-			Vec2(350.0f, 150.0f),//大きさ
-			Vec2(-440.0f, -300.0f)//座標
+			Vec2(400.0f, 100.0f),//大きさ
+			Vec2(420.0f, -320.0f)//座標
 			);
 	}
 
@@ -503,6 +503,7 @@ namespace basecross {
 				L"Arrow_TX",
 				true,
 				Vec2(50.0f, 70.0f),
+				0.0f,
 				Vec2(390.0f, 330.0f)
 				);
 
@@ -511,6 +512,7 @@ namespace basecross {
 				L"Arrow_TX",
 				true,
 				Vec2(50.0f, 70.0f),
+				90.0f,//!Z軸の回転
 				Vec2(-550.0f, 200.0f)
 				);
 

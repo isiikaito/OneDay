@@ -17,12 +17,12 @@ namespace basecross {
 		Vec3 m_StartPos;      //!位置
 		wstring m_TextureKey; //!テクスチャ
 		int m_RustLife;
-
+		float m_rotationZ;//!回転のz軸を変える
 
 	public:
 
 		Arrow(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale, const Vec2& StartPos);
+			const Vec2& StartScale,const float& RotationZ,  const Vec2& StartPos);
 		//!破棄
 		virtual ~Arrow();
 		//!初期化

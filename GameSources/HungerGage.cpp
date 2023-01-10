@@ -63,27 +63,29 @@ namespace basecross {
             //!ゲージが二個減ったとき
 			SetDrawActive(true);
 
-		    PtrTransform->SetScale(100.0f, 120.0f, 1.0f);
-		    PtrTransform->SetPosition(-513.0f, -300.0f, 0.5f);
+		    PtrTransform->SetScale(110.0f, 80.0f, 1.0f);
+		     PtrTransform->SetPosition(340.0f, -320.0f, 0.5f);
 		    break;
 		case(static_cast<int>(EatCondition::secondEat)):
             //!ゲージが一個減った
-		    PtrTransform->SetScale(190.0f, 120.0f, 1.0f);
-		    PtrTransform->SetPosition(-465.0f, -300.0f, 0.5f);
+		    PtrTransform->SetScale(220.0f, 80.0f, 1.0f);
+		    PtrTransform->SetPosition(390.0f, -320.0f, 0.5f);
 		    break;
 		case(static_cast<int>(EatCondition::thirdEat)):
             //!満タンの時
-			 PtrTransform->SetScale(300.0f, 120.0f, 1.0f);
-		    PtrTransform->SetPosition(-420.0f, -300.0f,0.5f);
+			 PtrTransform->SetScale(390.0f, 80.0f, 1.0f);
+		   PtrTransform->SetPosition(420.0f, -320.0f, 0.5f);
 		break;
 
 		}
+
 		
 	}
 
 	void HungerGage::OnUpdate()
 	{
 		ChangeGage();
+
 	}
 
 
