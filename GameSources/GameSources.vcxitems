@@ -21,6 +21,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CircleClockSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ClockArrow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EfkInterfece.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h" />
@@ -64,6 +65,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Wood.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WoodenBox.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DateChangeCommentDay.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp" />
@@ -73,6 +75,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)CircleClockSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ClockArrow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp" />
@@ -114,5 +117,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Wood.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WoodenBox.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DateChangeCommentDay.cpp" />
   </ItemGroup>
 </Project>

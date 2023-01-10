@@ -34,6 +34,8 @@ namespace basecross{
 		RoadTexture(L"HeadManCommet1.png", L"HeadManCommet1_TX");
 		RoadTexture(L"HeadManCommet2.png", L"HeadManCommet2_TX");
 		RoadTexture(L"HeadManCommet3.png", L"HeadManCommet3_TX");
+		RoadTexture(L"CommentDay.png", L"CommentDay_TX");
+		RoadTexture(L"CommentNignt.png", L"CommentNignt_TX");
 
 
 
@@ -365,7 +367,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		}
 		catch (...) {
 			throw;

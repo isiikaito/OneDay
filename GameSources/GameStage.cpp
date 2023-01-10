@@ -12,7 +12,9 @@
 #include "MeatGageBackground.h"
 #include "MeatGageFrame.h"
 #include "HungerGage.h"
-
+#include "ClockArrow.h"
+#include "DateChangeCommentDay.h"
+#include "DateChangeCommentNight.h"
 
 namespace basecross {
 
@@ -273,6 +275,27 @@ namespace basecross {
 
 	}
 
+	void GameStage::CreateDateChangeCommentDay()
+	{
+		AddGameObject<DateChangeCommentDay>(
+			L"CommentDay_TX",//!テクスチャ
+			true,
+			Vec2(1000.0f, 1000.0f),//大きさ
+			Vec2(0.0f, 0.0f)//座標
+			);
+	}
+
+	void GameStage::CreateDateChangeCommentNight()
+	{
+		AddGameObject<DateChangeCommentNight>(
+			L"CommentNignt_TX",//!テクスチャ
+			true,
+			Vec2(1000.0f, 1000.0f),//大きさ
+			Vec2(0.0f, 0.0f)//座標
+			);
+	}
+
+
 	void GameStage:: CreateGameOver()
 	{
 
@@ -496,7 +519,7 @@ namespace basecross {
 	}
 	void GameStage::CreateClockArrow()
 	{
-		AddGameObject<Arrow>
+		AddGameObject<ClockArrow>
 			(
 				L"Arrow_TX",
 				true,
@@ -715,6 +738,8 @@ namespace basecross {
 			CreateMeatGageFrame();//!空腹ゲージの枠
 			CreateHungerGage();//!空腹ゲージ
 			CreateClockArrow();//!時計の針
+			CreateDateChangeCommentDay();//!夜から昼にでるテクスチャ
+			CreateDateChangeCommentNight();//!昼から夜にでるテクスチャ
 			
 			auto gameOver = scene->GetGameOver();
 			if (gameOver == true)

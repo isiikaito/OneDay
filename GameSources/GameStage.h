@@ -66,6 +66,8 @@ namespace basecross {
 		void CreateHungerGage();//!空腹ゲージの作成
 		void CreateMeatGageFrame();//!空腹ゲージの枠の作成
 		void CreateClockArrow();//!時計の針
+		void CreateDateChangeCommentDay();//!夜から昼に変わるときのコメント
+		void CreateDateChangeCommentNight();//!昼から夜に変わるときのコメント
 	
 		//初期化
 		virtual void OnCreate()override;
