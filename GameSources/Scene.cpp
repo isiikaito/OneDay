@@ -31,6 +31,9 @@ namespace basecross{
 		RoadTexture(L"Background.png", L"Background_TX");
 		RoadTexture(L"Frame.png", L"Frame_TX");
 		RoadTexture(L"FullGage.png", L"Full_TX");
+		RoadTexture(L"HeadManCommet1.png", L"HeadManCommet1_TX");
+
+		
 
 
 		wstring dataDir;
@@ -163,6 +166,10 @@ namespace basecross{
 
 		 strMusic = dataDir + L"Sound\\" L"MeatEat.wav";//肉を食べる音
 		App::GetApp()->RegisterWav(L"MeatEat", strMusic);
+
+		strMusic = dataDir + L"Sound\\" L"WoodBoxBreak.wav";//肉を食べる音
+		App::GetApp()->RegisterWav(L"WoodBoxBreak", strMusic);
+		
 			
 
 		strMusic = dataDir + L"Sound\\" L"Title.wav";//タイトル画面のBGM

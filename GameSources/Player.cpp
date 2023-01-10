@@ -158,9 +158,14 @@ namespace basecross {
 		//ƒGƒtƒFƒNƒg‚Ì‰Šú‰»
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
-		wstring TestEffectStr = DataDir + L"Effects\\test1.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
+		wstring TestEffectStr = DataDir + L"Effects\\key.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
 		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!ƒGƒtƒFƒNƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾
-		m_EfkEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, TestEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
+		m_keyEfkEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, TestEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
+
+		
+		wstring scratchEffectStr = DataDir + L"Effects\\scratch.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
+		auto scratchEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!ƒGƒtƒFƒNƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾
+		m_scratchEfkEffect = ObjectFactory::Create<EfkEffect>(scratchEfkInterface, scratchEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
 
 		//!‰ŠúˆÊ’u‚È‚Ç‚Ìİ’è
 		auto ptr = AddComponent<Transform>();
@@ -386,6 +391,38 @@ namespace basecross {
 		}
 	}
 
+	void Player::BreakWoodBox()
+	{
+		auto transComp = GetComponent<Transform>();//!ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚ğæ“¾
+		auto position = transComp->GetPosition();//!Œ»İ‚ÌƒvƒŒƒCƒ„[‚ÌˆÊ’u‚Ìæ“¾
+		SPHERE playerSp(position, 5.0f);//!ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ’†S‚É”¼Œa2ƒZƒ“ƒ`‚Ì‰~‚Ìì¬
+		auto scene = App::GetApp()->GetScene<Scene>();
+		//!‘ºl‚ğE‚·
+		auto group = GetStage()->GetSharedObjectGroup(L"WoodBox_ObjGroup");
+		auto& vecWoodBox = group->GetGroupVector();//!ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ‚Ìæ“¾
+		//!‘ºl”z—ñƒIƒuƒWƒFƒNƒg‚Ì”z—ñ•ª‰ñ‚·
+		for (auto& v : vecWoodBox)
+		{
+			auto WoodBox = v.lock();//!‘ºl‚ÌƒOƒ‹[ƒv‚©‚ç1‚ÂƒƒbƒN‚·‚é
+			Vec3 ret;//!Å‹ßÚ“_‚Ì‘ã“ü
+			auto ptrWoodBox = dynamic_pointer_cast<WoodenBox>(WoodBox);//!ƒƒbƒN‚µ‚½•¨‚ğæ‚èo‚·
+
+			//!ƒvƒŒƒCƒ„[‚Ì”ÍˆÍ‚É“G‚ª“ü‚Á‚½‚ç
+			if (ptrWoodBox)
+			{
+				auto WoodBoxOBB = ptrWoodBox->GetComponent<CollisionObb>()->GetObb();//!ƒnƒ“ƒ^-‚ÌObbƒIƒuƒWƒFƒNƒg‚ğæ“¾
+				if (HitTest::SPHERE_OBB(playerSp, WoodBoxOBB, ret))//!ƒvƒŒƒCƒ„[‚Ìü‚è‚ğˆÍ‚ñ‚Å‚¢‚éƒXƒtƒBƒA‚É“–‚½‚Á‚½‚ç
+				{
+					GetStage()->RemoveGameObject<WoodenBox>(ptrWoodBox);
+					//ƒTƒEƒ“ƒhÄ¶
+					auto& ptrXA = App::GetApp()->GetXAudio2Manager();
+					ptrXA->Start(L"WoodBoxBreak", 0, 1.0f);
+					
+				}
+			}
+		}
+	}
+
 	//!‘ºl‚ğ“|‚·ˆ—
 	void Player::Villagerkiller()
 	{
@@ -574,6 +611,12 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’
 				CreateKeySprite();
 				auto ptrXA = App::GetApp()->GetXAudio2Manager();
 				ptrXA->Start(L"acquisition", 0, 9.0f);
+
+				//ƒGƒtƒFƒNƒg‚ÌƒvƒŒƒC
+				auto Ptr = ptrKey->GetComponent<Transform>();
+				auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
+				m_keyEfkPlay = ObjectFactory::Create<EfkPlay>(m_keyEfkEffect, Ptr->GetPosition());
+
 			}
 
 
@@ -599,11 +642,11 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’
 	}
 	void Player::OnPushB()
 	{
-
-		auto Ptr = GetComponent<Transform>();
 		//ƒGƒtƒFƒNƒg‚ÌƒvƒŒƒC
+		auto Ptr = GetComponent<Transform>();
 		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
-		m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_EfkEffect, Ptr->GetPosition());
+		m_scratchEfkPlay = ObjectFactory::Create<EfkPlay>(m_scratchEfkEffect, Ptr->GetPosition());
+		
 
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto gameOver = scene->GetGameOver();
@@ -614,6 +657,7 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’
 			{
 				Villagerkiller();//!‘ºl‚ğ“|‚·ˆ—
 				Hunterkiller();//!ƒnƒ“ƒ^[‚ğ“|‚·ˆ—
+				BreakWoodBox();//!ƒ{ƒbƒNƒX‚ğ‰ó‚·
 			}
 
 			if (m_playerChange == static_cast<int>(PlayerModel::human))

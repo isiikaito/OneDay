@@ -64,9 +64,11 @@ namespace basecross {
 		float m_vibration;//コントローラーの振動
 		
 		//エフェクト
-		shared_ptr<EfkEffect> m_EfkEffect;
+		shared_ptr<EfkEffect> m_keyEfkEffect;
+		shared_ptr<EfkEffect> m_scratchEfkEffect;
 		//エフェクト実行オブジェクト
-		shared_ptr<EfkPlay> m_EfkPlay;
+		shared_ptr<EfkPlay> m_keyEfkPlay;
+		shared_ptr<EfkPlay> m_scratchEfkPlay;
 	public:
 		//構築と破棄
 		//--------------------------------------------------------------------------------------
@@ -421,6 +423,12 @@ namespace basecross {
 		{
 			m_meatCount = MeatCount;
 		}
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	木箱の破壊の処理
+		*/
+		//--------------------------------------------------------------------------------------
+		void BreakWoodBox();
 
 
 		

@@ -166,6 +166,7 @@ namespace basecross {
 	{
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
+		auto group = CreateSharedObjectGroup(L"WoodBox_ObjGroup");
 		auto& LineVec = m_GameStageCsvD.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
 			//トークン（カラム）の配列

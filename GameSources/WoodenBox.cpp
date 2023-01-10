@@ -61,6 +61,9 @@ namespace basecross {
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		/*Coll->SetDrawActive(true);*/
 		
+		auto group = GetStage()->GetSharedObjectGroup(L"WoodBox_ObjGroup");
+		//グループに自分自身を追加
+		group->IntoGroup(GetThis<WoodenBox>());
 
 		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
 
@@ -70,6 +73,7 @@ namespace basecross {
 
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
+		
 
 		// !夜から昼になる処理
 		if (m_oneday == static_cast<int>(Oneday::midday))
