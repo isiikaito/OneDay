@@ -574,9 +574,6 @@ namespace basecross {
 		VillagerDisappear();
 		HunterDisappear();
 		 MovePlayer();
-    
-		
-		
 		
 		}
 		

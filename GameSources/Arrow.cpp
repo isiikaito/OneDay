@@ -17,13 +17,14 @@ namespace basecross
 	//--------------------------------------------------------------------------------------
 
 	Arrow::Arrow(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-		const Vec2& StartScale, const Vec2& StartPos) :
+		const Vec2& StartScale, const float& RotationZ, const Vec2& StartPos) :
 		GameObject(StagePtr),
 		m_TextureKey(TextureKey),
 		m_Trace(Trace),
 		m_StartScale(StartScale),
 		m_StartPos(StartPos),
-		m_RustLife(0)
+		m_RustLife(0),
+		m_rotationZ(RotationZ)
 	{}
 
 	Arrow::~Arrow() {}
@@ -44,7 +45,7 @@ namespace basecross
 		SetAlphaActive(m_Trace);
 		auto ptrTransform = GetComponent<Transform>();
 		ptrTransform->SetScale(m_StartScale.x, m_StartScale.y, 1.0f);
-		ptrTransform->SetRotation(0, 0, 0);
+		ptrTransform->SetRotation(0.0f, 0.0f, m_rotationZ);
 		ptrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 0.1f); // 0.1が手前、0.9は奥
 
 		//頂点とインデックスを指定してスプライト作成
