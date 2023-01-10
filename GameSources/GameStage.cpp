@@ -461,7 +461,7 @@ namespace basecross {
 			L"PlayerHp_TX",
 			true,
 			Vec2(70.0f, 70.0f),
-			Vec2(550.0f, 270.0f)
+			Vec2(550.0f, -250.0f)
 			);
 
 		AddGameObject<PlayerHeartSpriteMiddle>
@@ -469,7 +469,7 @@ namespace basecross {
 				L"PlayerHp_TX",
 				true,
 				Vec2(70.0f, 70.0f),
-				Vec2(460.0f, 270.0f)
+				Vec2(460.0f, -250.0f)
 				);
 
 		AddGameObject<PlayerHeartSpriteLeft>
@@ -477,7 +477,7 @@ namespace basecross {
 				L"PlayerHp_TX",
 				true,
 				Vec2(70.0f, 70.0f),
-				Vec2(370.0f, 270.0f)
+				Vec2(370.0f, -250.0f)
 				);
 
 
@@ -513,7 +513,7 @@ namespace basecross {
 				true,
 				Vec2(50.0f, 70.0f),
 				90.0f,//!ZŽ²‚Ì‰ñ“]
-				Vec2(-550.0f, 200.0f)
+				Vec2(-500.0f, 300.0f)
 				);
 
 	}

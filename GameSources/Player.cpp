@@ -506,7 +506,7 @@ namespace basecross {
 			L"KEY_TX",//!テクスチャ
 			true,
 			Vec2(150.0f, 150.0f),//大きさ
-			Vec2(300.0f + (100.0f * (m_KeyCount - 1)), -320.0f)//座標
+			Vec2(-550.0f + (100.0f * (m_KeyCount - 1)), -320.0f)//座標
 			);
 	}
 
