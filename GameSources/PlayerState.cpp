@@ -128,16 +128,16 @@ namespace basecross
 			auto meatCount = Player->GetMeatCount();
 			switch (meatCount)
 			{
-			case(0):
+			case(static_cast<int>(EatCondition::notEat)):
 				Player->SetSpeed(m_notEatSpeed);
 				break;
-			case(1):
+			case(static_cast<int>(EatCondition::firstEat)):
 				Player->SetSpeed(m_firstEat);
 				break;
-			case(2):
+			case(static_cast<int>(EatCondition::secondEat)):
 				Player->SetSpeed(m_secondEat);
 				break;
-			case(3):
+			case(static_cast<int>(EatCondition::thirdEat)):
 				Player->SetSpeed(m_thirdEat);
 				break;
 			}

@@ -160,6 +160,10 @@ namespace basecross{
 		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";//ゲーム中のBGM
 		App::GetApp()->RegisterWav(L"bgm", strMusic);
 
+		 strMusic = dataDir + L"Sound\\" L"MeatEat.wav";//肉を食べる音
+		App::GetApp()->RegisterWav(L"MeatEat", strMusic);
+			
+
 		strMusic = dataDir + L"Sound\\" L"Title.wav";//タイトル画面のBGM
 		App::GetApp()->RegisterWav(L"TitleBGM", strMusic);
 

@@ -7,6 +7,12 @@ namespace basecross
 {
 	namespace kaito
 	{
+		enum class EatCondition {
+			notEat,
+			firstEat,
+			secondEat,
+			thirdEat
+		};
 		//!プレイヤーが人間状態の時のステート---------------------------
 		class HumanState :public State<Player>
 		{

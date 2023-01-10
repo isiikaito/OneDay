@@ -588,7 +588,8 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’
 			{
 				m_meatCount++;
 				GetStage()->RemoveGameObject<Meat>(Other);//!Œ®ƒIƒuƒWƒFƒNƒg‚Ìíœ
-				
+				auto ptrXA = App::GetApp()->GetXAudio2Manager();
+				ptrXA->Start(L"MeatEat", 0, 9.0f);
 			}
 
 
