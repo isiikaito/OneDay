@@ -30,6 +30,7 @@ namespace basecross
 			static HumanState* Instance();
 
 			void CreateMeat();
+			void CreateWoodBox();//!木箱の作成
 			void ReadCsv(const wstring& FileNume);
 			virtual void Enter(Player* Player)override;
 			virtual void Execute(Player* Player)override;
@@ -47,12 +48,16 @@ namespace basecross
 			WolfState(const WolfState&) = delete;//!関数を削除する
 			WolfState& operator=(const WolfState&) = delete;//!operatorの中にある=を削除(コピーされないように)
 			float m_WolfChangeTime = 0.0f;
-			int m_Date;//!日付
+			int m_Date = 0;//!日付
 		
 
 
 		public:
 			static WolfState* Instance();
+			//!肉の位置リセット
+			void RemoveMeat();
+            //!木箱のリセット
+			void RemoveWoodBox();
 			void MeatEat(Player* Player);
 			virtual void Enter(Player* Player)override;
 			virtual void Execute(Player* Player)override;

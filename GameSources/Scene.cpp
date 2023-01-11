@@ -385,10 +385,7 @@ namespace basecross{
 		{
 			ResetActiveStage<TitleStage>();
 		}
-		else if (event->m_MsgStr == L"ToGameOverStage")//!ゲームオーバーステージ
-		{
-			ResetActiveStage<GameOverStage>();
-		}
+		
 		else if (event->m_MsgStr == L"ToGameClearStage")//!ゲームクリアステージ
 		{
 			ResetActiveStage<GameClearStage>();

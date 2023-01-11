@@ -17,7 +17,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AlertlevelGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Arrow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CircleClockSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ClockArrow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h" />
@@ -28,7 +27,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClear.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOver.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameOverStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeadMan.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeadManComment.h" />
@@ -71,7 +69,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Arrow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CircleClockSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ClockArrow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
@@ -82,7 +79,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClear.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOver.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameOverStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HeadMan.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HeadManComment.cpp" />

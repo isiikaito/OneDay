@@ -722,7 +722,7 @@ namespace basecross {
 			CreateStageGate(); //!ステージの門の作成
 			CreatePlayer();//!プレーヤーの作成
 			CerateVillager();//!村人の作成
-			//CreatePlayBGM();//!BGMの作成
+			CreatePlayBGM();//!BGMの作成
 			CreateHeartSprite();//!プレイヤーのHPの作成
 			CerateHunter();//!ハンターの作成
 			CreateAlertlevelGauge();//!警戒度のゲージの作成

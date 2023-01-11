@@ -77,18 +77,12 @@ namespace basecross
 			}
 		}
 
-		void  HumanState::Enter(Player* Player)
+		void HumanState::CreateWoodBox()
 		{
-			auto playerChange = Player->GetPlayerCange();
-			playerChange = static_cast<int>(PlayerModel::human);//!状態を狼にする
-			Player->SetPlayerChange(playerChange);
-			CreateMeat();
-			Player->SetMeatCount(0);
 
 			auto& app = App::GetApp();//!アプリの取得
 			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
 			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
-
 
 			wstring DataDir;
 			App::GetApp()->GetDataDirectory(DataDir);
@@ -121,6 +115,17 @@ namespace basecross
 					}
 				}
 			}
+		}
+
+		void  HumanState::Enter(Player* Player)
+		{
+			auto playerChange = Player->GetPlayerCange();
+			playerChange = static_cast<int>(PlayerModel::human);//!状態を狼にする
+			Player->SetPlayerChange(playerChange);
+			CreateMeat();
+			Player->SetMeatCount(0);
+
+			CreateWoodBox();//!木箱の作成
 
 		}
 
@@ -128,8 +133,8 @@ namespace basecross
 		{	
 			Player->SetSpeed(m_secondEat);
 
-			auto playerDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();
-			auto shadowPtr = Player->GetComponent<Shadowmap>();
+			auto playerDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの取得
+			auto shadowPtr = Player->GetComponent<Shadowmap>();//!シャドウコンポーネントの取得
 
 			shadowPtr->SetMeshResource(L"Player_WalkAnimation_MESH");
 			playerDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
@@ -179,6 +184,41 @@ namespace basecross
 				break;
 			}
 		}
+
+		void WolfState::RemoveWoodBox()
+		{
+			//!木の箱の削除
+			auto& app = App::GetApp();//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+
+			for (auto& Obj : Objects)//!オブジェクトの要素分
+			{
+				auto stageMeat = dynamic_pointer_cast<WoodenBox>(Obj);//!建物の取得
+				if (stageMeat)
+				{
+					Stage->RemoveGameObject<WoodenBox>(Obj);
+				}
+			}
+		}
+
+		void WolfState::RemoveMeat()
+		{
+			//!肉の削除
+			auto& app = App::GetApp();//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+
+			for (auto& Obj : Objects)//!オブジェクトの要素分
+			{
+				auto stageMeat = dynamic_pointer_cast<Meat>(Obj);//!建物の取得
+				if (stageMeat)
+				{
+					Stage->RemoveGameObject<Meat>(Obj);
+				}
+			}
+		}
+
 		WolfState* WolfState::Instance()
 		{
 			static WolfState instance;
@@ -195,19 +235,7 @@ namespace basecross
 			auto ptrXA = App::GetApp()->GetXAudio2Manager();
 			ptrXA->Start(L"howling", 0, 1.0f);
 
-			//!肉の削除
-			auto& app = App::GetApp();//!アプリの取得
-			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
-			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
-
-			for (auto& Obj : Objects)//!オブジェクトの要素分
-			{
-				auto stageMeat = dynamic_pointer_cast<Meat>(Obj);//!建物の取得
-				if (stageMeat)
-				{
-					Stage->RemoveGameObject<Meat>(Obj);
-				}
-			}
+			RemoveMeat();
 
 			m_WolfChangeTime = 0.0f;
 
@@ -242,20 +270,8 @@ namespace basecross
 			Player->SetMeatCount(0);
 			m_Date++;
 			scene->SetDate(m_Date);
-
-			//!木の箱の削除
-			auto& app = App::GetApp();//!アプリの取得
-			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
-			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
-
-			for (auto& Obj : Objects)//!オブジェクトの要素分
-			{
-				auto stageMeat = dynamic_pointer_cast<WoodenBox>(Obj);//!建物の取得
-				if (stageMeat)
-				{
-					Stage->RemoveGameObject<WoodenBox>(Obj);
-				}
-			}
+			RemoveWoodBox();
+		
 		}
 	}
 }

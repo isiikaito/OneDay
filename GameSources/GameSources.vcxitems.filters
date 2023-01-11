@@ -46,17 +46,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp">
       <Filter>Object\Stage\ClearStage</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameOverStage.cpp">
-      <Filter>Object\Stage\GameOverStage</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp">
       <Filter>Object\Stage\GameStage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
       <Filter>Object\Stage\TitleStage</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp">
-      <Filter>Other\Character</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp">
       <Filter>Other\ProjectBehavior</Filter>
@@ -113,7 +107,7 @@
       <Filter>State\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CircleClockSprite.cpp">
-      <Filter>CircleClockSprite</Filter>
+      <Filter>Sprite\CircleClockSprite</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp">
       <Filter>EfkInterfece</Filter>
@@ -198,17 +192,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h">
       <Filter>Object\Stage\ClearStage</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameOverStage.h">
-      <Filter>Object\Stage\GameOverStage</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h">
       <Filter>Object\Stage\GameStage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
       <Filter>Object\Stage\TitleStage</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
-      <Filter>Other\Character</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h">
       <Filter>Other\ProjectBehavior</Filter>
@@ -274,7 +262,7 @@
       <Filter>State\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CircleClockSprite.h">
-      <Filter>CircleClockSprite</Filter>
+      <Filter>Sprite\CircleClockSprite</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)EfkInterfece.h">
       <Filter>EfkInterfece</Filter>
@@ -359,9 +347,6 @@
     <Filter Include="Object\Camera">
       <UniqueIdentifier>{b927bd88-d5f1-4c2e-9f93-64c629d875b0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Other\Character">
-      <UniqueIdentifier>{af119bd1-aeb1-43b7-9e17-776c20ba66ad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Other\ProjectBehavior">
       <UniqueIdentifier>{6334a5ad-110e-442c-b5c6-0be391cdc2aa}</UniqueIdentifier>
     </Filter>
@@ -394,9 +379,6 @@
     </Filter>
     <Filter Include="Object\Stage\ClearStage">
       <UniqueIdentifier>{2e76b3da-14cb-4522-9d2d-1d6bf51d2bf4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Stage\GameOverStage">
-      <UniqueIdentifier>{ec257990-cd04-4f48-aa7e-bf75e1a2f435}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object\Stage\GameStage">
       <UniqueIdentifier>{a2f75d8b-24a5-4721-a75b-99995e638c63}</UniqueIdentifier>
@@ -446,9 +428,6 @@
     <Filter Include="Object\WoodBox">
       <UniqueIdentifier>{088fdcb1-3b41-442a-a314-d8057cb3db50}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CircleClockSprite">
-      <UniqueIdentifier>{5af14bf9-13fb-437b-bdba-5d3548085b25}</UniqueIdentifier>
-    </Filter>
     <Filter Include="EfkInterfece">
       <UniqueIdentifier>{77eb8001-fb2b-416a-af98-0d73451ea895}</UniqueIdentifier>
     </Filter>
@@ -487,6 +466,9 @@
     </Filter>
     <Filter Include="Sprite\DateChangeComment\DateChangeCommentNight">
       <UniqueIdentifier>{daf85ace-1938-4323-b63a-e3fc0467e3de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\CircleClockSprite">
+      <UniqueIdentifier>{5af14bf9-13fb-437b-bdba-5d3548085b25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
