@@ -53,11 +53,6 @@ namespace basecross {
 	//点滅処理（Elapsedtimeを利用している）
 	void FadeOut::OnUpdate() {
 
-		////プレイヤーの取得
-		//auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		//auto Exit = ptrPlayer->GetExitCount();
-		//ptrPlayer->SetExitCount(Exit);
-
 		//時間の取得
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		m_TotalTime += elapsedTime;
@@ -78,14 +73,6 @@ namespace basecross {
 		}
 		auto ptrDraw = GetComponent<PCSpriteDraw>();
 		ptrDraw->UpdateVertices(newVertices);
-		if (m_TotalTime >= 1)
-		{
-			//1次のシーンへの秒数.
-			//2渡すほうのポインタ
-			//3渡されるほう
-			//登録した文字を利用して移動
-			//       1            2                  3                     4
-		 /* PostEvent(0.0f, GetThis<FadeOut>(), App::GetApp()->GetScene<Scene>(), L"ToClearStage");*/
-		}
+		
 	}
 }

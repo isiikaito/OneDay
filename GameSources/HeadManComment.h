@@ -8,6 +8,15 @@
 #include "stdafx.h"
 namespace basecross
 {
+	enum class Day
+	{
+		FirstDay,
+		SecondDay,
+		ThirdDay,
+		ForceDay,
+		FiveDay,
+		SixDay
+	};
 
 	class HeadManComment :public GameObject
 	{

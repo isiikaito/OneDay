@@ -44,11 +44,10 @@ namespace basecross{
 		RoadTexture(L"Nomber_3.png", L"NUMBER_TX");
 		//!危険度のゲージのスプライト
 		RoadTexture(L"Arrow.png", L"Arrow_TX");
-
+		//!警戒度ゲージ
 		RoadTexture(L"testGauge.png", L"AlertlevelGaugeGauge_TX");
 		//!はてなマークのスプライト
 		RoadTexture(L"LoseSightOf.png", L"LoseSightOf_TX");
-
 		//!ビックリマークのスプライト
 		RoadTexture(L"Surprised.png", L"Surprised_TX");
 		//!時計のスプライト
@@ -365,7 +364,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
 		}
 		catch (...) {
 			throw;

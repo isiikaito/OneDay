@@ -12,6 +12,8 @@
 namespace basecross
 {
 	constexpr float MaxLosefSeghtOfTime = 2.0f;
+	
+
 	void HeadManComment::OnCreate()
 	{
 		auto PtrTransform = GetComponent<Transform>();
@@ -91,27 +93,27 @@ namespace basecross
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto date = scene->GetDate();
 
-		if (date < 3)
+		switch (date)
 		{
+		case(static_cast<int>(Day::FirstDay)):
 			drawComp->SetTextureResource(L"HeadManCommet1_TX");
-
-		}
-		if (date > 3)
-		{
+				break;
+		case(static_cast<int>(Day::SecondDay)):
+			drawComp->SetTextureResource(L"HeadManCommet1_TX");
+			break;
+		case(static_cast<int>(Day::ThirdDay)):
+			drawComp->SetTextureResource(L"HeadManCommet1_TX");
+			break;
+		case(static_cast<int>(Day::ForceDay)):
 			drawComp->SetTextureResource(L"HeadManCommet2_TX");
-
-		}
-
-		if (date > 6)
-		{
+			break;
+		case(static_cast<int>(Day::FiveDay)):
 			drawComp->SetTextureResource(L"HeadManCommet2_TX");
-
+			break;
+		case(static_cast<int>(Day::SixDay)):
+			drawComp->SetTextureResource(L"HeadManCommet3_TX");
+			break;
 		}
-
-		
-
-
-
 	}
 
 	void HeadManComment::OnUpdate()

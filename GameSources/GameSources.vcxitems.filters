@@ -145,6 +145,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.cpp">
       <Filter>Sprite\DateChangeComment\DateChangeCommentNight</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameManager.cpp">
+      <Filter>Object\Stage\GameStageManeger</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameManagerState.cpp">
+      <Filter>State\GameManagerState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -296,6 +302,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.h">
       <Filter>Sprite\DateChangeComment\DateChangeCommentNight</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameManager.h">
+      <Filter>Object\Stage\GameStageManeger</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameManagerState.h">
+      <Filter>State\GameManagerState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -469,6 +481,12 @@
     </Filter>
     <Filter Include="Sprite\CircleClockSprite">
       <UniqueIdentifier>{5af14bf9-13fb-437b-bdba-5d3548085b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage\GameStageManeger">
+      <UniqueIdentifier>{cd49b01e-dd7b-4ebe-9ac4-65386fce4b7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\GameManagerState">
+      <UniqueIdentifier>{9032d263-e293-474c-985f-3fcedd543bfb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

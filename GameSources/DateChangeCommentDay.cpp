@@ -13,18 +13,23 @@ namespace basecross
 {
 	constexpr int first = 1;
 	constexpr int second = 2;
+	constexpr float m_textureWSpeed = 2;
+	constexpr float m_textureWMaxValue = 1.0f;
 	//--------------------------------------------------------------------------------------
 	///	昼から夜に変わる時のコメント
 	//--------------------------------------------------------------------------------------
 
 	DateChangeCommentDay::DateChangeCommentDay(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-		const Vec2& StartScale,  const Vec2& StartPos) :
+		const Vec2& StartScale, const Vec2& StartPos) :
 		GameObject(StagePtr),
 		m_TextureKey(TextureKey),
 		m_Trace(Trace),
 		m_StartScale(StartScale),
 		m_StartPos(StartPos),
-		m_RustLife(0)
+		m_RustLife(0),
+		m_IstexturemaxW(true),
+		m_textureW(0.0f),
+		m_totalTime(0.0f)
 	{}
 
 	void DateChangeCommentDay::OnCreate()
@@ -48,14 +53,67 @@ namespace basecross
 		ptrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 0.1f); // 0.1が手前、0.9は奥
 
 		//頂点とインデックスを指定してスプライト作成
-		auto PtrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
-		PtrDraw->SetSamplerState(SamplerState::LinearWrap);
-		PtrDraw->SetTextureResource(m_TextureKey);
-		SetDrawActive(false);
-	
+		m_drawComponent = AddComponent<PCTSpriteDraw>(vertices, indices);
+		m_drawComponent->SetSamplerState(SamplerState::LinearWrap);
+		m_drawComponent->SetTextureResource(m_TextureKey);
+		SetDrawActive(true);
+
 
 	}
 
+	void DateChangeCommentDay::TextureFadeIn()
+	{
+		auto player = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
+		auto playerCondition = player->GetPlayerCange();//!プレイヤーの状態の取得
+		m_IstexturemaxW = player->GetPlayerTaskDay();
+
+		//!フェードアウトを開始するとき
+		if (m_IstexturemaxW == true)
+		{
+			
+auto Diffuse = m_drawComponent->GetDiffuse();//!色の取得
+			auto fadeinTime = App::GetApp()->GetElapsedTime();//!時間の取得
+			m_textureW += fadeinTime / m_textureWSpeed;//!フェードアウトのスピード
+			m_drawComponent->SetDiffuse(Col4(Diffuse.x, Diffuse.y, Diffuse.z, m_textureW));//!テクスチャのRGBWの設定
+			//!テクスチャが表示されたら
+			if (m_textureW >= m_textureWMaxValue)
+			{
+
+				player->SetPlayerTaskDay(false);//!フェードアウトに移行
+			}
+
+			
+
+				
+
+		}
+
+
+	}
+
+	void DateChangeCommentDay::TextureFadeOut()
+	{
+		if (m_IstexturemaxW == false)
+		{
+			if (m_textureW >= 0.0f)
+			{
+				auto Diffuse = m_drawComponent->GetDiffuse();//!色の取得
+				auto fadeOutTime = App::GetApp()->GetElapsedTime();//!時間の取得
+				m_textureW -= fadeOutTime / m_textureWSpeed;//!フェードアウトスピード
+				m_drawComponent->SetDiffuse(Col4(Diffuse.x, Diffuse.y, Diffuse.z, m_textureW));//!テクスチャのRGBWの設定
+
+			}
+
+
+		}
+	}
+
+	void DateChangeCommentDay::OnUpdate()
+	{
+		TextureFadeIn();
+		TextureFadeOut();
+	}
 
 
 }
+

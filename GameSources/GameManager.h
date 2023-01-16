@@ -1,99 +1,101 @@
 /*!
-@file DateChangeCommentDay.h
-@author Kaito Isii
-@brief 昼から夜に変わる時のコメントの表示
+@file GameStageManager.h
+@brief ゲームステージ
 */
 
 #pragma once
 #include "stdafx.h"
-
+#include "GameManagerState.h"
 namespace basecross {
 
+	namespace kaito
+	{
+		//!前方宣言
+		template<class entity_type>
+		class State;
+		//!前方宣言
+		template <class entity_type>
+		class StateMachine;
+	}
 
-	class DateChangeCommentDay : public GameObject {
+	//--------------------------------------------------------------------------------------
+	//	ゲームステージクラス
+	//--------------------------------------------------------------------------------------
+	class GameManager{
 	private:
-		bool m_Trace;         //!透明
-		Vec2 m_StartScale;    //!大きさ
-		Vec3 m_StartPos;      //!位置
-		wstring m_TextureKey; //!テクスチャ
-		int m_RustLife;
-		float m_textureW;//!テクスチャアルファ値
-		float m_totalTime;//!フェードアウトインの時間
-		bool m_IstexturemaxW;//!アルファ値が最大の時
-		//バックアップ頂点データ
-		shared_ptr<PCTSpriteDraw> m_drawComponent;//!描画処理
-		vector<VertexPositionColor>m_BackupVertices;
 
+		kaito::StateMachine<GameManager>* m_StateMachine;//!プレイヤーのステートマシン
 
-
-	public:
-
+	
+		//!シングルトン
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		DateChangeCommentDay(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale, const Vec2& StartPos);
+		GameManager()
+		{
+			m_StateMachine = new kaito::StateMachine<GameManager>(this);
+			//m_StateMachine->SetCurrentState(kaito::GamePayState::Instance());
+		}
+	
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　デストラクタ
+		@brief　シングルトン
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual ~DateChangeCommentDay() {}
+		GameManager(const GameManager&) = delete;//!関数を削除する
+		GameManager& operator = (const GameManager&) = delete;//!operatorのなかにある=を削除(コピーされないように)
+
+	public:
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　初期化
+		@brief　インスタンスの取得
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual void OnCreate() override;
+		static GameManager* Instance();
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　更新
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual void OnUpdate() override;
+		virtual void OnUpdate();
+
+		
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　フェードイン
+		@brief	ステートマシンのアクセッサ
+		//!ステートマシン
 		*/
 		//--------------------------------------------------------------------------------------
-		void TextureFadeIn();
 
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief　フェードアウト
-		*/
-		//--------------------------------------------------------------------------------------
-		void TextureFadeOut();
-
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief　フェードインの開始するかどうかの取得
-		*/
-		//--------------------------------------------------------------------------------------
-		bool GetIstexturemaxW()
+		const kaito::StateMachine<GameManager>* GetFSM()const
 		{
-			return m_IstexturemaxW;
+			return m_StateMachine;
 		}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　フェードインの開始するかどうかの設定
+		@brief	ステートの変更
+		@引数　クラスに対応したステート
 		*/
 		//--------------------------------------------------------------------------------------
-		void SetIstexturemaxW(bool IstexturemaxW)
-		{
-			m_IstexturemaxW = IstexturemaxW;
-		}
+		virtual void ChangeState(kaito::State<GameManager>* NewState);
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	ステートの変更
+		@引数　クラスに対応したステート
+		*/
+		//--------------------------------------------------------------------------------------
+		void GetStage();
+		
 	};
-
-
-
 }
 //end basecross
+
 

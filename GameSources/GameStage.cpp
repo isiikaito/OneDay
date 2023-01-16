@@ -15,6 +15,7 @@
 #include "ClockArrow.h"
 #include "DateChangeCommentDay.h"
 #include "DateChangeCommentNight.h"
+#include "GameManager.h"
 
 namespace basecross {
 
@@ -668,7 +669,10 @@ namespace basecross {
 	}
 
 	void GameStage::OnCreate() {
+		
 		try {
+
+			//auto GameMneager =AddGameObject<GameManager>();
 
 			//!エフェクト作成
 			m_EfkInterface = ObjectFactory::Create<EfkInterface>();

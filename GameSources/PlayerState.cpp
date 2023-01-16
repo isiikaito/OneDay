@@ -124,6 +124,7 @@ namespace basecross
 			Player->SetPlayerChange(playerChange);
 			CreateMeat();
 			Player->SetMeatCount(0);
+			Player->SetPlayerTaskDay(true);
 
 			CreateWoodBox();//!木箱の作成
 
@@ -227,6 +228,8 @@ namespace basecross
 
 		void WolfState::Enter(Player* Player)
 		{
+			Player->SetPlayerTaskNight(true);
+
 			auto playerChange = Player->GetPlayerCange();
 			playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
 			Player->SetPlayerChange(playerChange);
@@ -243,6 +246,8 @@ namespace basecross
 
 		void WolfState::Execute(Player* Player)
 		{
+
+
 			auto WolfPlayerDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
 			auto shadowPtr = Player->GetComponent<Shadowmap>();
 			shadowPtr->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH");

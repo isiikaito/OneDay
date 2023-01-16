@@ -13,6 +13,7 @@ namespace basecross {
 	constexpr float m_MaxwolfHowlingTime = 0.1f;
 	constexpr float m_maxDedTime = 1.0f;
 	constexpr float m_vibrationMaxTime = 1.0f;
+	constexpr int m_Day = 7;
 
 	//--------------------------------------------------------------------------------------
 	//	class Player : public GameObject;
@@ -48,7 +49,9 @@ namespace basecross {
 		m_gameTime(0.0f),
 		m_meatCount(0),
 		m_vibrationTime(0.0f),
-		m_IsvibrationOn(false)
+		m_IsvibrationOn(false),
+		m_playerTaskDay(true),
+		m_playerTaskNight(false)
 	{
 		m_StateMachine = new kaito::StateMachine<Player>(this);
 		m_StateMachine->SetCurrentState(kaito::HumanState::Instance());
@@ -229,7 +232,6 @@ namespace basecross {
 		if (m_dedTime >= m_maxDedTime)
 		{
 			m_gameOverDrawActive = true;
-			
 		}
 
 	}
@@ -391,6 +393,17 @@ namespace basecross {
 		}
 	}
 
+	void Player::OneWeek()
+	{
+		auto scene = App::GetApp()->GetScene<Scene>();
+		auto Date = scene->GetDate();
+		if (Date == m_Day)
+		{
+			PlayerGameOver();
+		}
+
+	}
+
 	void Player::BreakWoodBox()
 	{
 		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
@@ -519,7 +532,6 @@ namespace basecross {
 	void Player::Controllervibration()
 	{
 		
-		
 
 		//!振動がオンになっているとき
 		if (m_IsvibrationOn == true)
@@ -553,6 +565,7 @@ namespace basecross {
 
 		m_StateMachine->Update();
 
+		OneWeek();
 
 		Controllervibration();
 
@@ -582,6 +595,7 @@ namespace basecross {
 		{
 			PlayerDed();
 		}
+
 
 		
 
