@@ -9,7 +9,7 @@
 
 namespace basecross {
 	//--------------------------------------------------------------------------------------
-	///	キーフレームスプライト
+	///	肉のフレームスプライト
 	//--------------------------------------------------------------------------------------
 	MeatGageFrame::MeatGageFrame(const shared_ptr<Stage>& StagePtr, const wstring& TextureClock, bool Trace,
 		const Vec2& StartScale, const Vec2& StartPos) :

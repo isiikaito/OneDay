@@ -127,6 +127,7 @@ namespace basecross
 			Player->SetPlayerTaskDay(true);
 
 			CreateWoodBox();//!木箱の作成
+			
 
 		}
 
@@ -158,6 +159,12 @@ namespace basecross
 		void HumanState::Exit(Player* Player)
 		{
 			m_HumanChangeTime = 0.0f;
+
+			//エフェクトのプレイ
+			auto Ptr = Player->GetComponent<Transform>();
+			auto TransformEfkInterface = Player->GetTypeStage<GameStage>()->GetEfkInterface();
+			//m_TransformEfkPlay = ObjectFactory::Create<EfkPlay>(m_TransformEfkEffect, Ptr->GetPosition());
+			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));
 		}
 		//-------------------------------------------------------------------------
 
@@ -246,6 +253,8 @@ namespace basecross
 
 			m_WolfChangeTime = 0.0f;
 
+
+			
 		}
 
 		void WolfState::Execute(Player* Player)
@@ -280,6 +289,11 @@ namespace basecross
 			m_Date++;
 			scene->SetDate(m_Date);
 			RemoveWoodBox();
+
+			//エフェクトのプレイ
+			auto Ptr = Player->GetComponent<Transform>();
+			auto TransformEfkInterface = Player->GetTypeStage<GameStage>()->GetEfkInterface();
+			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));
 		
 		}
 	}

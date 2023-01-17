@@ -509,6 +509,26 @@ namespace basecross {
 			m_playerTaskNight = PlayerTaskNight;
 		}
 
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	変身エフェクトの取得
+		*/
+		//--------------------------------------------------------------------------------------
+		shared_ptr<EfkEffect>GetTransformEfkEffect()
+		{
+			return m_TransformEfkEffect;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	変身エフェクトの設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetTransformEfkPlay(shared_ptr<EfkPlay> TransformEfkPlay)
+		{
+			m_TransformEfkPlay = TransformEfkPlay;
+		}
+
 		
 	};
 }

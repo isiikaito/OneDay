@@ -52,7 +52,7 @@ namespace basecross {
 		m_IsvibrationOn(false),
 		m_playerTaskDay(true),
 		m_playerTaskNight(false),
-		m_IsPlayerChangeEffect(false)
+		m_IsPlayerChangeEffect(true)
 	{
 		m_StateMachine = new kaito::StateMachine<Player>(this);
 		m_StateMachine->SetCurrentState(kaito::HumanState::Instance());
@@ -573,19 +573,14 @@ namespace basecross {
 		auto gameTime = scene->GetGameTime();
 		m_gameTime += gameTime;
 
-		//!敵の親クラスを取得できる
+		
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
 		ptrDraw->UpdateAnimation(elapsedTime);
 
-		if (m_IsPlayerChangeEffect == true)
-		{
-			//エフェクトのプレイ
-			auto Ptr = GetComponent<Transform>();
-			auto TransformEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
-			m_TransformEfkPlay = ObjectFactory::Create<EfkPlay>(m_TransformEfkEffect, Ptr->GetPosition());
-
-		}
+		
+		
+		
 	
 		//!ゲームオーバーになってない時に
 		if (gameOver == false)
