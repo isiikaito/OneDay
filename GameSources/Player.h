@@ -59,6 +59,7 @@ namespace basecross {
 		bool m_IsFastHowling;//!初めて狼男が鳴くとき
 		bool m_IsvibrationOn;//!振動しているかどうか
 		bool m_gameOverDrawActive;//!ゲームオーバースプライトの表示
+		bool m_IsPlayerChangeEffect;//プレイヤーが狼に変身した時のエフェクト
 		InputHandlerB<Player> m_InputHandlerB;//!コントローラーのボタンの取得B
 		std::vector<Vec3>m_PlayerPositionOnSecond;//!プレイヤーの毎秒ごとの位置の取得
 		kaito::StateMachine<Player>* m_StateMachine;//!プレイヤーのステートマシン
@@ -66,11 +67,14 @@ namespace basecross {
 		float m_vibration;//コントローラーの振動
 		
 		//エフェクト
-		shared_ptr<EfkEffect> m_keyEfkEffect;
-		shared_ptr<EfkEffect> m_scratchEfkEffect;
+		shared_ptr<EfkEffect> m_KeyEfkEffect;//鍵を取った時のエフェクト
+		shared_ptr<EfkEffect> m_ScratchEfkEffect;//攻撃した時のエフェクト
+		shared_ptr<EfkEffect> m_TransformEfkEffect;//狼に変身した時のエフェクト
 		//エフェクト実行オブジェクト
-		shared_ptr<EfkPlay> m_keyEfkPlay;
-		shared_ptr<EfkPlay> m_scratchEfkPlay;
+		shared_ptr<EfkPlay> m_KeyEfkPlay;
+		shared_ptr<EfkPlay> m_ScratchEfkPlay;
+		shared_ptr<EfkPlay> m_TransformEfkPlay;
+
 	public:
 		//構築と破棄
 		//--------------------------------------------------------------------------------------

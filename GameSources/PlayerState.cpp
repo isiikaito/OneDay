@@ -234,6 +234,10 @@ namespace basecross
 			playerChange = static_cast<int>(PlayerModel::wolf);//!ó‘Ô‚ð˜T‚É‚·‚é
 			Player->SetPlayerChange(playerChange);
 
+			//auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+
+			
+
 			//ƒTƒEƒ“ƒhÄ¶
 			auto ptrXA = App::GetApp()->GetXAudio2Manager();
 			ptrXA->Start(L"howling", 0, 1.0f);

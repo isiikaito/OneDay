@@ -51,7 +51,8 @@ namespace basecross {
 		m_vibrationTime(0.0f),
 		m_IsvibrationOn(false),
 		m_playerTaskDay(true),
-		m_playerTaskNight(false)
+		m_playerTaskNight(false),
+		m_IsPlayerChangeEffect(false)
 	{
 		m_StateMachine = new kaito::StateMachine<Player>(this);
 		m_StateMachine->SetCurrentState(kaito::HumanState::Instance());
@@ -140,19 +141,14 @@ namespace basecross {
 				ptrDraw->ChangeCurrentAnimation(L"Default");
 				auto& XAptr = App::GetApp()->GetXAudio2Manager();
 				XAptr->Stop(m_Wolk);
-
-
 			}
 		}
-
 
 		//!‰ñ“]‚ÌŒvZ
 		if (angle.length() > 0.0f) {
 			auto utilPtr = GetBehavior<UtilBehavior>();
 			utilPtr->RotToHead(angle, 1.0f);
 		}
-
-
 	}
 
 	//!‰Šú‰»
@@ -161,14 +157,17 @@ namespace basecross {
 		//ƒGƒtƒFƒNƒg‚Ì‰Šú‰»
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
-		wstring TestEffectStr = DataDir + L"Effects\\key.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
-		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!ƒGƒtƒFƒNƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾
-		m_keyEfkEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, TestEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
+		wstring keyEffectStr = DataDir + L"Effects\\key.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
+		auto keyEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!ƒGƒtƒFƒNƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾
+		m_KeyEfkEffect = ObjectFactory::Create<EfkEffect>(keyEfkInterface, keyEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
 
-		
-		wstring scratchEffectStr = DataDir + L"Effects\\scratch.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
-		auto scratchEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!ƒGƒtƒFƒNƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾
-		m_scratchEfkEffect = ObjectFactory::Create<EfkEffect>(scratchEfkInterface, scratchEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
+		wstring ScratchEffectStr = DataDir + L"Effects\\scratch.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
+		auto ScratchEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!ƒGƒtƒFƒNƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾
+		m_ScratchEfkEffect = ObjectFactory::Create<EfkEffect>(ScratchEfkInterface, ScratchEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
+
+		wstring TransformEffectStr = DataDir + L"Effects\\Transform.efk";//!ƒGƒtƒFƒNƒg‚Ì•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_\\•Û‘¶‚µ‚½ƒGƒtƒFƒNƒg‚Ì–¼‘O
+		auto TransformEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!ƒGƒtƒFƒNƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾
+		m_TransformEfkEffect = ObjectFactory::Create<EfkEffect>(TransformEfkInterface, TransformEffectStr);//!æ“¾‚µ‚½ƒGƒtƒFƒNƒg‚Åì‚é
 
 		//!‰ŠúˆÊ’u‚È‚Ç‚Ìİ’è
 		auto ptr = AddComponent<Transform>();
@@ -579,7 +578,15 @@ namespace basecross {
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//ƒAƒjƒ[ƒVƒ‡ƒ“
 		ptrDraw->UpdateAnimation(elapsedTime);
 
-		
+		if (m_IsPlayerChangeEffect == true)
+		{
+			//ƒGƒtƒFƒNƒg‚ÌƒvƒŒƒC
+			auto Ptr = GetComponent<Transform>();
+			auto TransformEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
+			m_TransformEfkPlay = ObjectFactory::Create<EfkPlay>(m_TransformEfkEffect, Ptr->GetPosition());
+
+		}
+	
 		//!ƒQ[ƒ€ƒI[ƒo[‚É‚È‚Á‚Ä‚È‚¢‚É
 		if (gameOver == false)
 		{
@@ -603,8 +610,10 @@ namespace basecross {
 		{
 			PlayerGameOver();
 		}
-m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’Ç‰Á
-	}
+            m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’Ç‰Á
+	    }
+
+
 
 	//!ƒvƒŒƒCƒ„[‚ª‘Šè‚É“–‚½‚Á‚½‚ç
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other)
@@ -626,7 +635,7 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’
 				//ƒGƒtƒFƒNƒg‚ÌƒvƒŒƒC
 				auto Ptr = ptrKey->GetComponent<Transform>();
 				auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
-				m_keyEfkPlay = ObjectFactory::Create<EfkPlay>(m_keyEfkEffect, Ptr->GetPosition());
+				m_KeyEfkPlay = ObjectFactory::Create<EfkPlay>(m_KeyEfkEffect, Ptr->GetPosition());
 
 			}
 
@@ -656,7 +665,7 @@ m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bƒ{ƒ^ƒ“‚ÌƒCƒ“ƒvƒbƒgƒnƒ“ƒhƒ‰‚Ì’
 		//ƒGƒtƒFƒNƒg‚ÌƒvƒŒƒC
 		auto Ptr = GetComponent<Transform>();
 		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
-		m_scratchEfkPlay = ObjectFactory::Create<EfkPlay>(m_scratchEfkEffect, Ptr->GetPosition());
+		m_ScratchEfkPlay = ObjectFactory::Create<EfkPlay>(m_ScratchEfkEffect, Ptr->GetPosition());
 		
 
 		auto scene = App::GetApp()->GetScene<Scene>();
