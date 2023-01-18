@@ -20,7 +20,7 @@ namespace basecross
 			HumanState() {}
 			float m_HumanChangeTime = 0.0f;
 			CsvFile m_MeatPositon;//!肉のポジションのCSVファイル
-			int m_MeatNumber=0;//!肉の位置が保存されたCSVファイルの番号
+			int m_MeatNumber = 0;//!肉の位置が保存されたCSVファイルの番号
 			CsvFile m_GameStageCsvD;// !建物の配置4
 
 			shared_ptr<EfkEffect> m_TransformEfkEffect;
@@ -53,20 +53,50 @@ namespace basecross
 			WolfState& operator=(const WolfState&) = delete;//!operatorの中にある=を削除(コピーされないように)
 			float m_WolfChangeTime = 0.0f;
 			int m_Date = 0;//!日付
-		
+
 
 
 		public:
 			static WolfState* Instance();
 			//!肉の位置リセット
 			void RemoveMeat();
-            //!木箱のリセット
+			//!木箱のリセット
 			void RemoveWoodBox();
 			void MeatEat(Player* Player);
 			virtual void Enter(Player* Player)override;
 			virtual void Execute(Player* Player)override;
 			virtual void Exit(Player* Player)override;
 		};
+
+		//-------------------------------------------------------------------
+
+		//!プレイヤーが人間から狼に返信するときのステート--------------------
+
+		class HumanChangeDirectingState :public State<Player>
+		{
+		private:
+
+			float m_humanChangeDirectingTiem = 0.0f;
+			HumanChangeDirectingState(){}
+
+			HumanChangeDirectingState(const HumanChangeDirectingState&) = delete;//!関数を削除する
+			HumanChangeDirectingState& operator=(const HumanChangeDirectingState&) = delete;//!operatorの中にある=を削除(コピーされないように)
+		
+		public:
+			static HumanChangeDirectingState* Instance();
+
+			virtual void Enter(Player* Player)override;
+			virtual void Execute(Player* Player)override;
+			virtual void Exit(Player* Player)override;
+		};
+
+		//-------------------------------------------------------------------
+
+		//!プレイヤーが人間から狼に返信するときのステート--------------------
+
+
+
+		//-------------------------------------------------------------------
+
 	}
-	//-------------------------------------------------------------------
 }

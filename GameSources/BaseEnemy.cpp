@@ -135,6 +135,10 @@ namespace basecross
 
 	void BaseEnemy::OnUpdate()
 	{
+
+		//!“G‚Ì“®‚«‚ðŽ~‚ß‚é
+		//SetUpdateActive(false);
+
 		AnimationUpdate();
 
 		m_StateMachine->Update();

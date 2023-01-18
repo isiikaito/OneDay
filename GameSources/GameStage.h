@@ -305,6 +305,20 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		void OnPushA();
+		void UpdateStage()override
+		{
+			auto cntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
+			
+			if (cntlVec[0].wButtons&XINPUT_GAMEPAD_START)
+			{
+
+		    }
+			else
+			{
+                Stage::UpdateStage();
+			}
+			
+		}
 		
 		
 

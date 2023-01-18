@@ -61,7 +61,7 @@ namespace basecross {
 	Vec2 Player::GetInputState() const {
 		Vec2 ret;
 		//!コントローラの取得
-		auto cntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
+		auto& cntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
 		ret.x = 0.0f;
 		ret.y = 0.0f;
 		WORD wButtons = 0;
@@ -336,7 +336,7 @@ namespace basecross {
 	void Player::EnemyDedSound()
 	{
 		//サウンド再生
-		auto ptrXA = App::GetApp()->GetXAudio2Manager();
+		auto& ptrXA = App::GetApp()->GetXAudio2Manager();
 		ptrXA->Start(L"kill", 0, 9.0f);
 		ptrXA->Start(L"scream", 0, 9.0f);
 	}
@@ -562,6 +562,7 @@ namespace basecross {
 	//更新
 	void Player::OnUpdate() {
 
+		
 		m_StateMachine->Update();
 
 		OneWeek();
@@ -624,7 +625,7 @@ namespace basecross {
 				m_KeyCount++;
 				GetStage()->RemoveGameObject<Key>(Other);//!鍵オブジェクトの削除
 				CreateKeySprite();
-				auto ptrXA = App::GetApp()->GetXAudio2Manager();
+				auto& ptrXA = App::GetApp()->GetXAudio2Manager();
 				ptrXA->Start(L"acquisition", 0, 9.0f);
 
 				//エフェクトのプレイ
@@ -646,7 +647,7 @@ namespace basecross {
 			{
 				m_meatCount++;
 				GetStage()->RemoveGameObject<Meat>(Other);//!鍵オブジェクトの削除
-				auto ptrXA = App::GetApp()->GetXAudio2Manager();
+				auto& ptrXA = App::GetApp()->GetXAudio2Manager();
 				ptrXA->Start(L"MeatEat", 0, 9.0f);
 			}
 

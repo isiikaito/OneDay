@@ -128,11 +128,12 @@ namespace basecross
 
 			CreateWoodBox();//!木箱の作成
 			
-
 		}
 
 		void HumanState::Execute(Player* Player)
 		{	
+
+
 			Player->SetSpeed(m_secondEat);
 
 			auto playerDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの取得
@@ -143,30 +144,32 @@ namespace basecross
 
 			float elapsedTime = App::GetApp()->GetElapsedTime();
 			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
-			ptrDraw->UpdateAnimation(elapsedTime);
+			ptrDraw->UpdateAnimation(elapsedTime);//!アニメーションの更新
 
-			auto gameTime = Player->GetGameTime();
+			auto gameTime = Player->GetGameTime();//!ゲームの時間を取得する
 
 			auto scene = App::GetApp()->GetScene<Scene>();
-			m_HumanChangeTime += scene->GetGameTime();
+			m_HumanChangeTime += scene->GetGameTime();//!ゲームの時間を変数に足す
+			//!ゲーム時間が30秒経過したら
 			if (m_HumanChangeTime >= m_maxHumanChangeTime)
 			{
-				Player->ChangeState(WolfState::Instance());
+				Player->ChangeState(HumanChangeDirectingState::Instance());//!狼のステートに変更
 			}
 
 		}
 
 		void HumanState::Exit(Player* Player)
 		{
-			m_HumanChangeTime = 0.0f;
+			m_HumanChangeTime = 0.0f;//!人間の時の時間を0秒にする
 
-			//エフェクトのプレイ
-			auto Ptr = Player->GetComponent<Transform>();
-			auto TransformEfkInterface = Player->GetTypeStage<GameStage>()->GetEfkInterface();
-			//m_TransformEfkPlay = ObjectFactory::Create<EfkPlay>(m_TransformEfkEffect, Ptr->GetPosition());
-			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));
+			
 		}
 		//-------------------------------------------------------------------------
+
+
+
+
+
 
 
 		//!狼男の状態の時----------------------------------------------------------
@@ -241,20 +244,14 @@ namespace basecross
 			playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
 			Player->SetPlayerChange(playerChange);
 
-			//auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
-
 			
-
 			//サウンド再生
-			auto ptrXA = App::GetApp()->GetXAudio2Manager();
+			auto& ptrXA = App::GetApp()->GetXAudio2Manager();
 			ptrXA->Start(L"howling", 0, 1.0f);
 
 			RemoveMeat();
 
 			m_WolfChangeTime = 0.0f;
-
-
-			
 		}
 
 		void WolfState::Execute(Player* Player)
@@ -296,5 +293,41 @@ namespace basecross
 			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));
 		
 		}
+
+		//!人間から狼に変身するときの演出ステート-------------------------------------------------
+		HumanChangeDirectingState* HumanChangeDirectingState::Instance()
+		{
+			static HumanChangeDirectingState instance;
+			return &instance;
+		}
+
+		void HumanChangeDirectingState::Enter(Player* Player)
+		{
+			Player->SetSpeed(0.0f);
+			//エフェクトのプレイ
+			auto Ptr = Player->GetComponent<Transform>();
+			auto TransformEfkInterface = Player->GetTypeStage<GameStage>()->GetEfkInterface();
+			//m_TransformEfkPlay = ObjectFactory::Create<EfkPlay>(m_TransformEfkEffect, Ptr->GetPosition());
+			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));
+		}
+
+		void HumanChangeDirectingState::Execute(Player* Player)
+		{
+			//!人から狼になるときのアニメーションモデル
+			//! 
+			auto scene = App::GetApp()->GetScene<Scene>();
+			m_humanChangeDirectingTiem += scene->GetGameTime();//!ゲームの時間を変数に足す
+			//if (m_humanChangeDirectingTiem>=2.0f)
+			{
+				Player->ChangeState(WolfState::Instance());//!狼のステートに変更
+			}
+		}
+
+		void HumanChangeDirectingState::Exit(Player* Player)
+		{
+			m_humanChangeDirectingTiem = 0.0f;
+		}
+		//!----------------------------------------------------------
+
 	}
 }

@@ -842,7 +842,7 @@ namespace basecross {
 			scene->SetGameOver(gameOver);
 
 			//ƒTƒEƒ“ƒhÄ¶
-			auto ptrXA = App::GetApp()->GetXAudio2Manager();
+			auto& ptrXA = App::GetApp()->GetXAudio2Manager();
 			ptrXA->Start(L"decision", 0, 1.0f);
 			PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 			gameOver = false;
