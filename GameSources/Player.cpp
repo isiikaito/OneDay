@@ -158,16 +158,19 @@ namespace basecross {
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
 		wstring keyEffectStr = DataDir + L"Effects\\key.efk";//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
-		auto keyEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!エフェクトのインターフェースの取得
-		m_KeyEfkEffect = ObjectFactory::Create<EfkEffect>(keyEfkInterface, keyEffectStr);//!取得したエフェクトで作る
+		auto EfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!エフェクトのインターフェースの取得
+		m_KeyEfkEffect = ObjectFactory::Create<EfkEffect>(EfkInterface, keyEffectStr);//!取得したエフェクトで作る
 
 		wstring ScratchEffectStr = DataDir + L"Effects\\scratch.efk";//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
-		auto ScratchEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!エフェクトのインターフェースの取得
-		m_ScratchEfkEffect = ObjectFactory::Create<EfkEffect>(ScratchEfkInterface, ScratchEffectStr);//!取得したエフェクトで作る
+		m_ScratchEfkEffect = ObjectFactory::Create<EfkEffect>(EfkInterface, ScratchEffectStr);//!取得したエフェクトで作る
 
 		wstring TransformEffectStr = DataDir + L"Effects\\Transform.efk";//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
-		auto TransformEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!エフェクトのインターフェースの取得
-		m_TransformEfkEffect = ObjectFactory::Create<EfkEffect>(TransformEfkInterface, TransformEffectStr);//!取得したエフェクトで作る
+		m_TransformEfkEffect = ObjectFactory::Create<EfkEffect>(EfkInterface, TransformEffectStr);//!取得したエフェクトで作る
+
+		
+		wstring MeatEffectStr = DataDir + L"Effects\\smoke.efk";//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
+		m_MeatEfkEffect = ObjectFactory::Create<EfkEffect>(EfkInterface, MeatEffectStr);//!取得したエフェクトで作る
+
 
 		//!初期位置などの設定
 		auto ptr = AddComponent<Transform>();
@@ -562,7 +565,6 @@ namespace basecross {
 	//更新
 	void Player::OnUpdate() {
 
-		
 		m_StateMachine->Update();
 
 		OneWeek();
@@ -649,6 +651,11 @@ namespace basecross {
 				GetStage()->RemoveGameObject<Meat>(Other);//!鍵オブジェクトの削除
 				auto& ptrXA = App::GetApp()->GetXAudio2Manager();
 				ptrXA->Start(L"MeatEat", 0, 9.0f);
+//エフェクトのプレイ
+				auto Ptr = GetComponent<Transform>();
+				auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
+				m_MeatEfkPlay = ObjectFactory::Create<EfkPlay>(m_MeatEfkEffect, Ptr->GetPosition());
+				
 			}
 
 

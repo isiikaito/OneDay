@@ -65,15 +65,19 @@ namespace basecross {
 		kaito::StateMachine<Player>* m_StateMachine;//!プレイヤーのステートマシン
 		float m_gameTime;
 		float m_vibration;//コントローラーの振動
+		Vec3 m_meatPosition = Vec3(0);
 		
 		//エフェクト
 		shared_ptr<EfkEffect> m_KeyEfkEffect;//鍵を取った時のエフェクト
 		shared_ptr<EfkEffect> m_ScratchEfkEffect;//攻撃した時のエフェクト
 		shared_ptr<EfkEffect> m_TransformEfkEffect;//狼に変身した時のエフェクト
+		shared_ptr<EfkEffect> m_MeatEfkEffect;//狼に変身した時のエフェクト
 		//エフェクト実行オブジェクト
 		shared_ptr<EfkPlay> m_KeyEfkPlay;
 		shared_ptr<EfkPlay> m_ScratchEfkPlay;
 		shared_ptr<EfkPlay> m_TransformEfkPlay;
+		shared_ptr<EfkPlay> m_MeatEfkPlay;
+
 
 	public:
 		//構築と破棄
@@ -527,6 +531,31 @@ namespace basecross {
 		void SetTransformEfkPlay(shared_ptr<EfkPlay> TransformEfkPlay)
 		{
 			m_TransformEfkPlay = TransformEfkPlay;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	肉の取得エフェクトの取得
+		*/
+		//--------------------------------------------------------------------------------------
+		shared_ptr<EfkEffect>GetMeatEfkEffect()
+		{
+			return m_MeatEfkEffect;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	肉の取得エフェクトの設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetMeatEfkPlay(shared_ptr<EfkPlay> MeatEfkPlay)
+		{
+			m_MeatEfkPlay = MeatEfkPlay;
+		}
+
+		Vec3 GetMeatPosition()
+		{
+			return m_meatPosition;
 		}
 
 		

@@ -122,18 +122,26 @@ namespace basecross
 			auto playerChange = Player->GetPlayerCange();
 			playerChange = static_cast<int>(PlayerModel::human);//!状態を狼にする
 			Player->SetPlayerChange(playerChange);
-			CreateMeat();
 			Player->SetMeatCount(0);
 			Player->SetPlayerTaskDay(true);
 
 			CreateWoodBox();//!木箱の作成
+
+			CreateMeat();//肉の作成
+
 			
+			auto meatPosition = Player->GetMeatPosition();
+			Player->SetMeatEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetMeatEfkEffect(), meatPosition));
 		}
 
 		void HumanState::Execute(Player* Player)
 		{	
+			float elapsedTime = App::GetApp()->GetElapsedTime();
 
-
+			
+			m_meatTime += elapsedTime;
+			
+			
 			Player->SetSpeed(m_secondEat);
 
 			auto playerDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの取得
@@ -142,7 +150,6 @@ namespace basecross
 			shadowPtr->SetMeshResource(L"Player_WalkAnimation_MESH");
 			playerDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
 
-			float elapsedTime = App::GetApp()->GetElapsedTime();
 			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
 			ptrDraw->UpdateAnimation(elapsedTime);//!アニメーションの更新
 
@@ -161,6 +168,7 @@ namespace basecross
 		void HumanState::Exit(Player* Player)
 		{
 			m_HumanChangeTime = 0.0f;//!人間の時の時間を0秒にする
+			
 
 			
 		}
@@ -289,7 +297,6 @@ namespace basecross
 
 			//エフェクトのプレイ
 			auto Ptr = Player->GetComponent<Transform>();
-			auto TransformEfkInterface = Player->GetTypeStage<GameStage>()->GetEfkInterface();
 			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));
 		
 		}

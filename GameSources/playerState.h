@@ -22,9 +22,13 @@ namespace basecross
 			CsvFile m_MeatPositon;//!肉のポジションのCSVファイル
 			int m_MeatNumber = 0;//!肉の位置が保存されたCSVファイルの番号
 			CsvFile m_GameStageCsvD;// !建物の配置4
+			float m_meatTime = 0.0f;
 
 			shared_ptr<EfkEffect> m_TransformEfkEffect;
 			shared_ptr<EfkPlay> m_TransformEfkPlay;
+
+			shared_ptr<EfkEffect> m_MeatEfkEffect;
+			shared_ptr<EfkPlay> m_MeatEfkPlay;
 
 			//!シングルトンパターン
 			HumanState(const HumanState&) = delete;//!関数を削除する
