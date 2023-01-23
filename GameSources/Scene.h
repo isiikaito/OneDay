@@ -21,6 +21,7 @@ namespace basecross{
 		float m_gameStageTime;//!昼と夜の時間
 		int m_meatNumber;//!肉の位置が保存されたCSVの数字
 		int m_date;//!現在の日付
+		bool m_IsplayerChangeDirecting;//!プレイヤーの変身するかどうか
 	public:
 
 		void CreateResourses();//リソース
@@ -195,12 +196,34 @@ namespace basecross{
 		{
 			m_meatNumber = MeatNamber;
 		}
+
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief テクスチャの読み込み
 		*/
 		//--------------------------------------------------------------------------------------
 		void RoadTexture(const wstring&TextureName, const wstring& UseTextureName);
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief プレイヤーが変身するかどうかの取得
+		*/
+		//--------------------------------------------------------------------------------------
+		bool GetPlayerChangeDirecting()
+		{
+			return m_IsplayerChangeDirecting;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief ゲームの時間の設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetPlayerChangeDirecting(bool PlayerChangeDirecting)
+		{
+			m_IsplayerChangeDirecting = PlayerChangeDirecting;
+		}
+		
 	};
 
 }

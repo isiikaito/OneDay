@@ -5,7 +5,7 @@
 
 #include "stdafx.h"
 #include "Project.h"
-
+#include "GameManager.h"
 namespace basecross {
 
 	//!’è”
@@ -52,8 +52,8 @@ namespace basecross {
 	void CircleClockSprite::OnUpdate() {
 
 		//!‰~”Õ‚ª‰ñ“]‚·‚éˆ—
-		auto Time = App::GetApp()->GetElapsedTime();
-		m_CircleTime += Time / m_TimeSpeed * 3.0f;
+		auto elpasedTime = GameManager::GetElpasedTiem();
+		m_CircleTime += elpasedTime / m_TimeSpeed * 3.0f;
 		auto SpriteTransform = GetComponent<Transform>();
 		SpriteTransform->SetRotation(0, 0, m_CircleTime);
 	}

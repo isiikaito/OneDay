@@ -47,9 +47,9 @@ namespace basecross {
 		auto& app = App::GetApp();
 		auto scene = app->GetScene<Scene>();
 		
-		auto time = app->GetElapsedTime();
-		m_keyTime += time* randomspeed;
-		srand(m_keyTime);
+		auto deltaTime = app->GetElapsedTime();
+		m_keyTime += deltaTime * randomspeed;
+		srand(std::time(0));
 		m_keyNumber = rand() % randomNumber;
 		scene->SetKeyNamber(m_keyNumber);
 

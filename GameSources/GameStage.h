@@ -23,7 +23,8 @@ namespace basecross {
 		shared_ptr<SoundItem>m_BGM; //!BGM
 		shared_ptr<SoundItem>m_GameOverBGM; //!ゲームオーバーのBGM
 		float m_TotalTime;//!トータル時間(タイマーの作成)
-		const float m_GameTime;
+		const float m_GameTime;//!ゲームの時間
+		float m_playerChangeTime;//!プレイヤーの変身時間
 		float m_MeatTime;//!肉の位置をランダムにする時間
 		int m_MeatNumber;//!肉の位置を保存したCSVの番号
 		int m_Date;//!日付
@@ -33,7 +34,7 @@ namespace basecross {
 
 	public:
 		//構築と破棄
-		GameStage() :Stage(),m_TotalTime(31.0f), m_GameTime(31.0f), m_MeatNumber(0), m_MeatTime(0.0f), m_Date(0) {}
+		GameStage() :Stage(),m_TotalTime(31.0f), m_GameTime(31.0f), m_MeatNumber(0), m_MeatTime(0.0f), m_Date(0),m_playerChangeTime(0.0f) {}
 		virtual ~GameStage() {}
 
 		//--------------------------------------------------------------------------------------

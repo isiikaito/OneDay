@@ -74,7 +74,7 @@ namespace basecross
 
 		//-------------------------------------------------------------------
 
-		//!プレイヤーが人間から狼に返信するときのステート--------------------
+		//!プレイヤーが人間から狼に変身するときのステート--------------------
 
 		class HumanChangeDirectingState :public State<Player>
 		{
@@ -97,6 +97,23 @@ namespace basecross
 		//-------------------------------------------------------------------
 
 		//!プレイヤーが人間から狼に返信するときのステート--------------------
+		class WolfChangeDirectingState :public State<Player>
+		{
+		private:
+
+			float m_wolfChangeDirectingTiem = 0.0f;
+			WolfChangeDirectingState() {}
+
+			WolfChangeDirectingState(const WolfChangeDirectingState&) = delete;//!関数を削除する
+			WolfChangeDirectingState& operator=(const WolfChangeDirectingState&) = delete;//!operatorの中にある=を削除(コピーされないように)
+
+		public:
+			static WolfChangeDirectingState* Instance();
+
+			virtual void Enter(Player* Player)override;
+			virtual void Execute(Player* Player)override;
+			virtual void Exit(Player* Player)override;
+		};
 
 
 

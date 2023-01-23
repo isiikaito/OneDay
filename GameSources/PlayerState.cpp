@@ -8,14 +8,15 @@ namespace basecross
 {
 	namespace kaito
 	{
-		constexpr float m_maxHumanChangeTime = 31.0f;
-		constexpr float m_maxWolfChangeTime = 61.0f;
-		constexpr int randomNumber = 2;
-		constexpr float m_MeatTimeSpeed = 22.0f;
-		constexpr float m_notEatSpeed = 10.0f;
-		constexpr float m_firstEat = 15.0f;
-		constexpr float m_secondEat = 20.0f;
-		constexpr float m_thirdEat = 23.0f;
+		constexpr float m_maxHumanChangeTime = 31.0f;//!人間の時の時間
+		constexpr float m_maxWolfChangeTime = 31.0f;//!狼の時の時間
+		constexpr int randomNumber = 2;//!ランダムな数字の範囲
+		constexpr float m_MeatTimeSpeed = 22.0f;//!ランダムにするスピード
+		constexpr float m_notEatSpeed = 10.0f;//!何も食べてない状態のスピード
+		constexpr float m_firstEat = 15.0f;//!一個食べた状態のスピード
+		constexpr float m_secondEat = 20.0f;//!二個食べた状態のスピード
+		constexpr float m_thirdEat = 23.0f;//!三個食べた状態のスピード
+		constexpr float m_playerChangeDirectingMaxTiem = 2.0f;//!プレイヤーの変身時間
 
 
 
@@ -49,7 +50,7 @@ namespace basecross
 		void HumanState::CreateMeat()
 		{
 
-			ReadCsv(L"MeatPosition");
+			ReadCsv(L"MeatPosition");//!肉のCsvの取得
 
 			//!肉の削除
 			auto& app = App::GetApp();//!アプリの取得
@@ -86,7 +87,7 @@ namespace basecross
 
 			wstring DataDir;
 			App::GetApp()->GetDataDirectory(DataDir);
-			auto scene = App::GetApp()->GetScene<Scene>();
+			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
 
 
 			// フォルダの指定
@@ -111,6 +112,7 @@ namespace basecross
 					float ZPos = (float)(8.6f - (int)i) * 10.0f;
 					if (Tokens[j] == L"3")//3の時にゲームステージに追加
 					{
+						//!木箱の作成
 						Stage->AddGameObject<WoodenBox>(Vec3(9.0f, 9.0f, 9.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
 					}
 				}
@@ -119,30 +121,26 @@ namespace basecross
 
 		void  HumanState::Enter(Player* Player)
 		{
-			auto playerChange = Player->GetPlayerCange();
+			auto playerChange = Player->GetPlayerCange();//!プレイヤー状態の取得
 			playerChange = static_cast<int>(PlayerModel::human);//!状態を狼にする
-			Player->SetPlayerChange(playerChange);
-			Player->SetMeatCount(0);
-			Player->SetPlayerTaskDay(true);
+			Player->SetPlayerChange(playerChange);//!プレイヤーの状態の設定
+			Player->SetMeatCount(0);//!肉を食べた数
+			Player->SetPlayerTaskDay(true);//!プレイヤーのミッションの表示
 
 			CreateWoodBox();//!木箱の作成
 
 			CreateMeat();//肉の作成
 
 			
-			auto meatPosition = Player->GetMeatPosition();
-			Player->SetMeatEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetMeatEfkEffect(), meatPosition));
+			auto meatPosition = Player->GetMeatPosition();//!肉のポジションの取得
+			Player->SetMeatEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetMeatEfkEffect(), meatPosition));//!エフェクトの再生
 		}
 
 		void HumanState::Execute(Player* Player)
 		{	
-			float elapsedTime = App::GetApp()->GetElapsedTime();
+			float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
 
-			
-			m_meatTime += elapsedTime;
-			
-			
-			Player->SetSpeed(m_secondEat);
+			Player->SetSpeed(m_secondEat);//!プレイヤーの時のスピード
 
 			auto playerDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの取得
 			auto shadowPtr = Player->GetComponent<Shadowmap>();//!シャドウコンポーネントの取得
@@ -185,8 +183,9 @@ namespace basecross
 		void WolfState::MeatEat(Player* Player)
 		{
 
+			
+			auto meatCount = Player->GetMeatCount();//!プレイヤーが食べた肉の数
 
-			auto meatCount = Player->GetMeatCount();
 			switch (meatCount)
 			{
 			case(static_cast<int>(EatCondition::notEat)):
@@ -216,6 +215,7 @@ namespace basecross
 				auto stageMeat = dynamic_pointer_cast<WoodenBox>(Obj);//!建物の取得
 				if (stageMeat)
 				{
+					//!木箱の削除
 					Stage->RemoveGameObject<WoodenBox>(Obj);
 				}
 			}
@@ -233,6 +233,7 @@ namespace basecross
 				auto stageMeat = dynamic_pointer_cast<Meat>(Obj);//!建物の取得
 				if (stageMeat)
 				{
+					//!肉の削除
 					Stage->RemoveGameObject<Meat>(Obj);
 				}
 			}
@@ -246,11 +247,11 @@ namespace basecross
 
 		void WolfState::Enter(Player* Player)
 		{
-			Player->SetPlayerTaskNight(true);
+			Player->SetPlayerTaskNight(true);//!夜のミッションの表示
 
-			auto playerChange = Player->GetPlayerCange();
+			auto playerChange = Player->GetPlayerCange();//!プレイヤーの状態の取得
 			playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
-			Player->SetPlayerChange(playerChange);
+			Player->SetPlayerChange(playerChange);//!プレイヤーの状態の設定
 
 			
 			//サウンド再生
@@ -259,7 +260,7 @@ namespace basecross
 
 			RemoveMeat();
 
-			m_WolfChangeTime = 0.0f;
+			m_WolfChangeTime = 0.0f;//!狼の時間を初期化
 		}
 
 		void WolfState::Execute(Player* Player)
@@ -277,9 +278,9 @@ namespace basecross
 
 			auto scene = App::GetApp()->GetScene<Scene>();
 			m_WolfChangeTime += scene->GetGameTime();
-			if (m_WolfChangeTime >= m_maxHumanChangeTime)
+			if (m_WolfChangeTime >= m_maxWolfChangeTime)
 			{
-				Player->ChangeState(HumanState::Instance());
+				Player->ChangeState(WolfChangeDirectingState::Instance());
 			}
 			MeatEat(Player);
 
@@ -295,11 +296,12 @@ namespace basecross
 			scene->SetDate(m_Date);
 			RemoveWoodBox();
 
-			//エフェクトのプレイ
-			auto Ptr = Player->GetComponent<Transform>();
-			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));
+			
 		
 		}
+
+		//!	-------------------------------------------------------------------------------------
+
 
 		//!人間から狼に変身するときの演出ステート-------------------------------------------------
 		HumanChangeDirectingState* HumanChangeDirectingState::Instance()
@@ -313,9 +315,10 @@ namespace basecross
 			Player->SetSpeed(0.0f);
 			//エフェクトのプレイ
 			auto Ptr = Player->GetComponent<Transform>();
-			auto TransformEfkInterface = Player->GetTypeStage<GameStage>()->GetEfkInterface();
-			//m_TransformEfkPlay = ObjectFactory::Create<EfkPlay>(m_TransformEfkEffect, Ptr->GetPosition());
 			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));
+			
+			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+			scene->SetPlayerChangeDirecting(true);//!プレイヤーの変身を開始する
 		}
 
 		void HumanChangeDirectingState::Execute(Player* Player)
@@ -324,7 +327,7 @@ namespace basecross
 			//! 
 			auto scene = App::GetApp()->GetScene<Scene>();
 			m_humanChangeDirectingTiem += scene->GetGameTime();//!ゲームの時間を変数に足す
-			//if (m_humanChangeDirectingTiem>=2.0f)
+			if (m_humanChangeDirectingTiem>= m_playerChangeDirectingMaxTiem)
 			{
 				Player->ChangeState(WolfState::Instance());//!狼のステートに変更
 			}
@@ -335,6 +338,43 @@ namespace basecross
 			m_humanChangeDirectingTiem = 0.0f;
 		}
 		//!----------------------------------------------------------
+		
+
+		//!狼から人間に変身するときの演出ステート-------------------------------------------------
+		WolfChangeDirectingState* WolfChangeDirectingState::Instance()
+		{
+			static WolfChangeDirectingState instance;
+			return &instance;
+		}
+
+		void WolfChangeDirectingState::Enter(Player* Player)
+		{
+			Player->SetSpeed(0.0f);
+			//エフェクトのプレイ
+			auto Ptr = Player->GetComponent<Transform>();
+			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));
+
+			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+			scene->SetPlayerChangeDirecting(true);//!プレイヤーの変身を開始する
+		}
+
+		void WolfChangeDirectingState::Execute(Player* Player)
+		{
+			//!狼から人間に変身する時のアニメーションモデル 
+			auto scene = App::GetApp()->GetScene<Scene>();
+			m_wolfChangeDirectingTiem += scene->GetGameTime();//!ゲームの時間を変数に足す
+			if (m_wolfChangeDirectingTiem>= m_playerChangeDirectingMaxTiem)
+			{
+				Player->ChangeState(HumanState::Instance());//!狼のステートに変更
+			}
+		}
+
+		void WolfChangeDirectingState::Exit(Player* Player)
+		{
+			m_wolfChangeDirectingTiem = 0.0f;
+		}
+		//!----------------------------------------------------------
+
 
 	}
 }

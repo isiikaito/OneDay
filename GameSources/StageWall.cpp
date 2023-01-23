@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include "Project.h"
+#include "GameManager.h"
 
 namespace basecross {
 
@@ -73,8 +74,10 @@ namespace basecross {
 
 	void StageWall::OnUpdate() {
 
+		float elapsedTime=GameManager::GetElpasedTiem();
+
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
-		float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
+		 //elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
 
 		// !夜から昼になる処理
 		if (m_oneday == static_cast<int>(Oneday::midday))

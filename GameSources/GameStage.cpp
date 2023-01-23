@@ -22,17 +22,21 @@ namespace basecross {
 	constexpr int alertlevelFirst = 1;
 	constexpr int randomNumber = 4;
 	constexpr float m_MeatTimeSpeed = 22.0f;
+	constexpr float m_playerChangeMaxTime = 2.0f;
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
 	//ビューとライトの作成
 	void GameStage::CreateViewLight() {
+
 		auto ptrView = CreateView<SingleView>();
 		//ビューのカメラの設定
 		auto ptrMyCamera = ObjectFactory::Create<MyCamera>();
 		ptrView->SetCamera(ptrMyCamera);
 		ptrMyCamera->SetEye(Vec3(0.0f, 5.0f, -5.0f));
 		ptrMyCamera->SetAt(Vec3(0.0f, 0.0f, 0.0f));
+
+
 		//マルチライトの作成
 		auto ptrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
@@ -46,6 +50,7 @@ namespace basecross {
 	{
 		//CSVの行単位の配列
 		vector<wstring>LineVec;
+
 		//0番目のカラムがL"stageObject"である行を抜き出す
 		m_StageCsv.GetSelect(LineVec, 0, L"StageFloor");
 		for (auto& v : LineVec) {
@@ -482,10 +487,10 @@ namespace basecross {
 	{
 		AddGameObject<PlayerHeartSpriteRight>
 			(
-			L"PlayerHp_TX",
-			true,
-			Vec2(70.0f, 70.0f),
-			Vec2(550.0f, -250.0f)
+			    L"PlayerHp_TX",
+			    true,
+			    Vec2(70.0f, 70.0f),
+			    Vec2(550.0f, -250.0f)
 			);
 
 		AddGameObject<PlayerHeartSpriteMiddle>
@@ -503,8 +508,6 @@ namespace basecross {
 				Vec2(70.0f, 70.0f),
 				Vec2(370.0f, -250.0f)
 				);
-
-
 	}
 
 	void GameStage::CreateAlertlevelGauge()
@@ -605,12 +608,9 @@ namespace basecross {
 		
 		for (auto& data : datas) {
 
-
 			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!村人の大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
 
-
 			auto HunterPtr = AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
-
 
 			AddGameObject<LoseSightOf>(HunterPtr);
 			AddGameObject<SurprisedSprite>(HunterPtr);
@@ -624,32 +624,48 @@ namespace basecross {
 
 		for (auto& data : datas) 
 		{
-
 			auto HeadManPtr = AddGameObject<HeadMan>(data.scale, data.rotation,data.position );
 			SetSharedGameObject(L"HeadMan", HeadManPtr);
 
 			AddGameObject<HeadManComment>(HeadManPtr);
 
 		}
-
 	}
 
 	void GameStage::GameTime()
 	{
-
-		float elapsedTime = App::GetApp()->GetElapsedTime();
-		m_TotalTime -= elapsedTime;
-		if (m_TotalTime <= 0.0f) {
-			m_TotalTime = m_GameTime;
-			
-			
+		auto scene = App::GetApp()->GetScene<Scene>();
+		//!プレイヤーの変身時間
+		if (scene->GetPlayerChangeDirecting())
+		{
+			float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
+			m_playerChangeTime += elapsedTime;//!時間を止めている時間
+			//!プレイヤーの変身時間が過ぎたら時間を動かす
+			if (m_playerChangeTime>= m_playerChangeMaxTime)
+			{
+				scene->SetPlayerChangeDirecting(false);
+			}
 		}
+
+		else
+		{
+			float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
+
+			m_TotalTime -= elapsedTime;//!ゲーム時間の取得
+			//!30秒経ったらまた30秒に戻す
+			if (m_TotalTime <= 0.0f) 
+			{
+				m_TotalTime = m_GameTime;
+			}
+			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+			scene->SetGameTime(elapsedTime);//!ゲームの時間を設定する
+
+
+		}
+		
 		////スコアを更新する
 		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
 		ptrScor->SetScore(m_TotalTime);
-
-		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
-		scene->SetGameTime(elapsedTime);
 
 	}
 	
@@ -768,9 +784,9 @@ namespace basecross {
 		auto scene = App::GetApp()->GetScene<Scene>();
 
 		auto& app = App::GetApp();
-		auto time = app->GetElapsedTime();
-		m_MeatTime += time* m_MeatTimeSpeed;
-		srand(m_MeatTime);
+		auto deltaTime = app->GetElapsedTime();
+		m_MeatTime += deltaTime* m_MeatTimeSpeed;
+		srand(std::time(0));
 		m_MeatNumber = rand() % randomNumber;
 		
 		scene->SetMeatNamber(m_MeatNumber);
