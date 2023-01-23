@@ -161,10 +161,10 @@ namespace basecross {
 		auto EfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();//!エフェクトのインターフェースの取得
 		m_KeyEfkEffect = ObjectFactory::Create<EfkEffect>(EfkInterface, keyEffectStr);//!取得したエフェクトで作る
 
-		wstring ScratchEffectStr = DataDir + L"Effects\\scratch.efk";//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
+		wstring ScratchEffectStr = DataDir + L"Effects\\kill.efk";//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
 		m_ScratchEfkEffect = ObjectFactory::Create<EfkEffect>(EfkInterface, ScratchEffectStr);//!取得したエフェクトで作る
 
-		wstring TransformEffectStr = DataDir + L"Effects\\Transform.efk";//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
+		wstring TransformEffectStr = DataDir + L"Effects\\Transform2.efk";//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
 		m_TransformEfkEffect = ObjectFactory::Create<EfkEffect>(EfkInterface, TransformEffectStr);//!取得したエフェクトで作る
 
 		
