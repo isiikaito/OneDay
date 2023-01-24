@@ -16,6 +16,8 @@
 #include "DateChangeCommentDay.h"
 #include "DateChangeCommentNight.h"
 #include "GameManager.h"
+#include "OpeningCamera.h"
+#include "OpeningCameraMan.h"
 
 namespace basecross {
 
@@ -23,19 +25,28 @@ namespace basecross {
 	constexpr int randomNumber = 4;
 	constexpr float m_MeatTimeSpeed = 22.0f;
 	constexpr float m_playerChangeMaxTime = 2.0f;
+	constexpr float m_gameStartMaxTime = 6.0f;
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
 	//ビューとライトの作成
 	void GameStage::CreateViewLight() {
 
-		auto ptrView = CreateView<SingleView>();
+		//OpeningCameraView用のビュー
+		m_openingCameraView = ObjectFactory::Create<SingleView>(GetThis<Stage>());
+		auto ptrOpeningCamera = ObjectFactory::Create<OpeningCamera>();
+		m_openingCameraView->SetCamera(ptrOpeningCamera);
+
 		//ビューのカメラの設定
+		//MyCamera用のビュー
+		m_myCameraView = ObjectFactory::Create<SingleView>(GetThis<Stage>());
 		auto ptrMyCamera = ObjectFactory::Create<MyCamera>();
-		ptrView->SetCamera(ptrMyCamera);
 		ptrMyCamera->SetEye(Vec3(0.0f, 5.0f, -5.0f));
 		ptrMyCamera->SetAt(Vec3(0.0f, 0.0f, 0.0f));
+		m_myCameraView->SetCamera(ptrMyCamera);
 
+		SetView(m_openingCameraView);
+		m_CameraSelect = CameraSelect::openingCamera;
 
 		//マルチライトの作成
 		auto ptrMultiLight = CreateLight<MultiLight>();
@@ -44,6 +55,36 @@ namespace basecross {
 
 
 	}
+
+	//!カメラマンの作成 
+	void GameStage::CreateCameraman()
+	{
+		auto ptrOpeningCameraman = AddGameObject<OpeningCameraMan>();
+		//シェア配列にOpeningCameramanを追加
+		SetSharedGameObject(L"OpeningCameraMan", ptrOpeningCameraman);
+
+		auto ptrOpeningCamera = dynamic_pointer_cast<OpeningCamera>(m_openingCameraView->GetCamera());
+		if (ptrOpeningCamera) {
+			ptrOpeningCamera->SetCameraObject(ptrOpeningCameraman);
+			SetView(m_openingCameraView);
+			m_CameraSelect = CameraSelect::openingCamera;
+		}
+
+	}
+
+	//!カメラをプレイヤーの位置に戻す処理
+	void GameStage::ToMyCamera() {
+		auto ptrPlayer = GetSharedGameObject<Player>(L"Player");
+		//MyCameraに変更
+		auto ptrMyCamera = dynamic_pointer_cast<MyCamera>(m_myCameraView->GetCamera());
+		if (ptrMyCamera) {
+			ptrMyCamera->SetTargetObject(ptrPlayer);
+			//m_MyCameraViewを使う
+			SetView(m_myCameraView);
+			m_CameraSelect = CameraSelect::myCamera;
+		}
+	}
+
 
 	// !ステージの床
 	void GameStage::CreateStageFloor()
@@ -634,6 +675,15 @@ namespace basecross {
 
 	void GameStage::GameTime()
 	{
+		float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
+
+		m_gameStartTime += elapsedTime;
+		if (m_gameStartTime >= m_gameStartMaxTime)
+		{
+           m_gameStrat = false;
+		}
+		
+
 		auto scene = App::GetApp()->GetScene<Scene>();
 		//!プレイヤーの変身時間
 		if (scene->GetPlayerChangeDirecting())
@@ -649,17 +699,21 @@ namespace basecross {
 
 		else
 		{
-			float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
-
-			m_TotalTime -= elapsedTime;//!ゲーム時間の取得
-			//!30秒経ったらまた30秒に戻す
-			if (m_TotalTime <= 0.0f) 
+			if (m_gameStrat == false)
 			{
-				m_TotalTime = m_GameTime;
-			}
-			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
-			scene->SetGameTime(elapsedTime);//!ゲームの時間を設定する
 
+
+				float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
+
+				m_TotalTime -= elapsedTime;//!ゲーム時間の取得
+				//!30秒経ったらまた30秒に戻す
+				if (m_TotalTime <= 0.0f)
+				{
+					m_TotalTime = m_GameTime;
+				}
+				auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+				scene->SetGameTime(elapsedTime);//!ゲームの時間を設定する
+			}
 
 		}
 		
@@ -761,7 +815,8 @@ namespace basecross {
 			CreateDateChangeCommentDay();//!夜から昼にでるテクスチャ
 			CreateDateChangeCommentNight();//!昼から夜にでるテクスチャ
 			CreateKeyFrame();//!カギの枠の作成
-			
+			CreateCameraman(); //!カメラマンの作成
+
 			auto gameOver = scene->GetGameOver();
 			if (gameOver == true)
 			{
@@ -777,8 +832,6 @@ namespace basecross {
 	void GameStage::OnUpdate() {
 
 		m_EfkInterface->OnUpdate();
-
-		
 
 		
 		auto scene = App::GetApp()->GetScene<Scene>();
@@ -822,14 +875,14 @@ namespace basecross {
 	void GameStage::CreatePlayBGM()
 	{
 		auto& XAPtr = App::GetApp()->GetXAudio2Manager();
-		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, 0.3f);
+		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, 0.2f);
 	}
 
 	// !ゲームオーバーのBGMの再生
 	void GameStage::CreateGameOverBGM()
 	{
 		auto& XAPtr = App::GetApp()->GetXAudio2Manager();
-		m_GameOverBGM = XAPtr->Start(L"GameOver", XAUDIO2_LOOP_INFINITE, 0.3f);
+		m_GameOverBGM = XAPtr->Start(L"GameOver", XAUDIO2_LOOP_INFINITE, 0.1f);
 
 	}
 

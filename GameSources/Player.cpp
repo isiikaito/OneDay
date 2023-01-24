@@ -131,7 +131,7 @@ namespace basecross {
 				ptrDraw->ChangeCurrentAnimation(L"Move");
 				//•à‚­‰¹Ä¶
 				auto& XAptr = App::GetApp()->GetXAudio2Manager();
-				m_Wolk = XAptr->Start(L"WalkBGM", 1, 1.0f);
+				m_Wolk = XAptr->Start(L"WalkBGM", 1, 0.5f);
 			}
 		}
 
@@ -340,8 +340,8 @@ namespace basecross {
 	{
 		//ƒTƒEƒ“ƒhÄ¶
 		auto& ptrXA = App::GetApp()->GetXAudio2Manager();
-		ptrXA->Start(L"kill", 0, 9.0f);
-		ptrXA->Start(L"scream", 0, 9.0f);
+		ptrXA->Start(L"kill", 0, 1.0f);
+		ptrXA->Start(L"scream", 0, 1.0f);
 	}
 
 	void Player::Hunterkiller()

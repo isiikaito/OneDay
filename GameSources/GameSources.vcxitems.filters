@@ -151,6 +151,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameManagerState.cpp">
       <Filter>State\GameManagerState</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCamera.cpp">
+      <Filter>Object\OpeningCamera\OpeningCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCameraMan.cpp">
+      <Filter>Object\OpeningCamera\OpeningCameraMan</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCameraState.cpp">
+      <Filter>Object\OpeningCamera\OpeningCameraState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -308,6 +317,15 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameManagerState.h">
       <Filter>State\GameManagerState</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCamera.h">
+      <Filter>Object\OpeningCamera\OpeningCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCameraMan.h">
+      <Filter>Object\OpeningCamera\OpeningCameraMan</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCameraState.h">
+      <Filter>Object\OpeningCamera\OpeningCameraState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -487,6 +505,18 @@
     </Filter>
     <Filter Include="State\GameManagerState">
       <UniqueIdentifier>{9032d263-e293-474c-985f-3fcedd543bfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\OpeningCamera">
+      <UniqueIdentifier>{0bd45fc7-5218-48db-8054-2ceaf4a5dff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\OpeningCamera\OpeningCameraMan">
+      <UniqueIdentifier>{72c807e4-358d-4efc-8fff-26e9456243ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\OpeningCamera\OpeningCameraState">
+      <UniqueIdentifier>{450f4246-f12f-4e56-b650-34b282b7ea98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\OpeningCamera\OpeningCamera">
+      <UniqueIdentifier>{36a90770-cf19-4c4e-9e70-9edf9267c88f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
