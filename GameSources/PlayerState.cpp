@@ -323,10 +323,12 @@ namespace basecross
 
 		void HumanChangeDirectingState::Execute(Player* Player)
 		{
+			auto elapsedTime = App::GetApp()->GetElapsedTime();//!アプリの取得
+
 			//!人から狼になるときのアニメーションモデル
 			//! 
 			auto scene = App::GetApp()->GetScene<Scene>();
-			m_humanChangeDirectingTiem += scene->GetGameTime();//!ゲームの時間を変数に足す
+			m_humanChangeDirectingTiem += elapsedTime;//!ゲームの時間を変数に足す
 			if (m_humanChangeDirectingTiem>= m_playerChangeDirectingMaxTiem)
 			{
 				Player->ChangeState(WolfState::Instance());//!狼のステートに変更
@@ -360,9 +362,12 @@ namespace basecross
 
 		void WolfChangeDirectingState::Execute(Player* Player)
 		{
+			auto elapsedTime = App::GetApp()->GetElapsedTime();//!アプリの取得
+
+
 			//!狼から人間に変身する時のアニメーションモデル 
 			auto scene = App::GetApp()->GetScene<Scene>();
-			m_wolfChangeDirectingTiem += scene->GetGameTime();//!ゲームの時間を変数に足す
+			m_wolfChangeDirectingTiem += elapsedTime;//!ゲームの時間を変数に足す
 			if (m_wolfChangeDirectingTiem>= m_playerChangeDirectingMaxTiem)
 			{
 				Player->ChangeState(HumanState::Instance());//!狼のステートに変更

@@ -11,6 +11,12 @@ namespace basecross {
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス
 	//--------------------------------------------------------------------------------------
+	
+	enum class CameraSelect {
+		openingCamera,
+		myCamera
+	};
+	
 	class GameStage : public Stage {
 	private:
 		CsvFile m_GameStageCsvA; // !建物の配置
@@ -28,13 +34,23 @@ namespace basecross {
 		float m_MeatTime;//!肉の位置をランダムにする時間
 		int m_MeatNumber;//!肉の位置を保存したCSVの番号
 		int m_Date;//!日付
+		bool m_gameStrat;
+		float m_gameStartTime;
 		
 		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 		shared_ptr<EfkInterface> m_EfkInterface;
 
+		//!OpeningCamera用のビュー
+		shared_ptr<SingleView> m_openingCameraView;
+        //!MyCamera用のビュー
+		shared_ptr<SingleView>m_myCameraView;
+		//!現在のカメラ設定
+		CameraSelect m_CameraSelect;
+
+
 	public:
 		//構築と破棄
-		GameStage() :Stage(),m_TotalTime(31.0f), m_GameTime(31.0f), m_MeatNumber(0), m_MeatTime(0.0f), m_Date(0),m_playerChangeTime(0.0f) {}
+		GameStage() :Stage(),m_TotalTime(31.0f), m_GameTime(31.0f), m_MeatNumber(0), m_MeatTime(0.0f), m_Date(0),m_playerChangeTime(0.0f) , m_gameStrat(true), m_gameStartTime(0.0f), m_CameraSelect(CameraSelect::openingCamera) {}
 		virtual ~GameStage() {}
 
 		//--------------------------------------------------------------------------------------
@@ -306,21 +322,21 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		void OnPushA();
-		void UpdateStage()override
-		{
-			auto cntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
-			
-			if (cntlVec[0].wButtons&XINPUT_GAMEPAD_START)
-			{
-
-		    }
-			else
-			{
-                Stage::UpdateStage();
-			}
-			
-		}
 		
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　カメラマンの作成
+		*/
+		//--------------------------------------------------------------------------------------
+		void CreateCameraman();
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　カメラをプレイヤーに戻す
+		*/
+		//--------------------------------------------------------------------------------------
+		void ToMyCamera(); 
+
 		
 
 	};
