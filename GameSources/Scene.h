@@ -22,6 +22,8 @@ namespace basecross{
 		int m_meatNumber;//!肉の位置が保存されたCSVの数字
 		int m_date;//!現在の日付
 		bool m_IsplayerChangeDirecting;//!プレイヤーの変身するかどうか
+		float m_dayTime;
+		float m_playerConditionTime;//!プレイヤーの状態の時間
 	public:
 
 		void CreateResourses();//リソース
@@ -30,7 +32,7 @@ namespace basecross{
 		@brief コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		Scene() :SceneBase(), m_AlertlevelCount(0), m_IsGameOver(false) , m_IsGameOverSprite(false),m_gameStageTime(0.0f),m_keyNamber(0), m_meatNumber(0) {}
+		Scene() :SceneBase(), m_AlertlevelCount(0), m_playerConditionTime(0.0f), m_IsGameOver(false), m_dayTime(0.0f), m_IsGameOverSprite(false), m_gameStageTime(0.0f), m_keyNamber(0), m_meatNumber(0) {}
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief デストラクタ
@@ -223,6 +225,49 @@ namespace basecross{
 		{
 			m_IsplayerChangeDirecting = PlayerChangeDirecting;
 		}
+
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief プレイヤーが変身するかどうかの取得
+		*/
+		//--------------------------------------------------------------------------------------
+	     float GetDayTime()
+		{
+			return m_dayTime;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief ゲームの時間の設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetDayTime(float DayTime)
+		{
+			m_dayTime = DayTime;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　プレイヤーの状態の時間の取得
+		*/
+		//--------------------------------------------------------------------------------------
+		float GetPlayerConditionTime()
+		{
+			return m_playerConditionTime;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　プレイヤーの状態の時間の設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetPlayerConditionTime(float PlayerConditionTime)
+		{
+			m_playerConditionTime = PlayerConditionTime;
+		}
+
+		
 		
 	};
 

@@ -52,10 +52,10 @@ namespace basecross {
 	void CircleClockSprite::OnUpdate() {
 
 		//!‰~”Õ‚ª‰ñ“]‚·‚éˆ—
-		auto elpasedTime = GameManager::GetElpasedTiem();
-		m_CircleTime += elpasedTime / m_TimeSpeed * 3.0f;
+		auto circleTime = GameManager::GetDayTiem();
+		//m_CircleTime += elpasedTime / m_TimeSpeed * 3.0f;
 		auto SpriteTransform = GetComponent<Transform>();
-		SpriteTransform->SetRotation(0, 0, m_CircleTime);
+		SpriteTransform->SetRotation(0, 0, circleTime);
 	}
 
 }

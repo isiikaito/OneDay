@@ -9,7 +9,7 @@ namespace basecross
 	namespace kaito
 	{
 		constexpr float m_maxHumanChangeTime = 31.0f;//!人間の時の時間
-		constexpr float m_maxWolfChangeTime = 31.0f;//!狼の時の時間
+		constexpr float m_maxWolfChangeTime = 62.0f;//!狼の時の時間
 		constexpr int randomNumber = 2;//!ランダムな数字の範囲
 		constexpr float m_MeatTimeSpeed = 22.0f;//!ランダムにするスピード
 		constexpr float m_notEatSpeed = 10.0f;//!何も食べてない状態のスピード
@@ -134,6 +134,9 @@ namespace basecross
 			
 			auto meatPosition = Player->GetMeatPosition();//!肉のポジションの取得
 			Player->SetMeatEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetMeatEfkEffect(), meatPosition));//!エフェクトの再生
+
+		
+
 		}
 
 		void HumanState::Execute(Player* Player)
@@ -154,7 +157,7 @@ namespace basecross
 			auto gameTime = Player->GetGameTime();//!ゲームの時間を取得する
 
 			auto scene = App::GetApp()->GetScene<Scene>();
-			m_HumanChangeTime += scene->GetGameTime();//!ゲームの時間を変数に足す
+			m_HumanChangeTime = scene->GetPlayerConditionTime();
 			//!ゲーム時間が30秒経過したら
 			if (m_HumanChangeTime >= m_maxHumanChangeTime)
 			{
@@ -165,7 +168,8 @@ namespace basecross
 
 		void HumanState::Exit(Player* Player)
 		{
-			m_HumanChangeTime = 0.0f;//!人間の時の時間を0秒にする
+			
+			//m_HumanChangeTime = 0.0f;//!人間の時の時間を0秒にする
 			
 
 			
@@ -260,7 +264,9 @@ namespace basecross
 
 			RemoveMeat();
 
-			m_WolfChangeTime = 0.0f;//!狼の時間を初期化
+			
+
+			
 		}
 
 		void WolfState::Execute(Player* Player)
@@ -276,8 +282,11 @@ namespace basecross
 			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
 			ptrDraw->UpdateAnimation(elapsedTime);
 
-			auto scene = App::GetApp()->GetScene<Scene>();
-			m_WolfChangeTime += scene->GetGameTime();
+            auto scene = App::GetApp()->GetScene<Scene>();
+			m_WolfChangeTime = scene->GetPlayerConditionTime();
+
+			
+			//m_WolfChangeTime += scene->GetGameTime();
 			if (m_WolfChangeTime >= m_maxWolfChangeTime)
 			{
 				Player->ChangeState(WolfChangeDirectingState::Instance());
@@ -289,13 +298,12 @@ namespace basecross
 		void WolfState::Exit(Player* Player)
 		{
 			auto scene = App::GetApp()->GetScene<Scene>();
-
-			m_WolfChangeTime = 0.0f;
+			//m_WolfChangeTime = 0.0f;
 			Player->SetMeatCount(0);
 			m_Date++;
 			scene->SetDate(m_Date);
 			RemoveWoodBox();
-
+			
 			
 		
 		}
@@ -338,6 +346,8 @@ namespace basecross
 		void HumanChangeDirectingState::Exit(Player* Player)
 		{
 			m_humanChangeDirectingTiem = 0.0f;
+			
+
 		}
 		//!----------------------------------------------------------
 		

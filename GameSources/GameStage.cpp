@@ -26,6 +26,8 @@ namespace basecross {
 	constexpr float m_MeatTimeSpeed = 22.0f;
 	constexpr float m_playerChangeMaxTime = 2.0f;
 	constexpr float m_gameStartMaxTime = 6.0f;
+	constexpr float m_circleClockSpeed = 10.0f;
+	constexpr float m_opningCameraTime = 6.0f;
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
@@ -485,12 +487,14 @@ namespace basecross {
 	}
 	void GameStage::CreateMeatGageFrame()
 	{
-		AddGameObject<MeatGageFrame>(
+		auto meatGageFrameSprite = AddGameObject<MeatGageFrame>(
 			L"Frame_TX",//!テクスチャ
 			true,
 			Vec2(400.0f, 100.0f),//大きさ
 			Vec2(420.0f, -320.0f)//座標
 			);
+		SetSharedGameObject(L"meatGageFrame", meatGageFrameSprite);
+
 	}
 
 	void GameStage::CreateHungerGage()
@@ -505,28 +509,33 @@ namespace basecross {
 
 	void GameStage::CreateMeatGageBackGround()
 	{
-		AddGameObject<MeatGageBackGround>
+		auto meatGageBackGroundSprite=AddGameObject<MeatGageBackGround>
 			(
 			L"Background_TX",//!テクスチャ
 			true,
 			Vec2(400.0f, 100.0f),//大きさ
 			Vec2(420.0f, -320.0f)//座標
 			);
+		SetSharedGameObject(L"meatGageBackGroundSprite", meatGageBackGroundSprite);
+
 	}
 
 	void GameStage::CreateKeyFrame()
 	{
-		AddGameObject<KeyFrame>(
+		auto keyFrameSprite = AddGameObject<KeyFrame>(
 			L"ItemField_TX",//!テクスチャ
 			true,
 			Vec2(390.0f, 260.0f),//大きさ
-			Vec2(-450.0f , -280.0f)//座標
+			Vec2(-450.0f, -280.0f)//座標
 			);
+		SetSharedGameObject(L"keyFrameSprite", keyFrameSprite);
+
 	}
 
 	void GameStage::CreateHeartSprite()
 	{
-		AddGameObject<PlayerHeartSpriteRight>
+		//!右側のハート
+		auto playerHeartSpriteRight	= AddGameObject<PlayerHeartSpriteRight>
 			(
 			    L"PlayerHp_TX",
 			    true,
@@ -534,7 +543,10 @@ namespace basecross {
 			    Vec2(550.0f, -250.0f)
 			);
 
-		AddGameObject<PlayerHeartSpriteMiddle>
+		SetSharedGameObject(L"playerHeartSpriteRight", playerHeartSpriteRight);
+
+		//!中央側のハート
+		auto playerHeartSpriteMiddle = AddGameObject<PlayerHeartSpriteMiddle>
 			(
 				L"PlayerHp_TX",
 				true,
@@ -542,29 +554,36 @@ namespace basecross {
 				Vec2(460.0f, -250.0f)
 				);
 
-		AddGameObject<PlayerHeartSpriteLeft>
+		SetSharedGameObject(L"playerHeartSpriteMiddle", playerHeartSpriteMiddle);
+
+		//!左側のハート
+		auto playerHeartSpriteLeft = AddGameObject<PlayerHeartSpriteLeft>
 			(
 				L"PlayerHp_TX",
 				true,
 				Vec2(70.0f, 70.0f),
 				Vec2(370.0f, -250.0f)
 				);
+		SetSharedGameObject(L"playerHeartSpriteLeft", playerHeartSpriteLeft);
+
 	}
 
 	void GameStage::CreateAlertlevelGauge()
 	{
 
-		AddGameObject<AlertlevelGauge>
+		auto alertlevelGaugeSprite=AddGameObject<AlertlevelGauge>
 			(
 				L"AlertlevelGaugeGauge_TX",
 				true,
 				Vec2(300.0f, 100.0f),
 				Vec2(460.0f, 350.0f)
 				);
+		SetSharedGameObject(L"alertlevelGaugeSprite", alertlevelGaugeSprite);
+
 	}
 	void GameStage::CreateClockArrow()
 	{
-		AddGameObject<ClockArrow>
+		auto clockArrowSprite=AddGameObject<ClockArrow>
 			(
 				L"Arrow_TX",
 				true,
@@ -572,12 +591,14 @@ namespace basecross {
 				90.0f,//!Z軸の回転
 				Vec2(-500.0f, 300.0f)
 				);
+		SetSharedGameObject(L"clockArrow", clockArrowSprite);
+
 	}
 
 	void GameStage::CreateArrow()
 	{
 		//!矢印の作成
-		AddGameObject<Arrow>
+		auto arrowSprite = AddGameObject<Arrow>
 			(
 				L"Arrow_TX",
 				true,
@@ -586,27 +607,29 @@ namespace basecross {
 				Vec2(390.0f, 330.0f)
 				);
 
-	
+		SetSharedGameObject(L"arrowSprite", arrowSprite);
 
 	}
 
 	// !時計のスプライトの作成
 	void GameStage::CreateClockSprite()
 	{
-		AddGameObject<ClockSprite>
+		auto clockSprite=AddGameObject<ClockSprite>
 			(
 				L"Clock_TX",
 				true,
 				Vec2(350.0f, 250.0f),
 				Vec2(-460.0f, 290.0f)
 				);
+		SetSharedGameObject(L"ClockSprite", clockSprite);
+
 
 	}
 
 	// !時計の円盤のスプライトの作成
 	void GameStage::CreateCircleClockSprite()
 	{
-		AddGameObject<CircleClockSprite>
+		auto circleClockSprite = AddGameObject<CircleClockSprite>
 			(
 				L"Circle_TX",
 				true,
@@ -614,8 +637,64 @@ namespace basecross {
 				Vec2(-553.0f, 263.0f)
 				);
 
+		
+		SetSharedGameObject(L"CircleClockSprite", circleClockSprite);
+
+
 	}
 
+	void GameStage::UIDrawActive(bool t)
+	{
+		//!時計の円盤の表示
+		auto circleClock = GetSharedGameObject<CircleClockSprite>(L"CircleClockSprite");
+		circleClock->SetDrawActive(t);
+
+		//!時計スプライトの表示
+		auto clock = GetSharedGameObject<ClockSprite>(L"ClockSprite");
+		clock->SetDrawActive(t);
+
+		//!矢印スプライトの表示
+		auto arrow = GetSharedGameObject<Arrow>(L"arrowSprite");
+		arrow->SetDrawActive(t);
+
+		//!時計専用矢印スプライトの表示
+		auto clockArrow = GetSharedGameObject<ClockArrow>(L"clockArrow");
+		clockArrow->SetDrawActive(t);
+
+		//!警戒度ゲージスプライトの表示
+		auto alertlevelGauge = GetSharedGameObject<AlertlevelGauge>(L"alertlevelGaugeSprite");
+		alertlevelGauge->SetDrawActive(t);
+
+		//!ライフの右側スプライトの表示
+		auto playerHeartRight = GetSharedGameObject<PlayerHeartSpriteRight>(L"playerHeartSpriteRight");
+		playerHeartRight->SetDrawActive(t);
+
+		//!ライフの中央ゲージスプライトの表示
+		auto playerHeartMiddle = GetSharedGameObject<PlayerHeartSpriteMiddle>(L"playerHeartSpriteMiddle");
+		playerHeartMiddle->SetDrawActive(t);
+
+		//!ライフの左側ゲージスプライトの表示
+		auto playerHeartLeft = GetSharedGameObject<PlayerHeartSpriteLeft>(L"playerHeartSpriteLeft");
+		playerHeartLeft->SetDrawActive(t);
+
+		//!カギの枠スプライトの表示
+		auto keyFrame = GetSharedGameObject<KeyFrame>(L"keyFrameSprite");
+		keyFrame->SetDrawActive(t);
+
+		//!時間のスプライトの表示
+		auto timer = GetSharedGameObject<Timer>(L"Time");
+		timer->SetDrawActive(t);
+
+		//!肉のゲージの背景のスプライトの表示
+		auto meatGageBackGround = GetSharedGameObject<MeatGageBackGround>(L"meatGageBackGroundSprite");
+		meatGageBackGround->SetDrawActive(t);
+
+		//!肉のゲージの背景のスプライトの表示
+		auto meatGageFrame = GetSharedGameObject<MeatGageFrame>(L"meatGageFrame");
+		meatGageFrame->SetDrawActive(t);
+	
+
+	}
 	//!村人の作成
 	void GameStage::CerateVillager()
 	{
@@ -673,50 +752,78 @@ namespace basecross {
 		}
 	}
 
+	void GameStage::OpeningCameraBooting(float time)
+	{
+		float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
+		m_gameStartTime += elapsedTime;
+		if (m_gameStartTime >= time)
+		{
+			UIDrawActive(true);
+			m_gameStrat = false;
+		}
+		else
+		{
+			UIDrawActive(false);
+		}
+	}
+
+
 	void GameStage::GameTime()
 	{
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
 
-		m_gameStartTime += elapsedTime;
-		if (m_gameStartTime >= m_gameStartMaxTime)
+		OpeningCameraBooting(6.0f);//!オープニングカメラの時間中の処理
+		if (m_gameStrat == false)
 		{
-           m_gameStrat = false;
-		}
-		
-
-		auto scene = App::GetApp()->GetScene<Scene>();
-		//!プレイヤーの変身時間
-		if (scene->GetPlayerChangeDirecting())
-		{
-			float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
-			m_playerChangeTime += elapsedTime;//!時間を止めている時間
-			//!プレイヤーの変身時間が過ぎたら時間を動かす
-			if (m_playerChangeTime>= m_playerChangeMaxTime)
+			auto scene = App::GetApp()->GetScene<Scene>();
+			//!プレイヤーの変身時間
+			if (scene->GetPlayerChangeDirecting())
 			{
-				scene->SetPlayerChangeDirecting(false);
+				if (m_playerConditionTime >= 62.0f)
+				{
+					scene->SetPlayerConditionTime(0.0f);
+					m_playerConditionTime = 0.0f;
+
+				}
+				float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
+				m_playerChangeTime += elapsedTime;//!時間を止めている時間
+				//!プレイヤーの変身時間が過ぎたら時間を動かす
+				if (m_playerChangeTime >= m_playerChangeMaxTime)
+				{
+					
+
+					m_playerChangeTime = 0.0f;
+					scene->SetPlayerChangeDirecting(false);
+
+				}
 			}
-		}
 
-		else
-		{
-			if (m_gameStrat == false)
+			else
 			{
-
 
 				float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
-
+				m_dayTime += elapsedTime / m_circleClockSpeed;
+				m_playerConditionTime += elapsedTime;
 				m_TotalTime -= elapsedTime;//!ゲーム時間の取得
+
+				
 				//!30秒経ったらまた30秒に戻す
 				if (m_TotalTime <= 0.0f)
 				{
 					m_TotalTime = m_GameTime;
+
 				}
+
 				auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
 				scene->SetGameTime(elapsedTime);//!ゲームの時間を設定する
+				scene->SetDayTime(m_dayTime);//!時計の時間
+				scene->SetPlayerConditionTime(m_playerConditionTime);
+
+
 			}
 
 		}
-		
+
 		////スコアを更新する
 		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
 		ptrScor->SetScore(m_TotalTime);
@@ -833,7 +940,6 @@ namespace basecross {
 
 		m_EfkInterface->OnUpdate();
 
-		
 		auto scene = App::GetApp()->GetScene<Scene>();
 
 		auto& app = App::GetApp();

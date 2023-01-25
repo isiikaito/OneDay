@@ -82,6 +82,7 @@ namespace basecross {
 		// !–é‚©‚ç’‹‚É‚È‚éˆ—
 		if (m_oneday == static_cast<int>(Oneday::midday))
 		{
+			m_Time=
 			m_Time += elapsedTime / m_TimeSpeed; //!ŠÔ‚ğ•Ï”‚É‘«‚·
 			ptrDraw->SetEmissive(Col4(m_Time - 0.3f, m_Time - 0.3f, m_Time - 0.3f, 1.0f)); // !–é‚É‚·‚éˆ—
 			if (m_Time >= m_midDayTime)

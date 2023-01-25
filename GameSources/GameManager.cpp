@@ -45,5 +45,9 @@ namespace basecross {
 		return gameElpasedTime;
 	}
 	
-
+	 float GameManager::GetDayTiem()
+	 {
+		 auto dayTime = App::GetApp()->GetScene<Scene>()->GetDayTime();
+		 return dayTime;
+	 }
 }

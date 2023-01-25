@@ -101,6 +101,8 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		static float GetElpasedTiem();
+
+		static float GetDayTiem();
 	};
 }
 //end basecross
