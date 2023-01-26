@@ -120,6 +120,7 @@ namespace basecross{
 
 		//モデル
 		//ボーンモデルの通常リソース
+		// 敵のアニメーション
 		auto humanMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
 		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH", humanMultiModelMesh);
 
@@ -127,33 +128,33 @@ namespace basecross{
 		humanMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
 		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH_WITH_TAN", humanMultiModelMesh);
 
-		//モデル
-		//ボーンモデルの通常リソース
+		// プレイヤー（狼）のアニメーション
 		auto playrWolfMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Wolf_Animation.bmf");
 		App::GetApp()->RegisterResource(L"PlayerWolf_WalkAnimation_MESH", playrWolfMultiModelMesh);
 
-		//ボーンモデルのタンジェント付きリソース
 		playrWolfMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Wolf_Animation.bmf");
 		App::GetApp()->RegisterResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN", playrWolfMultiModelMesh);
 
-		//モデル
-		//ボーンモデルの通常リソース
+		// ハンターのアニメーション
 		auto EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Hunter_Animation.bmf");
 		App::GetApp()->RegisterResource(L"EnemyHunter_Animation_MESH", EnemyHunterMultiModelMesh);
 
-		//ボーンモデルのタンジェント付きリソース
 		EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Hunter_Animation.bmf");
 		App::GetApp()->RegisterResource(L"EnemyHunter_Animation_MESH_WITH_TAN", EnemyHunterMultiModelMesh);
 
-
-		//モデル
-		//ボーンモデルの通常リソース
+		// 村人のアニメーション
 		auto EnemyVillagerMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"EnemyVillager_Animation.bmf");
 		App::GetApp()->RegisterResource(L"EnemyVillager_WalkAnimation_MESH", EnemyVillagerMultiModelMesh);
 
-		//ボーンモデルのタンジェント付きリソース
 		EnemyVillagerMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"EnemyVillager_Animation.bmf");
 		App::GetApp()->RegisterResource(L"EnemyVillager_WalkAnimation_MESH_WITH_TAN", EnemyVillagerMultiModelMesh);
+
+		// プレイヤー（人間）のアニメーション
+		auto PlayerMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Player_Animation.bmf");
+		App::GetApp()->RegisterResource(L"Player_WalkAnimation2_MESH", PlayerMultiModelMesh);
+
+		PlayerMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Player_Animation.bmf");
+		App::GetApp()->RegisterResource(L"Player_WalkAnimation2_MESH_WITH_TAN", PlayerMultiModelMesh);
 
 
 		//法線マップ

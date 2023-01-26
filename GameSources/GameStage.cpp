@@ -767,9 +767,7 @@ namespace basecross {
 		{
 			m_gameStrat = true;
 			UIDrawActive(false);
-
-		
-
+			
 		}
 	}
 

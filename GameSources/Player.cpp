@@ -127,7 +127,7 @@ namespace basecross {
 			GetComponent<Transform>()->SetPosition(pos);
 
 			//歩くアニメーション
-			if (AnimationName == L"Default") {
+			if (AnimationName == L"Default" || AnimationName == L"Change") {
 				ptrDraw->ChangeCurrentAnimation(L"Move");
 				//歩く音再生
 				auto& XAptr = App::GetApp()->GetXAudio2Manager();
@@ -195,18 +195,19 @@ namespace basecross {
 
 		auto shadowPtr = AddComponent<Shadowmap>();//!影をつける（シャドウマップを描画する）
 
-		shadowPtr->SetMeshResource(L"Player_WalkAnimation_MESH");//!影の形（メッシュ）を設定
+		shadowPtr->SetMeshResource(L"Player_WalkAnimation2_MESH");//!影の形（メッシュ）を設定
 		shadowPtr->SetMeshToTransformMatrix(spanMat);
 
 		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの設定
 
 		//!描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");
+		ptrDraw->SetMeshResource(L"Player_WalkAnimation2_MESH_WITH_TAN");
 
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		ptrDraw->AddAnimation(L"Move", 0, 30, true, 20.0f);
 		ptrDraw->AddAnimation(L"Default", 31, 30, true, 10.0f);
 		ptrDraw->AddAnimation(L"Ded", 61, 30, false, 30.0f);
+		ptrDraw->AddAnimation(L"Change", 91, 60, false, 30.0f);
 		ptrDraw->ChangeCurrentAnimation(L"Default");
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
 

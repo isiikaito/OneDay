@@ -135,7 +135,8 @@ namespace basecross
 			auto meatPosition = Player->GetMeatPosition();//!肉のポジションの取得
 			Player->SetMeatEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetMeatEfkEffect(), meatPosition));//!エフェクトの再生
 
-		
+			Player->SetSpeed(m_secondEat);//!プレイヤーの時のスピード
+
 
 		}
 
@@ -143,13 +144,12 @@ namespace basecross
 		{	
 			float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
 
-			Player->SetSpeed(m_secondEat);//!プレイヤーの時のスピード
 
 			auto playerDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの取得
 			auto shadowPtr = Player->GetComponent<Shadowmap>();//!シャドウコンポーネントの取得
 
-			shadowPtr->SetMeshResource(L"Player_WalkAnimation_MESH");
-			playerDraw->SetMeshResource(L"Player_WalkAnimation_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
+			shadowPtr->SetMeshResource(L"Player_WalkAnimation2_MESH");
+			playerDraw->SetMeshResource(L"Player_WalkAnimation2_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
 
 			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
 			ptrDraw->UpdateAnimation(elapsedTime);//!アニメーションの更新
@@ -329,14 +329,21 @@ namespace basecross
 			
 			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
 			scene->SetPlayerChangeDirecting(true);//!プレイヤーの変身を開始する
+
 		}
 
 		void HumanChangeDirectingState::Execute(Player* Player)
 		{
 			auto elapsedTime = App::GetApp()->GetElapsedTime();//!アプリの取得
+			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();
+			auto& AnimationName = ptrDraw->GetCurrentAnimation();
 
 			//!人から狼になるときのアニメーションモデル
-			//! 
+			if (AnimationName == L"Move" || AnimationName == L"Default")
+			{
+				Player->GetComponent<BcPNTnTBoneModelDraw>()->ChangeCurrentAnimation(L"Change");
+			}
+
 			auto scene = App::GetApp()->GetScene<Scene>();
 			m_humanChangeDirectingTiem += elapsedTime;//!ゲームの時間を変数に足す
 			if (m_humanChangeDirectingTiem>= m_playerChangeDirectingMaxTiem)
@@ -348,6 +355,8 @@ namespace basecross
 		void HumanChangeDirectingState::Exit(Player* Player)
 		{
 			m_humanChangeDirectingTiem = 0.0f;
+			Player->GetComponent<BcPNTnTBoneModelDraw>()->ChangeCurrentAnimation(L"Default");
+
 			
 
 		}
@@ -371,11 +380,20 @@ namespace basecross
 
 			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
 			scene->SetPlayerChangeDirecting(true);//!プレイヤーの変身を開始する
+
 		}
 
 		void WolfChangeDirectingState::Execute(Player* Player)
 		{
 			auto elapsedTime = App::GetApp()->GetElapsedTime();//!アプリの取得
+			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();
+			auto& AnimationName = ptrDraw->GetCurrentAnimation();
+
+			//!狼から人になるときのアニメーションモデル
+			if (AnimationName == L"Move" || AnimationName == L"Default")
+			{
+				Player->GetComponent<BcPNTnTBoneModelDraw>()->ChangeCurrentAnimation(L"Change");
+			}
 
 
 			//!狼から人間に変身する時のアニメーションモデル 
@@ -389,6 +407,8 @@ namespace basecross
 
 		void WolfChangeDirectingState::Exit(Player* Player)
 		{
+			Player->GetComponent<BcPNTnTBoneModelDraw>()->ChangeCurrentAnimation(L"Default");
+			
 			m_wolfChangeDirectingTiem = 0.0f;
 		}
 		//!----------------------------------------------------------
