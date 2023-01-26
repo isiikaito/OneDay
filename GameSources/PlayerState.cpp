@@ -251,7 +251,6 @@ namespace basecross
 
 		void WolfState::Enter(Player* Player)
 		{
-			Player->SetPlayerTaskNight(true);//!夜のミッションの表示
 
 			auto playerChange = Player->GetPlayerCange();//!プレイヤーの状態の取得
 			playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
@@ -291,6 +290,7 @@ namespace basecross
 			{
 				Player->ChangeState(WolfChangeDirectingState::Instance());
 			}
+			
 			MeatEat(Player);
 
 		}
@@ -320,6 +320,8 @@ namespace basecross
 
 		void HumanChangeDirectingState::Enter(Player* Player)
 		{
+			Player->SetPlayerTaskNight(true);//!夜のミッションの表示
+
 			Player->SetSpeed(0.0f);
 			//エフェクトのプレイ
 			auto Ptr = Player->GetComponent<Transform>();
@@ -361,6 +363,7 @@ namespace basecross
 
 		void WolfChangeDirectingState::Enter(Player* Player)
 		{
+
 			Player->SetSpeed(0.0f);
 			//エフェクトのプレイ
 			auto Ptr = Player->GetComponent<Transform>();

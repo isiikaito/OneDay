@@ -279,6 +279,8 @@ namespace basecross{
 		return result;
 	}
 
+	
+
 
 
 	//!パトロールポイントの構造体

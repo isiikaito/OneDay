@@ -37,8 +37,6 @@ namespace basecross {
 		bool m_gameStrat;//!ゲームのスタート状態
 		float m_gameStartTime;//!ゲームのスタートしてからの時間
 		float m_dayTime;//!一日の時間
-		float m_playerConditionTime;//!プレイヤーの状態の時間
-		float m_playerConditionReset;//!プレイヤーの状態の時間のリセット
 		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 		shared_ptr<EfkInterface> m_EfkInterface;
 
@@ -52,7 +50,7 @@ namespace basecross {
 
 	public:
 		//構築と破棄
-		GameStage() :Stage(),m_TotalTime(31.0f), m_playerConditionTime(0.0f), m_GameTime(31.0f), m_MeatNumber(0), m_MeatTime(0.0f), m_Date(0), m_playerChangeTime(0.0f), m_gameStrat(true), m_gameStartTime(0.0f), m_CameraSelect(CameraSelect::openingCamera) {}
+		GameStage() :Stage(),m_TotalTime(31.0f), m_dayTime(0.0f), m_GameTime(31.0f), m_MeatNumber(0), m_MeatTime(0.0f), m_Date(0), m_playerChangeTime(0.0f), m_gameStrat(true), m_gameStartTime(0.0f), m_CameraSelect(CameraSelect::openingCamera) {}
 		virtual ~GameStage() {}
 
 		//--------------------------------------------------------------------------------------

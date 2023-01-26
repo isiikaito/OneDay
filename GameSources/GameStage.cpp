@@ -28,6 +28,7 @@ namespace basecross {
 	constexpr float m_gameStartMaxTime = 6.0f;
 	constexpr float m_circleClockSpeed = 10.0f;
 	constexpr float m_opningCameraTime = 6.0f;
+	constexpr float m_playerConditionMaxTime = 62.0f;
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
@@ -231,6 +232,7 @@ namespace basecross {
 				if (Tokens[j] == L"3")//3の時にゲームステージに追加
 				{
 					AddGameObject<WoodenBox>(Vec3(9.0f, 9.0f, 9.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
+					
 				}
 			}
 		}
@@ -763,7 +765,11 @@ namespace basecross {
 		}
 		else
 		{
+			m_gameStrat = true;
 			UIDrawActive(false);
+
+		
+
 		}
 	}
 
@@ -772,17 +778,20 @@ namespace basecross {
 	{
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
 
-		OpeningCameraBooting(6.0f);//!オープニングカメラの時間中の処理
+		OpeningCameraBooting(m_opningCameraTime);//!オープニングカメラの時間中の処理
+		//!オープニングカメラが終わったとき
 		if (m_gameStrat == false)
 		{
 			auto scene = App::GetApp()->GetScene<Scene>();
-			//!プレイヤーの変身時間
+			auto m_playerConditionTime = scene->GetPlayerConditionTime();
+			//!プレイヤーの変身が開始された
 			if (scene->GetPlayerChangeDirecting())
 			{
-				if (m_playerConditionTime >= 62.0f)
+				if (m_playerConditionTime >= m_playerConditionMaxTime)
 				{
-					scene->SetPlayerConditionTime(0.0f);
+					
 					m_playerConditionTime = 0.0f;
+					scene->SetPlayerConditionTime(m_playerConditionTime);
 
 				}
 				float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
@@ -791,13 +800,12 @@ namespace basecross {
 				if (m_playerChangeTime >= m_playerChangeMaxTime)
 				{
 					
-
 					m_playerChangeTime = 0.0f;
 					scene->SetPlayerChangeDirecting(false);
 
 				}
 			}
-
+			//!変身が開始されていないとき
 			else
 			{
 
@@ -848,8 +856,13 @@ namespace basecross {
 	void GameStage::OnCreate() {
 		
 		try {
+			auto scene = App::GetApp()->GetScene<Scene>();
 
 			//auto GameMneager =AddGameObject<GameManager>();
+			auto m_playerConditionTime = scene->GetPlayerConditionTime();
+			m_playerConditionTime = 0.0f;
+			scene->SetPlayerConditionTime(m_playerConditionTime);
+
 
 			//!エフェクト作成
 			m_EfkInterface = ObjectFactory::Create<EfkInterface>();
@@ -859,7 +872,6 @@ namespace basecross {
 			auto& app = App::GetApp();
 			wstring DataDir;
 			App::GetApp()->GetDataDirectory(DataDir);
-			auto scene = App::GetApp()->GetScene<Scene>();
 			//!シーンの取得
 			auto m_keyNamber = scene->GetKeyNamber();
 
