@@ -594,9 +594,14 @@ namespace basecross {
 			GetPlayerPositionBrett();
 			VillagerDisappear();
 			HunterDisappear();
+			
 			if (!playerChange)
 			{
-              MovePlayer();
+				if (!scene->GetGameStrat())
+				{
+					MovePlayer();
+				}
+
 			}
 
 			else

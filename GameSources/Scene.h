@@ -22,8 +22,9 @@ namespace basecross{
 		int m_meatNumber;//!肉の位置が保存されたCSVの数字
 		int m_date;//!現在の日付
 		bool m_IsplayerChangeDirecting;//!プレイヤーの変身するかどうか
-		float m_dayTime;
+		float m_dayTime;//!一日の時間
 		float m_playerConditionTime;//!プレイヤーの状態の時間
+		bool m_gameStrat;
 	public:
 
 		void CreateResourses();//リソース
@@ -267,6 +268,27 @@ namespace basecross{
 		{
 			m_playerConditionTime = PlayerConditionTime;
 		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　ゲームがスタートしたことを伝える
+		*/
+		//--------------------------------------------------------------------------------------
+		bool GetGameStrat()
+		{
+			return m_gameStrat;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　ゲームスタートしたときの設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetGameStrat(bool gameStrat)
+		{
+			m_gameStrat = gameStrat;
+		}
+		
 
 		
 		

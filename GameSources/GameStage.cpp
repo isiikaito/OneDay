@@ -769,6 +769,8 @@ namespace basecross {
 			UIDrawActive(false);
 			
 		}
+	    App::GetApp()->GetScene<Scene>()->SetGameStrat(m_gameStrat);
+
 	}
 
 
