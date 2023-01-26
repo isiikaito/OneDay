@@ -16,12 +16,13 @@ namespace basecross
 
 	constexpr float MaxSurprisedTime = 2.0f;
 	constexpr float m_maxSurprisedTime = 2.0f;
+	constexpr float helfSize = 0.5f;
 
 	void SurprisedSprite::OnCreate()
 	{
 		auto PtrTransform = GetComponent<Transform>();
 		// 頂点データ
-		float HelfSize = 0.5f;
+		float HelfSize = helfSize;
 
 		//頂点配列(縦横5個ずつ表示)
 		vector<VertexPositionColorTexture> vertices = {
@@ -51,7 +52,7 @@ namespace basecross
 		SetAlphaActive(true);
 		SetDrawActive(false);
 		auto transComp = GetComponent<Transform>();  // トランスフォーム：変換行列(Transform Matrix)		
-		transComp->SetScale(5, 5, 5);
+		transComp->SetScale(m_scale);
 		auto EnemyTransform = parent->GetComponent<Transform>();
 		transComp->SetQuaternion(EnemyTransform->GetQuaternion());
 	}

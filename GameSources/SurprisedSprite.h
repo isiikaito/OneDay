@@ -33,10 +33,12 @@ namespace basecross {
 			Qt.normalize();
 			return Qt;
 		}
-		float m_SurprisedTime;
-		const float m_spritePositionY;
-		bool m_IsFoundPlayer;
+		Vec3 m_scale;
 
+		float m_SurprisedTime;//!板ポリを表示する時間
+		const float m_spritePositionY;//!板ポリのY軸のポジション
+		bool m_IsFoundPlayer;//!プレイヤーを発見したとき
+		
 
 	public:
 
@@ -46,7 +48,7 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		SurprisedSprite(const std::shared_ptr<Stage>& stage, const std::shared_ptr<GameObject>& parent)
-			: GameObject(stage), parent(parent), m_SurprisedTime(0.0f), m_spritePositionY(8.0f) , m_IsFoundPlayer(false), m_surprisedTime(0.0f) {}
+			: GameObject(stage), parent(parent), m_SurprisedTime(0.0f), m_spritePositionY(8.0f) , m_IsFoundPlayer(false), m_surprisedTime(0.0f), m_scale(Vec3(5.0f, 5.0f, 5.0f)) {}
 		
 		//--------------------------------------------------------------------------------------
 		/*!

@@ -115,6 +115,7 @@ namespace basecross {
 
 	//!プレイヤーを動かす処理
 	void Player::MovePlayer() {
+
 		//アニメーション
 		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
 		auto& AnimationName = ptrDraw->GetCurrentAnimation();
@@ -584,16 +585,27 @@ namespace basecross {
 
 		
 		
-		
+		auto playerChange = scene->GetPlayerChangeDirecting();//!プレイヤーの変身を開始する
+
 	
 		//!ゲームオーバーになってない時に
-		if (gameOver == false)
+		if (!gameOver)
 		{
-        GetPlayerPositionBrett();
-		VillagerDisappear();
-		HunterDisappear();
-		 MovePlayer();
-		
+			GetPlayerPositionBrett();
+			VillagerDisappear();
+			HunterDisappear();
+			if (!playerChange)
+			{
+              MovePlayer();
+			}
+
+			else
+			{
+				auto& XAptr = App::GetApp()->GetXAudio2Manager();
+				XAptr->Stop(m_Wolk);
+			}
+				
+
 		}
 		
 
@@ -652,7 +664,7 @@ namespace basecross {
 				GetStage()->RemoveGameObject<Meat>(Other);//!鍵オブジェクトの削除
 				auto& ptrXA = App::GetApp()->GetXAudio2Manager();
 				ptrXA->Start(L"MeatEat", 0, 9.0f);
-//エフェクトのプレイ
+                //エフェクトのプレイ
 				auto Ptr = GetComponent<Transform>();
 				auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
 				m_MeatEfkPlay = ObjectFactory::Create<EfkPlay>(m_MeatEfkEffect, Ptr->GetPosition());
@@ -662,14 +674,14 @@ namespace basecross {
 
 		}
 
-
 	}
 	void Player::OnPushB()
 	{
 		//エフェクトのプレイ
 		auto Ptr = GetComponent<Transform>();
 		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
-		m_ScratchEfkPlay = ObjectFactory::Create<EfkPlay>(m_ScratchEfkEffect, Ptr->GetPosition());
+		auto playerPosition = Ptr->GetPosition();
+		m_ScratchEfkPlay = ObjectFactory::Create<EfkPlay>(m_ScratchEfkEffect, playerPosition);
 		
 
 		auto scene = App::GetApp()->GetScene<Scene>();

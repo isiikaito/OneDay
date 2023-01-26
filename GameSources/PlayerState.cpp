@@ -329,7 +329,7 @@ namespace basecross
 			
 			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
 			scene->SetPlayerChangeDirecting(true);//!プレイヤーの変身を開始する
-
+		
 		}
 
 		void HumanChangeDirectingState::Execute(Player* Player)
@@ -357,12 +357,9 @@ namespace basecross
 			m_humanChangeDirectingTiem = 0.0f;
 			Player->GetComponent<BcPNTnTBoneModelDraw>()->ChangeCurrentAnimation(L"Default");
 
-			
-
 		}
 		//!----------------------------------------------------------
 		
-
 		//!狼から人間に変身するときの演出ステート-------------------------------------------------
 		WolfChangeDirectingState* WolfChangeDirectingState::Instance()
 		{
@@ -394,7 +391,6 @@ namespace basecross
 			{
 				Player->GetComponent<BcPNTnTBoneModelDraw>()->ChangeCurrentAnimation(L"Change");
 			}
-
 
 			//!狼から人間に変身する時のアニメーションモデル 
 			auto scene = App::GetApp()->GetScene<Scene>();
