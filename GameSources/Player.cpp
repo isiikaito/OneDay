@@ -14,6 +14,14 @@ namespace basecross {
 	constexpr float m_maxDedTime = 1.0f;
 	constexpr float m_vibrationMaxTime = 1.0f;
 	constexpr int m_Day = 7;
+	constexpr float m_escapeSphereRadius = 10.0f;
+	constexpr float m_villagerkillerSphereRadius = 5.0f;
+	constexpr float m_breakWoodBoxSphereRadius = 5.0f;
+	constexpr float m_hunterkillerSphereRadius = 5.0f;
+	constexpr float m_disappearSphereRadius = 5.0f;
+	constexpr float m_angleEqual = 6.0f;
+	
+	
 
 	//--------------------------------------------------------------------------------------
 	//	class Player : public GameObject;
@@ -261,7 +269,7 @@ namespace basecross {
 	void Player::VillagerDisappear()
 	{
 		auto position = GetComponent<Transform>()->GetPosition();//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, 100);//!プレイヤーの座標を中心に半径2センチの円の作成
+		SPHERE playerSp(position, m_disappearSphereRadius);//!プレイヤーの座標を中心に半径2センチの円の作成
 		//!村人を殺す
 		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
 		auto& vecVillager = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
@@ -301,7 +309,7 @@ namespace basecross {
 	void Player::HunterDisappear()
 	{
 		auto position = GetComponent<Transform>()->GetPosition();//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, 100);//!プレイヤーの座標を中心に半径2センチの円の作成
+		SPHERE playerSp(position, m_disappearSphereRadius);//!プレイヤーの座標を中心に半径2センチの円の作成
 		//!村人を殺す
 		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");
 		auto& vecHunter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
@@ -350,7 +358,7 @@ namespace basecross {
 	{
 		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
 		auto position = transComp->GetPosition();//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, 5.0f);//!プレイヤーの座標を中心に半径5センチの円の作成
+		SPHERE playerSp(position, m_hunterkillerSphereRadius);//!プレイヤーの座標を中心に半径5センチの円の作成
 		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
 		int alertlevelCount = scene->GetAlertlevelCount();//!警戒度の取得
 		//!ハンターを殺す
@@ -369,7 +377,8 @@ namespace basecross {
 			PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
 			auto Enemyfront = HunterTrans->GetForword();//!敵の正面を取得
 			auto angle = angleBetweenNormals(-Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-			auto chk = XM_PI / 6.0f;//!360を6で割って角度を出す。
+			auto chk = XM_PI / m_angleEqual;
+			;//!360を6で割って角度を出す。
 
 			//!プレイヤーの範囲に敵がはいったら
 			if (ptrHunter)
@@ -412,7 +421,7 @@ namespace basecross {
 	{
 		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
 		auto position = transComp->GetPosition();//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, 5.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
+		SPHERE playerSp(position, m_breakWoodBoxSphereRadius);//!プレイヤーの座標を中心に半径2センチの円の作成
 		auto scene = App::GetApp()->GetScene<Scene>();
 		//!村人を殺す
 		auto group = GetStage()->GetSharedObjectGroup(L"WoodBox_ObjGroup");
@@ -445,7 +454,7 @@ namespace basecross {
 	{
 		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
 		auto position = transComp->GetPosition();//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, 5.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
+		SPHERE playerSp(position, m_villagerkillerSphereRadius);//!プレイヤーの座標を中心に半径2センチの円の作成
 		auto scene = App::GetApp()->GetScene<Scene>();
 		int alertlevelCount = scene->GetAlertlevelCount();
 		//!村人を殺す
@@ -505,7 +514,7 @@ namespace basecross {
 	{
 		auto transComp = GetComponent<Transform>();//!トランスフォームを取得
 		auto position = transComp->GetPosition();//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, 10.0f);//!プレイヤーの座標を中心に半径2センチの円の作成
+		SPHERE playerSp(position, m_escapeSphereRadius);//!プレイヤーの座標を中心に半径2センチの円の作成
 
 		auto gate = GetStage()->GetSharedGameObject<StageGate>(L"Gate");
 		Vec3 ret;
