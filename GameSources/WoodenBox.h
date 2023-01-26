@@ -14,15 +14,7 @@ namespace basecross {
 		Vec3 m_Scale;   //!大きさ
 		Vec3 m_Rotation;//!回転
 		Vec3 m_Position;//!位置
-		float m_shadowbuilding; // !影を付けた家にする
-		float m_Time; // !切り替える時間
-		int m_oneday; // !朝と夜に変化する
-
-		enum class Oneday {
-			midday,
-			night
-		};
-
+	
 	public:
 		/**
 		* コンストラクタ

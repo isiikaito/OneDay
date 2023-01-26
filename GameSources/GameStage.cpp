@@ -29,6 +29,9 @@ namespace basecross {
 	constexpr float m_circleClockSpeed = 10.0f;
 	constexpr float m_opningCameraTime = 6.0f;
 	constexpr float m_playerConditionMaxTime = 62.0f;
+	constexpr float m_emissiveChangeTimeSpeed = 32.0f;
+	constexpr float m_emissiveReset = 1.0f;
+	constexpr float m_emissiveChangeMaxTime = 1.0f;
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
@@ -331,8 +334,8 @@ namespace basecross {
 		AddGameObject<DateChangeCommentDay>(
 			L"CommentDay_TX",//!テクスチャ
 			true,
-			Vec2(1000.0f, 1000.0f),//大きさ
-			Vec2(0.0f, 0.0f)//座標
+			Vec2(700.0f, 300.0f),//大きさ
+			Vec2(0.0f, 100.0f)//座標
 			);
 	}
 
@@ -341,8 +344,8 @@ namespace basecross {
 		AddGameObject<DateChangeCommentNight>(
 			L"CommentNignt_TX",//!テクスチャ
 			true,
-			Vec2(1000.0f, 1000.0f),//大きさ
-			Vec2(0.0f, 0.0f)//座標
+			Vec2(700.0f, 300.0f),//大きさ
+			Vec2(0.0f, 100.0f)//座標
 			);
 	}
 
@@ -765,6 +768,10 @@ namespace basecross {
 		}
 		else
 		{
+			auto scene = App::GetApp()->GetScene<Scene>();
+			auto m_emissiveChangeTime = scene->GetEmissiveChangeTime();
+			m_emissiveChangeTime = m_emissiveReset;
+			scene->SetEmissiveChangeTime(m_emissiveChangeTime);
 			m_gameStrat = true;
 			UIDrawActive(false);
 			
@@ -812,13 +819,39 @@ namespace basecross {
 				float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
 				m_dayTime += elapsedTime / m_circleClockSpeed;
 				m_playerConditionTime += elapsedTime;
-				m_TotalTime -= elapsedTime;//!ゲーム時間の取得
+				m_totalTime -= elapsedTime;//!ゲーム時間の取得
+				auto m_emissiveChangeTime = App::GetApp()->GetScene<Scene>()->GetEmissiveChangeTime();
+
+				if (m_oneday == static_cast<int>(Oneday::midday))
+				{
+					m_emissiveChangeTime -= elapsedTime / m_emissiveChangeTimeSpeed;//!エミッシブが変わる時間
+					scene->SetEmissiveChangeTime(m_emissiveChangeTime);
+
+					if (m_emissiveChangeTime <= 0.0f)
+					{
+						m_oneday = static_cast<int>(Oneday::night);
+
+					}
+				}
+				
+
+				if (m_oneday == static_cast<int>(Oneday::night))
+				{
+					m_emissiveChangeTime += elapsedTime / m_emissiveChangeTimeSpeed;//!エミッシブが変わる時間
+					scene->SetEmissiveChangeTime(m_emissiveChangeTime);
+
+					if (m_emissiveChangeTime >= m_emissiveChangeMaxTime)
+					{
+						m_oneday = static_cast<int>(Oneday::midday);
+					}
+				}
+				
 
 				
 				//!30秒経ったらまた30秒に戻す
-				if (m_TotalTime <= 0.0f)
+				if (m_totalTime <= 0.0f)
 				{
-					m_TotalTime = m_GameTime;
+					m_totalTime = m_GameTime;
 
 				}
 
@@ -827,14 +860,14 @@ namespace basecross {
 				scene->SetDayTime(m_dayTime);//!時計の時間
 				scene->SetPlayerConditionTime(m_playerConditionTime);
 
-
 			}
+			
 
 		}
 
 		////スコアを更新する
 		auto ptrScor = GetSharedGameObject<Timer>(L"Time");
-		ptrScor->SetScore(m_TotalTime);
+		ptrScor->SetScore(m_totalTime);
 
 	}
 	

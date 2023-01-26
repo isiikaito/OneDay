@@ -37,9 +37,9 @@ namespace basecross{
 		RoadTexture(L"HeadManCommet2.png", L"HeadManCommet2_TX");
 		RoadTexture(L"HeadManCommet3.png", L"HeadManCommet3_TX");
 
-		RoadTexture(L"CommentDay.png", L"CommentDay_TX");
+		RoadTexture(L"QuestMessage_Noon.png", L"CommentDay_TX");
 		//!昼から夜になったらでるテクスチャ
-		RoadTexture(L"CommentNignt.png", L"CommentNignt_TX");
+		RoadTexture(L"QuestMessage_Night.png", L"CommentNignt_TX"); 
 		//!数字の取得
 		RoadTexture(L"Nomber_3.png", L"NUMBER_TX");
 		//!危険度のゲージのスプライト

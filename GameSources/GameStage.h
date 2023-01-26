@@ -16,6 +16,12 @@ namespace basecross {
 		openingCamera,
 		myCamera
 	};
+
+
+	enum class Oneday {
+		midday,
+		night
+	};
 	
 	class GameStage : public Stage {
 	private:
@@ -28,15 +34,17 @@ namespace basecross {
 		CsvFile m_MeatPositon;//!肉のポジションのCSVファイル
 		shared_ptr<SoundItem>m_BGM; //!BGM
 		shared_ptr<SoundItem>m_GameOverBGM; //!ゲームオーバーのBGM
-		float m_TotalTime;//!トータル時間(タイマーの作成)
+		float m_totalTime;//!トータル時間(タイマーの作成)
 		const float m_GameTime;//!ゲームの時間
 		float m_playerChangeTime;//!プレイヤーの変身時間
 		float m_MeatTime;//!肉の位置をランダムにする時間
 		int m_MeatNumber;//!肉の位置を保存したCSVの番号
 		int m_Date;//!日付
+		int m_oneday;//!現在の状況
 		bool m_gameStrat;//!ゲームのスタート状態
 		float m_gameStartTime;//!ゲームのスタートしてからの時間
 		float m_dayTime;//!一日の時間
+		float m_emissiveChangeTime;//!ライトの時間
 		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 		shared_ptr<EfkInterface> m_EfkInterface;
 
@@ -50,7 +58,7 @@ namespace basecross {
 
 	public:
 		//構築と破棄
-		GameStage() :Stage(),m_TotalTime(31.0f), m_dayTime(0.0f), m_GameTime(31.0f), m_MeatNumber(0), m_MeatTime(0.0f), m_Date(0), m_playerChangeTime(0.0f), m_gameStrat(true), m_gameStartTime(0.0f), m_CameraSelect(CameraSelect::openingCamera) {}
+		GameStage() :Stage(),m_totalTime(31.0f), m_oneday(0), m_emissiveChangeTime(1.0f), m_dayTime(0.0f), m_GameTime(31.0f), m_MeatNumber(0), m_MeatTime(0.0f), m_Date(0), m_playerChangeTime(0.0f), m_gameStrat(true), m_gameStartTime(0.0f), m_CameraSelect(CameraSelect::openingCamera) {}
 		virtual ~GameStage() {}
 
 		//--------------------------------------------------------------------------------------

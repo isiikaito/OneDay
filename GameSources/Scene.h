@@ -24,7 +24,8 @@ namespace basecross{
 		bool m_IsplayerChangeDirecting;//!プレイヤーの変身するかどうか
 		float m_dayTime;//!一日の時間
 		float m_playerConditionTime;//!プレイヤーの状態の時間
-		bool m_gameStrat;
+		bool m_gameStrat;//!ゲームのスタート
+		float m_emissiveChangeTime;//!ライトタイム
 	public:
 
 		void CreateResourses();//リソース
@@ -33,7 +34,7 @@ namespace basecross{
 		@brief コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		Scene() :SceneBase(), m_AlertlevelCount(0), m_date(0), m_playerConditionTime(0.0f), m_IsplayerChangeDirecting(0.0f), m_IsGameOver(false), m_dayTime(0.0f), m_IsGameOverSprite(false), m_gameStageTime(0.0f), m_keyNamber(0), m_meatNumber(0) {}
+		Scene() :SceneBase(), m_AlertlevelCount(0), m_emissiveChangeTime(1.0f), m_date(0), m_playerConditionTime(0.0f), m_IsplayerChangeDirecting(0.0f), m_IsGameOver(false), m_dayTime(0.0f), m_IsGameOverSprite(false), m_gameStageTime(0.0f), m_keyNamber(0), m_meatNumber(0) {}
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief デストラクタ
@@ -288,6 +289,27 @@ namespace basecross{
 		{
 			m_gameStrat = gameStrat;
 		}
+
+		//--------------------------------------------------------------------------------------
+	    /*!
+	    @brief　エミッシブカラーの変わる時間の取得
+	    */
+	    //--------------------------------------------------------------------------------------
+		float GetEmissiveChangeTime()
+		{
+			return m_emissiveChangeTime;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　エミッシブカラーの変わる時間の設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetEmissiveChangeTime(float emissiveChangeTime)
+		{
+			m_emissiveChangeTime = emissiveChangeTime;
+		}
+		
 		
 
 		

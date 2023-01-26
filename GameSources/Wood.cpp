@@ -7,7 +7,7 @@
 #include "GameManager.h"
 namespace basecross {
 
-
+	constexpr float m_colLimit = 0.2;
 	//--------------------------------------------------------------------------------------
 	//	class Wood : public GameObject;
 	//--------------------------------------------------------------------------------------
@@ -20,9 +20,7 @@ namespace basecross {
 		GameObject(StagePtr),
 		m_Scale(Scale),
 		m_Rotation(Rotation),
-		m_Position(Position),
-		m_oneday(0),
-		m_Time(1)
+		m_Position(Position)
 
 	{
 	}
@@ -66,31 +64,11 @@ namespace basecross {
 	void Wood::OnUpdate() {
 
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
-		float elapsedTime = GameManager::GetElpasedTiem();//!elapsedTimeを取得することにより時間を使える
+		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+		auto m_time = scene->GetEmissiveChangeTime();
 
-		// !夜から昼になる処理
-		if (m_oneday == static_cast<int>(Oneday::midday))
-		{
-			m_Time += elapsedTime / 30; //!時間を変数に足す
-			ptrDraw->SetEmissive(Col4(m_Time, m_Time, m_Time, 1.0f)); // !夜にする処理
-			if (m_Time >= 1.0f)
-			{
-				m_oneday = static_cast<int>(Oneday::night);
-			}
-		}
+		ptrDraw->SetEmissive(Col4(m_time - m_colLimit, m_time - m_colLimit, m_time - m_colLimit, 1.0f)); // !夜にする処理
 
-		// !昼から夜になる処理
-		if (m_oneday == static_cast<int>(Oneday::night))
-		{
-			m_Time += -elapsedTime / 30; //時間を変数に減らす
-			ptrDraw->SetEmissive(Col4(m_Time, m_Time, m_Time, 1.0f)); // !朝にする処理
-			if (m_Time <= 0.0f)
-			{
-				m_oneday = static_cast<int>(Oneday::midday);
-			}
-		}
-
-		return;
 	}
 
 }

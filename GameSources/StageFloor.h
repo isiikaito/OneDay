@@ -14,15 +14,6 @@ namespace basecross {
 		Vec3 m_Scale;   //!‘å‚«‚³
 		Vec3 m_Rotation;//!‰ñ“]
 		Vec3 m_Position;//!ˆÊ’u
-		float m_shadowbuilding; // !‰e‚ğ•t‚¯‚½‰Æ‚É‚·‚é
-		float m_Time; // !Ø‚è‘Ö‚¦‚éŠÔ
-		float m_Color; // !F‚ğ•Ï‚¦‚é
-		int m_oneday; // !’©‚Æ–é‚É•Ï‰»‚·‚é
-
-		enum class Oneday {
-			midday,
-			night
-		};
 
 	public:
 		/**

@@ -10,6 +10,7 @@
 
 namespace basecross {
 	constexpr float DrawTime = 31.0f;
+	constexpr float m_colLimit = 0.2;
 
 	//--------------------------------------------------------------------------------------
 	//	class FixedBox : public GameObject;
@@ -23,9 +24,7 @@ namespace basecross {
 		GameObject(StagePtr),
 		m_Scale(Scale),
 		m_Rotation(Rotation),
-		m_Position(Position),
-		m_oneday(0),
-		m_Time(1)
+		m_Position(Position)
 	{
 	}
 	
@@ -62,39 +61,16 @@ namespace basecross {
 		//!メッシュの設定
 		ptrDraw->SetMeshResource(L"GROUND_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-	/*	Coll->SetDrawActive(true);*/
-		
-		//ptrDraw->SetEmissive(Col4(0.0f, 0.0f, 0.0f, 1.0f)); // !暗くする処理
+	
 	}
 
 	void StageFloor::OnUpdate() {
 
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
 		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
-		auto gameTime = scene->GetGameTime();
-		// !夜から昼になる処理
-		if ( m_oneday == static_cast<int>(Oneday::midday))
-		{
-			m_Time += gameTime / DrawTime; //!時間を変数に足す
-			ptrDraw->SetEmissive(Col4(m_Time - 0.3f, m_Time - 0.3f, m_Time - 0.3f, 1.0f)); // !昼にする処理
-			if (m_Time >= 1.0f)
-			{
-				m_oneday = static_cast<int>(Oneday::night);
-			}
-		}
+		auto m_time = scene->GetEmissiveChangeTime();
 
-		// !昼から夜になる処理
-		if (m_oneday == static_cast<int>(Oneday::night))
-		{
-			m_Time -= gameTime / DrawTime; //!時間を変数から減らす
-			ptrDraw->SetEmissive(Col4(m_Time - 0.3f, m_Time - 0.3f, m_Time - 0.3f, 1.0f)); // !夜にする処理
-			if (m_Time <= 0.0f)
-			{
-				m_oneday = static_cast<int>(Oneday::midday);
-			}
-		}
-
-		return;		
+		ptrDraw->SetEmissive(Col4(m_time - m_colLimit, m_time - m_colLimit, m_time - m_colLimit, 1.0f)); // !夜にする処理
 	}
 
 }

@@ -586,7 +586,7 @@ namespace basecross {
 		
 		
 		auto playerChange = scene->GetPlayerChangeDirecting();//!プレイヤーの変身を開始する
-
+		auto gameStrat = scene->GetGameStrat();
 	
 		//!ゲームオーバーになってない時に
 		if (!gameOver)
@@ -597,14 +597,14 @@ namespace basecross {
 			
 			if (!playerChange)
 			{
-				if (!scene->GetGameStrat())
+				if (!gameStrat)
 				{
 					MovePlayer();
 				}
 
 			}
 
-			else
+			if(playerChange|| gameStrat)
 			{
 				auto& XAptr = App::GetApp()->GetXAudio2Manager();
 				XAptr->Stop(m_Wolk);
@@ -682,11 +682,15 @@ namespace basecross {
 	}
 	void Player::OnPushB()
 	{
-		//エフェクトのプレイ
-		auto Ptr = GetComponent<Transform>();
-		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
-		auto playerPosition = Ptr->GetPosition();
-		m_ScratchEfkPlay = ObjectFactory::Create<EfkPlay>(m_ScratchEfkEffect, playerPosition);
+		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
+		{
+			//エフェクトのプレイ
+			auto Ptr = GetComponent<Transform>();
+			auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
+			auto playerPosition = Ptr->GetPosition();
+			m_ScratchEfkPlay = ObjectFactory::Create<EfkPlay>(m_ScratchEfkEffect, playerPosition);
+
+		}
 		
 
 		auto scene = App::GetApp()->GetScene<Scene>();

@@ -12,7 +12,8 @@ namespace basecross {
 
 	constexpr float m_midDayTime = 1.0f;
 	constexpr float m_nightTime = 0.0f;
-	constexpr float m_TimeSpeed = 32.0f;
+	constexpr float m_TimeSpeed = 31.0f;
+	constexpr float m_colLimit = 0.2;
 	//--------------------------------------------------------------------------------------
 	//	class FixedBox : public GameObject;
 	//--------------------------------------------------------------------------------------
@@ -78,31 +79,11 @@ namespace basecross {
 
 		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
 		float elapsedTime = GameManager::GetElpasedTiem();//!elapsedTimeを取得することにより時間を使える
-
-		// !夜から昼になる処理
-		if (m_oneday == static_cast<int>(Oneday::midday))
-		{
-			
-			m_Time += elapsedTime / m_TimeSpeed; //!時間を変数に足す
-			ptrDraw->SetEmissive(Col4(m_Time , m_Time , m_Time , 1.0f)); // !夜にする処理
-			if (m_Time >= m_midDayTime)
-			{
-				m_oneday = static_cast<int>(Oneday::night);
-			}
-		}
-
-		// !昼から夜になる処理
-		if (m_oneday == static_cast<int>(Oneday::night))
-		{
-			m_Time += -elapsedTime / m_TimeSpeed; //時間を変数に減らす
-			ptrDraw->SetEmissive(Col4(m_Time, m_Time , m_Time, 1.0f)); // !朝にする処理
-			if (m_Time <= m_nightTime)
-			{
-				m_oneday = static_cast<int>(Oneday::midday);
-			}
-		}
-
-		return;
+		auto scene = App::GetApp()->GetScene<Scene>();
+		auto m_time = scene->GetEmissiveChangeTime();
+		
+		ptrDraw->SetEmissive(Col4(m_time - m_colLimit, m_time - m_colLimit, m_time - m_colLimit, 1.0f)); // !夜にする処理
+				
 	}
 
 }
