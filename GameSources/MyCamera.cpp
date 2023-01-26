@@ -255,7 +255,7 @@ namespace basecross {
 
 				if (HitTest::SEGMENT_OBB(GetEye(), GetAt(), StageBuildingObb))//!ƒJƒƒ‰‚ÆŽ‹“_‚ÌŠÔ‚É•Ç‚ª“ü‚Á‚½‚ç
 				{
-					stageBuilding->GetComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0.0f, 0.0f, 1.0f, 0.3f));//!•Ç‚ð”¼“§–¾‚É‚·‚é
+					stageBuilding->GetComponent<PNTStaticModelDraw>()->SetDiffuse(Col4(0.0f, 0.0f, 0.0f, 0.3f));//!•Ç‚ð”¼“§–¾‚É‚·‚é
 
 				}
 
