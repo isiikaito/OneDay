@@ -682,6 +682,10 @@ namespace basecross {
 				auto Ptr = GetComponent<Transform>();
 				auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
 				m_MeatEfkPlay = ObjectFactory::Create<EfkPlay>(m_MeatEfkEffect, Ptr->GetPosition());
+				auto manager=ShEfkInterface->GetManager();
+				//manager->SetLocation();
+				//!エフェクトのポジションを常にそこにする
+				//ObjectFactory::Create<::Effekseer::Manager>()->SetLocation(,0.0f,0.0f,0.0f);
 				
 			}
 

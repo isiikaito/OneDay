@@ -29,7 +29,7 @@ namespace basecross {
 	//スプライトの作成
 	void GameClearStage::CreateGameClearSprite() {
 		AddGameObject<GameClearSprite>(L"GAMECLEAR_TX", false,
-			Vec2(256.0f, 64.0f), Vec2(0.0f, 0.0f));
+			Vec3(1280.0f, 800.0f, 1.0f), Vec3(0.0f, 0.0f,0.0f));
 
 	}
 

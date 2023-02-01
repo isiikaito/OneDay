@@ -145,6 +145,10 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		virtual void OnDraw()override;
+		::Effekseer::ManagerRef GetManager()
+		{
+			return m_Manager;
+		}
 	};
 
 

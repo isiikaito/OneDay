@@ -14,8 +14,8 @@ namespace basecross {
 	class GameClearSprite : public GameObject {
 	private:
 		bool m_Trace;
-		Vec2 m_StartScale;
-		Vec2 m_StartPos;
+		Vec3 m_StartScale;
+		Vec3 m_StartPos;
 		wstring m_TextureKey;
 
 	public:
@@ -26,7 +26,7 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		GameClearSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale, const Vec2& StartPos);
+			const Vec3& StartScale, const Vec3& StartPos);
 
 		//--------------------------------------------------------------------------------------
 		/*!

@@ -7,7 +7,7 @@
 #include "Project.h"
 
 namespace basecross {
-
+	constexpr float m_startScaleZ = 1.0f;
 	//--------------------------------------------------------------------------------------
 	///	タイトルスプライト
 	//--------------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ namespace basecross {
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		SetAlphaActive(m_Trace);
 		auto PtrTransform = GetComponent<Transform>();
-		PtrTransform->SetScale(m_StartScale.x, m_StartScale.y, 1.0f);
+		PtrTransform->SetScale(m_StartScale.x, m_StartScale.y, m_startScaleZ);
 		PtrTransform->SetRotation(0, 0, 0);
 		PtrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
