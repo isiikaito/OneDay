@@ -21,6 +21,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ClockArrow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EfkInterfece.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h" />
@@ -78,6 +79,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ClockArrow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp" />

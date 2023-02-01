@@ -96,9 +96,9 @@ namespace basecross{
 		auto staticModelMesh5 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Key.bmf");
 		App::GetApp()->RegisterResource(L"KEY_MESH", staticModelMesh5);
 
-		//!門のモデルの読み込み
-		auto staticModelMesh6 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageGate.bmf");
-		App::GetApp()->RegisterResource(L"STAGEGATE_MESH", staticModelMesh6);
+		////!門のモデルの読み込み
+		//auto staticModelMesh6 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageGate.bmf");
+		//App::GetApp()->RegisterResource(L"STAGEGATE_MESH", staticModelMesh6);
 
 		//!地面のモデルの読み込み
 		auto staticModelMesh7 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Ground.bmf");
@@ -156,6 +156,12 @@ namespace basecross{
 		PlayerMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Player_Animation.bmf");
 		App::GetApp()->RegisterResource(L"Player_WalkAnimation2_MESH_WITH_TAN", PlayerMultiModelMesh);
 
+		// 扉のアニメーション
+		auto GateMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Gate_Animation.bmf");
+		App::GetApp()->RegisterResource(L"GateAnimation_MESH", GateMultiModelMesh);
+
+		GateMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Gate_Animation.bmf");
+		App::GetApp()->RegisterResource(L"GateAnimation_MESH_WITH_TAN", GateMultiModelMesh);
 
 		//法線マップ
 		wstring strTexture = dataDir + L"PlalyerBanpMap.png";

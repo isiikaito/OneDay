@@ -160,6 +160,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCameraState.cpp">
       <Filter>Object\OpeningCamera\OpeningCameraState</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -327,6 +328,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCameraState.h">
       <Filter>Object\OpeningCamera\OpeningCameraState</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
