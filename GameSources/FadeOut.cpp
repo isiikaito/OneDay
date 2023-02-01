@@ -8,7 +8,10 @@
 
 namespace basecross {
 	//ゲージ
-
+	constexpr float m_startScaleZ = 1.0f;
+	constexpr float m_startPosZ = 0.1f;
+	constexpr float m_helfSize = 0.5f;
+	constexpr float m_fadeOutSpeed = 2.0f;
 	FadeOut::FadeOut(const shared_ptr<Stage>& StagePtr, bool Trace,
 		const Vec2& StartScale, const Vec3& StartPos) :
 		GameObject(StagePtr),
@@ -23,7 +26,7 @@ namespace basecross {
 	void FadeOut::OnCreate() {
 
 
-		float helfSize = 0.5f;
+		float helfSize = m_helfSize;
 		//頂点配列
 		m_BackupVertices = {
 			//カラー　透明度
@@ -38,7 +41,7 @@ namespace basecross {
 		//頂点とインデックスを指定してスプライト作成
 
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_StartScale.x, m_StartScale.y, 1.0f);
+		ptrTrans->SetScale(m_StartScale.x, m_StartScale.y, m_startScaleZ);
 		ptrTrans->SetRotation(0, 0, 0);
 		ptrTrans->SetPosition(m_StartPos);
 		auto ptrDraw = AddComponent<PCSpriteDraw>(m_BackupVertices, indices);
@@ -56,8 +59,8 @@ namespace basecross {
 		//時間の取得
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		m_TotalTime += elapsedTime;
-		if (m_TotalTime >= XM_PI / 2) {
-			m_TotalTime = XM_PI / 2;
+		if (m_TotalTime >= XM_PI / m_fadeOutSpeed) {
+			m_TotalTime = XM_PI / m_fadeOutSpeed;
 		}
 		//頂点の取得
 		vector<VertexPositionColor> newVertices;

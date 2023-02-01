@@ -18,6 +18,8 @@ namespace basecross {
 		wstring m_TextureKey; //!テクスチャ
 		int m_RustLife;
 		float m_rotationZ;//!回転のz軸を変える
+		Vec3 m_secondPosition;//!警戒度ゲージがレベル2の時
+		Vec3 m_firstPosition;//!警戒度ゲージがレベル3の時
 
 	public:
 

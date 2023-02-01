@@ -12,6 +12,9 @@ namespace basecross
 {
 	constexpr int first = 1;
 	constexpr int second = 2;
+	constexpr float m_startScaleZ = 1.0f;
+	constexpr float m_startPosZ = 0.2f;
+	constexpr float m_helfSize = 0.5f;
 	//--------------------------------------------------------------------------------------
 	///	矢印
 	//--------------------------------------------------------------------------------------
@@ -24,13 +27,15 @@ namespace basecross
 		m_StartScale(StartScale),
 		m_StartPos(StartPos),
 		m_RustLife(0),
-		m_rotationZ(RotationZ)
+		m_rotationZ(RotationZ),
+		m_secondPosition(Vec3(460.0f, 330.0f, 0.0f)),
+		m_firstPosition(Vec3(530.0f, 330.0f, 0.0f))
 	{}
 
 	Arrow::~Arrow() {}
 	void Arrow::OnCreate()
 	{
-		float HelfSize = 0.5f;
+		float HelfSize = m_helfSize;
 
 		//頂点配列(縦横5個ずつ表示)
 		vector<VertexPositionColorTexture> vertices = {
@@ -44,9 +49,9 @@ namespace basecross
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		SetAlphaActive(m_Trace);
 		auto ptrTransform = GetComponent<Transform>();
-		ptrTransform->SetScale(m_StartScale.x, m_StartScale.y, 1.0f);
+		ptrTransform->SetScale(m_StartScale.x, m_StartScale.y, m_startScaleZ);
 		ptrTransform->SetRotation(0.0f, 0.0f, m_rotationZ);
-		ptrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 0.1f); // 0.1が手前、0.9は奥
+		ptrTransform->SetPosition(m_StartPos.x, m_StartPos.y, m_startPosZ); // 0.1が手前、0.9は奥
 
 		//頂点とインデックスを指定してスプライト作成
 		auto PtrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
@@ -63,11 +68,12 @@ namespace basecross
 		auto GetPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
 		auto PlayrHp = GetPlayer->GetPlayerHp();
 		auto ptrTransform = GetComponent<Transform>();//!矢印のテクスチャの取得
-		//!警戒度が1の時
+		//!警戒度が2の時
 		if (PlayrHp == second)
 		{
-          ptrTransform->SetPosition(Vec3(460.0f, 330.0f,0.0f));
+          ptrTransform->SetPosition(m_secondPosition);
 		}
+		//!警戒度が3の時
 		if (PlayrHp == first)
 		{
 			ptrTransform->SetPosition(Vec3(530.0f, 330.0f, 0.0f));

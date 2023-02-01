@@ -13,7 +13,7 @@ namespace basecross {
 	///	ゲームクリアスプライト
 	//--------------------------------------------------------------------------------------
 	GameClearSprite::GameClearSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-		const Vec2& StartScale, const Vec2& StartPos) :
+		const Vec3& StartScale, const Vec3& StartPos) :
 		GameObject(StagePtr),
 		m_TextureKey(TextureKey),
 		m_Trace(Trace),
@@ -35,9 +35,9 @@ namespace basecross {
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		SetAlphaActive(m_Trace);
 		auto PtrTransform = GetComponent<Transform>();
-		PtrTransform->SetScale(1280.0f, 800.0f, 1.0f);
+		PtrTransform->SetScale(m_StartScale);
 		PtrTransform->SetRotation(0, 0, 0);
-		PtrTransform->SetPosition(m_StartPos.x, m_StartPos.y, 0.0f);
+		PtrTransform->SetPosition(m_StartPos);
 		//頂点とインデックスを指定してスプライト作成
 		auto PtrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
 		PtrDraw->SetSamplerState(SamplerState::LinearWrap);
