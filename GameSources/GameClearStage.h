@@ -40,8 +40,13 @@ namespace basecross {
 		virtual void OnCreate()override;
 
 		void OnPushA();//!Aボタン
-		//void OnDestroy();
-
+		
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief 消す
+		*/
+		//--------------------------------------------------------------------------------------
+		virtual void OnDestroy() override;
 		//更新
 		virtual void OnUpdate()override;
 	 };

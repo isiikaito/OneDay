@@ -48,13 +48,24 @@ namespace basecross {
 
 		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
 		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネント
-		//auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
-		//Coll->SetDrawActive(true);
-		//Coll->SetFixed(true);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
 
-		////!影の形（メッシュ）を設定
-		//ptrShadow->SetMeshResource(L"STAGEGATE_MESH");
-		//ptrShadow->SetMeshToTransformMatrix(spanMat);
+		auto scene = App::GetApp()->GetScene<Scene>();
+		auto goleGateParameter = scene->GetGoleGateParameter();
+
+		if (!goleGateParameter)
+		{
+			auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
+			//Coll->SetDrawActive(true);
+			Coll->SetFixed(true);
+		}
+
+		if (goleGateParameter)
+		{
+
+
+		}
+
+
 
 		////!メッシュの設定
 		//ptrDraw->SetMeshResource(L"STAGEGATE_MESH");
@@ -63,16 +74,49 @@ namespace basecross {
 		//!RigidbodyBoxの追加
 		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
 		auto PsPtr = AddComponent<RigidbodyBox>(param);
-		
+
 		ptrShadow->SetMeshResource(L"GateAnimation_MESH");//!影の形（メッシュ）を設定
 		ptrShadow->SetMeshToTransformMatrix(spanMat);
 
 		//!描画するメッシュを設定
 		ptrDraw->SetMeshResource(L"GateAnimation_MESH_WITH_TAN");
-		ptrDraw->AddAnimation(L"Open", 0, 60, true, 20.0f);
-		ptrDraw->ChangeCurrentAnimation(L"Open");
+		ptrDraw->AddAnimation(L"Open", 0, 60, false, 20.0f);
+		ptrDraw->AddAnimation(L"defoult", 0, 1, false, 20.0f);//!開かないアニメーション
 
 
+
+	}
+	void StageGate::AnimationChange()
+	{
+		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+
+		auto goleGateParameter = scene->GetGoleGateParameter();//!門のパラメータの取得
+		//!門がゴールステージにある場合
+		if (goleGateParameter)
+		{
+			auto drowComponet = GetComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの取得
+
+			auto& AnimationName = drowComponet->GetCurrentAnimation();//!現在のアニメーションの取得
+			//!アニメーションがデフォルトの時
+			if (AnimationName == L"defoult")
+			{
+				//!開くアニメーションに変える
+				drowComponet->ChangeCurrentAnimation(L"Open");
+
+			}
+		}
+
+		else
+		{
+			auto drowComponet = GetComponent<BcPNTnTBoneModelDraw>();
+
+			auto& AnimationName = drowComponet->GetCurrentAnimation();
+			if (AnimationName == L"Open")
+			{
+				drowComponet->ChangeCurrentAnimation(L"defoult");//!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
+				;
+			}
+		}
 	}
 
 	void StageGate::OnUpdate() {
@@ -83,8 +127,10 @@ namespace basecross {
 		AnimaptrDraw->SetEmissive(Col4(m_time - m_colLimit, m_time - m_colLimit, m_time - m_colLimit, 1.0f)); // !夜にする処理
 
 		float elapsedTime = App::GetApp()->GetElapsedTime();
-		
-		AnimaptrDraw->UpdateAnimation(elapsedTime);
+
+		AnimationChange();
+
+		  AnimaptrDraw->UpdateAnimation(elapsedTime);
 
 	}
 

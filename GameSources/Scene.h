@@ -26,6 +26,11 @@ namespace basecross{
 		float m_playerConditionTime;//!プレイヤーの状態の時間
 		bool m_gameStrat;//!ゲームのスタート
 		float m_emissiveChangeTime;//!ライトタイム
+		int m_descriptionStageNumber;//!説明書のページ数
+		bool m_IsmoveForwardInaPage;//!ページを進ませているかどうか
+		bool m_IspageBackTo;//!ページを戻しているかどうか
+		bool m_goleGateParameter;//!ゴールステージの時の門のパラメータを適応する
+
 	public:
 
 		void CreateResourses();//リソース
@@ -34,7 +39,7 @@ namespace basecross{
 		@brief コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		Scene() :SceneBase(), m_AlertlevelCount(0), m_emissiveChangeTime(1.0f), m_date(0), m_playerConditionTime(0.0f), m_IsplayerChangeDirecting(0.0f), m_IsGameOver(false), m_dayTime(0.0f), m_IsGameOverSprite(false), m_gameStageTime(0.0f), m_keyNamber(0), m_meatNumber(0) {}
+		Scene() :SceneBase(), m_goleGateParameter(false), m_IsmoveForwardInaPage(true), m_IspageBackTo(true),m_AlertlevelCount(0), m_emissiveChangeTime(1.0f), m_date(0), m_playerConditionTime(0.0f), m_IsplayerChangeDirecting(0.0f), m_IsGameOver(false), m_dayTime(0.0f), m_IsGameOverSprite(false), m_gameStageTime(0.0f), m_keyNamber(0), m_meatNumber(0) {}
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief デストラクタ
@@ -310,10 +315,88 @@ namespace basecross{
 			m_emissiveChangeTime = emissiveChangeTime;
 		}
 		
-		
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　説明書のページ数
+		@return 説明書のページ数を返す
+		*/
+		//--------------------------------------------------------------------------------------
+		int GetDescriptionStageNumber()
+		{
+			return m_descriptionStageNumber;
+		}
 
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　説明書のページ数の設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetDescriptionStageNumber(int descriptionStageNumber)
+		{
+			m_descriptionStageNumber= descriptionStageNumber;
+		}
 		
-		
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　ページをめくっているかどうかの取得
+		*/
+		//--------------------------------------------------------------------------------------
+		bool GetIsMoveForwardInaPage()
+		{
+			return m_IsmoveForwardInaPage;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　ページをめくっているかどうかの設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetIsMoveForwardInaPage(bool IsmoveForwardInaPage)
+		{
+			m_IsmoveForwardInaPage = IsmoveForwardInaPage;
+		}
+
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　ページを戻しているかどうか
+		*/
+		//--------------------------------------------------------------------------------------
+		bool GetIspageBackTo()
+		{
+			return m_IspageBackTo;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　ページをもどしているかどうかの設定
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetIsPageBackTo(bool IspageBackTo)
+		{
+			m_IspageBackTo = IspageBackTo;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　ゴールパラメータの門を適用するかどうか
+		*/
+		//--------------------------------------------------------------------------------------
+		bool GetGoleGateParameter()
+		{
+			return m_goleGateParameter;
+
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　ゴールパラメータの門を適用するかどうか
+		*/
+		//--------------------------------------------------------------------------------------
+		void SetGoleGateParameter(bool goleGateParameter)
+		{
+			m_goleGateParameter = goleGateParameter;
+		}
 	};
 
 }

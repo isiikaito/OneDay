@@ -77,13 +77,7 @@ namespace basecross {
 
 	}
 
-	////!プレイヤーの作成
-	//void GameClearStage::CreatePlayer()
-	//{
-	//	auto ptrPlayer = AddGameObject<Player>();//!プレイヤーの作成
-	//	//SetSharedGameObject(L"Player", ptrPlayer);
-	//}
-
+	
 	//!ゴール時のプレイヤーの作成
 	void GameClearStage::CerateGoalPlayer()
 	{
@@ -190,6 +184,7 @@ namespace basecross {
 			//各値が揃ったのでオブジェクトの作成
 			auto ptrGate = AddGameObject<StageGate>(Scale, Rot, Pos);
 			SetSharedGameObject(L"Gate", ptrGate);
+			
 		}
 
 	}
@@ -200,10 +195,13 @@ namespace basecross {
 		//スプライトの作成
 		CreateGameClearSprite();
 		SetPhysicsActive(true);//物理計算有効
+		auto scene = App::GetApp()->GetScene<Scene>();
+
+		scene->SetGoleGateParameter(true);//!門のパラメーターの適応
 
 		//!BGM
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
-		m_BGM = XAPtr->Start(L"GameClear", XAUDIO2_LOOP_INFINITE, 0.3f);
+		m_BGM = XAPtr->Start(L"GameClear", XAUDIO2_LOOP_INFINITE, 0.2f);
 		
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
@@ -229,14 +227,19 @@ namespace basecross {
 		m_InputHandler.PushHandle(GetThis<GameClearStage>());
 
 	}
-
+	// !BGMのストップ
+	void GameClearStage::OnDestroy()
+	{
+		auto& XAPtr = App::GetApp()->GetXAudio2Manager();
+		XAPtr->Stop(m_BGM);
+	}
 
 	//Aボタン
 	void GameClearStage::OnPushA() {
+		OnDestroy();
 		PostEvent(0.0f, GetThis<GameClearStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 	}
 
 	
-
 }
 //end basecros

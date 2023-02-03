@@ -6,6 +6,7 @@
 
 #include "stdafx.h"
 #include "Project.h"
+#include "DescriptionStage.h"
 
 namespace basecross{
 
@@ -64,8 +65,14 @@ namespace basecross{
 		RoadTexture(L"Title.jpg", L"MESSAGE_TX");
 		//!カギの枠
 		RoadTexture(L"ItemField.png", L"ItemField_TX");
-
-
+		//!説明書1のテクスチャ
+		RoadTexture(L"DescriptionSprite1.png", L"DescriptionSprite1_TX");
+		//!説明書2のテクスチャ
+		RoadTexture(L"DescriptionSprite2.png", L"DescriptionSprite2_TX");
+		//!説明書3のテクスチャ
+		RoadTexture(L"DescriptionSprite3.png", L"DescriptionSprite3_TX");
+		//!説明書4のテクスチャ
+		RoadTexture(L"DescriptionSprite4.png", L"DescriptionSprite4_TX");
 		
 		wstring dataDir;
 		//サンプルのためアセットディレクトリを取得
@@ -373,7 +380,9 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
+
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameClearStage");
+
 		}
 		catch (...) {
 			throw;
@@ -397,6 +406,10 @@ namespace basecross{
 		else if (event->m_MsgStr == L"ToGameClearStage")//!ゲームクリアステージ
 		{
 			ResetActiveStage<GameClearStage>();
+		}
+		else if (event->m_MsgStr == L"ToDescriptionStage")
+		{
+			ResetActiveStage<DescriptionStage>();
 		}
 	}
 

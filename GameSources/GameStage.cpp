@@ -896,6 +896,7 @@ namespace basecross {
 			m_playerConditionTime = 0.0f;
 			scene->SetPlayerConditionTime(m_playerConditionTime);
 
+			scene->SetGoleGateParameter(false);//!門のパラメーターの適応
 
 			//!エフェクト作成
 			m_EfkInterface = ObjectFactory::Create<EfkInterface>();

@@ -160,7 +160,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCameraState.cpp">
       <Filter>Object\OpeningCamera\OpeningCameraState</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionSpriteFront.cpp">
+      <Filter>Sprite\DescriptionSprite\DescriptionSpriteFront</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionStage.cpp">
+      <Filter>Object\Stage\DescriptionStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionSpriteFrontState.cpp">
+      <Filter>State\DescriptionSpriteFrontState</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GoalPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -328,7 +337,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCameraState.h">
       <Filter>Object\OpeningCamera\OpeningCameraState</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionSpriteFront.h">
+      <Filter>Sprite\DescriptionSprite\DescriptionSpriteFront</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionStage.h">
+      <Filter>Object\Stage\DescriptionStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionSpriteFrontState.h">
+      <Filter>State\DescriptionSpriteFrontState</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GoalPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -519,6 +537,18 @@
     </Filter>
     <Filter Include="Object\OpeningCamera\OpeningCamera">
       <UniqueIdentifier>{36a90770-cf19-4c4e-9e70-9edf9267c88f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\DescriptionSprite">
+      <UniqueIdentifier>{9f779d45-324e-4434-be76-ac0c275ab098}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\DescriptionSprite\DescriptionSpriteFront">
+      <UniqueIdentifier>{51d7af2e-2bc0-4eea-aa87-08db5210b37e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage\DescriptionStage">
+      <UniqueIdentifier>{4ae977fa-f2ee-4b6d-9960-aa6dbe8b4fa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\DescriptionSpriteFrontState">
+      <UniqueIdentifier>{815379fd-ec0d-44a9-a933-4b7d7dda9d42}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
