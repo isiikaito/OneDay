@@ -7,7 +7,7 @@ namespace basecross
 {
 	namespace kaito
 	{
-		constexpr float FlippingSpeed = 10.0f;
+		constexpr float FlippingSpeed = 20.0f;
 		
 
 		//!インスタンスの生成(実体の作成)
@@ -50,6 +50,7 @@ namespace basecross
 		void DescriptionSpriteFrontState::Exit(DescriptionSpriteFront* descriptionSpriteFront)
 		{
 		
+			descriptionSpriteFront->SetDrawActive(false);
 			descriptionSpriteFront->SetMoveTexture(false);
 
 		}
@@ -84,6 +85,14 @@ namespace basecross
 					descriptionSpriteFront->ChangeState(DescriptionSpriteFrontState::Instance());//!ステートを変更する
 
 				}
+				if(descriptionSpriteFront->GetPageBackTo())
+				{
+
+					descriptionSpriteFront->ChangeState(DescriptionPageBackToState::Instance());//!ステートを変更する
+
+					
+				}
+
 
 		}
 
@@ -96,11 +105,53 @@ namespace basecross
 
 
 
+		//!インスタンスの生成(実体の作成)
+		DescriptionPageBackToState* DescriptionPageBackToState::Instance()
+		{
+			static DescriptionPageBackToState instance;
+			return &instance;
+		}
 
 
 
+		void  DescriptionPageBackToState::Enter(DescriptionSpriteFront* descriptionSpriteFront)
+		{
 
-		
+			m_moveTime = 0.0f;
+			descriptionSpriteFront->SetDrawActive(true);
+
+		}
+
+		void DescriptionPageBackToState::Execute(DescriptionSpriteFront* descriptionSpriteFront)
+		{
+
+
+
+			auto& app = App::GetApp();//!アプリの取得
+			auto elapsedTime = app->GetElapsedTime();//!時間の取得
+			m_moveTime += elapsedTime * FlippingSpeed;
+			auto transform = descriptionSpriteFront->GetComponent<Transform>();
+			auto descriptionFrontPosition = transform->GetPosition();
+			descriptionFrontPosition.x += m_moveTime;
+			transform->SetPosition(descriptionFrontPosition);
+
+			if (descriptionFrontPosition.x >= m_stateChangePositionX)
+			{
+				descriptionSpriteFront->ChangeState(DescriptionSpriteStandbyFrontState::Instance());//!ステートを変更する
+
+			}
+
+
+		}
+
+		void DescriptionPageBackToState::Exit(DescriptionSpriteFront* descriptionSpriteFront)
+		{
+
+			descriptionSpriteFront->SetPageBackTo(false);
+
+		}
+		//-------------------------------------------------------------------------
+
 
 	}
 }

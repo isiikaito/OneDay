@@ -57,6 +57,29 @@ namespace basecross
 		};
 
 
+		class DescriptionPageBackToState :public State<DescriptionSpriteFront>
+		{
+		private:
+			DescriptionPageBackToState() {}
+			float m_moveTime = 0.0f;
+			float m_stateChangePositionX = 0.0f;
+
+			//!シングルトンパターン
+			DescriptionPageBackToState(const DescriptionPageBackToState&) = delete;//!関数を削除する
+			DescriptionPageBackToState& operator=(const DescriptionPageBackToState&) = delete;//!operatorの中にある=を削除（コピーされないように）
+
+		public:
+			static DescriptionPageBackToState* Instance();
+
+
+			virtual void Enter(DescriptionSpriteFront* descriptionSpriteFront)override;
+			virtual void Execute(DescriptionSpriteFront* descriptionSpriteFront)override;
+			virtual void Exit(DescriptionSpriteFront* descriptionSpriteFront)override;
+		};
+
+		//-------------------------------------------------------------------
+
+
 
 	}
 }

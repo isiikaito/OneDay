@@ -138,31 +138,34 @@ namespace basecross
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto playerChange = scene->GetPlayerChangeDirecting();//!プレイヤーの変身を開始する
 
-		if (!playerChange)
+		auto gameOver = scene->GetGameOver();
+		if (!gameOver)
 		{
-
-
-
-
-			AnimationUpdate();
-
-			m_StateMachine->Update();
-
-			ObstacleAvoidance();
-
-			EnemyRandomRotation();
-
-			if (m_patrolRotation == false)
+			if (!playerChange)
 			{
-				m_rotationTime = 0.0f;
-				ApplyForce();
+
+				AnimationUpdate();
+
+				m_StateMachine->Update();
+
+				ObstacleAvoidance();
+
+				EnemyRandomRotation();
+
+				if (m_patrolRotation == false)
+				{
+					m_rotationTime = 0.0f;
+					ApplyForce();
+				}
+
+				m_Force = Vec3(0);
+
+				Facade();
+
 			}
 
-			m_Force = Vec3(0);
-
-			Facade();
-
 		}
+
 	}
 
 }

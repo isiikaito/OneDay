@@ -168,6 +168,20 @@ namespace basecross {
 			MessageBox(NULL, ms.str().c_str(), L"", MB_OK);*/
 			scene->SetDescriptionStageNumber(DescriptionNumber);
 		}
+		switch (DescriptionNumber)
+		{
+		case(0):
+			DescriptionSprites[0]->SetPageBackTo(true);
+			break;
+		case(1):
+			DescriptionSprites[1]->SetPageBackTo(true);
+			break;
+
+		case(2):
+			DescriptionSprites[2]->SetPageBackTo(true);
+			break;
+
+		}
 		
 	}
 

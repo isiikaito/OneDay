@@ -24,7 +24,8 @@ namespace basecross {
 		m_Trace(Trace),
 		m_StartScale(StartScale),
 		m_StartPos(StartPos),
-		m_moveTexture(false)
+		m_moveTexture(false),
+		m_pageBackTo(false)
 	{
 		m_StateMachine = new kaito::StateMachine<DescriptionSpriteFront>(this);
 		m_StateMachine->SetCurrentState(kaito::DescriptionSpriteStandbyFrontState::Instance());

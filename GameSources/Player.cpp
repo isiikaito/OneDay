@@ -693,17 +693,18 @@ namespace basecross {
 		}
 
 	}
+
+	void Player::AttackEffect()
+	{
+		//エフェクトのプレイ
+		auto Ptr = GetComponent<Transform>();
+		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
+		auto playerPosition = Ptr->GetPosition();
+		m_ScratchEfkPlay = ObjectFactory::Create<EfkPlay>(m_ScratchEfkEffect, playerPosition);
+	}
+
 	void Player::OnPushB()
 	{
-		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
-		{
-			//エフェクトのプレイ
-			auto Ptr = GetComponent<Transform>();
-			auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
-			auto playerPosition = Ptr->GetPosition();
-			m_ScratchEfkPlay = ObjectFactory::Create<EfkPlay>(m_ScratchEfkEffect, playerPosition);
-
-		}
 		
 
 		auto scene = App::GetApp()->GetScene<Scene>();
@@ -716,6 +717,7 @@ namespace basecross {
 				Villagerkiller();//!村人を倒す処理
 				Hunterkiller();//!ハンターを倒す処理
 				BreakWoodBox();//!ボックスを壊す
+				AttackEffect();//!攻撃エフェクトを出す
 			}
 
 			if (m_playerChange == static_cast<int>(PlayerModel::human))
