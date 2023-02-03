@@ -56,7 +56,7 @@ namespace basecross
 		m_drawComponent = AddComponent<PCTSpriteDraw>(vertices, indices);
 		m_drawComponent->SetSamplerState(SamplerState::LinearWrap);
 		m_drawComponent->SetTextureResource(m_TextureKey);
-		SetDrawActive(true);
+		SetDrawActive(false);
 
 
 	}
