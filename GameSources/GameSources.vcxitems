@@ -43,6 +43,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCameraMan.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCameraState.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GoalPlayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)playerState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Villager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Key.h" />
@@ -101,6 +102,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCameraMan.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCameraState.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GoalPlayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Villager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Key.cpp" />

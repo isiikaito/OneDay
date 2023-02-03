@@ -1,7 +1,7 @@
 /**
 *@file GameClear.h
 *@brief ゲームクリア画面のヘッダーファイル
-*@author Kanazawa yuma
+*@author Ayumu Muroi
 *@details ゲームクリア画面の実装
 */
 
@@ -16,13 +16,22 @@ namespace basecross {
 	private:
 		InputHandler<GameClearStage> m_InputHandler;//!入力ハンドラー		
 		shared_ptr<SoundItem>m_BGM; //!BGM
+		CsvFile m_StageCsv;   //!ステージCSVファイル
+
 
 	public:
 		
 		//ビューの作成
 		void CreateViewLight();
+		void CreatePlayer(); //!プレイヤーの追加
 		//スプライトの作成
 		void CreateGameClearSprite();
+		void CreateStageFloor(); //!床
+		void CreateStageBuilding(); //!建物 
+		void CreateStageWall(); //!壁
+		void CreateStageGate(); //!門
+		void CerateGoalPlayer(); //!ゴールのプレイヤー
+		CsvFile m_GameStageCsvD;// !建物の配置4
 
 		//構築と破棄
 		GameClearStage() :Stage() {}
