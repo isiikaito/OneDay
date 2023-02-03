@@ -105,6 +105,8 @@ namespace basecross {
 
 	}
 
+	
+
 
 	void DescriptionStage::MoveForwardInaPage()
 	{
@@ -134,6 +136,11 @@ namespace basecross {
 			ms << DescriptionNumber;
 			MessageBox(NULL, ms.str().c_str(), L"", MB_OK);*/
 			scene->SetDescriptionStageNumber(DescriptionNumber);
+
+			//サウンド再生
+			auto ptrXA = App::GetApp()->GetXAudio2Manager();
+			ptrXA->Start(L"FlipPage", 0, 1.0f);
+
 		}
 		switch (DescriptionNumber)
 		{
@@ -149,6 +156,7 @@ namespace basecross {
 			break;
 
 		}
+		
 
 		
 	}
@@ -157,6 +165,7 @@ namespace basecross {
 	//!左
 	void DescriptionStage::PushHandleCrossLeft()
 	{
+
 	
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto DescriptionNumber = scene->GetDescriptionStageNumber();
@@ -167,6 +176,10 @@ namespace basecross {
 			ms << DescriptionNumber;
 			MessageBox(NULL, ms.str().c_str(), L"", MB_OK);*/
 			scene->SetDescriptionStageNumber(DescriptionNumber);
+
+			//サウンド再生
+			auto ptrXA = App::GetApp()->GetXAudio2Manager();
+			ptrXA->Start(L"FlipPage", 0, 1.0f);
 		}
 		switch (DescriptionNumber)
 		{
@@ -182,6 +195,7 @@ namespace basecross {
 			break;
 
 		}
+		
 		
 	}
 

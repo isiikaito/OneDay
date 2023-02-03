@@ -216,6 +216,9 @@ namespace basecross{
 		wstring GameOverWav = dataDir + "Sound\\" L"GameOver.wav";//ゲームオーバー音
 		App::GetApp()->RegisterWav(L"GameOver", GameOverWav);
 
+		wstring FlipPageWav = dataDir + "Sound\\" L"FlipPage.wav";//ゲームオーバー音
+		App::GetApp()->RegisterWav(L"FlipPage", FlipPageWav);
+
 	
 
 	}
