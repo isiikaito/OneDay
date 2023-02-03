@@ -8,6 +8,7 @@
 #include "stdafx.h"
 
 namespace basecross {
+
 	namespace kaito
 	{
 		//!‘O•ûéŒ¾
@@ -18,6 +19,7 @@ namespace basecross {
 		class StateMachine;
 	}
 
+	
 	class DescriptionSpriteFront : public GameObject {
 	private:
 		bool m_Trace;         //!“§–¾

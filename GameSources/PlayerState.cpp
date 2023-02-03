@@ -15,7 +15,7 @@ namespace basecross
 		constexpr float m_notEatSpeed = 10.0f;//!何も食べてない状態のスピード
 		constexpr float m_firstEat = 15.0f;//!一個食べた状態のスピード
 		constexpr float m_secondEat = 20.0f;//!二個食べた状態のスピード
-		constexpr float m_thirdEat = 24.0f;//!三個食べた状態のスピード
+		constexpr float m_thirdEat = 23.0f;//!三個食べた状態のスピード
 		constexpr float m_humanSpeed = 24.0f;//!人間の速度
 		constexpr float m_playerChangeDirectingMaxTiem = 2.0f;//!プレイヤーの変身時間
 

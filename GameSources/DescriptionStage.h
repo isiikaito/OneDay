@@ -8,6 +8,14 @@
 
 namespace basecross {
 
+	enum class PageNumber {
+		farst,
+		second,
+		three,
+		four
+	};
+
+
 	class DescriptionSpriteFront;
 	//--------------------------------------------------------------------------------------
 	//	説明ステージクラス

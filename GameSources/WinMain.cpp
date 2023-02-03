@@ -121,7 +121,7 @@ HWND InitInstance(HINSTANCE hInstance, int nCmdShow, bool isFullScreen, int iCli
 //	用途: メインループ
 //--------------------------------------------------------------------------------------
 int MainLoop(HINSTANCE hInstance, HWND hWnd, bool isFullScreen, int iClientWidth, int iClientHeight) {
-	//ShowCursor(false);
+	ShowCursor(false);
 	//終了コード
 	int RetCode = 0;
 	//ウインドウ情報。メッセージボックス表示チェックに使用

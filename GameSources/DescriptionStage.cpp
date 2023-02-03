@@ -137,15 +137,15 @@ namespace basecross {
 		}
 		switch (DescriptionNumber)
 		{
-		case(1):
-			DescriptionSprites[0]->SetMoveTexture(true);
+		case(static_cast<int>(PageNumber::second)):
+			DescriptionSprites[static_cast<int>(PageNumber::farst)]->SetMoveTexture(true);
 			break;
-		case(2):
-			DescriptionSprites[1]->SetMoveTexture(true);
+		case(static_cast<int>(PageNumber::three)):
+			DescriptionSprites[static_cast<int>(PageNumber::second)]->SetMoveTexture(true);
 			break;
 
-		case(3):
-			DescriptionSprites[2]->SetMoveTexture(true);
+		case(static_cast<int>(PageNumber::four)):
+			DescriptionSprites[static_cast<int>(PageNumber::three)]->SetMoveTexture(true);
 			break;
 
 		}
@@ -170,15 +170,15 @@ namespace basecross {
 		}
 		switch (DescriptionNumber)
 		{
-		case(0):
-			DescriptionSprites[0]->SetPageBackTo(true);
+		case(static_cast<int>(PageNumber::farst)):
+			DescriptionSprites[static_cast<int>(PageNumber::farst)]->SetPageBackTo(true);
 			break;
-		case(1):
-			DescriptionSprites[1]->SetPageBackTo(true);
+		case(static_cast<int>(PageNumber::second)):
+			DescriptionSprites[static_cast<int>(PageNumber::second)]->SetPageBackTo(true);
 			break;
 
-		case(2):
-			DescriptionSprites[2]->SetPageBackTo(true);
+		case(static_cast<int>(PageNumber::three)):
+			DescriptionSprites[static_cast<int>(PageNumber::three)]->SetPageBackTo(true);
 			break;
 
 		}
