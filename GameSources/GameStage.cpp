@@ -335,7 +335,7 @@ namespace basecross {
 			L"CommentDay_TX",//!テクスチャ
 			true,
 			Vec2(700.0f, 300.0f),//大きさ
-			Vec2(0.0f, 100.0f)//座標
+			Vec2(0.0f, 240.0f)//座標
 			);
 	}
 
@@ -345,7 +345,7 @@ namespace basecross {
 			L"CommentNignt_TX",//!テクスチャ
 			true,
 			Vec2(700.0f, 300.0f),//大きさ
-			Vec2(0.0f, 100.0f)//座標
+			Vec2(0.0f, 240.0f)//座標
 			);
 	}
 

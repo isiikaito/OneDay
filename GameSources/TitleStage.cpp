@@ -77,7 +77,7 @@ namespace basecross {
 		//ƒTƒEƒ“ƒhÄ¶
 		auto ptrXA = App::GetApp()->GetXAudio2Manager();
 		ptrXA->Start(L"decision", 0, 1.0f);
-		PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+		PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToDescriptionStage");
 	}
 
 

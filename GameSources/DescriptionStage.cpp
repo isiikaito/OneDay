@@ -129,7 +129,7 @@ namespace basecross {
 		
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto DescriptionNumber = scene->GetDescriptionStageNumber();
-		if (DescriptionNumber <= 2)
+		if (DescriptionNumber <= 1)
 		{
 			DescriptionNumber++;
 			/*std::wstringstream ms;
@@ -147,13 +147,13 @@ namespace basecross {
 		case(static_cast<int>(PageNumber::second)):
 			DescriptionSprites[static_cast<int>(PageNumber::farst)]->SetMoveTexture(true);
 			break;
-		case(static_cast<int>(PageNumber::three)):
+		/*case(static_cast<int>(PageNumber::three)):
 			DescriptionSprites[static_cast<int>(PageNumber::second)]->SetMoveTexture(true);
 			break;
 
 		case(static_cast<int>(PageNumber::four)):
 			DescriptionSprites[static_cast<int>(PageNumber::three)]->SetMoveTexture(true);
-			break;
+			break;*/
 
 		}
 		
@@ -186,13 +186,13 @@ namespace basecross {
 		case(static_cast<int>(PageNumber::farst)):
 			DescriptionSprites[static_cast<int>(PageNumber::farst)]->SetPageBackTo(true);
 			break;
-		case(static_cast<int>(PageNumber::second)):
+		/*case(static_cast<int>(PageNumber::second)):
 			DescriptionSprites[static_cast<int>(PageNumber::second)]->SetPageBackTo(true);
 			break;
 
 		case(static_cast<int>(PageNumber::three)):
 			DescriptionSprites[static_cast<int>(PageNumber::three)]->SetPageBackTo(true);
-			break;
+			break;*/
 
 		}
 		

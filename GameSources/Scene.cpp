@@ -66,9 +66,9 @@ namespace basecross{
 		//!カギの枠
 		RoadTexture(L"ItemField.png", L"ItemField_TX");
 		//!説明書1のテクスチャ
-		RoadTexture(L"DescriptionSprite1.png", L"DescriptionSprite1_TX");
+		RoadTexture(L"Explanation_01.png", L"DescriptionSprite1_TX");
 		//!説明書2のテクスチャ
-		RoadTexture(L"DescriptionSprite2.png", L"DescriptionSprite2_TX");
+		RoadTexture(L"Explanation_02.png", L"DescriptionSprite2_TX");
 		//!説明書3のテクスチャ
 		RoadTexture(L"DescriptionSprite3.png", L"DescriptionSprite3_TX");
 		//!説明書4のテクスチャ
@@ -384,7 +384,7 @@ namespace basecross{
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
 
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToDescriptionStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 
 		}
 		catch (...) {
