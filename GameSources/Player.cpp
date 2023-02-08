@@ -18,7 +18,7 @@ namespace basecross {
 	constexpr float m_villagerkillerSphereRadius = 5.0f;
 	constexpr float m_breakWoodBoxSphereRadius = 5.0f;
 	constexpr float m_hunterkillerSphereRadius = 5.0f;
-	constexpr float m_disappearSphereRadius = 5.0f;
+	constexpr float m_disappearSphereRadius = 100.0f;
 	constexpr float m_angleEqual = 6.0f;
 	
 	
