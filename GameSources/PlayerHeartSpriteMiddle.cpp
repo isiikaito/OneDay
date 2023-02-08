@@ -10,6 +10,9 @@
 
 namespace basecross
 {
+	constexpr int m_MaxhurteCount = 3; // !HP点滅の回数制限
+	constexpr float m_feadOutTime = 0.5;//!ハートの点滅時に消える時間
+	constexpr float m_feadInTime = 1.0f;//!ハートの点滅時が付く時間
 	 //--------------------------------------------------------------------------------------
 	 ///	真ん中のハートスプライト
 	 //--------------------------------------------------------------------------------------
@@ -21,7 +24,11 @@ namespace basecross
 		m_Trace(Trace),
 		m_StartScale(StartScale),
 		m_StartPos(StartPos),
-		m_MiddleLife(1)
+		m_MiddleLife(1),
+		m_hurt(false),
+		m_tiem(0.0f),
+		m_hurtCount(0),
+		m_hurtDefise(true)
 	{}
 
 	PlayerHeartSpriteMiddle::~PlayerHeartSpriteMiddle() {}
@@ -56,10 +63,37 @@ namespace basecross
 	{
 		auto GetPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
 		auto PlayrHp = GetPlayer->GetPlayerHp();
-		if (PlayrHp == m_MiddleLife)
+
+		if (PlayrHp <= m_MiddleLife && m_hurtDefise == true) //!プレイヤーのHpが0の時かつ右ライフが表示されているとき
 		{
-			auto PtrDraw = GetComponent<PCTSpriteDraw>();
-			SetDrawActive(false);
+
+			m_hurt = true; //!ライフの点滅をtrue
+			if (m_hurt == true)
+			{
+				// !HP表示のハートが点滅する処理
+				float elapsedTime = App::GetApp()->GetElapsedTime();
+				m_tiem += elapsedTime;
+				if (m_tiem >= m_feadOutTime)
+				{
+					auto PtrDraw = GetComponent<PCTSpriteDraw>();
+					SetDrawActive(false);
+
+					if (m_tiem >= m_feadInTime)
+					{
+						SetDrawActive(true);
+						m_hurtCount++; //!点滅した回数
+						m_tiem = 0;
+					}
+					return;
+				}
+			}
+
+			// !ハートの点滅回数が最大になった時
+			if (m_hurtCount == m_MaxhurteCount) //!一定の回数点滅したら
+			{
+				SetDrawActive(false); //!ライフの表示を完全に消す
+				m_hurtDefise = false;
+			}
 		}
 	}
 }

@@ -17,7 +17,8 @@ namespace basecross {
 		InputHandler<GameClearStage> m_InputHandler;//!入力ハンドラー		
 		shared_ptr<SoundItem>m_BGM; //!BGM
 		CsvFile m_StageCsv;   //!ステージCSVファイル
-
+		float m_stageChangeTime =0.0f;
+		bool m_setTexture=false;
 
 	public:
 		

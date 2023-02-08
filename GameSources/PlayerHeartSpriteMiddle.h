@@ -10,7 +10,11 @@ namespace basecross
 		Vec2 m_StartScale;    //!大きさ
 		Vec3 m_StartPos;      //!位置
 		wstring m_TextureKey; //!テクスチャ
-		int m_MiddleLife;
+		bool m_hurt;//!ライフの点滅を開始するかどうか
+		int m_MiddleLife;//!現在のHP
+		float m_tiem;//!点滅している時間
+		int m_hurtCount;//!点滅した回数
+		bool m_hurtDefise;//!ハートの表示を消す
 
 
 	public:

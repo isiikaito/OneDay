@@ -648,6 +648,21 @@ namespace basecross {
 
 	}
 
+	void GameStage::HurteSpriteDrawActive(bool t)
+	{
+		//!ライフの右側スプライトの表示
+		auto playerHeartRight = GetSharedGameObject<PlayerHeartSpriteRight>(L"playerHeartSpriteRight");
+		playerHeartRight->SetDrawActive(t);
+
+		//!ライフの中央ゲージスプライトの表示
+		auto playerHeartMiddle = GetSharedGameObject<PlayerHeartSpriteMiddle>(L"playerHeartSpriteMiddle");
+		playerHeartMiddle->SetDrawActive(t);
+
+		//!ライフの左側ゲージスプライトの表示
+		auto playerHeartLeft = GetSharedGameObject<PlayerHeartSpriteLeft>(L"playerHeartSpriteLeft");
+		playerHeartLeft->SetDrawActive(t);
+	}
+
 	void GameStage::UIDrawActive(bool t)
 	{
 		//!時計の円盤の表示
@@ -670,17 +685,7 @@ namespace basecross {
 		auto alertlevelGauge = GetSharedGameObject<AlertlevelGauge>(L"alertlevelGaugeSprite");
 		alertlevelGauge->SetDrawActive(t);
 
-		//!ライフの右側スプライトの表示
-		auto playerHeartRight = GetSharedGameObject<PlayerHeartSpriteRight>(L"playerHeartSpriteRight");
-		playerHeartRight->SetDrawActive(t);
-
-		//!ライフの中央ゲージスプライトの表示
-		auto playerHeartMiddle = GetSharedGameObject<PlayerHeartSpriteMiddle>(L"playerHeartSpriteMiddle");
-		playerHeartMiddle->SetDrawActive(t);
-
-		//!ライフの左側ゲージスプライトの表示
-		auto playerHeartLeft = GetSharedGameObject<PlayerHeartSpriteLeft>(L"playerHeartSpriteLeft");
-		playerHeartLeft->SetDrawActive(t);
+		
 
 		//!カギの枠スプライトの表示
 		auto keyFrame = GetSharedGameObject<KeyFrame>(L"keyFrameSprite");
@@ -765,6 +770,11 @@ namespace basecross {
 		{
 			UIDrawActive(true);
 			m_gameStrat = false;
+			if (m_heartSpriteDraw == false)
+			{
+				HurteSpriteDrawActive(true);
+				m_heartSpriteDraw = true;
+			}
 		}
 		else
 		{
@@ -774,6 +784,7 @@ namespace basecross {
 			scene->SetEmissiveChangeTime(m_emissiveChangeTime);
 			m_gameStrat = true;
 			UIDrawActive(false);
+			HurteSpriteDrawActive(false);
 			
 		}
 	    App::GetApp()->GetScene<Scene>()->SetGameStrat(m_gameStrat);

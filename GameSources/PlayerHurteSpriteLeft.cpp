@@ -11,7 +11,8 @@
 namespace basecross
 {
 	constexpr int m_MaxhurteCount = 3; // !HP点滅の回数制限
-
+	constexpr float m_feadOutTime = 0.5;//!ハートの点滅時に消える時間
+	constexpr float m_feadInTime = 1.0f;//!ハートの点滅時が付く時間
 	//--------------------------------------------------------------------------------------
 	///	左側のハートスプライト
 	//--------------------------------------------------------------------------------------
@@ -67,7 +68,7 @@ namespace basecross
 		auto GetPlayer = GetStage()->GetSharedGameObject<Player>(L"Player"); //!プレイヤーの取得
 		auto PlayrHp = GetPlayer->GetPlayerHp(); //!プレイヤーのHpの取得
 
-		if (PlayrHp == m_RustLife && m_hurtDefise == true) //!プレイヤーのHpが0の時かつ右ライフが表示されているとき
+		if (PlayrHp <= m_RustLife && m_hurtDefise == true) //!プレイヤーのHpが0の時かつ右ライフが表示されているとき
 		{
 
 			m_hurt = true; //!ライフの点滅をtrue
@@ -76,12 +77,12 @@ namespace basecross
 				// !HP表示のハートが点滅する処理
 				float elapsedTime = App::GetApp()->GetElapsedTime();
 				m_Time += elapsedTime;
-				if (m_Time >= 0.5f)
+				if (m_Time >= m_feadOutTime)
 				{
 					auto PtrDraw = GetComponent<PCTSpriteDraw>();
 					SetDrawActive(false);
 
-					if (m_Time >= 1.0f)
+					if (m_Time >= m_feadInTime)
 					{
 						SetDrawActive(true);
 						m_hurtCount++; //!点滅した回数

@@ -220,11 +220,31 @@ namespace basecross {
 		CreateStageBuilding(); //!建物の追加
 		CreateStageWall(); //!壁の追加
 		CreateStageGate(); //!門の追加
+		if (m_setTexture)
+		{
+		   CreateGameClearSprite();
+		}
 
 	}
 
 	void GameClearStage::OnUpdate() {
 		m_InputHandler.PushHandle(GetThis<GameClearStage>());
+		auto elapsedTime = App::GetApp()->GetElapsedTime();
+		m_stageChangeTime += elapsedTime;
+		if (m_stageChangeTime >= 5.0f)
+		{
+			m_setTexture = true;
+			
+
+		}
+		if (m_stageChangeTime >= 7.0f)
+		{
+			PostEvent(0.0f, GetThis<GameClearStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+			OnDestroy();
+			m_setTexture = false;
+			m_stageChangeTime = 0.0f;
+	   }
+		
 
 	}
 	// !BGMのストップ
@@ -236,8 +256,8 @@ namespace basecross {
 
 	//Aボタン
 	void GameClearStage::OnPushA() {
-		OnDestroy();
 		PostEvent(0.0f, GetThis<GameClearStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+		OnDestroy();
 	}
 
 	

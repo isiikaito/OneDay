@@ -16,13 +16,13 @@ namespace basecross {
 		Vec2 m_StartScale;    //!大きさ
 		Vec3 m_StartPos;      //!位置
 		wstring m_TextureKey; //!テクスチャ
-		int m_RustLife;
-		float m_Time; // !切り替える時間
-		int m_hurtCount; // !HPの点滅回数
-		bool m_hurt; // !ハートのありなし
-		bool m_hurtDefise;
-		float m_dedTime;
-		bool m_GameOver;
+		int m_RustLife;       //!右のハート
+		float m_Time;         // !切り替える時間
+		int m_hurtCount;      // !HPの点滅回数
+		bool m_hurt;          // !ハートのありなし
+		bool m_hurtDefise;    //!ハートを消す
+		float m_dedTime;      //!点滅している時間
+		bool m_GameOver;      //!ゲームオーバーしたかどうか
 
 
 	public:
