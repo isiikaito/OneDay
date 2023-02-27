@@ -8,8 +8,8 @@
 #include <EffekseerRendererDX11.h>
 
 #if _DEBUG
-#pragma comment(lib, "Effekseerd.lib" )
-#pragma comment(lib, "EffekseerRendererDX11d.lib" )
+#pragma comment(lib, "Effekseer.lib" )
+#pragma comment(lib, "EffekseerRendererDX11.lib" )
 #else
 #pragma comment(lib, "Effekseer.lib" )
 #pragma comment(lib, "EffekseerRendererDX11.lib" )

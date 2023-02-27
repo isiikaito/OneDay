@@ -31,14 +31,14 @@ namespace basecross {
 	{
 	private:
 
-		int m_playerChange;//!プレイヤーの見た目の状態
-		int m_KeyCount;//!鍵を持っている個数カウント
-		int m_AlertleveCount;//!警戒度のカウント
-		int m_MaxKeyCount;//!鍵の所持数の最大
-		const float m_Ded;//!死亡
+		int m_playerChange;				//!プレイヤーの見た目の状態
+		int m_KeyCount;					//!鍵を持っている個数カウント
+		int m_AlertleveCount;			//!警戒度のカウント
+		int m_MaxKeyCount;				//!鍵の所持数の最大
+		const float m_Ded;				//!死亡
 		int m_PlayerPositionOnSecondMax;//!プレイヤーの位置の配列の最大の長さ
-		int m_PlayerHp;//!プレイヤーの体力
-		int m_meatCount;//!肉を取得した数
+		int m_PlayerHp;					//!プレイヤーの体力
+		int m_meatCount;				//!肉を取得した数
 		const int m_reset;//1ループリセット
 		float m_wolfPlayerSpeed;//!狼男になったときのスピード
 		float m_humanPlayerSpeed;//!人間の時のスピード

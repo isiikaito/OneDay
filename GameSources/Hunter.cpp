@@ -1,6 +1,6 @@
 /*!
-@file Villager.cpp
-@brief 村人の実体
+@file Hunter.cpp
+@brief ハンターの実体
 *@author isii kaito
 */
 

@@ -1,3 +1,9 @@
+/*!
+@file OpeningCameraState.h
+@brief オープニングカメラステート
+*@author isii kaito
+*/
+
 #include "stdafx.h"
 #include "StateMchine.h"
 #include "OpeningCameraMan.h"

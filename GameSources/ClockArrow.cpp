@@ -13,9 +13,9 @@ namespace basecross
 {
 	constexpr int first = 1;
 	constexpr int second = 2;
-	constexpr float m_startScaleZ = 1.0f;
-	constexpr float m_startPosZ = 0.2f;
-	constexpr float m_helfSize = 0.5f;
+	constexpr float m_startScaleZ = 1.0f;//!‘å‚«‚³
+	constexpr float m_startPosZ = 0.2f;	 //!‰œs‚«
+	constexpr float m_helfSize = 0.5f;	 //!”¼•ª‚Ì‘å‚«‚³
 
 	//--------------------------------------------------------------------------------------
 	///	–îˆó

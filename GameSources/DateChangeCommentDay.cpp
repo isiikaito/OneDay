@@ -13,11 +13,11 @@ namespace basecross
 {
 	constexpr int first = 1;
 	constexpr int second = 2;
-	constexpr float m_textureWSpeed = 2;
-	constexpr float m_textureWMaxValue = 1.0f;
-	constexpr float m_startScaleZ = 1.0f;
-	constexpr float m_startPosZ = 0.1f;
-	constexpr float m_helfSize = 0.5f;
+	constexpr float m_textureWSpeed = 2;      //!フェードアウトの速さ
+	constexpr float m_textureWMaxValue = 1.0f;//!テクスチャが完全に表示された
+	constexpr float m_startScaleZ = 1.0f;     //!大きさ
+	constexpr float m_startPosZ = 0.1f;	      //!奥行き
+	constexpr float m_helfSize = 0.5f;	      //!半分の大きさ
 	//--------------------------------------------------------------------------------------
 	///	昼から夜に変わる時のコメント
 	//--------------------------------------------------------------------------------------

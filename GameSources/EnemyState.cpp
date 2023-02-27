@@ -6,11 +6,14 @@ namespace basecross
 {
 	namespace kaito
 	{
-		constexpr float m_maxSurprisedTime = 2.0f;
-		constexpr float eyeRang = 40.0f;
-		constexpr float m_maxLostTime=5.0f;
-		constexpr float m_maxPEdistance=40.0f;
-	
+		constexpr float m_maxSurprisedTime = 2.0f;//!ビックリマークが出ている時間
+		constexpr float eyeRang = 40.0f;//!プレイヤーを見つける範囲
+		constexpr float m_maxLostTime=5.0f;//!プレイヤーを見失うまでの時間
+		constexpr float m_maxPEdistance=40.0f;//!プレイヤーと敵の最大距離
+		constexpr float m_maxPointdistance = 5.0f;//!敵が巡回ポイントにたどり着く距離
+		constexpr float m_angleLimitSix = 6.0f;//!プレイヤーの視野の制限
+		constexpr float m_m_angleLimitNine = 9.0f;//!プレイヤーの視野の制限
+		constexpr int m_addIndex = 1;//!次のインデックスへ進める
 		//!追いかけるステート-----------------------------------------
 
 		//!インスタンスの生成(実体の作成)
@@ -114,7 +117,7 @@ namespace basecross
 
 			//!巡回する処理
 			auto movePointsCount = m_patrolPoints.size();//!パトロールポイントの配列の長さ
-			Vec3 end = m_patrolPoints[(patrolPoint + 1) % movePointsCount];//!敵が次に向かうポイントの設定
+			Vec3 end = m_patrolPoints[(patrolPoint + m_addIndex) % movePointsCount];//!敵が次に向かうポイントの設定
 			auto distance = end - EnemyPosition;//!プレイヤーの座標から敵の座標を引きベクトルの計算
 			distance.normalize();//!ベクトルをノーマライズ化
 			auto Requiredspeed = distance * maxSpeed;//!速度の取得
@@ -122,7 +125,7 @@ namespace basecross
 
 			float pointdistance = bsm::length(end - EnemyPosition);//!敵が向かうポイントから敵までの距離
 
-			if (pointdistance <= 5)//!敵が向かうポイントから敵までの距離が一定の距離近づいたら
+			if (pointdistance <= m_maxPointdistance)//!敵が向かうポイントから敵までの距離が一定の距離近づいたら
 			{
 
 				patrolPoint++;//!次のポイントに移動
@@ -141,7 +144,7 @@ namespace basecross
 			PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
 			auto Enemyfront = ptrEnemyTrans->GetForword();//!敵の正面を取得
 			auto angle = angleBetweenNormals(Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-			auto chk = XM_PI / 6.0f;//!360を6で割って角度を出す。
+			auto chk = XM_PI / m_angleLimitSix;//!360を6で割って角度を出す。
 			float f = bsm::length(PlayerPosition - EnemyPosition);//!敵とプレイヤーの距離
 
 			auto playerChange = Enemy->GetTarget()->GetPlayerCange();
@@ -245,7 +248,7 @@ namespace basecross
 					start = NearPoint;//!ブレットクラムのスタートをそこに決定
 				}
 			}
-			m_lostTime = 0l;
+			m_lostTime = 0.0f;
 		}
 
 		void BrettGramState::Execute(BaseEnemy* Enemy)
@@ -296,7 +299,7 @@ namespace basecross
 			auto Enemyfront = ptrEnemyTrans->GetForword();//!敵の正面を取得
 			PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
 			auto angle = angleBetweenNormals(Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-			auto chk = XM_PI / 9.0f;//!360を6で割って角度を出す。
+			auto chk = XM_PI / m_m_angleLimitNine;//!360を9で割って角度を出す。
 			
 
 			if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
@@ -389,7 +392,7 @@ namespace basecross
 		if (m_lostTime >=m_MaxlostTime)//!はてなマークの表示する時間
 		{
         EnemyPosition = patorolPoint[0];//!敵のパトロールポイントのインデックスを0にする
-		EnemyTrans->SetPosition(EnemyPosition);
+		EnemyTrans->SetPosition(EnemyPosition);//!敵を初期のパトロールポイントの位置にする
 		Enemy->ChangeState(PatrolState::Instance());//!ステートを変更する
 		}
 		
@@ -397,7 +400,7 @@ namespace basecross
 		void LostStata::Exit(BaseEnemy* Enemy)
 		{
 			//!首を振る動作をする
-			//!村人の頭上にはてなマークのテクスチャを出す
+			//!村人の頭上にはてなマークのテクスチャをけす
 			auto loseSightOfTarget = Enemy->GetloseSightOfTarget();
 			loseSightOfTarget = false;
 			Enemy->SetloseSightOfTarget(loseSightOfTarget);

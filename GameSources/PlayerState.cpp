@@ -18,7 +18,8 @@ namespace basecross
 		constexpr float m_thirdEat = 23.0f;//!三個食べた状態のスピード
 		constexpr float m_humanSpeed = 24.0f;//!人間の速度
 		constexpr float m_playerChangeDirectingMaxTiem = 2.0f;//!プレイヤーの変身時間
-
+		constexpr float m_positionRange = 10.0f;//!ポジションの幅
+		constexpr float m_correctionOfPosition = 8.6f;//!位置の修正
 
 
 		//!人間状態の時----------------------------------------------------------
@@ -69,8 +70,8 @@ namespace basecross
 				Util::WStrToTokenVector(Tokens, LineVec[i], L',');
 				for (size_t j = 0; j < Tokens.size(); j++) {
 					//XとZの位置を計算
-					float XPos = (float)((int)j - 8.6f) * 10.0f;
-					float ZPos = (float)(8.6f - (int)i) * 10.0f;
+					float XPos = (float)((int)j - m_correctionOfPosition) * m_positionRange;
+					float ZPos = (float)(m_correctionOfPosition - (int)i) * m_positionRange;
 					if (Tokens[j] == L"5")//5の時にゲームステージに追加
 					{
 						Stage->AddGameObject<Meat>(Vec3(5.0f, 5.0f, 5.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 4.0f, ZPos));
@@ -109,8 +110,8 @@ namespace basecross
 				Util::WStrToTokenVector(Tokens, LineVec[i], L',');
 				for (size_t j = 0; j < Tokens.size(); j++) {
 					//XとZの位置を計算
-					float XPos = (float)((int)j - 8.6f) * 10.0f;
-					float ZPos = (float)(8.6f - (int)i) * 10.0f;
+					float XPos = (float)((int)j - m_correctionOfPosition) * m_positionRange;
+					float ZPos = (float)(m_correctionOfPosition - (int)i) * m_positionRange;
 					if (Tokens[j] == L"3")//3の時にゲームステージに追加
 					{
 						//!木箱の作成

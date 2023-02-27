@@ -1,7 +1,9 @@
 /*!
 @file TitleStage.cpp
 @brief 
+*@author isii kaito
 */
+
 
 #include "stdafx.h"
 #include "Project.h"
@@ -11,8 +13,8 @@ namespace basecross {
 	constexpr int randomspeed = 22;
 	constexpr int randomNumber = 3;
 	//--------------------------------------------------------------------------------------
-//	タイトルステージクラス
-//--------------------------------------------------------------------------------------
+	//	タイトルステージクラス
+	//--------------------------------------------------------------------------------------
 	void TitleStage::CreateViewLight()
 	{
 		auto PtrView = CreateView<SingleView>();
@@ -27,14 +29,14 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-	//スプライトの作成
+	//!スプライトの作成
 	void TitleStage::CreateTitleSprite() {
 		AddGameObject<TitleSprite>(L"MESSAGE_TX", false,
 			Vec2(1300.0f, 800.0f), Vec2(0.0f, 0.0f));
 
 	}
 
-	//初期化
+	//!初期化
 	void TitleStage::OnCreate() {
 		CreateViewLight();
 		//スプライトの作成
@@ -42,39 +44,39 @@ namespace basecross {
 		CreatePlayBGM();//!BGMの作成
 	}
 
-	//更新
+	//!更新
 	void TitleStage::OnUpdate() {
-		auto& app = App::GetApp();
-		auto scene = app->GetScene<Scene>();
+		auto& app = App::GetApp();//!アプリの取得
+		auto scene = app->GetScene<Scene>();//!シーンの取得
 		
-		auto deltaTime = app->GetElapsedTime();
+		auto deltaTime = app->GetElapsedTime();//!デルタタイムの取得
 		m_keyTime += deltaTime * randomspeed;
 		srand(std::time(0));
 		m_keyNumber = rand() % randomNumber;
 		scene->SetKeyNamber(m_keyNumber);
 
 
-		//コントローラチェックして入力があればコマンド呼び出し
+		//!コントローラチェックして入力があればコマンド呼び出し
 		m_InputHandler.PushHandle(GetThis<TitleStage>());
 	}
 
-	////BGMの再生
+	//!BGMの再生
 	void TitleStage::CreatePlayBGM()
 	{
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
 		m_BGM = XAPtr->Start(L"TitleBGM", XAUDIO2_LOOP_INFINITE, 0.5f);
 	}
 
-	/// BGMのストップ
+	//! BGMのストップ
 	void TitleStage::OnDestroy()
 	{
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
 		XAPtr->Stop(m_BGM);
 	}
 
-	//Aボタン
+	//!Aボタン
 	void TitleStage::OnPushA() {
-		//サウンド再生
+		//!サウンド再生
 		auto ptrXA = App::GetApp()->GetXAudio2Manager();
 		ptrXA->Start(L"decision", 0, 1.0f);
 		PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToDescriptionStage");

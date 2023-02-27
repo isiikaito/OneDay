@@ -1,6 +1,7 @@
 /*!
 @file MyCamera.cpp
 @brief ƒJƒƒ‰À‘Ì
+*@author isii kaito
 */
 
 #include "stdafx.h"

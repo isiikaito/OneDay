@@ -1,6 +1,7 @@
 /*!
 @file opningh.h
 @brief オープニングカメラ
+*@author isii kaito
 */
 
 #pragma once

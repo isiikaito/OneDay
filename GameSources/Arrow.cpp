@@ -10,11 +10,11 @@
 
 namespace basecross
 {
-	constexpr int first = 1;
-	constexpr int second = 2;
-	constexpr float m_startScaleZ = 1.0f;
-	constexpr float m_startPosZ = 0.2f;
-	constexpr float m_helfSize = 0.5f;
+	constexpr int first = 1;//!警戒度レベル1
+	constexpr int second = 2;//!警戒度レベル2
+	constexpr float m_startScaleZ = 1.0f;//!大きさ
+	constexpr float m_startPosZ = 0.2f;  //!奥行き
+	constexpr float m_helfSize = 0.5f;   //!半分の大きさ
 	//--------------------------------------------------------------------------------------
 	///	矢印
 	//--------------------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 /*!
 @file TitleStage.h
 @brief 
+*@author isii kaito
 */
 
 #pragma once

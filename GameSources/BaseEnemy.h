@@ -26,7 +26,7 @@ namespace basecross
 		kaito::StateMachine<BaseEnemy>* m_StateMachine;//!ステートマシンクラスのインスタンスの生成
 		std::vector<Vec3>m_EnemyPatrolPoints;//!敵の巡回ポイント
 		Vec3 m_Force;//!フォース
-		Vec3 m_Velocity;//!速度
+		Vec3 m_Velocity;									//!速度
 		float m_StateChangeSize;//!ステートの変更
 		float m_MaxSpeed;//!最大の速度
 		int m_Enemypatorolindex;//!敵の巡回ポイントの数

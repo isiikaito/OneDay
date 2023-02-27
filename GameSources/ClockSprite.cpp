@@ -7,9 +7,9 @@
 #include "Project.h"
 
 namespace basecross {
-	constexpr float m_startScaleZ = 1.0f;
-	constexpr float m_startPos = 0.2f;
-	constexpr float m_helfSize = 0.5f;
+	constexpr float m_startScaleZ = 1.0f;//!大きさ
+	constexpr float m_startPos = 0.2f;	 //!奥行き
+	constexpr float m_helfSize = 0.5f;	 //!半分の大きさ
 	//--------------------------------------------------------------------------------------
 	///	時計の枠のスプライト
 	//--------------------------------------------------------------------------------------

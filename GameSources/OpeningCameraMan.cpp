@@ -1,6 +1,7 @@
 /*!
 @file OpeningCamera.cpp
 @brief オープニングカメラ
+*@author isii kaito
 */
 
 #include "stdafx.h"

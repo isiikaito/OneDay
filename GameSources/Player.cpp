@@ -20,6 +20,7 @@ namespace basecross {
 	constexpr float m_hunterkillerSphereRadius = 5.0f;
 	constexpr float m_disappearSphereRadius = 100.0f;
 	constexpr float m_angleEqual = 6.0f;
+	constexpr float m_maxVibration = 65535.0f;
 	
 	
 
@@ -551,7 +552,7 @@ namespace basecross {
 		{
 			auto Time = App::GetApp()->GetElapsedTime();//!ŽžŠÔ‚ÌŽæ“¾
 			m_vibrationTime += Time;
-             m_vibration = 65535.0f;
+             m_vibration = m_maxVibration;
 			
 			if (m_vibrationTime >= m_vibrationMaxTime)
 			{

@@ -1,6 +1,7 @@
 /*!
 @file OpeningCameraMan.h
 @brief オープニングカメラ
+*@author isii kaito
 */
 
 #pragma once

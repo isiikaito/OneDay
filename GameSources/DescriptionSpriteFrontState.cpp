@@ -7,7 +7,7 @@ namespace basecross
 {
 	namespace kaito
 	{
-		constexpr float FlippingSpeed = 20.0f;
+		constexpr float FlippingSpeed = 20.0f;//!説明書が動く速度
 		
 
 		//!インスタンスの生成(実体の作成)
