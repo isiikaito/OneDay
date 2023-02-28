@@ -1,3 +1,8 @@
+/*!
+@file StateMchine.h
+@brief ステートマシン
+@author Kaito Isii
+*/
 #pragma once
 #include"stdafx.h"
 namespace basecross

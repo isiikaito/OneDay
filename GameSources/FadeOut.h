@@ -1,6 +1,7 @@
 /*!
 @file FadeOut.h
 @brief フェードアウト
+@author Kaito Isii
 */
 
 #pragma once

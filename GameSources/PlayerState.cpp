@@ -1,3 +1,8 @@
+/*!
+@file PlayerState.cpp
+@brief プレイヤーのステート
+@author Kaito Isii
+*/
 #include "stdafx.h"
 #include "Project.h"
 #include "Utility.h"

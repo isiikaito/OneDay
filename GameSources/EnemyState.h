@@ -1,3 +1,9 @@
+
+/*!
+@file EnemyState.h
+@brief 敵のステート
+@author Kaito Isii
+*/
 #pragma once
 #include "stdafx.h"
 

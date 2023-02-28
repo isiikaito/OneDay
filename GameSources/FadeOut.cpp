@@ -1,6 +1,7 @@
 /*!
 @file FadeOut.cpp
 @briefフェードアウトの実体
+@author Kaito Isii
 */
 
 #include "stdafx.h"

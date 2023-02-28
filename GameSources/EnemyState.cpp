@@ -1,3 +1,9 @@
+
+/*!
+@file EnmeyState.cpp
+@brief 敵のステート
+@author Kaito Isii
+*/
 #include "stdafx.h"
 #include "Project.h"
 #include "Utility.h"

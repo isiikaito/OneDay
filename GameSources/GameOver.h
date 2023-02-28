@@ -1,6 +1,7 @@
 /*!
 @file GameOver.h
 @brief ゲームオーバー
+@author Kaito Isii
 */
 
 #pragma once

@@ -1,3 +1,8 @@
+/*!
+@file PlayerState.h
+@brief プレイヤーのステート
+@author Kaito Isii
+*/
 #pragma once
 #include "stdafx.h"
 #include "StateMchine.h"

@@ -1,6 +1,7 @@
 /*!
 @file GameOver.cpp
 @brief ゲームオーバー
+@author Kaito Isii
 */
 
 #include "stdafx.h"

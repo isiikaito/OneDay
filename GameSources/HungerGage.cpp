@@ -1,6 +1,7 @@
 /*!
 @file HungerGage.cpp
 @briefƒQ[ƒW‚Ì”wŒi‚Ì•\¦
+@author Kaito Isii
 */
 
 #include "stdafx.h"
