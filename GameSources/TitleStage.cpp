@@ -42,6 +42,8 @@ namespace basecross {
 		//スプライトの作成
 		CreateTitleSprite();
 		CreatePlayBGM();//!BGMの作成
+		auto scene = App::GetApp()->GetScene<Scene>();
+		scene->SetGameOver(false);
 	}
 
 	//!更新

@@ -9,7 +9,6 @@
 #include "Meat.h"
 
 namespace basecross {
-	constexpr float m_maxDisappearTime = 2.0f;
 	constexpr float m_MaxwolfHowlingTime = 0.1f;
 	constexpr float m_maxDedTime = 1.0f;
 	constexpr float m_vibrationMaxTime = 1.0f;
@@ -18,7 +17,6 @@ namespace basecross {
 	constexpr float m_villagerkillerSphereRadius = 5.0f;
 	constexpr float m_breakWoodBoxSphereRadius = 5.0f;
 	constexpr float m_hunterkillerSphereRadius = 5.0f;
-	constexpr float m_disappearSphereRadius = 100.0f;
 	constexpr float m_angleEqual = 6.0f;
 	constexpr float m_maxVibration = 65535.0f;
 	
@@ -51,7 +49,6 @@ namespace basecross {
 		m_IsFastHowling(false),
 		m_wolfHowlingTime(0),
 		m_dedTime(0.0f),
-		m_disappearTime(0.0f),
 		m_IsPlayerDed(0.0f),
 		m_gameOverDrawActive(false),
 		m_vibration(0.0f),
@@ -267,85 +264,7 @@ namespace basecross {
 		PlayerGameOver();
 	}
 
-	void Player::VillagerDisappear()
-	{
-		auto position = GetComponent<Transform>()->GetPosition();//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, m_disappearSphereRadius);//!プレイヤーの座標を中心に半径2センチの円の作成
-		//!村人を殺す
-		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
-		auto& vecVillager = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
-		//!村人配列オブジェクトの配列分回す
-		for (auto& v : vecVillager)
-		{
-
-			auto VillagerPtr = v.lock();//!村人のグループから1つロックする
-			Vec3 ret;//!最近接点の代入
-			auto ptrVillager = dynamic_pointer_cast<Villager>(VillagerPtr);//!ロックした物を取り出す
-
-			//!プレイヤーの範囲に敵が入ったら
-			if (ptrVillager)
-			{
-				auto VillagerCapsrul = ptrVillager->GetComponent<CollisionCapsule>()->GetCapsule();//!ハンタ-のObbオブジェクトを取得
-				if (HitTest::SPHERE_CAPSULE(playerSp, VillagerCapsrul, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
-				{
-					
-					auto VillagerSpeed = ptrVillager->GetSpeed();//!村人のスピードを取得
-					if (VillagerSpeed == m_Ded)
-					{
-						float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
-						m_disappearTime += elapsedTime;//時間を変数に足す
-						if (m_disappearTime >= m_maxDisappearTime)
-						{
-							GetStage()->RemoveGameObject<Villager>(VillagerPtr);
-							m_disappearTime = 0;
-						}
-					}
-
-
-				}
-			}
-		}
-	}
-
-	void Player::HunterDisappear()
-	{
-		auto position = GetComponent<Transform>()->GetPosition();//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, m_disappearSphereRadius);//!プレイヤーの座標を中心に半径2センチの円の作成
-		//!村人を殺す
-		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");
-		auto& vecHunter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
-		//!村人配列オブジェクトの配列分回す
-		for (auto& v : vecHunter)
-		{
-
-			auto hunterPtr = v.lock();//!村人のグループから1つロックする
-			Vec3 ret;//!最近接点の代入
-			auto ptrHunter = dynamic_pointer_cast<Hunter>(hunterPtr);//!ロックした物を取り出す
-
-			//!プレイヤーの範囲に敵が入ったら
-			if (ptrHunter)
-			{
-				auto hunterCapsrul = ptrHunter->GetComponent<CollisionCapsule>()->GetCapsule();//!ハンタ-のObbオブジェクトを取得
-				if (HitTest::SPHERE_CAPSULE(playerSp, hunterCapsrul, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
-				{
-
-					auto hunterSpeed = ptrHunter->GetSpeed();//!村人のスピードを取得
-					if (hunterSpeed == m_Ded)
-					{
-						float elapsedTime = App::GetApp()->GetElapsedTime();//!elapsedTimeを取得することにより時間を使える
-						m_disappearTime += elapsedTime;//時間を変数に足す
-						if (m_disappearTime >= m_maxDisappearTime)
-						{
-							GetStage()->RemoveGameObject<Hunter>(ptrHunter);
-							m_disappearTime = 0;
-						}
-					}
-
-
-				}
-			}
-		}
-	}
+	
 
 	void Player::EnemyDedSound()
 	{
@@ -602,8 +521,6 @@ namespace basecross {
 		if (!gameOver)
 		{
 			GetPlayerPositionBrett();
-			VillagerDisappear();
-			HunterDisappear();
 			
 			if (!playerChange)
 			{

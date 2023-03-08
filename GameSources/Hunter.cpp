@@ -118,9 +118,8 @@ namespace basecross
 				if (playerCatch <= maxPlayerCatch)
 				{
 
-					auto playerDed = ptrPlayer->GetIsplayerDed();
-					playerDed = true;
-					ptrPlayer->SetIsplayerDed(playerDed);
+					
+					ptrPlayer->SetIsplayerDed(true);
 
 
 				}
@@ -132,31 +131,39 @@ namespace basecross
 
 	void Hunter::HunterDed()
 	{
+		auto elapasedime = App::GetApp()->GetElapsedTime();
 		auto hunterDed = GetIsEnemyDed();
 		if (hunterDed == true)
 		{
 			//アニメーション
 			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
 			auto& AnimationName = ptrDraw->GetCurrentAnimation();
+			auto AnimationEnd = ptrDraw->UpdateAnimation(elapasedime);
 			//立ち止まるアニメーション
 			if (AnimationName == L"Move") {
 				ptrDraw->ChangeCurrentAnimation(L"Ded");
 				auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 				auto playerHp = ptrPlayer->GetPlayerHp();
-				playerHp += m_damage;
+				playerHp -= m_damage;
 				ptrPlayer->SetPlayerHp(playerHp);
+			}
+			else
+			{
+				//!アニメーションが終わったら
+				if (AnimationEnd)
+				{
+					SetDedAnimationEnd(true);//!死体を消す処理
+				}
 			}
 		}
 	}
 	//!更新
 	void Hunter::OnUpdate()
 	{
-		HunterDed();
-		PlayerCatch();
+		HunterDed();//!ハンターが倒されたとき
+		PlayerCatch();//!プレイヤーを捕まえた時
 
-		auto MaxSpeed = GetMaxSpeed();
-		MaxSpeed = m_Speed;
-		SetMaxSpeed(MaxSpeed);
+		SetMaxSpeed(m_Speed);//!ハンターのスピード
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
 		BaseEnemy::OnUpdate();

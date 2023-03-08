@@ -419,9 +419,6 @@
     <Filter Include="Sprite\PlayerHeart\HeartRight">
       <UniqueIdentifier>{109a9606-0289-414c-aaa3-83e5510714f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Enemy\BaseEnemy">
-      <UniqueIdentifier>{2b65b0bd-0e1f-4f2a-b231-2722b20ad084}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sprite\Surprised">
       <UniqueIdentifier>{1b6e1205-e679-4a00-9bdc-5833cea465d1}</UniqueIdentifier>
     </Filter>
@@ -553,6 +550,9 @@
     </Filter>
     <Filter Include="Other\ProjectBehavior\StageWall">
       <UniqueIdentifier>{3fe7f276-5288-4609-a33b-cf09413b6d24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\BaseEnemy">
+      <UniqueIdentifier>{2b65b0bd-0e1f-4f2a-b231-2722b20ad084}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

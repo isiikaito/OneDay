@@ -350,6 +350,7 @@ namespace basecross
 			auto player = Enemy->GetTarget();
 			player->SetVibrationOn(true);
 
+
 		}
 
 		void DedState::Execute(BaseEnemy* Enemy)
@@ -357,7 +358,11 @@ namespace basecross
 			Vec3 EnemyVelocity = Enemy->GetVelocity();//!敵の速度の取得
 			EnemyVelocity = Vec3(0);
 			Enemy->SetVelocity(EnemyVelocity);
-			
+
+			auto& app = App::GetApp();//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+
+		
 
 		}
 		void DedState::Exit(BaseEnemy* Enemy)

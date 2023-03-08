@@ -34,7 +34,8 @@ namespace basecross
 		m_patrolRotation(false),
 		m_rotationTime(0.0f),
 		m_randomTime(0.0f),
-		m_randomCount(0)
+		m_randomCount(0),
+		m_dedAnimationEnd(false)
 	{
 		m_StateMachine = new kaito::StateMachine<BaseEnemy>(this);
 		m_StateMachine->SetCurrentState(kaito::PatrolState::Instance());
@@ -77,7 +78,67 @@ namespace basecross
 	shared_ptr<Player>BaseEnemy::GetTarget()const {
 		return std::dynamic_pointer_cast<Player>(GetStage()->GetSharedObject(L"Player"));
 	}
+	
 
+	void BaseEnemy::HunterDisappear()
+	{
+		
+				auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");//!村人のオブジェクトグループの取得
+				auto& vecHunter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
+				//!村人配列オブジェクトの配列分回す
+				for (auto& v : vecHunter)
+				{
+					auto hunterPtr = v.lock();//!村人のグループから1つロックする
+					Vec3 ret;//!最近接点の代入
+					auto ptrHunter = dynamic_pointer_cast<Hunter>(hunterPtr);//!ロックした物を取り出す
+					if (ptrHunter)
+					{
+						auto hunterSpeed = ptrHunter->GetSpeed();//!村人のスピードを取得
+						if (hunterSpeed == 0.0f)
+						{
+
+							GetStage()->RemoveGameObject<Hunter>(ptrHunter);
+							m_dedAnimationEnd = false;
+
+						}
+					}
+				
+		}
+
+
+	}
+
+	void BaseEnemy::VillagerDisappear()
+	{
+		
+
+				//!村人を殺す
+				auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
+				auto& vecVillager = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
+				//!村人配列オブジェクトの配列分回す
+				for (auto& v : vecVillager)
+				{
+
+					auto VillagerPtr = v.lock();//!村人のグループから1つロックする
+					Vec3 ret;//!最近接点の代入
+					auto ptrVillager = dynamic_pointer_cast<Villager>(VillagerPtr);//!ロックした物を取り出す
+
+					//!プレイヤーの範囲に敵が入ったら
+					if (ptrVillager)
+					{
+
+						auto VillagerSpeed = ptrVillager->GetSpeed();//!村人のスピードを取得
+						if (VillagerSpeed == 0.0f)
+						{
+
+							GetStage()->RemoveGameObject<Villager>(VillagerPtr);
+							m_dedAnimationEnd = false;
+
+						}
+					}
+				}
+			
+	}
 
 	void BaseEnemy::AnimationUpdate()
 	{
@@ -107,23 +168,26 @@ namespace basecross
 		srand(m_randomTime);//!乱数の初期化
 		m_randomCount = rand() % m_randomRange;
 
+		//!ランダムに変わる変数が特定の数字に変わったとき
 		if (m_randomCount == m_randomNumber)
 		{
-			m_patrolRotation = true;
+			m_patrolRotation = true;//!敵の見渡す処理をtrueにする
 		}
 
 		if (m_patrolRotation == true)
 		{
-			auto EnemyTransform = GetComponent<Transform>();
-			auto Time = App::GetApp()->GetElapsedTime();
-			m_rotationTime += Time;
-			EnemyTransform->SetRotation(0, m_rotationTime, 0);
+			auto EnemyTransform = GetComponent<Transform>();//!敵のトランスコンフォームコンポーネントを取得
+			auto elapsdTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
+			m_rotationTime += elapsdTime;//!変数に毎フレームエルパソタイムを足す
+			EnemyTransform->SetRotation(0, m_rotationTime, 0);//!Y軸の回転を変更
 
+			//!周り終わったら回転の処理を実行しない
 			if (m_rotationTime >= m_maxRotationTime)
 			{
 				m_patrolRotation = false;
 			}
 
+			//!追いかけているときは回転の処理を実行しない
 			if (m_seekCondition == true)
 			{
 				m_patrolRotation = false;
@@ -137,12 +201,17 @@ namespace basecross
 	{
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto playerChange = scene->GetPlayerChangeDirecting();//!プレイヤーの変身を開始する
-
 		auto gameOver = scene->GetGameOver();
 		if (!gameOver)
 		{
 			if (!playerChange)
 			{
+				if (m_dedAnimationEnd)
+				{
+                VillagerDisappear();
+				HunterDisappear();
+				}
+				
 
 				AnimationUpdate();
 
@@ -163,9 +232,11 @@ namespace basecross
 				Facade();
 
 			}
-
 		}
-
 	}
+
+		
+
+	
 
 }
