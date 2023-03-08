@@ -35,6 +35,7 @@ namespace basecross
 			virtual void Enter(OpeningCameraMan* OpeningCamera) override;
 			virtual void Execute(OpeningCameraMan* OpeningCamera) override;
 			virtual void Exit(OpeningCameraMan* OpeningCamera) override;
+
 			bool MoveCamera(OpeningCameraMan* OpeningCamera, float totaltime);
 		};
 

@@ -1,6 +1,7 @@
 /*!
 @file Meat.h
 @brief “÷‚Ìì¬
+@author Kaito Isii
 */
 
 #pragma once

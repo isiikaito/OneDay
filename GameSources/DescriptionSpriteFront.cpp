@@ -1,5 +1,6 @@
 /*!
 @file DescriptionSpriteFront.cpp
+@author Kaito Isii
 @brief à–¾‘‚Ì•\¦
 */
 

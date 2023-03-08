@@ -1,6 +1,7 @@
 /*!
 @file MyCamera.h
 @brief ƒJƒƒ‰
+@author Ayumu Muroi
 */
 #pragma once
 #include "stdafx.h"

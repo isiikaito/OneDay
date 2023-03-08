@@ -1,6 +1,7 @@
 /*!
 @file Key.cpp
 @brief ƒJƒM‚ÉŠÖ‚·‚éˆ—
+@author Kaito Isii
 */
 
 #include "stdafx.h"

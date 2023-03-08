@@ -1,6 +1,6 @@
 /*!
 @file DescriptionSprite.h
-@author Ayumu Muroi
+@author Kaito Isii
 @brief à–¾‘‚Ì•\¦
 */
 

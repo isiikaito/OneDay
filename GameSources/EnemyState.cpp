@@ -209,13 +209,13 @@ namespace basecross
 				auto stageBuilding = dynamic_pointer_cast<StageBuilding>(Obj);//!建物の取得
 				if (stageBuilding)
 				{
-
+					
 					auto StageBuildingObb = stageBuilding->GetComponent<CollisionObb>()->GetObb();//!ステージの壁のObbの取得
 
 					if (HitTest::SEGMENT_OBB(PlayerPosition, EnemyPosition, StageBuildingObb))//!カメラと視点の間に壁が入ったら
 					{
-						auto time = app->GetElapsedTime();
-						m_lostTime += time;
+						auto elapsdtime = app->GetElapsedTime();
+						m_lostTime += elapsdtime;
 						if (m_lostTime >= m_maxLostTime)
 						{
 

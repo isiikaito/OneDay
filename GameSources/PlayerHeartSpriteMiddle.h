@@ -1,3 +1,9 @@
+/*!
+@file PlayerHeartSprite.h
+@author Kaito Isii
+@brief プレイヤーのハートの表示
+*/
+
 #pragma once
 
 #include "stdafx.h"

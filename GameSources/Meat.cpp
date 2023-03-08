@@ -1,6 +1,7 @@
 /*!
 @file Meat.cpp
 @brief “÷‚ÌŽÀ‘Ì
+@author Kaito Isii
 */
 
 #include "stdafx.h"

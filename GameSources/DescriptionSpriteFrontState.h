@@ -1,3 +1,9 @@
+/*!
+@file DescriptionSpriteFrontState.h
+@brief 説明書のステート
+@author Kaito Isii
+*/
+
 #pragma once
 #include "stdafx.h"
 #include "StateMchine.h"

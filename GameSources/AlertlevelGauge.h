@@ -14,7 +14,7 @@ namespace basecross {
 	private:
 		bool m_Trace;         //!透明
 		Vec2 m_StartScale;    //!大きさ
-		Vec3 m_StartPos;      //!位置
+		Vec2 m_StartPos;      //!位置
 		wstring m_TextureKey; //!テクスチャ
 		int m_RustLife;
 

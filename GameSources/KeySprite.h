@@ -1,6 +1,7 @@
 /*!
 @file Keysprite.h
 @brief ÉJÉMÇÃï\é¶
+@author Kanazawa yuma
 */
 
 #pragma once

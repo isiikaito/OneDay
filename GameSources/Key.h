@@ -1,6 +1,7 @@
 /*!
 @file Key.h
 @brief ƒJƒM‚ÉŠÖ‚·‚éˆ—
+@author Kaito Isii
 */
 
 #pragma once
