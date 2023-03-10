@@ -409,22 +409,26 @@ namespace basecross {
 			}
 		}
 	}
-
+	
+	//!現在のポジションを取得する
 	void Player::GetPlayerPositionBrett()
 	{
 		
+		
+		auto PlayerTrans = GetComponent<Transform>();//!プレイヤーのトランスフォームを取得
+		auto PlayerPosition = PlayerTrans->GetPosition();//!プレイヤーのポジションを取得
+		auto Time = App::GetApp()->GetElapsedTime();//!エルパソタイムを取得
+		m_PlayerPositionTime += Time;//!時間の作成
 
-		auto PlayerTrans = GetComponent<Transform>();
-		auto PlayerPosition = PlayerTrans->GetPosition();
-		auto Time = App::GetApp()->GetElapsedTime();
-		m_PlayerPositionTime += Time;
-
+		//!プレイヤーがポジションを保存する時間
 		if (m_PlayerPositionTime >= m_GetPlayerPositionTime)
 		{
-			m_PlayerPositionOnSecond.push_back(PlayerPosition);
+			m_PlayerPositionOnSecond.push_back(PlayerPosition);//!ポジションを保存
 
+			//!一定数保存したら
 			if (m_PlayerPositionOnSecond.size() >= m_PlayerPositionOnSecondMax)
 			{
+				//!古い情報を削除する
 				m_PlayerPositionOnSecond.erase(m_PlayerPositionOnSecond.begin());
 			}
 		}
