@@ -8,7 +8,7 @@
 #include "stdafx.h"
 #include "Project.h"
 #include "GoalPlayer.h"
-
+#include "GameUI.h"
 
 namespace basecross {
 //--------------------------------------------------------------------------------------
@@ -29,20 +29,16 @@ namespace basecross {
 	}
 
 	//スプライトの作成
-	void GameClearStage::CreateGameClearSprite() {
-		AddGameObject<GameClearSprite>(L"GAMECLEAR_TX", false,
-			Vec3(1280.0f, 800.0f, 1.0f), Vec3(0.0f, 0.0f,0.0f));
-
+	void GameClearStage::CreateGameClearSprite() 
+	{
+		AddGameObject<GameUI>(L"GAMECLEAR_TX", false,
+			Vec2(650.0f, 450.0f), Vec3(0.0f, 0.0f, 0.0f));
 	}
 
 	// !ステージの床
 	void GameClearStage::CreateStageFloor()
 	{
-		//各値が揃ったのでオブジェクトの作成
-		//auto stageFloor = AddGameObject<StageFloor>(Vec3(200,10,200), Vec3(0), Vec3(0));//!ステージの床の作成
-		//auto drawComponent = stageFloor->GetComponent<PNTStaticModelDraw>();//!描画コンポーネント
-		//drawComponent->SetOwnShadowActive(false);//!陰の描写の削除
-
+		
 		//CSVの行単位の配列
 		vector<wstring>LineVec;
 

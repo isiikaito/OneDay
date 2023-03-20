@@ -6,16 +6,16 @@
 
 #pragma once
 #include "stdafx.h"
-
+#include "GameUI.h"
 namespace basecross {
 //--------------------------------------------------------------------------------------
 ///	ゲームオーバースプライト
 //--------------------------------------------------------------------------------------
-	class GameOverSprite : public GameObject {
+	class GameOverSprite : public GameUI {
 	private:
 		bool m_Trace;
 		Vec2 m_StartScale;
-		Vec2 m_StartPos;
+		Vec3 m_StartPos;
 		wstring m_TextureKey;
 
 	public:
@@ -26,7 +26,7 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		GameOverSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale, const Vec2& StartPos);
+			const Vec2& StartScale, const Vec3& StartPos);
 
 		//--------------------------------------------------------------------------------------
 		/*!

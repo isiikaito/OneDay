@@ -1,6 +1,8 @@
 /*!
 @file DescriptionStage.h
-@brief
+@brief説明書ステージ
+*@author isii kaito
+
 */
 
 #pragma once

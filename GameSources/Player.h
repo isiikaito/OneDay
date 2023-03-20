@@ -1,6 +1,7 @@
 /*!
 @file Player.h
 @brief ƒvƒŒƒCƒ„[‚È‚Ç
+*@author isii kaito
 */
 
 #pragma once

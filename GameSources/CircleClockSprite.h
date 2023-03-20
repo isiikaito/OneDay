@@ -6,9 +6,10 @@
 
 #pragma once
 #include "stdafx.h"
+#include "GameUI.h"
 
 namespace basecross {
-	class CircleClockSprite : public GameObject {
+	class CircleClockSprite : public GameUI {
 	private:
 		bool m_Trace;         //!“§–¾
 		Vec2 m_StartScale;    //!‘å‚«‚³
@@ -24,7 +25,7 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		CircleClockSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale, const Vec2& StartPos);
+			const Vec2& StartScale, const Vec3& StartPos);
 
 		//--------------------------------------------------------------------------------------
 		/*!

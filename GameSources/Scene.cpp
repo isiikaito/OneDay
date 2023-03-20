@@ -69,10 +69,7 @@ namespace basecross{
 		RoadTexture(L"Explanation_01.png", L"DescriptionSprite1_TX");
 		//!説明書2のテクスチャ
 		RoadTexture(L"Explanation_02.png", L"DescriptionSprite2_TX");
-		//!説明書3のテクスチャ
-		RoadTexture(L"DescriptionSprite3.png", L"DescriptionSprite3_TX");
-		//!説明書4のテクスチャ
-		RoadTexture(L"DescriptionSprite4.png", L"DescriptionSprite4_TX");
+		
 		
 		wstring dataDir;
 		//サンプルのためアセットディレクトリを取得

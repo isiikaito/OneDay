@@ -7,6 +7,7 @@
 #include "Project.h"
 #include "PlayerState.h"
 #include "Meat.h"
+#include "GameUI.h"
 
 namespace basecross {
 	constexpr float m_MaxwolfHowlingTime = 0.1f;
@@ -445,6 +446,8 @@ namespace basecross {
 		auto gateObb = gate->GetComponent<CollisionObb>()->GetObb();
 		if (HitTest::SPHERE_OBB(playerSp, gateObb, ret))//!プレイヤーの周りを囲んでいるスフィアに当たったら
 		{
+			auto& XAptr = App::GetApp()->GetXAudio2Manager();
+			XAptr->Stop(m_Wolk);
 			PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");//!ゲームクリアステージに遷移
 		}
 	}
@@ -452,11 +455,11 @@ namespace basecross {
 	//!鍵のスプライトの作成
 	void Player::CreateKeySprite()
 	{
-		GetStage()->AddGameObject<KeySprite>(
+		GetStage()->AddGameObject<GameUI>(
 			L"KEY_TX",//!テクスチャ
 			true,
-			Vec2(120.0f, 120.0f),//大きさ
-			Vec2(-565.0f + (110.0f * (m_KeyCount - 1)), -280.0f)//座標
+			Vec2(60.0f, 60.0f),//大きさ
+			Vec3(-565.0f + (110.0f * (m_KeyCount - 1)), -280.0f,0.2f)//座標
 			);
 	}
 
@@ -499,6 +502,16 @@ namespace basecross {
 
 	//更新
 	void Player::OnUpdate() {
+
+		
+		if (m_playerChange == static_cast<int>(PlayerModel::human))
+		{
+			//!プレイヤーが鍵を持っていたら
+			if (m_KeyCount == m_MaxKeyCount)
+			{
+				Escape();
+			}
+		}
 
 		m_StateMachine->Update();
 
@@ -605,9 +618,6 @@ namespace basecross {
 				auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();
 				m_MeatEfkPlay = ObjectFactory::Create<EfkPlay>(m_MeatEfkEffect, Ptr->GetPosition());
 				auto manager=ShEfkInterface->GetManager();
-				//manager->SetLocation();
-				//!エフェクトのポジションを常にそこにする
-				//ObjectFactory::Create<::Effekseer::Manager>()->SetLocation(,0.0f,0.0f,0.0f);
 				
 			}
 
@@ -642,14 +652,7 @@ namespace basecross {
 				AttackEffect();//!攻撃エフェクトを出す
 			}
 
-			if (m_playerChange == static_cast<int>(PlayerModel::human))
-			{
-				//!プレイヤーが鍵を持っていたら
-				if (m_KeyCount == m_MaxKeyCount)
-				{
-					Escape();
-				}
-			}
+			
 
 		}
 	}

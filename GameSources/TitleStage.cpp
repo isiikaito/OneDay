@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include "Project.h"
+#include "GameUI.h"
 
 namespace basecross {
 	
@@ -31,9 +32,11 @@ namespace basecross {
 
 	//!スプライトの作成
 	void TitleStage::CreateTitleSprite() {
-		AddGameObject<TitleSprite>(L"MESSAGE_TX", false,
-			Vec2(1300.0f, 800.0f), Vec2(0.0f, 0.0f));
 
+		auto titleSprite = AddGameObject<GameUI>(L"MESSAGE_TX", false,
+			Vec2(650.0f, 450.0f), Vec3(0.0f, 0.0f, 0.0f));
+
+		titleSprite->SetDrawActive(true);
 	}
 
 	//!初期化
@@ -44,6 +47,7 @@ namespace basecross {
 		CreatePlayBGM();//!BGMの作成
 		auto scene = App::GetApp()->GetScene<Scene>();
 		scene->SetGameOver(false);
+	    scene->SetGameStrat(true);
 	}
 
 	//!更新

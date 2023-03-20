@@ -42,15 +42,7 @@ namespace basecross {
 			AddGameObject<DescriptionSpriteFront>(L"DescriptionSprite2_TX", false,
 				Vec3(1300.0f, 800.0f, 0.0f), Vec3(0.0f, 0.0f, 0.2f))
 		);
-		DescriptionSprites.push_back(
-			AddGameObject<DescriptionSpriteFront>(L"DescriptionSprite3_TX", false,
-				Vec3(1300.0f, 800.0f, 0.0f), Vec3(0.0f, 0.0f, 0.3f))
-		);
-
-		DescriptionSprites.push_back(
-			AddGameObject<DescriptionSpriteFront>(L"DescriptionSprite4_TX", false,
-				Vec3(1300.0f, 800.0f, 0.0f), Vec3(0.0f, 0.0f, 0.4f))
-		);
+		
 
 		
 
@@ -129,7 +121,7 @@ namespace basecross {
 		
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto DescriptionNumber = scene->GetDescriptionStageNumber();
-		if (DescriptionNumber <= 1)
+		if (DescriptionNumber < 1)
 		{
 			DescriptionNumber++;
 			/*std::wstringstream ms;

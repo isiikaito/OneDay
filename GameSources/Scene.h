@@ -39,7 +39,25 @@ namespace basecross{
 		@brief コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		Scene() :SceneBase(), m_goleGateParameter(false), m_IsmoveForwardInaPage(true), m_IspageBackTo(true),m_AlertlevelCount(0), m_emissiveChangeTime(1.0f), m_date(0), m_playerConditionTime(0.0f), m_IsplayerChangeDirecting(0.0f), m_IsGameOver(false), m_dayTime(0.0f), m_IsGameOverSprite(false), m_gameStageTime(0.0f), m_keyNamber(0), m_meatNumber(0) {}
+		Scene() :SceneBase(),
+			m_goleGateParameter(false), 
+			m_IsmoveForwardInaPage(true),
+			m_IspageBackTo(true),
+			m_AlertlevelCount(0),
+			m_emissiveChangeTime(1.0f),
+			m_date(0),
+			m_playerConditionTime(0.0f), 
+			m_IsplayerChangeDirecting(0.0f),
+			m_IsGameOver(false),
+			m_dayTime(0.0f), 
+			m_IsGameOverSprite(false),
+			m_gameStageTime(0.0f), 
+			m_keyNamber(0),
+			m_meatNumber(0),
+			m_gameStrat(true),
+			m_descriptionStageNumber(0)
+
+		{}
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief デストラクタ

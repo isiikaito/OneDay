@@ -34,14 +34,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOver.cpp">
       <Filter>Sprite\GameOver</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)KeySprite.cpp">
-      <Filter>Sprite\Key</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Timer.cpp">
       <Filter>Sprite\Timer</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Title.cpp">
-      <Filter>Sprite\Title</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp">
       <Filter>Object\Stage\ClearStage</Filter>
@@ -57,15 +51,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp">
       <Filter>Other\ProjectShader</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHurteSpriteLeft.cpp">
-      <Filter>Sprite\PlayerHeart\HeartLeft</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteMiddle.cpp">
-      <Filter>Sprite\PlayerHeart\HeartMiddle</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteRight.cpp">
-      <Filter>Sprite\PlayerHeart\HeartRight</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp">
       <Filter>Object\Enemy\BaseEnemy</Filter>
@@ -121,23 +106,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Meat.cpp">
       <Filter>Object\Meat</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)KeyFrame.cpp">
-      <Filter>Sprite\KeyFrame</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)MeatGageBackground.cpp">
-      <Filter>Sprite\MeatGage\MeatGageBackground</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)HungerGage.cpp">
-      <Filter>Sprite\MeatGage\HungerGage</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)MeatGageFrame.cpp">
-      <Filter>Sprite\MeatGage\MeatGageFrame</Filter>
+      <Filter>Sprite\HungerGage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp">
       <Filter>State\EnemyState</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ClockArrow.cpp">
-      <Filter>Sprite\ClockArrow</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DateChangeCommentDay.cpp">
       <Filter>Sprite\DateChangeComment\DateChangeCommentDay</Filter>
@@ -172,6 +145,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GoalPlayer.cpp">
       <Filter>Object\GoalPlayer</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHurteSprite.cpp">
+      <Filter>Sprite\PlayerHeart</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameUI.cpp">
+      <Filter>Sprite\GameUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -204,14 +183,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOver.h">
       <Filter>Sprite\GameOver</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)KeySprite.h">
-      <Filter>Sprite\Key</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Timer.h">
       <Filter>Sprite\Timer</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Title.h">
-      <Filter>Sprite\Title</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Player.h">
       <Filter>Object\Player</Filter>
@@ -233,15 +206,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StateMchine.h">
       <Filter>State</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteMiddle.h">
-      <Filter>Sprite\PlayerHeart\HeartMiddle</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteRight.h">
-      <Filter>Sprite\PlayerHeart\HeartRight</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHeartSpriteLeft.h">
-      <Filter>Sprite\PlayerHeart\HeartLeft</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h">
       <Filter>Object\Enemy\BaseEnemy</Filter>
@@ -303,20 +267,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Meat.h">
       <Filter>Object\Meat</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)KeyFrame.h">
-      <Filter>Sprite\KeyFrame</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)MeatGageBackground.h">
-      <Filter>Sprite\MeatGage\MeatGageBackground</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)HungerGage.h">
-      <Filter>Sprite\MeatGage\HungerGage</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)MeatGageFrame.h">
-      <Filter>Sprite\MeatGage\MeatGageFrame</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ClockArrow.h">
-      <Filter>Sprite\ClockArrow</Filter>
+      <Filter>Sprite\HungerGage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DateChangeCommentDay.h">
       <Filter>Sprite\DateChangeComment\DateChangeCommentDay</Filter>
@@ -351,6 +303,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GoalPlayer.h">
       <Filter>Object\GoalPlayer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHurteSprite.h">
+      <Filter>Sprite\PlayerHeart</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameUI.h">
+      <Filter>Sprite\GameUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -367,12 +325,6 @@
     </Filter>
     <Filter Include="Sprite\GameOver">
       <UniqueIdentifier>{a934e6c6-49fd-4124-abcb-ff51a7de4e16}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\Key">
-      <UniqueIdentifier>{d3d9df79-1611-445a-92dd-8cc1a4b7f584}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\Title">
-      <UniqueIdentifier>{e509f236-71c2-4ff5-8daa-8b9351b7d56e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{340b8f85-a3a6-4b80-ba49-06b05870253d}</UniqueIdentifier>
@@ -409,15 +361,6 @@
     </Filter>
     <Filter Include="Sprite\PlayerHeart">
       <UniqueIdentifier>{de6815b6-15c2-4ccf-b600-9ea15467d71a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\PlayerHeart\HeartLeft">
-      <UniqueIdentifier>{1f34d589-843f-4cab-beef-cba64922807c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\PlayerHeart\HeartMiddle">
-      <UniqueIdentifier>{c5c8bf92-09d9-49dd-a58d-7bee42811af4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\PlayerHeart\HeartRight">
-      <UniqueIdentifier>{109a9606-0289-414c-aaa3-83e5510714f1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sprite\Surprised">
       <UniqueIdentifier>{1b6e1205-e679-4a00-9bdc-5833cea465d1}</UniqueIdentifier>
@@ -488,24 +431,6 @@
     <Filter Include="Object\Meat">
       <UniqueIdentifier>{d335d273-4dc6-4230-9072-31fc151c1189}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sprite\KeyFrame">
-      <UniqueIdentifier>{077da185-5861-41d7-b660-7f77d39f73a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\MeatGage">
-      <UniqueIdentifier>{90925790-31e3-4a8d-9b05-5dcbcdc44529}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\MeatGage\MeatGageBackground">
-      <UniqueIdentifier>{cc026a30-9762-4f0f-8b72-9b1786c1fbee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\MeatGage\HungerGage">
-      <UniqueIdentifier>{fab0f756-2ba8-4f56-a2c6-b637f0451870}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\MeatGage\MeatGageFrame">
-      <UniqueIdentifier>{93e0c53a-8847-411a-a3dd-8af1949ebbab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\ClockArrow">
-      <UniqueIdentifier>{b4b70d30-db14-4912-aa84-99ce11205b10}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sprite\DateChangeComment">
       <UniqueIdentifier>{081f865f-13af-461c-90d2-4ed5e18b7e7b}</UniqueIdentifier>
     </Filter>
@@ -553,6 +478,12 @@
     </Filter>
     <Filter Include="Object\Enemy\BaseEnemy">
       <UniqueIdentifier>{2b65b0bd-0e1f-4f2a-b231-2722b20ad084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\HungerGage">
+      <UniqueIdentifier>{fab0f756-2ba8-4f56-a2c6-b637f0451870}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\GameUI">
+      <UniqueIdentifier>{003efd9e-7308-41aa-af92-1d16db7324bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -6,18 +6,17 @@
 
 #pragma once
 #include "stdafx.h"
-
+#include "GameUI.h"
 namespace basecross {
 
 
-	class Arrow : public GameObject {
+	class Arrow : public GameUI {
 	private:
 		bool m_Trace;         //!透明
 		Vec2 m_StartScale;    //!大きさ
 		Vec3 m_StartPos;      //!位置
 		wstring m_TextureKey; //!テクスチャ
 		int m_RustLife;
-		float m_rotationZ;//!回転のz軸を変える
 		Vec3 m_secondPosition;//!警戒度ゲージがレベル2の時
 		Vec3 m_firstPosition;//!警戒度ゲージがレベル3の時
 
@@ -29,7 +28,7 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		Arrow(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale,const float& RotationZ,  const Vec2& StartPos);
+			const Vec2& StartScale, const Vec3& StartPos);
 
 		//--------------------------------------------------------------------------------------
 		/*!
