@@ -1,6 +1,7 @@
 /*!
 @file GameStage.cpp
 @brief ゲームステージ実体
+*@author isii kaito
 */
 
 #include "stdafx.h"
@@ -8,14 +9,11 @@
 #include "HeadMan.h"
 #include "HeadManComment.h"
 #include "Meat.h"
-#include "HungerGage.h"
-#include "DateChangeCommentDay.h"
-#include "DateChangeCommentNight.h"
 #include "GameManager.h"
 #include "OpeningCamera.h"
 #include "OpeningCameraMan.h"
 #include "GameUI.h"
-#include "PlayerHurteSprite.h"
+#include "GameStageCanvas.h"
 
 namespace basecross {
 
@@ -327,45 +325,9 @@ namespace basecross {
 
 	}
 
-	void GameStage::CreateDateChangeCommentDay()
-	{
-		AddGameObject<DateChangeCommentDay>(
-			L"CommentDay_TX",//!テクスチャ
-			true,
-			Vec2(700.0f, 300.0f),//大きさ
-			Vec2(0.0f, 240.0f)//座標
-			);
-	}
-
-	void GameStage::CreateDateChangeCommentNight()
-	{
-		AddGameObject<DateChangeCommentNight>(
-			L"CommentNignt_TX",//!テクスチャ
-			true,
-			Vec2(700.0f, 300.0f),//大きさ
-			Vec2(0.0f, 240.0f)//座標
-			);
-
 	
-	}
-
-
-	void GameStage:: CreateGameOver()
-	{
-		AddGameObject<GameOverSprite>(L"GAMEOVER_TX", false,
-			Vec2(650.0f, 450.0f), Vec3(0.0f, 0.0f,0.0f));
-		
-	}
-
-	//スコアスプライト作成
-	void GameStage::CreateTimerSprite() {
-		AddGameObject<Timer>(2,
-			L"NUMBER_TX",
-			true,
-			Vec2(50.0f, 40.0f),
-			Vec3(-400.0f, 265.0f, 10.0f));
-
-	}
+	
+	
 
 
 	//!プレイヤーの作成
@@ -490,188 +452,14 @@ namespace basecross {
 
 		return PatorlPoint;
 	}
-	void GameStage::CreateMeatGageFrame()
-	{
-		auto meatGageFrameSprite = AddGameObject<GameUI>(
-			L"Frame_TX",//!テクスチャ
-			true,
-			Vec2(200.0f, 50.0f),//大きさ
-			Vec3(420.0f, -320.0f,0.2f)//座標
-			);
-		
 
-		
-
-
-	}
-
-	void GameStage::CreateHungerGage()
-	{
-		AddGameObject<HungerGage>(
-			L"Full_TX",//!テクスチャ
-			true,
-			Vec2(400.0f, 100.0f),//大きさ
-			Vec2(420.0f, -320.0f)//座標
-			);
-	}
-
-	void GameStage::CreateMeatGageBackGround()
-	{
-		AddGameObject<GameUI>
-			(
-			L"Background_TX",//!テクスチャ
-			true,
-			Vec2(200.0f, 50.0f),//大きさ
-			Vec3(420.0f, -320.0f,1.0f)//座標
-			);
-		
-
-	}
-
-	void GameStage::CreateKeyFrame()
-	{
-		AddGameObject<GameUI>(
-			L"ItemField_TX",//!テクスチャ
-			true,
-			Vec2(200.0f, 150.0f), //!大きさ
-			Vec3(-450.0f, -280.0f,0.2f)//!位置(x,y,z)z奥行きは0.0f～1.0fの間
-			);
-		
-
-	}
-
-	void GameStage::CreateHeartSprite()
-	{
-		
-
-		//!左側のハート
-		AddGameObject<PlayerHurteSprite>
-			(
-				L"PlayerHp_TX",
-				true,
-				Vec2(35.0f, 35.0f),        //!大きさ
-				Vec3(370.0f, -250.0f,0.2f),//!位置(x,y,z)z奥行きは0.0f～1.0fの間
-				2,//!現在のライフ
-				true//!表示されているかどうか
-				);
-
-		//!中央側のハート
-		AddGameObject<PlayerHurteSprite>
-			(
-				L"PlayerHp_TX",
-				true,
-				Vec2(35.0f, 35.0f),       //!大きさ
-				Vec3(460.0f, -250.0f, 0.2f),//!位置(x,y,z)z奥行きは0.0f～1.0fの間
-				1,//!現在のライフ
-				true//!表示されているかどうか
-				);
-
-		//!右側のハート
-	AddGameObject<PlayerHurteSprite>
-			(
-				L"PlayerHp_TX",
-				true,
-				Vec2(35.0f, 35.0f),       //!大きさ
-				Vec3(550.0f, -250.0f, 0.2f),//!位置(x,y,z)z奥行きは0.0f～1.0fの間
-				0,//!現在のライフ
-				true//!表示されているかどうか
-				);
-		
-	}
-
-	void GameStage::CreateAlertlevelGauge()
-	{
-
-		auto alertlevelGaugeSprite = AddGameObject<GameUI>
-			(
-				L"AlertlevelGaugeGauge_TX",
-				true,
-				Vec2(150.0f, 50.0f),       //!大きさ
-				Vec3(460.0f, 350.0f, 1.0f) //!位置(x,y,z)z奥行きは0.0f～1.0fの間
-				);
-		
-
-	}
-	void GameStage::CreateClockArrow()
-	{
-		auto clockArrowSprite=AddGameObject<GameUI>
-			(
-				L"Arrow_TX",
-				true,
-				Vec2(30.0f, 40.0f),//!大きさ
-				Vec3(0.0f,0.0f,90.0f),//!回転
-				Vec3(-500.0f, 300.0f,0.2f)//!位置
-				);
-		
-
-	}
-
-	void GameStage::CreateArrow()
-	{
-		//!矢印の作成
-		AddGameObject<Arrow>
-			(
-				L"Arrow_TX",
-				true,
-				Vec2(30.0f, 40.0f),       //!大きさ
-				Vec3(390.0f, 330.0f, 0.8f)//!位置(x,y,z)z奥行きは0.0f～1.0fの間
-				);
-
-		
-
-	}
-
-	// !時計のスプライトの作成
-	void GameStage::CreateClockSprite()
-	{
-		auto clockSprite=AddGameObject<GameUI>
-			(
-				L"Clock_TX",
-				true,
-				Vec2(170.0f, 128.0f),
-				Vec3(-460.0f, 290.0f,0.3f)
-				);
-		
-
-
-	}
-
-	// !時計の円盤のスプライトの作成
-	void GameStage::CreateCircleClockSprite()
-	{
-		auto circleClockSprite = AddGameObject<CircleClockSprite>
-			(
-				L"Circle_TX",
-				true,
-				Vec2(65.0f, 70.0f),
-				Vec3(-550.0f, 263.0f,1.0f)
-				);
-
-	}
-
-	
 
 	void GameStage::UIDrawActive(bool t)
 	{
-		
-
-	
-		
-
-		
-		
-
-		
-
-		
-
 		//!時間のスプライトの表示
 		auto timer = GetSharedGameObject<Timer>(L"Time");
 		timer->SetDrawActive(t);
 
-		
-		
-	
 
 	}
 	//!村人の作成
@@ -865,19 +653,7 @@ namespace basecross {
 	}
 	
 
-	void GameStage::CreateLightingCol()
-	{
-		////ステージに置く場合
-		//auto ptrMulti = dynamic_pointer_cast<MultiLight>(GetLight());
-		//auto light0 = ptrMulti->GetLight(0);
-		//auto light1 = ptrMulti->GetLight(1);
-		//auto light2 = ptrMulti->GetLight(2);
-		////この後light0などを変更
-		//light2.m_DiffuseColor = Col4(1, 1, 1, 1);
-		//light2.m_SpecularColor = Col4(1, 1, 1, 1);
-		//ptrMulti->SetLight(1, light2);
-
-	}
+	
 
 	void GameStage::OnCreate() {
 		
@@ -933,7 +709,6 @@ namespace basecross {
 			m_MeatPositon.SetFileName(csvDirectory + L"MeatPosition" + Util::IntToWStr(m_MeatNumber) + L".csv");
 			m_MeatPositon.ReadCsv();
 
-            CreateTimerSprite();//!時間のスプライトの作成
 			CreateViewLight();//ビューとライトの作成
 			CreateStageFloor();//!ステージの床の作成
 			CreateStageWall(); //!ステージの壁の作成
@@ -943,25 +718,14 @@ namespace basecross {
 			CreatePlayer();//!プレーヤーの作成
 			CerateVillager();//!村人の作成
 			CreatePlayBGM();//!BGMの作成
-			CreateHeartSprite();//!プレイヤーのHPの作成
 			CerateHunter();//!ハンターの作成
-			CreateAlertlevelGauge();//!警戒度のゲージの作成
-			CreateArrow();//!矢印の作成
-			CreateClockSprite(); //!時計のスプライトの作成
-			CreateCircleClockSprite(); //!時計の円盤のスプライトの作成
 			CreateWoodenBox();//!箱の作成
 			CreateWood();//!木の作成
 			CreateHeadMan();//!村長の作成
 			CreateMeat();//!肉の作成
-			CreateGameOver();//!ゲームオーバー
-			CreateMeatGageBackGround();//!空腹ゲージの背景
-			CreateMeatGageFrame();//!空腹ゲージの枠
-			CreateHungerGage();//!空腹ゲージ
-			CreateClockArrow();//!時計の針
-			CreateDateChangeCommentDay();//!夜から昼にでるテクスチャ
-			CreateDateChangeCommentNight();//!昼から夜にでるテクスチャ
-			CreateKeyFrame();//!カギの枠の作成
 			CreateCameraman(); //!カメラマンの作成
+
+			AddGameObject<GameStageCanvas>();
 
 			auto gameOver = scene->GetGameOver();
 			if (gameOver == true)
@@ -992,7 +756,6 @@ namespace basecross {
 		scene->SetMeatNamber(m_MeatNumber);//!肉の位置の数字が設定される
 
 		GameTime();
-		CreateLightingCol();
 		
 		//auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
 		auto gameOver = scene->GetGameOver();

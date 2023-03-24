@@ -1,21 +1,19 @@
 /*!
-@file ClockSprite.h
-@author Ayumu Muroi
-@brief 時計の表示
+@file ClearStageCanvas.h
+@author Kaito Isii
+@brief クリアステージで使うUIの生成管理
 */
 
 #pragma once
 #include "stdafx.h"
 
 namespace basecross {
-	class ClockSprite : public GameObject {
+
+
+	class ClearStageCanvas : public GameObject {
 	private:
-		bool m_Trace;         //!透明
-		Vec2 m_StartScale;    //!大きさ
-		Vec3 m_StartPos;      //!位置
-		wstring m_TextureClock; //!テクスチャ
 
-
+		float m_clearTime;
 	public:
 
 		//--------------------------------------------------------------------------------------
@@ -23,30 +21,41 @@ namespace basecross {
 		@brief　コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		ClockSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale, const Vec2& StartPos);
-		
+		ClearStageCanvas(const shared_ptr<Stage>& StagePtr);
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　クリアスプライト
+		*/
+		//--------------------------------------------------------------------------------------
+		void CreateGameClearSprite();
+
+
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　デストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual ~ClockSprite();
+		virtual ~ClearStageCanvas() {}
+
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　初期化
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual void OnCreate() override;
+		void OnCreate();
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　更新
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual void OnUpdate()override {}
-
+		void OnUpdate();
 	};
+
+
+
 }
 //end basecross
+

@@ -9,9 +9,9 @@
 
 namespace basecross
 {
-	constexpr float m_maxRotationTime = 4.0f;
-	constexpr int m_randomRange = 6;
-	constexpr int m_randomNumber = 4;
+	constexpr float m_maxRotationTime = 4.0f;//!見渡す時間
+	constexpr int m_randomRange = 6;//!乱数の上限
+	constexpr int m_randomNumber = 4;//!特定の乱数
 	//!-------------------------------------
 	//! 敵のオブジェクトの親
 	//! ------------------------------------
@@ -78,31 +78,31 @@ namespace basecross
 	shared_ptr<Player>BaseEnemy::GetTarget()const {
 		return std::dynamic_pointer_cast<Player>(GetStage()->GetSharedObject(L"Player"));
 	}
-	
+
 
 	void BaseEnemy::HunterDisappear()
 	{
-		
-				auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");//!村人のオブジェクトグループの取得
-				auto& vecHunter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
-				//!村人配列オブジェクトの配列分回す
-				for (auto& v : vecHunter)
+
+		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");//!村人のオブジェクトグループの取得
+		auto& vecHunter = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
+		//!村人配列オブジェクトの配列分回す
+		for (auto& v : vecHunter)
+		{
+			auto hunterPtr = v.lock();//!村人のグループから1つロックする
+			Vec3 ret;//!最近接点の代入
+			auto ptrHunter = dynamic_pointer_cast<Hunter>(hunterPtr);//!ロックした物を取り出す
+			if (ptrHunter)
+			{
+				auto hunterSpeed = ptrHunter->GetSpeed();//!村人のスピードを取得
+				if (hunterSpeed == 0.0f)
 				{
-					auto hunterPtr = v.lock();//!村人のグループから1つロックする
-					Vec3 ret;//!最近接点の代入
-					auto ptrHunter = dynamic_pointer_cast<Hunter>(hunterPtr);//!ロックした物を取り出す
-					if (ptrHunter)
-					{
-						auto hunterSpeed = ptrHunter->GetSpeed();//!村人のスピードを取得
-						if (hunterSpeed == 0.0f)
-						{
 
-							GetStage()->RemoveGameObject<Hunter>(ptrHunter);
-							m_dedAnimationEnd = false;
+					GetStage()->RemoveGameObject<Hunter>(ptrHunter);
+					m_dedAnimationEnd = false;
 
-						}
-					}
-				
+				}
+			}
+
 		}
 
 
@@ -110,34 +110,34 @@ namespace basecross
 
 	void BaseEnemy::VillagerDisappear()
 	{
-		
 
-				//!村人を殺す
-				auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
-				auto& vecVillager = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
-				//!村人配列オブジェクトの配列分回す
-				for (auto& v : vecVillager)
+
+		//!村人を殺す
+		auto group = GetStage()->GetSharedObjectGroup(L"Villager_ObjGroup");
+		auto& vecVillager = group->GetGroupVector();//!ゲームオブジェクトの配列の取得
+		//!村人配列オブジェクトの配列分回す
+		for (auto& v : vecVillager)
+		{
+
+			auto VillagerPtr = v.lock();//!村人のグループから1つロックする
+			Vec3 ret;//!最近接点の代入
+			auto ptrVillager = dynamic_pointer_cast<Villager>(VillagerPtr);//!ロックした物を取り出す
+
+			//!プレイヤーの範囲に敵が入ったら
+			if (ptrVillager)
+			{
+
+				auto VillagerSpeed = ptrVillager->GetSpeed();//!村人のスピードを取得
+				if (VillagerSpeed == 0.0f)
 				{
 
-					auto VillagerPtr = v.lock();//!村人のグループから1つロックする
-					Vec3 ret;//!最近接点の代入
-					auto ptrVillager = dynamic_pointer_cast<Villager>(VillagerPtr);//!ロックした物を取り出す
+					GetStage()->RemoveGameObject<Villager>(VillagerPtr);
+					m_dedAnimationEnd = false;
 
-					//!プレイヤーの範囲に敵が入ったら
-					if (ptrVillager)
-					{
-
-						auto VillagerSpeed = ptrVillager->GetSpeed();//!村人のスピードを取得
-						if (VillagerSpeed == 0.0f)
-						{
-
-							GetStage()->RemoveGameObject<Villager>(VillagerPtr);
-							m_dedAnimationEnd = false;
-
-						}
-					}
 				}
-			
+			}
+		}
+
 	}
 
 	void BaseEnemy::AnimationUpdate()
@@ -165,7 +165,7 @@ namespace basecross
 		auto time = app->GetElapsedTime();//!時間の取得
 		m_randomTime += time;//!ランダムタイムに時間を足す
 
-		srand(m_randomTime);//!乱数の初期化
+		srand(0);//!乱数の初期化
 		m_randomCount = rand() % m_randomRange;
 
 		//!ランダムに変わる変数が特定の数字に変わったとき
@@ -202,41 +202,40 @@ namespace basecross
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto playerChange = scene->GetPlayerChangeDirecting();//!プレイヤーの変身を開始する
 		auto gameOver = scene->GetGameOver();
+		//!ゲームオーバーになっていないとき
 		if (!gameOver)
 		{
+			//!プレイヤーが返信していないとき
 			if (!playerChange)
 			{
+				//!倒れたアニメーション終了後
 				if (m_dedAnimationEnd)
 				{
-                VillagerDisappear();
-				HunterDisappear();
+					VillagerDisappear();//!村人を消す
+					HunterDisappear();//!ハンターを消す
 				}
-				
 
-				AnimationUpdate();
 
-				m_StateMachine->Update();
+				AnimationUpdate();//!アニメーションの更新
 
-				ObstacleAvoidance();
+				m_StateMachine->Update();//!ステートマシンの更新
 
-				EnemyRandomRotation();
+				ObstacleAvoidance();//!障害物回避
 
+				EnemyRandomRotation();//!周りを見渡す
+				//!見渡していないとき
 				if (m_patrolRotation == false)
 				{
 					m_rotationTime = 0.0f;
-					ApplyForce();
+					ApplyForce();//!適応力
 				}
 
 				m_Force = Vec3(0);
 
-				Facade();
+				Facade();//!進行方向を向く
 
 			}
 		}
 	}
-
-		
-
-	
 
 }

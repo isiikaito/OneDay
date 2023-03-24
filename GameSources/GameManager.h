@@ -1,6 +1,7 @@
 /*!
 @file GameStageManager.h
 @brief ゲームステージ
+*@author isii kaito
 */
 
 #pragma once

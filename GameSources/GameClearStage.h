@@ -18,7 +18,7 @@ namespace basecross {
 		shared_ptr<SoundItem>m_BGM; //!BGM
 		CsvFile m_StageCsv;   //!ステージCSVファイル
 		float m_stageChangeTime =0.0f;
-		bool m_setTexture=false;
+		
 
 	public:
 		
@@ -26,7 +26,7 @@ namespace basecross {
 		void CreateViewLight();
 		void CreatePlayer(); //!プレイヤーの追加
 		//スプライトの作成
-		void CreateGameClearSprite();
+		
 		void CreateStageFloor(); //!床
 		void CreateStageBuilding(); //!建物 
 		void CreateStageWall(); //!壁

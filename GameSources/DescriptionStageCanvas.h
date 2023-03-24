@@ -1,27 +1,20 @@
 /*!
-@file HungerGage.h
-@author isii kaito
-@brief ゲージの背景の表示
+@file DescriptionStageCanvas.h
+@author Kaito Isii
+@brief 説明書ステージで使うUIの生成管理
 */
 
 #pragma once
 #include "stdafx.h"
+#include "DescriptionSpriteFront.h"
 
 namespace basecross {
 
-		enum class EatCondition {
-		notEat,
-		firstEat,
-		secondEat,
-		thirdEat
-	};
-	class HungerGage : public GameUI {
-	private:
-		bool m_Trace;         //!透明
-		Vec2 m_StartScale;    //!大きさ
-		Vec3 m_StartPos;      //!位置
-		wstring m_TextureKey; //!テクスチャ
 
+	class DescriptionStageCanvas : public GameObject {
+	private:
+
+		std::vector<shared_ptr<DescriptionSpriteFront>> m_DescriptionSprites;
 
 	public:
 
@@ -30,39 +23,53 @@ namespace basecross {
 		@brief　コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		HungerGage(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale, const Vec3& StartPos);
-		
+		DescriptionStageCanvas(const shared_ptr<Stage>& StagePtr);
+
+
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　デストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual ~HungerGage() {}
+		virtual ~DescriptionStageCanvas() {}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　ゲージの変更
+		@brief　表の説明書のスプライトの作成
 		*/
 		//--------------------------------------------------------------------------------------
-		void ChangeGage();
+	    void CreateDescriptionSpriteFront();
 
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　説明書の取得
+		*/
+		//--------------------------------------------------------------------------------------
+
+		std::vector<shared_ptr<DescriptionSpriteFront>>GetDescriptionSprites()
+		{
+			return m_DescriptionSprites;
+		}
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　初期化
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual void OnCreate() override;
-
+		void OnCreate();
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　更新
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual void OnUpdate()override;
+		void OnUpdate();
+
 
 	};
+
+
+
 }
 //end basecross
+
 

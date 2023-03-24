@@ -1,6 +1,7 @@
 /*!
 @file Player.cpp
 @brief プレイヤーなど実体
+*@author isii kaito
 */
 
 #include "stdafx.h"
@@ -19,7 +20,7 @@ namespace basecross {
 	constexpr float m_breakWoodBoxSphereRadius = 5.0f;
 	constexpr float m_hunterkillerSphereRadius = 5.0f;
 	constexpr float m_angleEqual = 6.0f;
-	constexpr float m_maxVibration = 65535.0f;
+	constexpr WORD  m_maxVibration = 65535;
 	
 	
 
@@ -52,7 +53,7 @@ namespace basecross {
 		m_dedTime(0.0f),
 		m_IsPlayerDed(0.0f),
 		m_gameOverDrawActive(false),
-		m_vibration(0.0f),
+		m_vibration(0),
 		m_gameTime(0.0f),
 		m_meatCount(0),
 		m_vibrationTime(0.0f),
@@ -236,8 +237,8 @@ namespace basecross {
 		auto gameOver = scene->GetGameOver();
 		gameOver = true;
 		scene->SetGameOver(gameOver);
-		GetStage()->AddGameObject<FadeOut>(true,
-			Vec2(1290.0f, 960.0f), Vec3(0.0f, 0.0f, 0.1f));
+
+		
 		float Time = App::GetApp()->GetElapsedTime();
 		m_dedTime += Time;
 		if (m_dedTime >= m_maxDedTime)
@@ -452,16 +453,7 @@ namespace basecross {
 		}
 	}
 
-	//!鍵のスプライトの作成
-	void Player::CreateKeySprite()
-	{
-		GetStage()->AddGameObject<GameUI>(
-			L"KEY_TX",//!テクスチャ
-			true,
-			Vec2(60.0f, 60.0f),//大きさ
-			Vec3(-565.0f + (110.0f * (m_KeyCount - 1)), -280.0f,0.2f)//座標
-			);
-	}
+	
 
 	void Player::ChangeState(kaito::State<Player>* NewState)
 	{
@@ -489,7 +481,7 @@ namespace basecross {
 		if (m_IsvibrationOn == false)
 		{
 			m_vibrationTime = 0.0f;
-			m_vibration = 0.0f;
+			m_vibration = 0;
 		}
 
 		//コントローラーの振動
@@ -588,7 +580,6 @@ namespace basecross {
 			{
 				m_KeyCount++;
 				GetStage()->RemoveGameObject<Key>(Other);//!鍵オブジェクトの削除
-				CreateKeySprite();
 				auto& ptrXA = App::GetApp()->GetXAudio2Manager();
 				ptrXA->Start(L"acquisition", 0, 9.0f);
 

@@ -24,6 +24,46 @@ namespace basecross{
 		App::GetApp()->RegisterTexture(UseTextureName, strTexture);
 	}
 
+	void Scene::RoadSound(const wstring& soundDataName, const wstring& soundName)
+	{
+		wstring dataDir;
+		App::GetApp()->GetDataDirectory(dataDir);//!サンプルのためメディアディレクトリを取得
+		wstring strMusic = dataDir + L"Sound\\" + soundDataName;
+		App::GetApp()->RegisterWav(soundName, strMusic);
+	}
+
+	//!スタティックモデルの読み込み
+	void Scene::RoadStaticModelMesh(const wstring& staticModelbmfName, const wstring& staticModelMeshName)
+	{
+		wstring dataDir;
+		//サンプルのためアセットディレクトリを取得
+		App::GetApp()->GetAssetsDirectory(dataDir);
+
+		App::GetApp()->RegisterResource(
+			staticModelMeshName,
+			MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" + staticModelbmfName + L".bmf")
+		);
+
+	}
+
+	//!ボーン付きモデルの読み込み
+	void Scene::RoadBoneModel(const wstring& BoneModelbmfName, const wstring& BoneModelMeshName, const wstring& BomeModelMeshTangentName)
+	{
+		wstring dataDir;
+		//サンプルのためアセットディレクトリを取得
+		App::GetApp()->GetAssetsDirectory(dataDir);
+
+		//!ボーンモデルの通常リソース
+		App::GetApp()->RegisterResource(BoneModelMeshName,
+			MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" + BoneModelbmfName + L".bmf"));
+
+		//! ボーンモデルのタンジェント付きリソース
+		App::GetApp()->RegisterResource(BomeModelMeshTangentName,
+			MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" + BoneModelbmfName + L".bmf")
+		);
+
+	}
+
 	void Scene::CreateResourses()
 	{
 		//!テクスチャ
@@ -32,12 +72,15 @@ namespace basecross{
 		RoadTexture(L"Circle.png", L"Circle_TX");
 		//!ゲージの背景
 		RoadTexture(L"Background.png", L"Background_TX");
+		//!ゲージのフレーム
 		RoadTexture(L"Frame.png", L"Frame_TX");
+		//!ゲージ
 		RoadTexture(L"FullGage.png", L"Full_TX");
+		//!村長のコメント
 		RoadTexture(L"HeadManCommet1.png", L"HeadManCommet1_TX");
 		RoadTexture(L"HeadManCommet2.png", L"HeadManCommet2_TX");
 		RoadTexture(L"HeadManCommet3.png", L"HeadManCommet3_TX");
-
+		//!夜から昼になったときに出るテクスチャ
 		RoadTexture(L"QuestMessage_Noon.png", L"CommentDay_TX");
 		//!昼から夜になったらでるテクスチャ
 		RoadTexture(L"QuestMessage_Night.png", L"CommentNignt_TX"); 
@@ -71,152 +114,86 @@ namespace basecross{
 		RoadTexture(L"Explanation_02.png", L"DescriptionSprite2_TX");
 		
 		
+		
 		wstring dataDir;
 		//サンプルのためアセットディレクトリを取得
 		App::GetApp()->GetAssetsDirectory(dataDir);
 
 	
-	
-		
-	
-
-		//!床のモデル読み込み
-		auto staticModelMesh1 = MeshResource::CreateStaticModelMesh(dataDir,L"MayaModel\\" L"StageFloor.bmf");
-		App::GetApp()->RegisterResource(L"STAGEFLOOR_MESH", staticModelMesh1);
-
-		//!ボックスの追加
-		auto staticModelMesh2 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Box.bmf");
-		App::GetApp()->RegisterResource(L"BOX_MESH", staticModelMesh2);
-	
-		//!壁のモデル読み込み
-		auto staticModelMesh3 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageWall.bmf");
-		App::GetApp()->RegisterResource(L"STAGEWALL_MESH", staticModelMesh3);
-	
-		//!建物のモデル読み込み
-		auto staticModelMesh4 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"House.bmf");
-		App::GetApp()->RegisterResource(L"STAGEBUILDING_MESH", staticModelMesh4);
-
-		//!鍵のモデル読み込み
-		auto staticModelMesh5 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Key.bmf");
-		App::GetApp()->RegisterResource(L"KEY_MESH", staticModelMesh5);
-
-		////!門のモデルの読み込み
-		//auto staticModelMesh6 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageGate.bmf");
-		//App::GetApp()->RegisterResource(L"STAGEGATE_MESH", staticModelMesh6);
-
-		//!地面のモデルの読み込み
-		auto staticModelMesh7 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Ground.bmf");
-		App::GetApp()->RegisterResource(L"GROUND_MESH", staticModelMesh7);
-
-	
-		//!柵のモデルの読み込み
-		auto staticModelMesh9 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"StageFence.bmf");
-		App::GetApp()->RegisterResource(L"STAGE_FENCE", staticModelMesh9);
-
-		//!柵のモデルの読み込み
-		auto staticModelMesh10 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Wood.bmf");
-		App::GetApp()->RegisterResource(L"STAGE_WOOD", staticModelMesh10);
-
-	    //!肉のモデルの読み込み
-		auto staticModelMesh11 = MeshResource::CreateStaticModelMesh(dataDir, L"MayaModel\\" L"Meat.bmf");
-		App::GetApp()->RegisterResource(L"MEAT_MESH", staticModelMesh11);
-
-
-		//モデル
-		//ボーンモデルの通常リソース
-		// 敵のアニメーション
-		auto humanMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
-		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH", humanMultiModelMesh);
-
-		//ボーンモデルのタンジェント付きリソース
-		humanMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Enemy_Animation.bmf");
-		App::GetApp()->RegisterResource(L"Player_WalkAnimation_MESH_WITH_TAN", humanMultiModelMesh);
-
-		// プレイヤー（狼）のアニメーション
-		auto playrWolfMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Wolf_Animation.bmf");
-		App::GetApp()->RegisterResource(L"PlayerWolf_WalkAnimation_MESH", playrWolfMultiModelMesh);
-
-		playrWolfMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Wolf_Animation.bmf");
-		App::GetApp()->RegisterResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN", playrWolfMultiModelMesh);
-
-		// ハンターのアニメーション
-		auto EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Hunter_Animation.bmf");
-		App::GetApp()->RegisterResource(L"EnemyHunter_Animation_MESH", EnemyHunterMultiModelMesh);
-
-		EnemyHunterMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Hunter_Animation.bmf");
-		App::GetApp()->RegisterResource(L"EnemyHunter_Animation_MESH_WITH_TAN", EnemyHunterMultiModelMesh);
-
-		// 村人のアニメーション
-		auto EnemyVillagerMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"EnemyVillager_Animation.bmf");
-		App::GetApp()->RegisterResource(L"EnemyVillager_WalkAnimation_MESH", EnemyVillagerMultiModelMesh);
-
-		EnemyVillagerMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"EnemyVillager_Animation.bmf");
-		App::GetApp()->RegisterResource(L"EnemyVillager_WalkAnimation_MESH_WITH_TAN", EnemyVillagerMultiModelMesh);
-
-		// プレイヤー（人間）のアニメーション
-		auto PlayerMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Player_Animation.bmf");
-		App::GetApp()->RegisterResource(L"Player_WalkAnimation2_MESH", PlayerMultiModelMesh);
-
-		PlayerMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Player_Animation.bmf");
-		App::GetApp()->RegisterResource(L"Player_WalkAnimation2_MESH_WITH_TAN", PlayerMultiModelMesh);
-
-		// 扉のアニメーション
-		auto GateMultiModelMesh = MeshResource::CreateBoneModelMesh(dataDir, L"MayaModel\\" L"Gate_Animation.bmf");
-		App::GetApp()->RegisterResource(L"GateAnimation_MESH", GateMultiModelMesh);
-
-		GateMultiModelMesh = MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModel\\" L"Gate_Animation.bmf");
-		App::GetApp()->RegisterResource(L"GateAnimation_MESH_WITH_TAN", GateMultiModelMesh);
-
-		//法線マップ
 		wstring strTexture = dataDir + L"PlalyerBanpMap.png";
 		App::GetApp()->RegisterTexture(L"OBJECT_NORMAL_TX", strTexture);
-
-		//!BGM
-		wstring strMusic = dataDir + L"Sound\\" L"BGM.wav";//ゲーム中のBGM
-		App::GetApp()->RegisterWav(L"bgm", strMusic);
-
-		 strMusic = dataDir + L"Sound\\" L"MeatEat.wav";//肉を食べる音
-		App::GetApp()->RegisterWav(L"MeatEat", strMusic);
-
-		strMusic = dataDir + L"Sound\\" L"WoodBoxBreak.wav";//肉を食べる音
-		App::GetApp()->RegisterWav(L"WoodBoxBreak", strMusic);
 		
-			
+		
+	    //!床のモデル
+		RoadStaticModelMesh(L"StageFloor", L"STAGEFLOOR_MESH");
+		//!ボックスの追加
+		RoadStaticModelMesh(L"Box", L"BOX_MESH");
+		
+		//!壁のモデル読み込み
+		RoadStaticModelMesh(L"StageWall", L"STAGEWALL_MESH");
+		//!建物のモデル読み込み
+		RoadStaticModelMesh(L"House", L"STAGEBUILDING_MESH");
+		//!鍵のモデル読み込み
+		RoadStaticModelMesh(L"Key", L"KEY_MESH");
+		//!地面のモデルの読み込み
+		RoadStaticModelMesh(L"Ground", L"GROUND_MESH");
+		//!柵のモデルの読み込み
+		RoadStaticModelMesh(L"StageFence", L"STAGE_FENCE");
+		//!柵のモデルの読み込み
+		RoadStaticModelMesh(L"Wood", L"STAGE_WOOD");
+		//!肉のモデルの読み込み
+		RoadStaticModelMesh(L"Meat", L"MEAT_MESH");
+		
+		//ボーンモデルの通常リソース
+		// プレイヤーのアニメーション
+		RoadBoneModel(L"Enemy_Animation", L"Player_WalkAnimation_MESH", L"Player_WalkAnimation_MESH_WITH_TAN");
+		// プレイヤー（狼）のアニメーション
+		RoadBoneModel(L"Wolf_Animation", L"PlayerWolf_WalkAnimation_MESH", L"PlayerWolf_WalkAnimation_MESH_WITH_TAN");
+		// ハンターのアニメーション
+		RoadBoneModel(L"Hunter_Animation", L"EnemyHunter_Animation_MESH", L"EnemyHunter_Animation_MESH_WITH_TAN");
 
-		strMusic = dataDir + L"Sound\\" L"Title.wav";//タイトル画面のBGM
-		App::GetApp()->RegisterWav(L"TitleBGM", strMusic);
+		// 村人のアニメーション
+		RoadBoneModel(L"EnemyVillager_Animation", L"EnemyVillager_WalkAnimation_MESH", L"EnemyVillager_WalkAnimation_MESH_WITH_TAN");
 
-		strMusic = dataDir + L"Sound\\" L"walk.wav";//歩く音
-		App::GetApp()->RegisterWav(L"WalkBGM", strMusic);
+		// プレイヤー（人間）のアニメーション
+		RoadBoneModel(L"Player_Animation", L"Player_WalkAnimation2_MESH", L"Player_WalkAnimation2_MESH_WITH_TAN");
 
-		wstring decisionWav = dataDir + "Sound\\" L"decision.wav";//ボタンを押したときの音
-		App::GetApp()->RegisterWav(L"decision", decisionWav);
+		// 扉のアニメーション
+		RoadBoneModel(L"Gate_Animation", L"GateAnimation_MESH", L"GateAnimation_MESH_WITH_TAN");
+		
+		
 
-		wstring killWav = dataDir + "Sound\\" L"kill.wav";//敵を殺した時の音
-		App::GetApp()->RegisterWav(L"kill", killWav);
+		//!ゲーム中のBGM
+		RoadSound(L"BGM.wav", L"bgm");
+		//肉を食べる音
+		RoadSound(L"MeatEat.wav", L"MeatEat");
+		//木箱破壊音
+		RoadSound(L"WoodBoxBreak.wav", L"WoodBoxBreak");
+		//タイトル画面のBGM
+		RoadSound(L"Title.wav", L"TitleBGM");
+		//歩く音
+		RoadSound(L"walk.wav", L"WalkBGM");
+		//ボタンを押したときの音
+		RoadSound(L"decision.wav", L"decision");
+		//敵を殺した時の音
+		RoadSound(L"kill.wav", L"kill");
+		//狼に変身した時の遠吠え
+		RoadSound(L"howling.wav", L"howling");
+		//村人の叫び声
+		RoadSound(L"scream.wav", L"scream");
+		//カギを拾う音
+		RoadSound(L"acquisition.wav", L"acquisition");
+		//攻撃音
+		RoadSound(L"firing.wav", L"firing");
+		//ゲームクリア音
+		RoadSound(L"GameClear.wav", L"GameClear");
+		//ゲームオーバー音
+		RoadSound(L"GameOver.wav", L"GameOver");
 
-		wstring howlingWav = dataDir + "Sound\\" L"howling.wav";//狼に変身した時の遠吠え
-		App::GetApp()->RegisterWav(L"howling", howlingWav);
+		//!ページめくる音
+		RoadSound(L"FlipPage.wav", L"FlipPage");
 
-		wstring screamWav = dataDir + "Sound\\" L"scream.wav";//村人の叫び声
-		App::GetApp()->RegisterWav(L"scream", screamWav);
-
-		wstring acquisitionWav = dataDir + "Sound\\" L"acquisition.wav";//カギを拾う音
-		App::GetApp()->RegisterWav(L"acquisition", acquisitionWav);
-
-		wstring firingWav = dataDir + "Sound\\" L"firing.wav";//カギを拾う音
-		App::GetApp()->RegisterWav(L"firing", firingWav);
-
-		wstring GameClearWav = dataDir + "Sound\\" L"GameClear.wav";//ゲームクリア音
-		App::GetApp()->RegisterWav(L"GameClear", GameClearWav);
-
-		wstring GameOverWav = dataDir + "Sound\\" L"GameOver.wav";//ゲームオーバー音
-		App::GetApp()->RegisterWav(L"GameOver", GameOverWav);
-
-		wstring FlipPageWav = dataDir + "Sound\\" L"FlipPage.wav";//ゲームオーバー音
-		App::GetApp()->RegisterWav(L"FlipPage", FlipPageWav);
-
-	
+		
 
 	}
 

@@ -1,22 +1,23 @@
-/**
-*@file GameClear.h
-*@brief ゲームクリア画面のヘッダーファイル
-*@author Kanazawa yuma
-*@details ゲームクリア画面の実装
+/*!
+@file GameOver.h
+@brief ゲームオーバー
+@author Kaito Isii
 */
+
 #pragma once
 #include "stdafx.h"
-
+#include "GameUI.h"
 namespace basecross {
-//--------------------------------------------------------------------------------------
-///	ゲームクリアスプライト
-//--------------------------------------------------------------------------------------
-	class GameClearSprite : public GameObject {
+	//--------------------------------------------------------------------------------------
+	///	ゲームオーバースプライト
+	//--------------------------------------------------------------------------------------
+	class KeySprite : public GameUI {
 	private:
 		bool m_Trace;
-		Vec3 m_StartScale;
+		Vec2 m_StartScale;
 		Vec3 m_StartPos;
 		wstring m_TextureKey;
+		int m_keyCount;
 
 	public:
 
@@ -25,15 +26,22 @@ namespace basecross {
 		@brief　コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		GameClearSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec3& StartScale, const Vec3& StartPos);
+		KeySprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
+			const Vec2& StartScale, const Vec3& StartPos,int keyCount);
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　デストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual ~GameClearSprite();
+		virtual ~KeySprite(){}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　現在持っているカギの数に応じてカギのテクスチャの表示
+		*/
+		//--------------------------------------------------------------------------------------
+		void CurrentKeySpriteDisplay(int keyCount);
 
 		//--------------------------------------------------------------------------------------
 		/*!
@@ -47,9 +55,8 @@ namespace basecross {
 		@brief　更新
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual void OnUpdate()override {}
+		virtual void OnUpdate()override;
 	};
-
 }
 //end basecross
 

@@ -10,7 +10,7 @@
 namespace basecross {
 
 
-	class DateChangeCommentDay : public GameObject {
+	class DateChangeCommentDay : public GameUI {
 	private:
 		bool m_Trace;         //!“§–¾
 		Vec2 m_StartScale;    //!‘å‚«‚³
@@ -34,7 +34,7 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		DateChangeCommentDay(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale, const Vec2& StartPos);
+			const Vec2& StartScale, const Vec3& StartPos);
 
 		//--------------------------------------------------------------------------------------
 		/*!

@@ -20,12 +20,12 @@ namespace basecross {
 	}
 
 	
-	class DescriptionSpriteFront : public GameObject {
+	class DescriptionSpriteFront : public GameUI {
 	private:
 		bool m_Trace;         //!透明
-		Vec3 m_StartScale;    //!大きさ
+		Vec2 m_StartScale;    //!大きさ
 		Vec3 m_StartPos;      //!位置
-		wstring m_TextureClock; //!テクスチャ
+		wstring m_TextureKey; //!テクスチャ
 		bool m_moveTexture;//!テクスチャの移動するかどうか
 		bool m_pageBackTo;//!ページを戻す処理
 		//!ステートマシーン
@@ -39,7 +39,7 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		DescriptionSpriteFront(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec3& StartScale, const Vec3& StartPos);
+			const Vec2& StartScale, const Vec3& StartPos);
 
 		//--------------------------------------------------------------------------------------
 		/*!

@@ -7,6 +7,7 @@
 #include "Project.h"
 #include "DescriptionStage.h"
 #include "DescriptionSpriteFront.h"
+#include "DescriptionStageCanvas.h"
 
 namespace basecross {
 
@@ -31,27 +32,14 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-	//表の説明書のスプライトの作成
-	void DescriptionStage::CreateDescriptionSpriteFront() {
-
-		DescriptionSprites.push_back(
-			AddGameObject<DescriptionSpriteFront>(L"DescriptionSprite1_TX", false,
-				Vec3(1300.0f, 800.0f, 0.0f), Vec3(0.0f, 0.0f, 0.1f))
-		);
-		DescriptionSprites.push_back(
-			AddGameObject<DescriptionSpriteFront>(L"DescriptionSprite2_TX", false,
-				Vec3(1300.0f, 800.0f, 0.0f), Vec3(0.0f, 0.0f, 0.2f))
-		);
-		
-
-		
-
-	}
+	
 	//初期化
 	void DescriptionStage::OnCreate() {
 		CreateViewLight();
-		//スプライトの作成
-		CreateDescriptionSpriteFront();
+		//!説明書のデータの取得
+		auto m_descriptionStageCanvas = AddGameObject<DescriptionStageCanvas>();
+		//!ページごとの情報を配列に入れる
+		DescriptionSprites= m_descriptionStageCanvas->GetDescriptionSprites();
 		CreatePlayBGM();//!BGMの作成
 	}
 
@@ -68,10 +56,6 @@ namespace basecross {
 
 		auto DescriptionNumber = scene->GetDescriptionStageNumber();
 
-		
-		
-
-		
 	}
 
 	////BGMの再生
@@ -100,19 +84,7 @@ namespace basecross {
 	
 
 
-	void DescriptionStage::MoveForwardInaPage()
-	{
-		
-
-	}
-
-	void DescriptionStage::PageBackTo()
-	{
-
 	
-		
-	}
-
 
 
 	//!じゅーじきー右
@@ -124,9 +96,7 @@ namespace basecross {
 		if (DescriptionNumber < 1)
 		{
 			DescriptionNumber++;
-			/*std::wstringstream ms;
-			ms << DescriptionNumber;
-			MessageBox(NULL, ms.str().c_str(), L"", MB_OK);*/
+			
 			scene->SetDescriptionStageNumber(DescriptionNumber);
 
 			//サウンド再生
@@ -138,14 +108,7 @@ namespace basecross {
 		{
 		case(static_cast<int>(PageNumber::second)):
 			DescriptionSprites[static_cast<int>(PageNumber::farst)]->SetMoveTexture(true);
-			break;
-		/*case(static_cast<int>(PageNumber::three)):
-			DescriptionSprites[static_cast<int>(PageNumber::second)]->SetMoveTexture(true);
-			break;
-
-		case(static_cast<int>(PageNumber::four)):
-			DescriptionSprites[static_cast<int>(PageNumber::three)]->SetMoveTexture(true);
-			break;*/
+			break;		
 
 		}
 		
@@ -164,9 +127,7 @@ namespace basecross {
 		if (DescriptionNumber >=1)
 		{
 			DescriptionNumber--;
-			/*std::wstringstream ms;
-			ms << DescriptionNumber;
-			MessageBox(NULL, ms.str().c_str(), L"", MB_OK);*/
+			
 			scene->SetDescriptionStageNumber(DescriptionNumber);
 
 			//サウンド再生
@@ -178,14 +139,7 @@ namespace basecross {
 		case(static_cast<int>(PageNumber::farst)):
 			DescriptionSprites[static_cast<int>(PageNumber::farst)]->SetPageBackTo(true);
 			break;
-		/*case(static_cast<int>(PageNumber::second)):
-			DescriptionSprites[static_cast<int>(PageNumber::second)]->SetPageBackTo(true);
-			break;
-
-		case(static_cast<int>(PageNumber::three)):
-			DescriptionSprites[static_cast<int>(PageNumber::three)]->SetPageBackTo(true);
-			break;*/
-
+		
 		}
 		
 		

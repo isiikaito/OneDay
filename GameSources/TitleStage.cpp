@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "Project.h"
 #include "GameUI.h"
+#include "TitleStageCanvas.h"
 
 namespace basecross {
 	
@@ -30,20 +31,12 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-	//!スプライトの作成
-	void TitleStage::CreateTitleSprite() {
-
-		auto titleSprite = AddGameObject<GameUI>(L"MESSAGE_TX", false,
-			Vec2(650.0f, 450.0f), Vec3(0.0f, 0.0f, 0.0f));
-
-		titleSprite->SetDrawActive(true);
-	}
+	
 
 	//!初期化
 	void TitleStage::OnCreate() {
 		CreateViewLight();
-		//スプライトの作成
-		CreateTitleSprite();
+		AddGameObject<TitleStageCanvas>();
 		CreatePlayBGM();//!BGMの作成
 		auto scene = App::GetApp()->GetScene<Scene>();
 		scene->SetGameOver(false);

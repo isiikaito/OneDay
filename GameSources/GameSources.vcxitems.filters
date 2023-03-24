@@ -28,9 +28,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp">
       <Filter>Other</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameClear.cpp">
-      <Filter>Sprite\GameClear</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOver.cpp">
       <Filter>Sprite\GameOver</Filter>
     </ClCompile>
@@ -80,10 +77,7 @@
       <Filter>Object\Wood</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)KeyParticle.cpp">
-      <Filter>KeyParticle</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ClockSprite.cpp">
-      <Filter>Sprite\ClockSprite</Filter>
+      <Filter>Effect\KeyParticle</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp">
       <Filter>Sprite\FadeOut</Filter>
@@ -95,7 +89,7 @@
       <Filter>Sprite\CircleClockSprite</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp">
-      <Filter>EfkInterfece</Filter>
+      <Filter>Effect\EfkInterfece</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)HeadMan.cpp">
       <Filter>Object\Enemy\HeadMan</Filter>
@@ -151,6 +145,21 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameUI.cpp">
       <Filter>Sprite\GameUI</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)KeySprite.cpp">
+      <Filter>Sprite\KeySprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameStageCanvas.cpp">
+      <Filter>UICanvas\GameStageCanvas</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TitleStageCanvas.cpp">
+      <Filter>UICanvas\TitleStageCanvas</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ClearStageCanvas.cpp">
+      <Filter>UICanvas\ClearStageCanvas</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionStageCanvas.cpp">
+      <Filter>UICanvas\DescriptionStageCanvas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
@@ -176,9 +185,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h">
       <Filter>Other</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameClear.h">
-      <Filter>Sprite\GameClear</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOver.h">
       <Filter>Sprite\GameOver</Filter>
@@ -241,10 +247,7 @@
       <Filter>Object\Wood</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)KeyParticle.h">
-      <Filter>KeyParticle</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ClockSprite.h">
-      <Filter>Sprite\ClockSprite</Filter>
+      <Filter>Effect\KeyParticle</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h">
       <Filter>Sprite\FadeOut</Filter>
@@ -256,7 +259,7 @@
       <Filter>Sprite\CircleClockSprite</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)EfkInterfece.h">
-      <Filter>EfkInterfece</Filter>
+      <Filter>Effect\EfkInterfece</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)HeadManComment.h">
       <Filter>Sprite\HeadManComment</Filter>
@@ -309,6 +312,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameUI.h">
       <Filter>Sprite\GameUI</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)KeySprite.h">
+      <Filter>Sprite\KeySprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameStageCanvas.h">
+      <Filter>UICanvas\GameStageCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TitleStageCanvas.h">
+      <Filter>UICanvas\TitleStageCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ClearStageCanvas.h">
+      <Filter>UICanvas\ClearStageCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionStageCanvas.h">
+      <Filter>UICanvas\DescriptionStageCanvas</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -319,9 +337,6 @@
     </Filter>
     <Filter Include="Other">
       <UniqueIdentifier>{897a3b98-473f-45cf-bc10-a0e07a11cb22}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\GameClear">
-      <UniqueIdentifier>{f0704d8d-e92e-4aa1-8cb0-0deb368f5f7d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sprite\GameOver">
       <UniqueIdentifier>{a934e6c6-49fd-4124-abcb-ff51a7de4e16}</UniqueIdentifier>
@@ -401,12 +416,6 @@
     <Filter Include="Object\Wood">
       <UniqueIdentifier>{f9ab9fe9-6747-43d7-8cca-9cb4fd8825ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="KeyParticle">
-      <UniqueIdentifier>{5486842c-a282-4a77-b8c2-c90bb79499fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sprite\ClockSprite">
-      <UniqueIdentifier>{520899fc-214f-47dc-ae95-b8d123f3d955}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sprite\FadeOut">
       <UniqueIdentifier>{0faa8958-a51e-49b9-8c1f-4792bfeba927}</UniqueIdentifier>
     </Filter>
@@ -418,9 +427,6 @@
     </Filter>
     <Filter Include="Object\WoodBox">
       <UniqueIdentifier>{088fdcb1-3b41-442a-a314-d8057cb3db50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="EfkInterfece">
-      <UniqueIdentifier>{77eb8001-fb2b-416a-af98-0d73451ea895}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object\Enemy\HeadMan">
       <UniqueIdentifier>{34dd0341-af5e-4343-af99-4f052b0f40b0}</UniqueIdentifier>
@@ -484,6 +490,33 @@
     </Filter>
     <Filter Include="Sprite\GameUI">
       <UniqueIdentifier>{003efd9e-7308-41aa-af92-1d16db7324bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite\KeySprite">
+      <UniqueIdentifier>{66ba108c-08ea-4d66-97e9-f4a8ebe161b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UICanvas">
+      <UniqueIdentifier>{7ea27121-54e3-4d91-aa7e-217af08b6859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UICanvas\GameStageCanvas">
+      <UniqueIdentifier>{476ecff2-d80c-4c60-8749-4d6c0ebdd9c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UICanvas\TitleStageCanvas">
+      <UniqueIdentifier>{8ee6c495-52ec-4a8b-b682-a6daab46a405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UICanvas\ClearStageCanvas">
+      <UniqueIdentifier>{2bf7a9ac-a604-46fd-a76e-6319dee70b40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UICanvas\DescriptionStageCanvas">
+      <UniqueIdentifier>{49800363-5687-41d1-8e17-aa3696c47f7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{ddcffa2b-4cdd-4294-b563-2aefeb8ef458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\EfkInterfece">
+      <UniqueIdentifier>{77eb8001-fb2b-416a-af98-0d73451ea895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\KeyParticle">
+      <UniqueIdentifier>{5486842c-a282-4a77-b8c2-c90bb79499fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

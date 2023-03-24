@@ -1,6 +1,7 @@
 /*!
 @file GameStage.cpp
 @brief ゲームステージ実体
+*@author isii kaito
 */
 
 #include "stdafx.h"
@@ -41,13 +42,13 @@ namespace basecross {
 	
 	 float GameManager::GetElpasedTiem()
 	{
-		auto gameElpasedTime = App::GetApp()->GetScene<Scene>()->GetGameTime();
+		auto gameElpasedTime = App::GetApp()->GetScene<Scene>()->GetGameTime();//!ゲームの進行時間
 		return gameElpasedTime;
 	}
 	
 	 float GameManager::GetDayTiem()
 	 {
-		 auto dayTime = App::GetApp()->GetScene<Scene>()->GetDayTime();
+		 auto dayTime = App::GetApp()->GetScene<Scene>()->GetDayTime();//!変身する時間
 		 return dayTime;
 	 }
 }

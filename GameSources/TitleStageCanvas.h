@@ -1,7 +1,7 @@
 /*!
-@file HungerGage.h
-@author isii kaito
-@brief ゲージの背景の表示
+@file TitleStageCanvas.h
+@author Kaito Isii
+@brief タイトルステージで使うUIの生成管理
 */
 
 #pragma once
@@ -9,18 +9,9 @@
 
 namespace basecross {
 
-		enum class EatCondition {
-		notEat,
-		firstEat,
-		secondEat,
-		thirdEat
-	};
-	class HungerGage : public GameUI {
+
+	class TitleStageCanvas : public GameObject {
 	private:
-		bool m_Trace;         //!透明
-		Vec2 m_StartScale;    //!大きさ
-		Vec3 m_StartPos;      //!位置
-		wstring m_TextureKey; //!テクスチャ
 
 
 	public:
@@ -30,39 +21,40 @@ namespace basecross {
 		@brief　コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		HungerGage(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale, const Vec3& StartPos);
+		TitleStageCanvas(const shared_ptr<Stage>& StagePtr);
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　タイトル画面のスプライトの作成
+		*/
+		//--------------------------------------------------------------------------------------
+		void CreateTitleSprite();
 		
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　デストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual ~HungerGage() {}
+		virtual ~TitleStageCanvas() {}
 
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief　ゲージの変更
-		*/
-		//--------------------------------------------------------------------------------------
-		void ChangeGage();
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　初期化
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual void OnCreate() override;
-
+		void OnCreate();
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　更新
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual void OnUpdate()override;
-
+		void OnUpdate();
 	};
+
+
+
 }
 //end basecross
 

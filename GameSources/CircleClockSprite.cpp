@@ -10,9 +10,6 @@ namespace basecross {
 
 	//!定数
 	constexpr float m_TimeSpeed = 30;//!回転する速度
-	constexpr float m_startScaleZ = 1.0f;//!大きさ
-	constexpr float m_startPosZ = 0.8f;	 //!奥行き
-	constexpr float m_helfSize = 0.5f;	 //!半分の大きさ
 	
 	//--------------------------------------------------------------------------------------
 	///	円盤のスプライト

@@ -10,7 +10,7 @@
 namespace basecross {
 
 
-	class DateChangeCommentNight : public GameObject {
+	class DateChangeCommentNight : public GameUI {
 	private:
 		bool m_Trace;         //!透明
 		Vec2 m_StartScale;    //!大きさ
@@ -21,7 +21,7 @@ namespace basecross {
 		float m_totalTime;//!フェードアウトインの時間
 		bool m_IstexturemaxW;//!アルファ値が最大の時
 		//!バックアップ頂点データ
-		shared_ptr<PCTSpriteDraw> m_drawComponent;//!描画処理
+		
 		vector<VertexPositionColor>m_BackupVertices;
 
 	public:
@@ -32,7 +32,7 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		DateChangeCommentNight(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale, const Vec2& StartPos);
+			const Vec2& StartScale, const Vec3& StartPos);
 		
 		//--------------------------------------------------------------------------------------
 		/*!
