@@ -1,26 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp">
-      <Filter>Object\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageBuilding.cpp">
-      <Filter>Object\Building</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Key.cpp">
-      <Filter>Object\Key</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp">
-      <Filter>Object\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageFloor.cpp">
-      <Filter>Object\StageFloor</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageWall.cpp">
       <Filter>Other\ProjectBehavior\StageWall</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageGate.cpp">
-      <Filter>Object\StageGate</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp">
       <Filter>Scene</Filter>
@@ -34,32 +16,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Timer.cpp">
       <Filter>Sprite\Timer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp">
-      <Filter>Object\Stage\ClearStage</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp">
-      <Filter>Object\Stage\GameStage</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
-      <Filter>Object\Stage\TitleStage</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp">
       <Filter>Other\ProjectBehavior</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp">
       <Filter>Other\ProjectShader</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp">
-      <Filter>Object\Enemy\BaseEnemy</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SurprisedSprite.cpp">
       <Filter>Sprite\Surprised</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp">
-      <Filter>Object\Enemy\Hunter</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Villager.cpp">
-      <Filter>Object\Enemy\Villager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Arrow.cpp">
       <Filter>Sprite\Alertlevel\Arrow</Filter>
@@ -69,12 +33,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp">
       <Filter>Sprite\LoseSightOf</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)WoodenBox.cpp">
-      <Filter>Object\WoodBox</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Wood.cpp">
-      <Filter>Object\Wood</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)KeyParticle.cpp">
       <Filter>Effect\KeyParticle</Filter>
@@ -91,14 +49,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp">
       <Filter>Effect\EfkInterfece</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)HeadMan.cpp">
-      <Filter>Object\Enemy\HeadMan</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)HeadManComment.cpp">
       <Filter>Sprite\HeadManComment</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Meat.cpp">
-      <Filter>Object\Meat</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)HungerGage.cpp">
       <Filter>Sprite\HungerGage</Filter>
@@ -112,32 +64,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.cpp">
       <Filter>Sprite\DateChangeComment\DateChangeCommentNight</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameManager.cpp">
-      <Filter>Object\Stage\GameStageManeger</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameManagerState.cpp">
       <Filter>State\GameManagerState</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCamera.cpp">
-      <Filter>Object\OpeningCamera\OpeningCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCameraMan.cpp">
-      <Filter>Object\OpeningCamera\OpeningCameraMan</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCameraState.cpp">
-      <Filter>Object\OpeningCamera\OpeningCameraState</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionSpriteFront.cpp">
       <Filter>Sprite\DescriptionSpriteFront</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionStage.cpp">
-      <Filter>Object\Stage\DescriptionStage</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionSpriteFrontState.cpp">
       <Filter>State\DescriptionSpriteFrontState</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GoalPlayer.cpp">
-      <Filter>Object\GoalPlayer</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHurteSprite.cpp">
       <Filter>Sprite\PlayerHeart</Filter>
@@ -160,25 +94,76 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionStageCanvas.cpp">
       <Filter>UICanvas\DescriptionStageCanvas</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Villager.cpp">
+      <Filter>Object\Enemy\Villager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Hunter.cpp">
+      <Filter>Object\Enemy\Hunter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)HeadMan.cpp">
+      <Filter>Object\Enemy\HeadMan</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp">
+      <Filter>Object\Enemy\BaseEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageBuilding.cpp">
+      <Filter>Object\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Key.cpp">
+      <Filter>Object\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageGate.cpp">
+      <Filter>Object\StageGate</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageFloor.cpp">
+      <Filter>Object\StageFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp">
+      <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp">
+      <Filter>Object\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp">
+      <Filter>Object\Stage\ClearStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp">
+      <Filter>Object\Stage\GameStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
+      <Filter>Object\Stage\TitleStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameManager.cpp">
+      <Filter>Object\Stage\GameStageManeger</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionStage.cpp">
+      <Filter>Object\Stage\DescriptionStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Wood.cpp">
+      <Filter>Object\Wood</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WoodenBox.cpp">
+      <Filter>Object\WoodBox</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Meat.cpp">
+      <Filter>Object\Meat</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GoalPlayer.cpp">
+      <Filter>Object\GoalPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCameraMan.cpp">
+      <Filter>Object\OpeningCamera\OpeningCameraMan</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCameraState.cpp">
+      <Filter>Object\OpeningCamera\OpeningCameraState</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCamera.cpp">
+      <Filter>Object\OpeningCamera\OpeningCamera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
-      <Filter>Object\Building</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Key.h">
-      <Filter>Object\Key</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
-      <Filter>Object\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h">
-      <Filter>Object\StageFloor</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageWall.h">
       <Filter>Other\ProjectBehavior\StageWall</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageGate.h">
-      <Filter>Object\StageGate</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h">
       <Filter>Scene</Filter>
@@ -192,18 +177,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Timer.h">
       <Filter>Sprite\Timer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Player.h">
-      <Filter>Object\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h">
-      <Filter>Object\Stage\ClearStage</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h">
-      <Filter>Object\Stage\GameStage</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
-      <Filter>Object\Stage\TitleStage</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h">
       <Filter>Other\ProjectBehavior</Filter>
     </ClInclude>
@@ -212,12 +185,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StateMchine.h">
       <Filter>State</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h">
-      <Filter>Object\Enemy\BaseEnemy</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Villager.h">
-      <Filter>Object\Enemy\Villager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h">
       <Filter>Other</Filter>
@@ -228,9 +195,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SurprisedSprite.h">
       <Filter>Sprite\Surprised</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
-      <Filter>Object\Enemy\Hunter</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Arrow.h">
       <Filter>Sprite\Alertlevel\Arrow</Filter>
     </ClInclude>
@@ -239,12 +203,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)LoseSightOf.h">
       <Filter>Sprite\LoseSightOf</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)WoodenBox.h">
-      <Filter>Object\WoodBox</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Wood.h">
-      <Filter>Object\Wood</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)KeyParticle.h">
       <Filter>Effect\KeyParticle</Filter>
@@ -264,12 +222,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)HeadManComment.h">
       <Filter>Sprite\HeadManComment</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)HeadMan.h">
-      <Filter>Object\Enemy\HeadMan</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Meat.h">
-      <Filter>Object\Meat</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)HungerGage.h">
       <Filter>Sprite\HungerGage</Filter>
     </ClInclude>
@@ -279,32 +231,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.h">
       <Filter>Sprite\DateChangeComment\DateChangeCommentNight</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameManager.h">
-      <Filter>Object\Stage\GameStageManeger</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameManagerState.h">
       <Filter>State\GameManagerState</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCamera.h">
-      <Filter>Object\OpeningCamera\OpeningCamera</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCameraMan.h">
-      <Filter>Object\OpeningCamera\OpeningCameraMan</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCameraState.h">
-      <Filter>Object\OpeningCamera\OpeningCameraState</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionSpriteFront.h">
       <Filter>Sprite\DescriptionSpriteFront</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionStage.h">
-      <Filter>Object\Stage\DescriptionStage</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionSpriteFrontState.h">
       <Filter>State\DescriptionSpriteFrontState</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GoalPlayer.h">
-      <Filter>Object\GoalPlayer</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHurteSprite.h">
       <Filter>Sprite\PlayerHeart</Filter>
@@ -327,6 +261,72 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionStageCanvas.h">
       <Filter>UICanvas\DescriptionStageCanvas</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Villager.h">
+      <Filter>Object\Enemy\Villager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
+      <Filter>Object\Enemy\Hunter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HeadMan.h">
+      <Filter>Object\Enemy\HeadMan</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h">
+      <Filter>Object\Enemy\BaseEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h">
+      <Filter>Object\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Key.h">
+      <Filter>Object\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageGate.h">
+      <Filter>Object\StageGate</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h">
+      <Filter>Object\StageFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Player.h">
+      <Filter>Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
+      <Filter>Object\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h">
+      <Filter>Object\Stage\ClearStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h">
+      <Filter>Object\Stage\GameStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
+      <Filter>Object\Stage\TitleStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameManager.h">
+      <Filter>Object\Stage\GameStageManeger</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionStage.h">
+      <Filter>Object\Stage\DescriptionStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Wood.h">
+      <Filter>Object\Wood</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WoodenBox.h">
+      <Filter>Object\WoodBox</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Meat.h">
+      <Filter>Object\Meat</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GoalPlayer.h">
+      <Filter>Object\GoalPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCameraMan.h">
+      <Filter>Object\OpeningCamera\OpeningCameraMan</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCameraState.h">
+      <Filter>Object\OpeningCamera\OpeningCameraState</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCamera.h">
+      <Filter>Object\OpeningCamera\OpeningCamera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sprite">
@@ -340,30 +340,6 @@
     </Filter>
     <Filter Include="Sprite\GameOver">
       <UniqueIdentifier>{a934e6c6-49fd-4124-abcb-ff51a7de4e16}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{340b8f85-a3a6-4b80-ba49-06b05870253d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Enemy">
-      <UniqueIdentifier>{0ea8547d-3b30-4d02-9d50-06b66bba0fa5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Building">
-      <UniqueIdentifier>{6531460c-69f3-4392-a72a-44d15f595e46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Key">
-      <UniqueIdentifier>{1faf0b81-3585-488c-8a9b-44c8d3e30be2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\StageGate">
-      <UniqueIdentifier>{dc51d63b-6608-4414-83b8-40020c6d78bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\StageFloor">
-      <UniqueIdentifier>{0738ea81-0b83-45a2-9542-4a861852fab9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Player">
-      <UniqueIdentifier>{f4fb9307-f087-4186-b594-871b7a19b262}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Camera">
-      <UniqueIdentifier>{b927bd88-d5f1-4c2e-9f93-64c629d875b0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Other\ProjectBehavior">
       <UniqueIdentifier>{6334a5ad-110e-442c-b5c6-0be391cdc2aa}</UniqueIdentifier>
@@ -380,24 +356,6 @@
     <Filter Include="Sprite\Surprised">
       <UniqueIdentifier>{1b6e1205-e679-4a00-9bdc-5833cea465d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Stage">
-      <UniqueIdentifier>{7b4bfff3-3ea0-43f8-9c7e-40358b46e3b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Stage\ClearStage">
-      <UniqueIdentifier>{2e76b3da-14cb-4522-9d2d-1d6bf51d2bf4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Stage\GameStage">
-      <UniqueIdentifier>{a2f75d8b-24a5-4721-a75b-99995e638c63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Stage\TitleStage">
-      <UniqueIdentifier>{f5fee2b4-c81c-48db-bb90-f40a249d2d5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Enemy\Villager">
-      <UniqueIdentifier>{5ee0eb83-b99e-403a-89af-9742ca17c9a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Enemy\Hunter">
-      <UniqueIdentifier>{9b4effd6-8430-49b5-b67b-5e9874639f56}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sprite\Alertlevel">
       <UniqueIdentifier>{732c903e-58a9-42b6-83f0-63f52350281d}</UniqueIdentifier>
     </Filter>
@@ -413,9 +371,6 @@
     <Filter Include="Sprite\Timer">
       <UniqueIdentifier>{5fd87dde-7a84-4463-9135-8eae287877ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Wood">
-      <UniqueIdentifier>{f9ab9fe9-6747-43d7-8cca-9cb4fd8825ae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sprite\FadeOut">
       <UniqueIdentifier>{0faa8958-a51e-49b9-8c1f-4792bfeba927}</UniqueIdentifier>
     </Filter>
@@ -425,17 +380,8 @@
     <Filter Include="State\EnemyState">
       <UniqueIdentifier>{9d24c86d-2c4b-4681-8f5d-bfec65d359fb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\WoodBox">
-      <UniqueIdentifier>{088fdcb1-3b41-442a-a314-d8057cb3db50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Enemy\HeadMan">
-      <UniqueIdentifier>{34dd0341-af5e-4343-af99-4f052b0f40b0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sprite\HeadManComment">
       <UniqueIdentifier>{bc13c41f-26ef-4066-b0c6-2e520980d2e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Meat">
-      <UniqueIdentifier>{d335d273-4dc6-4230-9072-31fc151c1189}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sprite\DateChangeComment">
       <UniqueIdentifier>{081f865f-13af-461c-90d2-4ed5e18b7e7b}</UniqueIdentifier>
@@ -449,26 +395,8 @@
     <Filter Include="Sprite\CircleClockSprite">
       <UniqueIdentifier>{5af14bf9-13fb-437b-bdba-5d3548085b25}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Stage\GameStageManeger">
-      <UniqueIdentifier>{cd49b01e-dd7b-4ebe-9ac4-65386fce4b7d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="State\GameManagerState">
       <UniqueIdentifier>{9032d263-e293-474c-985f-3fcedd543bfb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\OpeningCamera">
-      <UniqueIdentifier>{0bd45fc7-5218-48db-8054-2ceaf4a5dff8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\OpeningCamera\OpeningCameraMan">
-      <UniqueIdentifier>{72c807e4-358d-4efc-8fff-26e9456243ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\OpeningCamera\OpeningCameraState">
-      <UniqueIdentifier>{450f4246-f12f-4e56-b650-34b282b7ea98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\OpeningCamera\OpeningCamera">
-      <UniqueIdentifier>{36a90770-cf19-4c4e-9e70-9edf9267c88f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Stage\DescriptionStage">
-      <UniqueIdentifier>{4ae977fa-f2ee-4b6d-9960-aa6dbe8b4fa0}</UniqueIdentifier>
     </Filter>
     <Filter Include="State\DescriptionSpriteFrontState">
       <UniqueIdentifier>{815379fd-ec0d-44a9-a933-4b7d7dda9d42}</UniqueIdentifier>
@@ -476,14 +404,8 @@
     <Filter Include="Sprite\DescriptionSpriteFront">
       <UniqueIdentifier>{51d7af2e-2bc0-4eea-aa87-08db5210b37e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\GoalPlayer">
-      <UniqueIdentifier>{4e55d273-64df-44b2-96a3-deeacb3cd2c0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Other\ProjectBehavior\StageWall">
       <UniqueIdentifier>{3fe7f276-5288-4609-a33b-cf09413b6d24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Enemy\BaseEnemy">
-      <UniqueIdentifier>{2b65b0bd-0e1f-4f2a-b231-2722b20ad084}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sprite\HungerGage">
       <UniqueIdentifier>{fab0f756-2ba8-4f56-a2c6-b637f0451870}</UniqueIdentifier>
@@ -517,6 +439,84 @@
     </Filter>
     <Filter Include="Effect\KeyParticle">
       <UniqueIdentifier>{5486842c-a282-4a77-b8c2-c90bb79499fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{5d9bcdb2-599f-4421-b32a-f8a36c5b79ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy">
+      <UniqueIdentifier>{f5a9b253-591b-4434-bf53-e3bc96da0800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Villager">
+      <UniqueIdentifier>{960c2feb-40ce-4335-b3ac-9d471d89f5d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Hunter">
+      <UniqueIdentifier>{01fc94de-6ec0-4d7a-b6c7-11127d17b79f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\HeadMan">
+      <UniqueIdentifier>{5dd36914-77d8-4a35-bf65-f1fe3427bd55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\BaseEnemy">
+      <UniqueIdentifier>{f3016787-2049-43d7-a0bd-1feec2852961}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Building">
+      <UniqueIdentifier>{dac5d882-4ae3-456b-8acc-7a246aae4d81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Key">
+      <UniqueIdentifier>{0b86e282-5728-4009-9d01-9fb66ba8aff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\StageGate">
+      <UniqueIdentifier>{c5248245-183d-4329-a7ca-fab3a1b56bbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\StageFloor">
+      <UniqueIdentifier>{074d5a15-520b-420c-8204-ead388bbaaf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player">
+      <UniqueIdentifier>{bf0caa5e-e558-469d-862d-3e79592b7fb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Camera">
+      <UniqueIdentifier>{4370495d-240b-4e4d-8afd-dbd075ad373f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage">
+      <UniqueIdentifier>{d2c5d99e-ecb1-4d44-b0bf-62347e00a9f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage\ClearStage">
+      <UniqueIdentifier>{ce4cb83d-1b51-41ca-9ab0-85224808b862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage\GameStage">
+      <UniqueIdentifier>{40034e51-2dc4-4648-8665-e6f606afe337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage\TitleStage">
+      <UniqueIdentifier>{632ba4b4-4c27-4250-816c-2df1ef04c140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage\GameStageManeger">
+      <UniqueIdentifier>{fff31cb8-17c6-4553-9144-a92ebce34d25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stage\DescriptionStage">
+      <UniqueIdentifier>{5840d30d-a2d5-48ac-8f97-ba895b193d60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Wood">
+      <UniqueIdentifier>{780fe6eb-9565-46e1-aef9-45086db60983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\WoodBox">
+      <UniqueIdentifier>{cbce27ca-5d36-4c6a-9c55-5db4bfc32b8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Meat">
+      <UniqueIdentifier>{f1b595fd-71a8-45d0-b8a3-c116caec3eb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\GoalPlayer">
+      <UniqueIdentifier>{cf345e47-6a37-4abb-b2b7-c0886affea75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\OpeningCamera">
+      <UniqueIdentifier>{d99b79cc-854f-4867-be56-7e1f69f94d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\OpeningCamera\OpeningCameraMan">
+      <UniqueIdentifier>{f7aa1187-bcb6-4193-b564-73836f7e01b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\OpeningCamera\OpeningCameraState">
+      <UniqueIdentifier>{31ba4864-27f7-45db-bbe4-929506ca0e95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\OpeningCamera\OpeningCamera">
+      <UniqueIdentifier>{f6735c36-10d2-4c14-bc49-7ef9cf40c6d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

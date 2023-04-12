@@ -17,7 +17,7 @@
 
 namespace basecross {
 
-	constexpr int alertlevelFirst = 1;
+	constexpr int alertlevelFirst = 1;//!
 	constexpr int randomNumber = 4;
 	constexpr float m_MeatTimeSpeed = 22.0f;
 	constexpr float m_playerChangeMaxTime = 2.0f;
@@ -535,7 +535,6 @@ namespace basecross {
 			//m_gameStrat = false;
 			if (m_heartSpriteDraw == false)
 			{
-				
 				m_heartSpriteDraw = true;
 			}
 		}
@@ -725,6 +724,7 @@ namespace basecross {
 			CreateMeat();//!肉の作成
 			CreateCameraman(); //!カメラマンの作成
 
+			//!ゲームステージのUIキャンバスの作成
 			AddGameObject<GameStageCanvas>();
 
 			auto gameOver = scene->GetGameOver();
@@ -769,6 +769,7 @@ namespace basecross {
 		//else { DestroyGameOverBGM(); }
 
 		m_InputHandler.PushHandle(GetThis<GameStage>());
+		m_InputHandlerReset.PushHandleReset(GetThis<GameStage>());
 
 	}
 
@@ -828,6 +829,14 @@ namespace basecross {
 			gameOver = false;
 			scene->SetGameOverSprite(gameOver);
 		}
+	}
+
+	//!リセットボタン
+	void GameStage::OnPushReset()
+	{
+		//!タイトル画面の遷移
+		PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+
 	}
 }
 //end basecross

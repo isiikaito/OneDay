@@ -62,6 +62,27 @@ namespace basecross {
 			}
 		}
 	};
+
+	template<typename T>
+	struct InputHandlerReset {
+		//!リセットボタンの処理
+		void PushHandleReset(const shared_ptr<T>& Obj)
+		{
+			//!コントローラの取得
+			auto cntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
+			if (cntlVec[0].bConnected)
+			{
+				//!リセットコマンド
+				if (cntlVec[0].wPressedButtons & XINPUT_GAMEPAD_START)
+				{
+					Obj->OnPushReset();
+				}
+			}
+
+		}
+
+
+	};
 }
 
 //end basecrossuy

@@ -48,7 +48,7 @@ namespace basecross {
 		float m_emissiveChangeTime;//!ライトの時間
 		InputHandler<GameStage> m_InputHandler;//!入力ハンドラー
 		shared_ptr<EfkInterface> m_EfkInterface;
-
+		InputHandlerReset<GameStage> m_InputHandlerReset;//!リセットボタンハンドラー
 		//!OpeningCamera用のビュー
 		shared_ptr<SingleView> m_openingCameraView;
         //!MyCamera用のビュー
@@ -232,6 +232,13 @@ namespace basecross {
 		*/
 		//--------------------------------------------------------------------------------------
 		void OnPushA();
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief　リセットボタンの処理
+		*/
+		//--------------------------------------------------------------------------------------
+		void OnPushReset();
 		
 		//--------------------------------------------------------------------------------------
 		/*!

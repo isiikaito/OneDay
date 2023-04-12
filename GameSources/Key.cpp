@@ -17,8 +17,8 @@ namespace basecross {
 		GameObject(StagePtr),
 		m_Scale(Scale),
 		m_Rotation(Rotation),
-		m_Position(Position)
-		
+		m_Position(Position),
+		m_Time(0.0f)
 	{
 	}
 
