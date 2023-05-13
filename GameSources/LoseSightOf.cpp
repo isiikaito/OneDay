@@ -9,12 +9,13 @@
 
 namespace basecross
 {
-	constexpr float MaxLosefSeghtOfTime = 2.0f;
+	constexpr float helfSize = 0.5f;//!ポリゴンサイズ
+	constexpr float MaxLosefSeghtOfTime = 2.0f;//!テクスチャを表示する時間
 	void LoseSightOf::OnCreate()
 	{
 		auto PtrTransform = GetComponent<Transform>();
 		// 頂点データ
-		float HelfSize = 0.5f;
+		float HelfSize = helfSize;
 
 		//頂点配列(縦横5個ずつ表示)
 		vector<VertexPositionColorTexture> vertices = {

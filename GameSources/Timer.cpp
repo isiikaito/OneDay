@@ -8,6 +8,8 @@
 #include "Timer.h"
 
 namespace basecross {
+	constexpr float helfSize = 0.5f;//!ポリゴンサイズ
+
 	//--------------------------------------------------------------------------------------
 	///	スコア表示のスプライト
 	//--------------------------------------------------------------------------------------
@@ -27,7 +29,7 @@ namespace basecross {
 	void Timer::OnCreate() {
 
 		float xPiecesize = 1.0f / (float)m_NumberOfDigits;//!桁数ごとの位置
-		float helfSize = 0.5f;                            //!桁ごとの大きさの半分
+		float helfSize = helfSize;                            //!桁ごとの大きさの半分
 
 		//!インデックス配列
 		vector<uint16_t> indices;

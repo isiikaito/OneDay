@@ -14,9 +14,8 @@ namespace basecross
 	///	ビックリマークスプライト
 	//--------------------------------------------------------------------------------------
 
-	constexpr float MaxSurprisedTime = 2.0f;
-	constexpr float m_maxSurprisedTime = 2.0f;
-	constexpr float helfSize = 0.5f;
+	constexpr float m_maxSurprisedTime = 2.0f;//!テクスチャを表示している時間
+	constexpr float helfSize = 0.5f;//!ポリゴンサイズ
 
 	void SurprisedSprite::OnCreate()
 	{

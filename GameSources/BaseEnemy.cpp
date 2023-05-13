@@ -12,6 +12,7 @@ namespace basecross
 	constexpr float m_maxRotationTime = 4.0f;//!見渡す時間
 	constexpr int m_randomRange = 6;//!乱数の上限
 	constexpr int m_randomNumber = 4;//!特定の乱数
+	constexpr float m_rotToHead = 1.0f;//!正面を向く値
 	//!-------------------------------------
 	//! 敵のオブジェクトの親
 	//! ------------------------------------
@@ -41,24 +42,7 @@ namespace basecross
 		m_StateMachine->SetCurrentState(kaito::PatrolState::Instance());
 	}
 
-	void BaseEnemy::OnCreate()
-	{
-		//!障害物回避行動
-		vector<shared_ptr<GameObject>>obObjVec;
-		GetStage()->GetUsedTagObjectVec(L"StageBuilding", obObjVec);
-		vector<SPHERE>obVec;
-		for (auto& v : obObjVec)
-		{
-			auto TransPtr = v->GetComponent<Transform>();
-
-			SPHERE sp;
-			sp.m_Center = TransPtr->GetPosition();
-			sp.m_Radius = TransPtr->GetScale().x * 1.414f * 0.5f;
-			obVec.push_back(sp);
-		}
-		auto ptrAvoidandce = GetBehavior<ObstacleAvoidanceSteering>();
-		ptrAvoidandce->SetObstacleSphereVec(obVec);
-	}
+	
 	void BaseEnemy::ApplyForce()
 	{
 		float elapsedTime = App::GetApp()->GetElapsedTime();
@@ -156,7 +140,7 @@ namespace basecross
 	void BaseEnemy::Facade()
 	{
 		auto ptrUtil = GetBehavior<UtilBehavior>();
-		ptrUtil->RotToHead(1.0f);
+		ptrUtil->RotToHead(m_rotToHead);
 	}
 
 	void BaseEnemy::EnemyRandomRotation()
