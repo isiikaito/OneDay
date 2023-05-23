@@ -10,10 +10,7 @@
 #include "DescriptionSpriteFrontState.h"
 namespace basecross {
 
-	//!定数
-	constexpr float m_TimeSpeed = 30;
 	
-	constexpr float m_helfSize = 0.5f;
 
 	//--------------------------------------------------------------------------------------
 	///	説明のスプライト
@@ -34,19 +31,19 @@ namespace basecross {
 
 	DescriptionSpriteFront::~DescriptionSpriteFront() {}
 	void DescriptionSpriteFront::OnCreate() {
-		CreateGameUI(m_TextureKey, m_Trace, m_StartScale, m_StartPos);
-		SetDrawActive(true);
+		CreateGameUI(m_TextureKey, m_Trace, m_StartScale, m_StartPos);	//!UIの生成
+		SetDrawActive(true);											//!透明にする
 	}
 
 	void DescriptionSpriteFront::ChangeState(kaito::State<DescriptionSpriteFront>* NewState)
 	{
 
-		m_StateMachine->ChangeState(NewState);
+		m_StateMachine->ChangeState(NewState);//!ステートの変更
 	}
 
 	void DescriptionSpriteFront::OnUpdate()
 	{
-		m_StateMachine->Update();
+		m_StateMachine->Update();//!ステートの更新
 		
 	}
 

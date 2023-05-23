@@ -20,10 +20,11 @@ namespace basecross {
 	OpeningCamera::~OpeningCamera() {}
 
 	void OpeningCamera::OnUpdate() {
-		auto ptrOpeningCameraman = dynamic_pointer_cast<OpeningCameraMan>(GetCameraObject());
+		auto ptrOpeningCameraman = dynamic_pointer_cast<OpeningCameraMan>(GetCameraObject());//!カメラマンの取得
+		//!オープニングカメラ
 		if (ptrOpeningCameraman) {
-			auto pos = ptrOpeningCameraman->GetAtPos();
-			SetAt(pos);
+			auto pos = ptrOpeningCameraman->GetAtPos();	//!ポジションの取得
+			SetAt(pos);									//!ポジションの更新
 		}
 		Camera::OnUpdate();
 	};

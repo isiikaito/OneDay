@@ -9,6 +9,11 @@
 
 namespace basecross {
 	constexpr float helfSize = 0.5f;//!ポリゴンサイズ
+	constexpr float  m_StartScalez = 1.0f;//!ｚ大きさ
+	constexpr float m_StartPosz = 0.1f;//!テクスチャの奥行き
+	constexpr float m_maxnum = 10.0f;//!テクスチャの最大数字
+	constexpr float m_rightUv = 0.1f;//!右側のuv頂点
+	constexpr float m_picecpos = 1.0f;//!桁ごとの位置
 
 	//--------------------------------------------------------------------------------------
 	///	スコア表示のスプライト
@@ -28,8 +33,7 @@ namespace basecross {
 
 	void Timer::OnCreate() {
 
-		float xPiecesize = 1.0f / (float)m_NumberOfDigits;//!桁数ごとの位置
-		float helfSize = helfSize;                            //!桁ごとの大きさの半分
+		float xPiecesize = m_picecpos / (float)m_NumberOfDigits;//!桁数ごとの位置
 
 		//!インデックス配列
 		vector<uint16_t> indices;
@@ -62,9 +66,9 @@ namespace basecross {
 
 		SetAlphaActive(m_Trace);                                 //!透明度
 		auto ptrTrans = GetComponent<Transform>();               //!トランスコンポーネントの取得
-		ptrTrans->SetScale(m_StartScale.x, m_StartScale.y, 1.0f);//!大きさの設定
-		ptrTrans->SetRotation(0, 0, 0);                          //!回転の設定
-		ptrTrans->SetPosition(m_StartPos.x, m_StartPos.y, 0.1f); //!位置の設定
+		ptrTrans->SetScale(m_StartScale.x, m_StartScale.y, m_StartScalez);//!大きさの設定
+		ptrTrans->SetRotation(Vec3(0.0f));                          //!回転の設定
+		ptrTrans->SetPosition(m_StartPos.x, m_StartPos.y, m_StartPosz); //!位置の設定
 		//!頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PTSpriteDraw>(m_BackupVertices, indices);//!描画コンポーネントの取得
 		ptrDraw->SetTextureResource(m_TextureKey);                           //!テクスチャの設定
@@ -76,13 +80,13 @@ namespace basecross {
 	{
 
 		Vec2 uv0 = m_BackupVertices[verNum].textureCoordinate;                 //!テクスチャの始まりの頂点データと位置
-		uv0.x = (float)num / 10.0f;                                            //!取得した数字の位置に頂点を合わせる
+		uv0.x = (float)num / m_maxnum;                                            //!取得した数字の位置に頂点を合わせる
 		auto v = VertexPositionTexture(m_BackupVertices[verNum].position, uv0);//!テクスチャの頂点の位置
 		newVertices.push_back(v);                                              //!取得した頂点の位置をnewVertcesの後ろに追加している
 
 		verNum++;
 		Vec2 uv1 = m_BackupVertices[verNum].textureCoordinate;
-		uv1.x = uv0.x + 0.1f;
+		uv1.x = uv0.x + m_rightUv;
 		v = VertexPositionTexture(
 			m_BackupVertices[verNum].position,
 			uv1
@@ -100,7 +104,7 @@ namespace basecross {
 		newVertices.push_back(v);
 		verNum++;
 		Vec2 uv3 = m_BackupVertices[verNum].textureCoordinate;
-		uv3.x = uv0.x + 0.1f;
+		uv3.x = uv0.x + m_rightUv;
 
 		v = VertexPositionTexture(
 			m_BackupVertices[verNum].position,
@@ -118,9 +122,9 @@ namespace basecross {
 		int verNum = 0;
 		//!時間の数を取得
 		for (UINT i = m_NumberOfDigits; i > 0; i--) {
-			UINT base = (UINT)pow(10, i);//!powは乗算という意味である。iは今処理している桁数が代入されている
+			UINT base = (UINT)pow(m_maxnum, i);//!powは乗算という意味である。iは今処理している桁数が代入されている
 			num = ((UINT)m_Score) % base;//!余りを出して少数切り捨て
-			num = num / (base / 10);     //!残った数字がその桁に入る
+			num = num / (base / m_maxnum);     //!残った数字がその桁に入る
 
 			SetUVPos(verNum, num, newVertices);
 

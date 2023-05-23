@@ -13,18 +13,18 @@ namespace basecross
 {
 	namespace kaito
 	{
-		constexpr float m_maxHumanChangeTime = 31.0f;//!人間の時の時間
-		constexpr float m_maxWolfChangeTime = 62.0f;//!狼の時の時間
-		constexpr int randomNumber = 2;//!ランダムな数字の範囲
-		constexpr float m_MeatTimeSpeed = 22.0f;//!ランダムにするスピード
-		constexpr float m_notEatSpeed = 10.0f;//!何も食べてない状態のスピード
-		constexpr float m_firstEat = 15.0f;//!一個食べた状態のスピード
-		constexpr float m_secondEat = 20.0f;//!二個食べた状態のスピード
-		constexpr float m_thirdEat = 23.0f;//!三個食べた状態のスピード
-		constexpr float m_humanSpeed = 24.0f;//!人間の速度
+		constexpr float m_maxHumanChangeTime = 31.0f;	//!人間の時の時間
+		constexpr float m_maxWolfChangeTime = 62.0f;	//!狼の時の時間
+		constexpr int randomNumber = 2;					//!ランダムな数字の範囲
+		constexpr float m_MeatTimeSpeed = 22.0f;		//!ランダムにするスピード
+		constexpr float m_notEatSpeed = 10.0f;			//!何も食べてない状態のスピード
+		constexpr float m_firstEat = 15.0f;				//!一個食べた状態のスピード
+		constexpr float m_secondEat = 20.0f;			//!二個食べた状態のスピード
+		constexpr float m_thirdEat = 23.0f;				//!三個食べた状態のスピード
+		constexpr float m_humanSpeed = 24.0f;			//!人間の速度
 		constexpr float m_playerChangeDirectingMaxTiem = 2.0f;//!プレイヤーの変身時間
-		constexpr float m_positionRange = 10.0f;//!ポジションの幅
-		constexpr float m_correctionOfPosition = 8.6f;//!位置の修正
+		constexpr float m_positionRange = 10.0f;		//!ポジションの幅
+		constexpr float m_correctionOfPosition = 8.6f;	//!位置の修正
 
 
 		//!人間状態の時----------------------------------------------------------
@@ -60,9 +60,9 @@ namespace basecross
 			ReadCsv(L"MeatPosition");//!肉のCsvの取得
 
 			//!肉の削除
-			auto& app = App::GetApp();//!アプリの取得
-			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
-			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+			auto& app = App::GetApp();								//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();	//!ステージの取得
+			auto& Objects = Stage->GetGameObjectVec();				//!ステージの中のオブジェクトを取得
 
 			//CSVの全体の配列
 			//CSVからすべての行を抜き出す
@@ -76,10 +76,11 @@ namespace basecross
 				for (size_t j = 0; j < Tokens.size(); j++) {
 					//XとZの位置を計算
 					float XPos = (float)((int)j - m_correctionOfPosition) * m_positionRange;
+					float YPos = 4.0f;
 					float ZPos = (float)(m_correctionOfPosition - (int)i) * m_positionRange;
 					if (Tokens[j] == L"5")//5の時にゲームステージに追加
 					{
-						Stage->AddGameObject<Meat>(Vec3(5.0f, 5.0f, 5.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 4.0f, ZPos));
+						Stage->AddGameObject<Meat>(Vec3(5.0f), Vec3(0.0f), Vec3(XPos, YPos, ZPos));
 					}
 				}
 			}
@@ -262,11 +263,11 @@ namespace basecross
 			auto playerChange = Player->GetPlayerCange();//!プレイヤーの状態の取得
 			playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
 			Player->SetPlayerChange(playerChange);//!プレイヤーの状態の設定
-
+			auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();
 			
 			//サウンド再生
 			auto& ptrXA = App::GetApp()->GetXAudio2Manager();
-			ptrXA->Start(L"howling", 0, 1.0f);
+			ptrXA->Start(L"howling", 0, volume);
 
 			RemoveMeat();
 

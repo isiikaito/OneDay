@@ -26,7 +26,6 @@ namespace basecross {
 		/*!
 		@brief　コンストラクタ
 		*/
-		//--------------------------------------------------------------------------------------
 		GameUI(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
 			const Vec2& StartScale, const Vec3& StartPos);
 
@@ -37,7 +36,6 @@ namespace basecross {
 		/*!
 		@brief　ポリゴンの生成とテクスチャの決定
 		*/
-		//--------------------------------------------------------------------------------------
 		void CreateGameUI( const wstring& TextureKey, bool Trace, const Vec2& StartScale, const Vec3& StartPos);
 	
 
@@ -45,7 +43,6 @@ namespace basecross {
 		/*!
 		@brief　デストラクタ
 		*/
-		//--------------------------------------------------------------------------------------
 		virtual ~GameUI();
 
 		//--------------------------------------------------------------------------------------

@@ -9,7 +9,7 @@
 #include "OpeningCameraState.h"
 
 namespace basecross {
-
+	constexpr float changeStateTime = 3.0f;//!カメラの移動時間
 	namespace kaito
 	{
 
@@ -23,18 +23,13 @@ namespace basecross {
 
 		void OpeningCameraPatrolState::Enter(OpeningCameraMan* OpeningCamera)
 		{
-			m_startPos = Vec3(18.0f, 2.0f, 10.0f);
-			m_endPos = Vec3(0.0f, 3.0f, -5.0f);
-			m_atStartPos = Vec3(18.0f, 0.0f, 18.0f);
-			m_atEndPos = Vec3(0.0f, 0.0f, 0.0f);
-			m_totalTime = 0.0f;
 			OpeningCamera->OpeningCameraStatus(m_startPos, m_endPos, m_atStartPos, m_atEndPos, m_totalTime);
 		}
 
 		void OpeningCameraPatrolState::Execute(OpeningCameraMan* OpeningCamera)
 		{
 			//!ステートチェンジ
-			if (OpeningCamera->MoveCamera(3.0f))
+			if (OpeningCamera->MoveCamera(changeStateTime))
 			{
 				OpeningCamera->ChangeState(OpeningCameraComebackStartState::Instance());//!ステートを変更する
 			}
@@ -55,11 +50,7 @@ namespace basecross {
 		}
 
 		void OpeningCameraComebackStartState::Enter(OpeningCameraMan* OpeningCamera) {
-			m_startPos = Vec3(60.0f, 50.0f, -60.0f);
-			m_endPos = Vec3(60.0f, 50.0f, 60.0f);
-			m_atStartPos = Vec3(18.0f, 0.0f, 18.0f);
-			m_atEndPos = Vec3(0.0f, 0.0f, 0.0f);
-			m_totalTime = 0.0f;
+			
 			OpeningCamera->OpeningCameraStatus(m_startPos, m_endPos, m_atStartPos, m_atEndPos, m_totalTime);
 
 		}
@@ -67,7 +58,7 @@ namespace basecross {
 		void OpeningCameraComebackStartState::Execute(OpeningCameraMan* OpeningCamera)
 		{
 			//!ステートチェンジ
-			if (OpeningCamera->MoveCamera(3.0f))
+			if (OpeningCamera->MoveCamera(changeStateTime))
 			{
 				OpeningCamera->ChangeState(ChangeCameraState::Instance());//!ステートを変更する
 			}

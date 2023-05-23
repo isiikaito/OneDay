@@ -110,35 +110,33 @@ namespace basecross
 		{
 			
 			//!敵のパラメーターの取得
-			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得
-			auto EnemyPosition = ptrEnemyTrans->GetPosition();//!敵のポジションの取得
-			Vec3 EnemyVelocity = Enemy->GetVelocity();//!敵の速度の取得
-			Vec3 Force = Enemy->GetForce();//!敵の力の取得
-			auto m_patrolPoints = Enemy->GetEnemyPatorolPoints();//!パトロールポイント
-			auto maxSpeed = Enemy->GetMaxSpeed();//!敵の最大速度の取得
-			auto patrolPoint = Enemy->GetEnemyPatorolindex();//!パトロールポイントのインデックスの取得
+			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();	//!敵のトランスフォームの取得
+			auto EnemyPosition = ptrEnemyTrans->GetPosition();		//!敵のポジションの取得
+			Vec3 EnemyVelocity = Enemy->GetVelocity();				//!敵の速度の取得
+			Vec3 Force = Enemy->GetForce();							//!敵の力の取得
+			auto m_patrolPoints = Enemy->GetEnemyPatorolPoints();	//!パトロールポイント
+			auto maxSpeed = Enemy->GetMaxSpeed();					//!敵の最大速度の取得
+			auto patrolPoint = Enemy->GetEnemyPatorolindex();		//!パトロールポイントのインデックスの取得
 			//1プレイヤーのパラメーターの取得
 			auto ptrPlayerTrans = Enemy->GetTarget()->GetComponent<Transform>();//!ターゲット(プレイヤー)のトランスフォームの取得
-			auto PlayerPosition = ptrPlayerTrans->GetPosition();//!ターゲット(プレイヤー)の座標の取得
+			auto PlayerPosition = ptrPlayerTrans->GetPosition();				//!ターゲット(プレイヤー)の座標の取得
 
 			//!巡回する処理
-			auto movePointsCount = m_patrolPoints.size();//!パトロールポイントの配列の長さ
+			auto movePointsCount = m_patrolPoints.size();							//!パトロールポイントの配列の長さ
 			Vec3 end = m_patrolPoints[(patrolPoint + m_addIndex) % movePointsCount];//!敵が次に向かうポイントの設定
-			auto distance = end - EnemyPosition;//!プレイヤーの座標から敵の座標を引きベクトルの計算
-			distance.normalize();//!ベクトルをノーマライズ化
-			auto Requiredspeed = distance * maxSpeed;//!速度の取得
-			Force += Requiredspeed - EnemyVelocity;//!最高速度を現在の速度で引く(旋回の速さなどの力が求まる)
-
-			float pointdistance = bsm::length(end - EnemyPosition);//!敵が向かうポイントから敵までの距離
-
+			auto distance = end - EnemyPosition;									//!プレイヤーの座標から敵の座標を引きベクトルの計算
+			distance.normalize();													//!ベクトルをノーマライズ化
+			auto Requiredspeed = distance * maxSpeed;								//!速度の取得
+			Force += Requiredspeed - EnemyVelocity;									//!最高速度を現在の速度で引く(旋回の速さなどの力が求まる)
+			float pointdistance = bsm::length(end - EnemyPosition);					//!敵が向かうポイントから敵までの距離
 			if (pointdistance <= m_maxPointdistance)//!敵が向かうポイントから敵までの距離が一定の距離近づいたら
 			{
 
-				patrolPoint++;//!次のポイントに移動
+				patrolPoint++;						//!次のポイントに移動
 
-				if (patrolPoint >= movePointsCount)//!パトロール配列の最後の要素になったら。
+				if (patrolPoint >= movePointsCount)	//!パトロール配列の最後の要素になったら。
 				{
-					patrolPoint = 0;//!パトロール配列の最初の要素に戻す
+					patrolPoint = 0;				//!パトロール配列の最初の要素に戻す
 				}
 				Enemy->SetEnemyPatorolindex(patrolPoint);//!パトロールポイントのインデックスを設定する
 
@@ -146,12 +144,12 @@ namespace basecross
 			Enemy->SetForce(Force);//!力を設定
 
 
-			Vec3 PEvector = PlayerPosition - EnemyPosition;//!プレイヤーと敵のベクトルを取得
-			PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
-			auto Enemyfront = ptrEnemyTrans->GetForword();//!敵の正面を取得
-			auto angle = angleBetweenNormals(Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-			auto chk = XM_PI / m_angleLimitSix;//!360を6で割って角度を出す。
-			float f = bsm::length(PlayerPosition - EnemyPosition);//!敵とプレイヤーの距離
+			Vec3 PEvector = PlayerPosition - EnemyPosition;			//!プレイヤーと敵のベクトルを取得
+			PEvector.normalize();									//!プレイヤーと敵のベクトルを正規化
+			auto Enemyfront = ptrEnemyTrans->GetForword();			//!敵の正面を取得
+			auto angle = angleBetweenNormals(Enemyfront, PEvector);	//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
+			auto chk = XM_PI / m_angleLimitSix;						//!360を6で割って角度を出す。
+			float f = bsm::length(PlayerPosition - EnemyPosition);	//!敵とプレイヤーの距離
 
 			auto playerChange = Enemy->GetTarget()->GetPlayerCange();
 			//!プレイヤーが狼男
@@ -190,18 +188,17 @@ namespace basecross
 		//!-------------------------------------------------------------
 
 	   //!ブレットグラムステート---------------------------------------
+	   
 		void BrettGramState::HitStageBuildingObb(BaseEnemy* Enemy)
 		{
-			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得
-			auto EnemyPosition = ptrEnemyTrans->GetPosition();//!敵のポジションの取得
-
+			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();				//!敵のトランスフォームの取得
+			auto EnemyPosition = ptrEnemyTrans->GetPosition();					//!敵のポジションの取得
 			auto ptrPlayerTrans = Enemy->GetTarget()->GetComponent<Transform>();//!ターゲット(プレイヤー)のトランスフォームの取得
-			auto PlayerPosition = ptrPlayerTrans->GetPosition();//!ターゲット(プレイヤー)の座標の取得
-
+			auto PlayerPosition = ptrPlayerTrans->GetPosition();				//!ターゲット(プレイヤー)の座標の取得
 			//!障害物の取得
-			auto& app = App::GetApp();//!アプリの取得
-			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
-			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
+			auto& app = App::GetApp();								//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();	//!ステージの取得
+			auto& Objects = Stage->GetGameObjectVec();				//!ステージの中のオブジェクトを取得
 			
 			for (auto& Obj : Objects)//!オブジェクトの要素分
 
@@ -243,15 +240,17 @@ namespace basecross
 		{
 			BrettGramindex = 0;
 
-			auto m_BrettGramPoints = Enemy->GetTarget()->GetPlayerPositionOnSecond();//!プレイヤーの毎秒取得している位置の取得
+			auto m_BrettGramPoints = Enemy->GetTarget()->GetPlayerPositionOnSecond();	//!プレイヤーの毎秒取得している位置の取得
+			//!保存したポジションの数だけ
 			for (int i = 0; i < m_BrettGramPoints.size(); i++)
 			{
-				auto EnemyPosition = Enemy->GetComponent<Transform>()->GetPosition();//!敵の位置の取得
-				auto pointdistance = bsm::length(m_BrettGramPoints[i] - EnemyPosition);//!ブレットブラムのポイントと敵の位置から近さを取得
-				if (Neardistance > pointdistance)//!他の近いポイントより今のポイントが近かったら
+				auto EnemyPosition = Enemy->GetComponent<Transform>()->GetPosition();	//!敵の位置の取得
+				auto pointdistance = bsm::length(m_BrettGramPoints[i] - EnemyPosition);	//!ブレットブラムのポイントと敵の位置から近さを取得
+				//!他の近いポイントより今のポイントが近かったら
+				if (Neardistance > pointdistance)
 				{
-					Vec3 NearPoint = m_BrettGramPoints[i];//!今のポイントが一番近い
-					start = NearPoint;//!ブレットクラムのスタートをそこに決定
+					Vec3 NearPoint = m_BrettGramPoints[i];	//!今のポイントが一番近い
+					start = NearPoint;						//!ブレットクラムのスタートをそこに決定
 				}
 			}
 			m_lostTime = 0.0f;
@@ -260,14 +259,14 @@ namespace basecross
 		void BrettGramState::Execute(BaseEnemy* Enemy)
 		{
 			BrettGramindex = 0;
-			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();//!敵のトランスフォームの取得
-			auto EnemyPosition = ptrEnemyTrans->GetPosition();//!敵のポジションの取得
-			Vec3 EnemyVelocity = Enemy->GetVelocity();//!敵の速度の取得
-			Vec3 Force = Enemy->GetForce();//!敵の力の取得
-			auto maxSpeed = Enemy->GetMaxSpeed();
+			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();	//!敵のトランスフォームの取得
+			auto EnemyPosition = ptrEnemyTrans->GetPosition();		//!敵のポジションの取得
+			Vec3 EnemyVelocity = Enemy->GetVelocity();				//!敵の速度の取得
+			Vec3 Force = Enemy->GetForce();							//!敵の力の取得
+			auto maxSpeed = Enemy->GetMaxSpeed();					//!スピードの取得
 
 			auto ptrPlayerTrans = Enemy->GetTarget()->GetComponent<Transform>();//!ターゲット(プレイヤー)のトランスフォームの取得
-			auto PlayerPosition = ptrPlayerTrans->GetPosition();//!ターゲット(プレイヤー)の座標の取得
+			auto PlayerPosition = ptrPlayerTrans->GetPosition();				//!ターゲット(プレイヤー)の座標の取得
 
 			auto m_BrettGramPoints = Enemy->GetTarget()->GetPlayerPositionOnSecond();//!プレイヤーの毎秒ごとの位置の取得
 
@@ -276,39 +275,37 @@ namespace basecross
 				return;
 			}
 
-			start = m_BrettGramPoints[BrettGramindex];//!最初のブレットクラムポイントの設定
-			auto movePointsCount = m_BrettGramPoints.size();//!ブレットクラムの配列の大きさ
-			Vec3 end = m_BrettGramPoints[(BrettGramindex + 1) % movePointsCount];//!敵が向かうポイントの設定
+			start = m_BrettGramPoints[BrettGramindex];								//!最初のブレットクラムポイントの設定
+			auto movePointsCount = m_BrettGramPoints.size();						//!ブレットクラムの配列の大きさ
+			Vec3 end = m_BrettGramPoints[(BrettGramindex + 1) % movePointsCount];	//!敵が向かうポイントの設定
+			auto distance = end - EnemyPosition;									//!プレイヤーの座標から敵の座標を引きベクトルの計算
+			distance.normalize();													//!ベクトルをノーマライズ化
+			auto Requiredspeed = distance * maxSpeed;								//!速度の取得
+			Force += Requiredspeed - EnemyVelocity;									//!最高速度を現在の速度で引く(旋回の速さなどの力が求まる)
 
-			auto distance = end - EnemyPosition;//!プレイヤーの座標から敵の座標を引きベクトルの計算
-			distance.normalize();//!ベクトルをノーマライズ化
-			auto Requiredspeed = distance * maxSpeed;//!速度の取得
-			Force += Requiredspeed - EnemyVelocity;//!最高速度を現在の速度で引く(旋回の速さなどの力が求まる)
-
-			float Brettpointdistance = bsm::length(end - EnemyPosition);//!次に向かうブレットポイントと敵の位置の距離
+			float Brettpointdistance = bsm::length(end - EnemyPosition);			//!次に向かうブレットポイントと敵の位置の距離
 
 			if (Brettpointdistance <= BrettGramArriveRange)//!二つの距離が５以下になった時
 			{
 				BrettGramindex++;//!次のポイントに移行する
 
-				if (BrettGramindex == maxBrettGramindex)//!インデックスが19だからそれを越えた時。
+				if (BrettGramindex == maxBrettGramindex)//!インデックスが40だからそれを越えた時。
 				{
-					BrettGramindex = 0;//!配列の一番最初をさす。
+					BrettGramindex = 0;	//!配列の一番最初をさす。
 				}
 			}
 
-			Enemy->SetForce(Force);//!力を設定
-			float PEdistance = bsm::length(PlayerPosition - EnemyPosition);//!プレイヤーと敵の距離
-
+			Enemy->SetForce(Force);											//!力を設定
+			float PEdistance = bsm::length(PlayerPosition - EnemyPosition);	//!プレイヤーと敵の距離
 			//!敵の視野
-			Vec3 PEvector = PlayerPosition - EnemyPosition;//!プレイヤーと敵のベクトルを取得
-			auto Enemyfront = ptrEnemyTrans->GetForword();//!敵の正面を取得
-			PEvector.normalize();//!プレイヤーと敵のベクトルを正規化
-			auto angle = angleBetweenNormals(Enemyfront, PEvector);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-			auto chk = XM_PI / m_m_angleLimitNine;//!360を9で割って角度を出す。
+			Vec3 PEvector = PlayerPosition - EnemyPosition;					//!プレイヤーと敵のベクトルを取得
+			auto Enemyfront = ptrEnemyTrans->GetForword();					//!敵の正面を取得
+			PEvector.normalize();											//!プレイヤーと敵のベクトルを正規化
+			auto angle = angleBetweenNormals(Enemyfront, PEvector);			//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
+			auto chk = XM_PI / m_m_angleLimitNine;							//!360を9で割って角度を出す。
 			
-
-			if (angle <= chk && angle >= -chk)//!敵から見て+60度か-60度にプレイヤーが入ったら
+			//!敵から見て+60度か-60度にプレイヤーが入ったら
+			if (angle <= chk && angle >= -chk)
 			{
 				if (PEdistance <= m_maxPEdistance)
 				{
@@ -343,23 +340,22 @@ namespace basecross
 
 		void DedState::Enter(BaseEnemy* Enemy)
 		{
-			auto enemyDed=Enemy->GetIsEnemyDed();
-			enemyDed = true;
-			Enemy->SetIsEnemyDed(enemyDed);
+			auto enemyDed=Enemy->GetIsEnemyDed();	//!敵が倒れたかどうか
+			enemyDed = true;						//!倒れた
+			Enemy->SetIsEnemyDed(enemyDed);			//!倒れたかどうか設定する
 
-			auto player = Enemy->GetTarget();
-			player->SetVibrationOn(true);
+			auto player = Enemy->GetTarget();		//!プレイヤーの取得
+			player->SetVibrationOn(true);			//!コントローラの振動
 
 
 		}
 
 		void DedState::Execute(BaseEnemy* Enemy)
 		{
-			Vec3 EnemyVelocity = Enemy->GetVelocity();//!敵の速度の取得
-			EnemyVelocity = Vec3(0);
-			Enemy->SetVelocity(EnemyVelocity);
-
-			auto& app = App::GetApp();//!アプリの取得
+			Vec3 EnemyVelocity = Enemy->GetVelocity();	//!敵の速度の取得
+			EnemyVelocity = Vec3(0);					//!敵のベクトルリセット
+			Enemy->SetVelocity(EnemyVelocity);			//!ベクトルの設定
+			auto& app = App::GetApp();					//!アプリの取得
 			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
 
 		
@@ -394,17 +390,17 @@ namespace basecross
 		void LostStata::Execute(BaseEnemy* Enemy)
 		{
 			
-		auto EnemyTrans=Enemy->GetComponent<Transform>();//!敵のトランスフォームを取得する
-		auto EnemyPosition = EnemyTrans->GetPosition();//!敵のポジションを取得する
-		auto patorolPoint=Enemy->GetEnemyPatorolPoints();//!敵のパトロールポイントを取得
-		auto& app = App::GetApp();//!アプリの取得
-		auto time = app->GetElapsedTime();//!時間の取得
+		auto EnemyTrans=Enemy->GetComponent<Transform>();	//!敵のトランスフォームを取得する
+		auto EnemyPosition = EnemyTrans->GetPosition();		//!敵のポジションを取得する
+		auto patorolPoint=Enemy->GetEnemyPatorolPoints();	//!敵のパトロールポイントを取得
+		auto& app = App::GetApp();							//!アプリの取得
+		auto time = app->GetElapsedTime();					//!時間の取得
 	    m_lostTime += time;
-		if (m_lostTime >=m_MaxlostTime)//!はてなマークの表示する時間
+		if (m_lostTime >=m_MaxlostTime)						//!はてなマークの表示する時間
 		{
-        EnemyPosition = patorolPoint[0];//!敵のパトロールポイントのインデックスを0にする
-		EnemyTrans->SetPosition(EnemyPosition);//!敵を初期のパトロールポイントの位置にする
-		Enemy->ChangeState(PatrolState::Instance());//!ステートを変更する
+        EnemyPosition = patorolPoint[0];					//!敵のパトロールポイントのインデックスを0にする
+		EnemyTrans->SetPosition(EnemyPosition);				//!敵を初期のパトロールポイントの位置にする
+		Enemy->ChangeState(PatrolState::Instance());		//!ステートを変更する
 		}
 		
 		}

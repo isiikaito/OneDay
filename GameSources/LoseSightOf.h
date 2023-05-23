@@ -15,7 +15,7 @@ namespace basecross
 		std::shared_ptr<GameObject> parent; // 親オブジェクト
 
 		Quat Billboard(const Vec3& Line) {
-			Vec3 Temp = Line;
+			Vec3 Temp = Line;				//!テクスチャとカメラ間のベクトル
 			Mat4x4 RotMatrix;
 			Vec3 DefUp(0, 1.0f, 0);
 			Vec2 TempVec2(Temp.x, Temp.z);
@@ -30,8 +30,9 @@ namespace basecross
 			Qt.normalize();
 			return Qt;
 		}
-		float m_LoseSeghtOfTime;
-		const float m_spritePositionY;
+		float m_LoseSeghtOfTime;		//!見ている時間
+		const float m_spritePositionY;	//!ポジション
+		Vec3 m_scale;					//!テクスチャの大きさ
 		
 
 	public:
@@ -40,43 +41,37 @@ namespace basecross
 		/*!
 		@brief　コンストラクタ
 		*/
-		//--------------------------------------------------------------------------------------
 		LoseSightOf(const std::shared_ptr<Stage>& stage, const std::shared_ptr<GameObject>& parent)
-		: GameObject(stage), parent(parent), m_LoseSeghtOfTime(0.0f), m_spritePositionY(8.0f) {}
+		: GameObject(stage), parent(parent), m_LoseSeghtOfTime(0.0f), m_spritePositionY(8.0f), m_scale(Vec3(5.0f)) {}
 		
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　デストラクタ
 		*/
-		//--------------------------------------------------------------------------------------
 		virtual ~LoseSightOf(){}
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　村人がプレイヤーを見失ったら
 		*/
-		//--------------------------------------------------------------------------------------
 		void LoseSight();
 	
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　ビルボード処理
 		*/
-		//--------------------------------------------------------------------------------------
 		void Billboard();
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　初期化
 		*/
-		//--------------------------------------------------------------------------------------
 		virtual void OnCreate() override;
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　更新
 		*/
-		//--------------------------------------------------------------------------------------
 		virtual void OnUpdate() override;
 
 	};

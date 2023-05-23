@@ -266,15 +266,7 @@ namespace basecross {
 
 			}
 
-
-
-
-
 		}
-
-		
-			
-	
 
 	}
 

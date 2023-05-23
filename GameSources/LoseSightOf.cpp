@@ -37,15 +37,14 @@ namespace basecross
 		// Color : 頂点色
 		// Texture : テクスチャ座標(UV座標)
 		auto drawComp = AddComponent<PCTStaticDraw>();
-		//drawComp->SetMeshResource(L"DEFAULT_SQUARE");
 		drawComp->CreateOriginalMesh(vertices, indices);
 		drawComp->SetOriginalMeshUse(true);
-		drawComp->SetTextureResource(L"LoseSightOf_TX");
-		drawComp->SetDepthStencilState(DepthStencilState::None); // 重ね合わせの問題を解消する
+		drawComp->SetTextureResource(L"LoseSightOf_TX");			//!テクスチャの設定
+		drawComp->SetDepthStencilState(DepthStencilState::None);	// 重ね合わせの問題を解消する
 		SetAlphaActive(true);
 		SetDrawActive(false);
-		auto transComp = GetComponent<Transform>();  // トランスフォーム：変換行列(Transform Matrix)		
-		transComp->SetScale(5, 5, 5);
+		auto transComp = GetComponent<Transform>();					// トランスフォーム：変換行列(Transform Matrix)		
+		transComp->SetScale(m_scale);
 		auto EnemyTransform = parent->GetComponent<Transform>();
 		transComp->SetQuaternion(EnemyTransform->GetQuaternion());
 	}
@@ -53,16 +52,16 @@ namespace basecross
 	void LoseSightOf::Billboard()
 	{
 		
-		auto ptrTransform = GetComponent<Transform>();
-		auto PtrCamera = GetStage()->GetView()->GetTargetCamera();
+		auto ptrTransform = GetComponent<Transform>();				//!自身のトランスフォームの取得
+		auto& PtrCamera = GetStage()->GetView()->GetTargetCamera();	//!カメラの取得
 
 		Quat Qt;
 		//向きをビルボードにする
 		Qt = Billboard(PtrCamera->GetAt() - PtrCamera->GetEye());
 
-		ptrTransform->SetQuaternion(Qt);
-		auto EnemyTransform = parent->GetComponent<Transform>();
-		auto EnemyPosition=EnemyTransform->GetPosition();
+		ptrTransform->SetQuaternion(Qt);							//!ビルボード下向きを設定する
+		auto EnemyTransform = parent->GetComponent<Transform>();	//!敵のトランスフォームの取得
+		auto EnemyPosition=EnemyTransform->GetPosition();			//!敵のポジションの取得
 		//!ビルボード処理はオブジェクトの回転まで反映してしまうためポジションを変更する
 		ptrTransform->SetPosition(EnemyPosition.x, m_spritePositionY, EnemyPosition.z);
 
@@ -82,7 +81,6 @@ namespace basecross
 			float Time = App::GetApp()->GetElapsedTime();//!時間の取得
 			m_LoseSeghtOfTime += Time;
 
-			//auto PtrDraw = GetComponent<PCTSpriteDraw>();//!描画コンポーネント
 			SetDrawActive(true);
 			//!2秒たったら
 			if (m_LoseSeghtOfTime >= MaxLosefSeghtOfTime)
@@ -95,8 +93,8 @@ namespace basecross
 		//!巡回に戻る
 		if (loseSightOfTarget == false)
 		{
-			m_LoseSeghtOfTime = 0.0f;//!見失った時間を0秒にする
-			SetDrawActive(false);//!描画をやめる
+			m_LoseSeghtOfTime = 0.0f;	//!見失った時間を0秒にする
+			SetDrawActive(false);		//!描画をやめる
 
 		}
 	}

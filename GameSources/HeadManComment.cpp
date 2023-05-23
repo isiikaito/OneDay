@@ -49,7 +49,7 @@ namespace basecross
 		SetAlphaActive(true);
 		//SetDrawActive(false);
 		auto transComp = GetComponent<Transform>();  // トランスフォーム：変換行列(Transform Matrix)		
-		transComp->SetScale(15, 15, 15);
+		transComp->SetScale(Vec3(15.0f));
 		auto EnemyTransform = parent->GetComponent<Transform>();
 		transComp->SetQuaternion(EnemyTransform->GetQuaternion());
 		SetDrawActive(false);
@@ -77,22 +77,23 @@ namespace basecross
 
 	void HeadManComment::Comment()
 	{
-		auto headMan=GetStage()->GetSharedGameObject<HeadMan>(L"HeadMan");
-		auto CommentOn=headMan->GetHeadManComment();
+		auto headMan=GetStage()->GetSharedGameObject<HeadMan>(L"HeadMan");//!村長の取得
+		auto CommentOn=headMan->GetHeadManComment();//!コメントを出すかどうか
+		//!コメントを出す時
 		if (CommentOn == true)
 		{
-			SetDrawActive(true);
+			SetDrawActive(true);//!表示する
 		}
 		else
 		{
-			SetDrawActive(false);
+			SetDrawActive(false);//!表示しない
 
 		}
 
-		//!後で直す
-		auto drawComp = AddComponent<PCTStaticDraw>();
-		auto scene = App::GetApp()->GetScene<Scene>();
-		auto date = scene->GetDate();
+		
+		auto drawComp = AddComponent<PCTStaticDraw>();	//!描画コンポーネント
+		auto scene = App::GetApp()->GetScene<Scene>();	//!シーンの取得
+		auto date = scene->GetDate();					//!日付の取得
 
 		switch (date)
 		{

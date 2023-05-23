@@ -40,12 +40,13 @@ namespace basecross
 
 	void ClearStageCanvas::OnUpdate()
 	{
-		auto gameClearSprite = GetStage()->GetSharedGameObject<GameUI>(L"gameClearSprite");
-		auto elapsedTIme = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
-		m_clearTime += elapsedTIme;//!時間の変数にエルパソタイムを足す
+		auto gameClearSprite = GetStage()->GetSharedGameObject<GameUI>(L"gameClearSprite");//!クリアスプライトの取得
+		auto elapsedTIme = App::GetApp()->GetElapsedTime();									//!エルパソタイムの取得
+		m_clearTime += elapsedTIme;															//!時間の変数にエルパソタイムを足す
+		//!クリア時間になったら
 		if (m_clearTime <= m_clearTime)
 		{        
-		gameClearSprite->SetDrawActive(true);
+		gameClearSprite->SetDrawActive(true);//!表示する
 		}
 		else {
 			gameClearSprite->SetDrawActive(false);

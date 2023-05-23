@@ -9,10 +9,19 @@
 
 namespace basecross
 {
-	constexpr float eyeRang = 50.0f;
-	constexpr float maxPlayerCatch = 10.0f;
-	constexpr float m_maxdedTime = 1.0f;
-	constexpr float dividedNumber = 9.0f;
+	constexpr float eyeRang = 50.0f;			   //!視界の長さ
+	constexpr float maxPlayerCatch = 10.0f;		   //!プレイヤーを捕まえる距離
+	constexpr float m_maxdedTime = 1.0f;		   //!倒れる時間
+	constexpr float dividedNumber = 9.0f;		   //!視野の広さを決める
+	constexpr int m_movestartSample = 0;		   //!動くアニメーションの開始フレーム
+	constexpr int m_movesampleLength = 30;		   //!動くアニメーションの長さ
+	constexpr float m_movesamplesParSecond = 40.0f;//!動くアニメーションの再生速度
+	constexpr int m_dedstartSample = 60;		   //!倒れるアニメーションの開始フレーム
+	constexpr int m_dedsampleLength = 30;		   //!倒れるアニメーションの長さ
+	constexpr float m_dedsamplesParSecond = 15.0f; //!倒れるアニメーションの再生速度
+
+
+
 	Hunter::Hunter(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
@@ -37,62 +46,50 @@ namespace basecross
 	{
 	}
 
-	//!デストラクタ
-	Hunter::~Hunter() {}
 
 
-
-	//!初期化
 	void Hunter::OnCreate()
 	{
 		//初期位置などの設定
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_Scale);//!大きさ
+		ptrTrans->SetScale(m_Scale);	  //!大きさ
 		ptrTrans->SetRotation(m_Rotation);//!回転
 		ptrTrans->SetPosition(m_Position);//!位置
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
-			Vec3(0.4f, 0.4f, 0.4f),//!大きさ
+			Vec3(0.4f, 0.4f, 0.4f),	//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 59.7f, 0.0f),   //!回転
-			Vec3(0.0f, -1.0f, 0.0f)  //!位置
+			Vec3(0.0f, 59.7f, 0.0f),//!回転
+			Vec3(0.0f, -1.0f, 0.0f) //!位置
 		);
 
 
-		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");//!オブジェクトのグループを得る
-		group->IntoGroup(GetThis<Hunter>());//!グループに自分自身を追加
-		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
+		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");	//!オブジェクトのグループを得る
+		group->IntoGroup(GetThis<Hunter>());								//!グループに自分自身を追加
+		SetAlphaActive(true);												//!SetDiffiuseのカラー変更を適用
 
-		AddComponent<Gravity>(); //!重力をつける
-		auto Coll = AddComponent<CollisionCapsule>();//!CollisionObb衝突判定を付ける
-		auto ptrShadow = AddComponent<Shadowmap>();  //!影をつける（シャドウマップを描画する）
+		AddComponent<Gravity>();											//!重力をつける
+		auto Coll = AddComponent<CollisionCapsule>();						//!CollisionObb衝突判定を付ける
+		auto ptrShadow = AddComponent<Shadowmap>();							//!影をつける（シャドウマップを描画する）
+		ptrShadow->SetMeshResource(L"EnemyHunter_Animation_MESH");			//!影の形（メッシュ）を設定
+		ptrShadow->SetMeshToTransformMatrix(spanMat);						//!見た目と当たり判定
+		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();				//!描画コンポーネントの設定
+		ptrDraw->SetMeshResource(L"EnemyHunter_Animation_MESH_WITH_TAN");	//!描画するメッシュを設定
+		ptrDraw->SetMeshToTransformMatrix(spanMat);															//!メッシュの大きさ設定
+		ptrDraw->AddAnimation(L"Move", m_movestartSample, m_movesampleLength, true, m_movesamplesParSecond);//!歩くアニメーションの読み込み
+		ptrDraw->AddAnimation(L"Ded", m_dedstartSample, m_dedsampleLength, false, m_dedsamplesParSecond);	//!倒れるアニメーションの追加
+		ptrDraw->ChangeCurrentAnimation(L"Move");							//!現在のアニメーションの設定
+		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");			//!法線マップの設定
 
-		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"EnemyHunter_Animation_MESH");//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshToTransformMatrix(spanMat);
-
-		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの設定
-		ptrDraw->SetDiffuse(Col4(0.0f, 0.0f, 1.0f, 1.0f));
-		//!描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"EnemyHunter_Animation_MESH_WITH_TAN");
-
-		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		ptrDraw->AddAnimation(L"Move", 0, 30, true, 40.0f);
-		ptrDraw->AddAnimation(L"Ded", 60, 30, false, 15.0f);
-		ptrDraw->ChangeCurrentAnimation(L"Move");
-		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");
-
-	
+		//!巡回ポイントの取得
 		auto patrolPoints = GetEnemyPatorolPoints();
 		for (auto& v : m_patrolPoints)
 		{
-			patrolPoints.emplace_back(v);
+			patrolPoints.emplace_back(v);									//!巡回ポイントの情報を末尾に追加する
 		}
 
 		SetpatorolPoints(patrolPoints);
-		ptrDraw->SetDiffuse(Col4(0.0f, 0.0f, 1.0f, 1.0f));
-
 		SetEyeRang(eyeRang);
 
 
@@ -101,27 +98,25 @@ namespace basecross
 	void Hunter::PlayerCatch()
 	{
 
-		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
-		auto playerPosition = ptrPlayer->GetComponent<Transform>()->GetPosition();
-		auto hunterPosition = GetComponent<Transform>()->GetPosition();
-		auto phdistans = playerPosition - hunterPosition;
-		auto playerCatch = bsm::length(phdistans);
-		auto Enemyfront = GetComponent<Transform>()->GetForword();//!敵の正面を取得
-		auto angle = angleBetweenNormals(Enemyfront, phdistans);//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-		auto chk = XM_PI / dividedNumber;//!360を6で割って角度を出す。
+		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");		//!プレイヤーの取得
+		auto playerPosition = ptrPlayer->GetComponent<Transform>()->GetPosition();	//!プレイヤーのポジションの取得
+		auto hunterPosition = GetComponent<Transform>()->GetPosition();				//!ハンターのポジションの取得
+		auto phdistans = playerPosition - hunterPosition;							//!ハンターとプレイヤーのベクトルを計算
+		auto playerCatch = bsm::length(phdistans);									//!計算したベクトルを距離に変換
+		auto Enemyfront = GetComponent<Transform>()->GetForword();					//!敵の正面を取得
+		auto angle = angleBetweenNormals(Enemyfront, phdistans);					//!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
+		auto chk = XM_PI / dividedNumber;											//!360を9で割って角度を出す。
 
+		//!プレイヤーを追っている状態の時
 		if (m_seekCondition == true)
 		{
-
-			if (angle <= chk && angle >= -chk)//!敵から見て+40度か-40度にプレイヤーが入ったら
+			//!敵から見て+40度か-40度にプレイヤーが入ったら
+			if (angle <= chk && angle >= -chk)
 			{
+				//!プレイヤーを捕まえる範囲の中にプレイヤーがいたら
 				if (playerCatch <= maxPlayerCatch)
 				{
-
-					
-					ptrPlayer->SetIsplayerDed(true);
-
-
+					ptrPlayer->SetIsplayerDed(true);								//!プレイヤーを倒す
 				}
 
 			}
@@ -131,28 +126,30 @@ namespace basecross
 
 	void Hunter::HunterDed()
 	{
-		auto elapasedime = App::GetApp()->GetElapsedTime();
-		auto hunterDed = GetIsEnemyDed();
+		auto elapasedime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
+		auto hunterDed = GetIsEnemyDed();				   //!自分が生きているかどうかの取得
+
+		//!倒れたら
 		if (hunterDed == true)
 		{
-			//アニメーション
-			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();
-			auto& AnimationName = ptrDraw->GetCurrentAnimation();
-			auto AnimationEnd = ptrDraw->UpdateAnimation(elapasedime);
-			//立ち止まるアニメーション
+
+			auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();					//アニメーションの取得
+			auto& AnimationName = ptrDraw->GetCurrentAnimation();					//!現在のアニメーションを取得
+			auto AnimationEnd = ptrDraw->UpdateAnimation(elapasedime);				//!アニメーションの更新
+			//歩くアニメーションの時
 			if (AnimationName == L"Move") {
-				ptrDraw->ChangeCurrentAnimation(L"Ded");
+				ptrDraw->ChangeCurrentAnimation(L"Ded");							//!倒れるアニメーションに変更
 				auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
-				auto playerHp = ptrPlayer->GetPlayerHp();
-				playerHp -= m_damage;
-				ptrPlayer->SetPlayerHp(playerHp);
+				auto playerHp = ptrPlayer->GetPlayerHp();							//!プレイヤーのHPを取得
+				playerHp -= m_damage;												//!プレイヤーのHPを1削る
+				ptrPlayer->SetPlayerHp(playerHp);									//!プレイヤーのHPを更新する
 			}
 			else
 			{
 				//!アニメーションが終わったら
 				if (AnimationEnd)
 				{
-					SetDedAnimationEnd(true);//!死体を消す処理
+					SetDedAnimationEnd(true);										//!死体を消す処理
 				}
 			}
 		}
@@ -160,18 +157,11 @@ namespace basecross
 	//!更新
 	void Hunter::OnUpdate()
 	{
-		HunterDed();//!ハンターが倒されたとき
-		PlayerCatch();//!プレイヤーを捕まえた時
-
-		SetMaxSpeed(m_Speed);//!ハンターのスピード
-
-		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
-		BaseEnemy::OnUpdate();
-
-	
-		
+		HunterDed();
+		PlayerCatch();
+		SetMaxSpeed(m_Speed);
+		BaseEnemy::OnUpdate();//!親クラスの情報を利用する		
 	}
 
-	
 }
 //!end basecross

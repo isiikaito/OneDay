@@ -22,11 +22,9 @@ namespace basecross
 			float m_surprisedTime = 0.0f;
 
 			//!シングルトンパターン
-			SeekState(const SeekState&) = delete;//!関数を削除する
+			SeekState(const SeekState&) = delete;			//!関数を削除する
 			SeekState& operator=(const SeekState&) = delete;//!operatorの中にある=を削除（コピーされないように）
-			float SeekArriveRange = 30.0f;//!追いかけるステートのステート変更の長さ
-			float BrettGramRange = 10.0f;
-			float m_SurprisedTime=0.0f;
+			float SeekArriveRange = 30.0f;					//!追いかけるステートのステート変更の長さ
 
 		public:
 			static SeekState* Instance();
@@ -49,8 +47,6 @@ namespace basecross
 
 			std::vector<Vec3>m_patrol;//!巡回ポイント
 			const float PatrolArriveRange = 30.0f;//!ステートを変更する条件の長さ
-			float m_lostTime = 0.0f;
-			bool m_IspositionLiset=false;
 		public:
 			static PatrolState* Instance();
 			virtual void Enter(BaseEnemy* Enemy)override;
@@ -70,13 +66,13 @@ namespace basecross
 			BrettGramState& operator=(const BrettGramState&) = delete;
 
 			
-			const float BrettGramArriveRange = 10.0f;//!ポイントまでの距離
-			int BrettGramindex = 0;//!ブレットクラムの配列の要素数
-			int maxBrettGramindex = 40;
-			std::vector<Vec3>m_BrettGramPoint;//!ブレットクラムの配列
-			float Neardistance = FLT_MAX;//!一番近い距離
-			Vec3 start = Vec3(0);//!ブレットクラムの始まりのポイント
-			float m_lostTime = 0.0f;
+			const float BrettGramArriveRange = 10.0f;	//!ポイントまでの距離
+			int BrettGramindex = 0;						//!ブレットクラムの配列の要素数
+			int maxBrettGramindex = 40;					//!取得インデックスの最大
+			std::vector<Vec3>m_BrettGramPoint;			//!ブレットクラムの配列
+			float Neardistance = FLT_MAX;				//!一番近い距離
+			Vec3 start = Vec3(0);						//!ブレットクラムの始まりのポイント
+			float m_lostTime = 0.0f;					//!見失った時間
 
 		public:
 			static BrettGramState* Instance();
@@ -116,8 +112,8 @@ namespace basecross
 			//!シングルトンパターン
 			LostStata(const LostStata&) = delete;//!関数を削除する
 			LostStata& operator=(const LostStata&) = delete;//!operatorの中にある=を削除（コピーされないように）
-			float m_lostTime = 0.0f;
-			float m_MaxlostTime = 2.0f;
+			float m_lostTime = 0.0f;			//!見失った時間
+			const float m_MaxlostTime = 2.0f;	//!見失う時間
 		public:
 			static LostStata* Instance();
 

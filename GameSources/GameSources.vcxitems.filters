@@ -133,9 +133,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
       <Filter>Object\Stage\TitleStage</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameManager.cpp">
-      <Filter>Object\Stage\GameStageManeger</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionStage.cpp">
       <Filter>Object\Stage\DescriptionStage</Filter>
     </ClCompile>
@@ -159,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCamera.cpp">
       <Filter>Object\OpeningCamera\OpeningCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameManager.cpp">
+      <Filter>GameManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -300,9 +300,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
       <Filter>Object\Stage\TitleStage</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameManager.h">
-      <Filter>Object\Stage\GameStageManeger</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionStage.h">
       <Filter>Object\Stage\DescriptionStage</Filter>
     </ClInclude>
@@ -326,6 +323,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCamera.h">
       <Filter>Object\OpeningCamera\OpeningCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameManager.h">
+      <Filter>GameManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -488,9 +488,6 @@
     <Filter Include="Object\Stage\TitleStage">
       <UniqueIdentifier>{632ba4b4-4c27-4250-816c-2df1ef04c140}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Stage\GameStageManeger">
-      <UniqueIdentifier>{fff31cb8-17c6-4553-9144-a92ebce34d25}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Stage\DescriptionStage">
       <UniqueIdentifier>{5840d30d-a2d5-48ac-8f97-ba895b193d60}</UniqueIdentifier>
     </Filter>
@@ -517,6 +514,9 @@
     </Filter>
     <Filter Include="Object\OpeningCamera\OpeningCamera">
       <UniqueIdentifier>{f6735c36-10d2-4c14-bc49-7ef9cf40c6d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager">
+      <UniqueIdentifier>{2ce4f3e2-7d94-4c65-91b2-9cef9769b0d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

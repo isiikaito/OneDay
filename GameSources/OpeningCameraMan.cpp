@@ -42,22 +42,23 @@ namespace basecross {
 	}
 
 	bool OpeningCameraMan::MoveCamera(float totaltime) {
-		float ElapsedTime = App::GetApp()->GetElapsedTime();
-		m_totalTime += ElapsedTime;
+		float ElapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
+		m_totalTime += ElapsedTime;							//!時間
+		//!動く時間以上になったら
 		if (m_totalTime > totaltime) {
 			return true;
 		}
 		Easing<Vec3> easing;
-		auto TgtPos = easing.EaseInOut(EasingType::Cubic, m_startPos, m_endPos, m_totalTime, totaltime);
-		m_AtPos = easing.EaseInOut(EasingType::Cubic, m_AtStartPos, m_AtEndPos, m_totalTime, totaltime);
-		auto OpeningCameraTrans = GetComponent<Transform>();
-		OpeningCameraTrans->SetPosition(TgtPos);
+		auto TgtPos = easing.EaseInOut(EasingType::Cubic, m_startPos, m_endPos, m_totalTime, totaltime);//!ターゲットポジションの計算
+		m_AtPos = easing.EaseInOut(EasingType::Cubic, m_AtStartPos, m_AtEndPos, m_totalTime, totaltime);//!視点の位置の計算
+		auto OpeningCameraTrans = GetComponent<Transform>();											//!カメラのトランスフォームの取得
+		OpeningCameraTrans->SetPosition(TgtPos);														//!カメラの位置の設定
 		return false;
 	}
 
 	void OpeningCameraMan::ChangeState(kaito::State<OpeningCameraMan>* NewState)
 	{
-		m_StateMachine->ChangeState(NewState);
+		m_StateMachine->ChangeState(NewState);//!ステートの変更
 	}
 
 	void OpeningCameraMan::OpeningCameraStatus(Vec3 StartPos, Vec3 EndPos, Vec3 AtStartPos, Vec3 AtEndPos, float TotalTime)

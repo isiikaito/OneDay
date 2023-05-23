@@ -35,7 +35,6 @@ namespace basecross {
 		GameUI::OnUpdate();
 		//!‰~”Õ‚ª‰ñ“]‚·‚éˆ—
 		auto circleTime = GameManager::GetDayTiem();
-		//m_CircleTime += elpasedTime / m_TimeSpeed * 3.0f;
 		auto SpriteTransform = GetComponent<Transform>();
 		SpriteTransform->SetRotation(0, 0, circleTime);
 	}

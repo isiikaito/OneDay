@@ -64,19 +64,19 @@ namespace basecross
 	void GameUI::OnCreate()
 	{
 		
-		CreateGameUI(m_TextureKey, m_Trace, m_StartScale, m_StartPos);
+		CreateGameUI(m_TextureKey, m_Trace, m_StartScale, m_StartPos);//!UIの生成
 
 
 	}
 
 	void GameUI::OnUpdate()
 	{
-		auto scene = App::GetApp()->GetScene<Scene>();
-		auto gemeStrat = scene->GetGameStrat();
-
+		auto scene = App::GetApp()->GetScene<Scene>();	//!シーンの取得
+		auto gemeStrat = scene->GetGameStrat();			//!ゲームスタートしているかどうか
+		//!ゲームスタートしていたら
 		if (!gemeStrat)
 		{
-			SetDrawActive(true);
+			SetDrawActive(true);//!表示する
 			
 		}
 

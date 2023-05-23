@@ -246,28 +246,23 @@ namespace basecross
 	
 	void GameStageCanvas::OnCreate()
 	{
-		CreateClockSprite();//!時計のスプライト
-		CreateCircleClockSprite(); //!時計の円盤のスプライトの作成
-		CreateAlertlevelGauge();//!警戒度のゲージの作成
-		CreateTimerSprite();//!時間のスプライトの作成
-		CreateHeartSprite();//!プレイヤーのHPの作成
-		CreateArrow();//!矢印の作成
-		CreateKeyFrame();//!カギの枠の作成
-		CreateMeatGageBackGround();//!空腹ゲージの背景
-		CreateMeatGageFrame();//!空腹ゲージの枠
-		CreateHungerGage();//!空腹ゲージ
-		CreateClockArrow();//!時計の針
-		CreateDateChangeCommentDay();//!夜から昼にでるテクスチャ
-		CreateDateChangeCommentNight();//!昼から夜にでるテクスチャ
-		CreateGameOver();//!ゲームオーバー
-		CreateKeySprite();//!カギのスプライトの作成
-		CreateFadeOut();//!フェードアウトの作成
+		CreateClockSprite();			//!時計のスプライト
+		CreateCircleClockSprite();		//!時計の円盤のスプライトの作成
+		CreateAlertlevelGauge();		//!警戒度のゲージの作成
+		CreateTimerSprite();			//!時間のスプライトの作成
+		CreateHeartSprite();			//!プレイヤーのHPの作成
+		CreateArrow();					//!矢印の作成
+		CreateKeyFrame();				//!カギの枠の作成
+		CreateMeatGageBackGround();		//!空腹ゲージの背景
+		CreateMeatGageFrame();			//!空腹ゲージの枠
+		CreateHungerGage();				//!空腹ゲージ
+		CreateClockArrow();				//!時計の針
+		CreateDateChangeCommentDay();	//!夜から昼にでるテクスチャ
+		CreateDateChangeCommentNight();	//!昼から夜にでるテクスチャ
+		CreateGameOver();				//!ゲームオーバー
+		CreateKeySprite();				//!カギのスプライトの作成
+		CreateFadeOut();				//!フェードアウトの作成
 	}
 
-	void GameStageCanvas::OnUpdate()
-	{
-		
-
-	}
-
+	
 }

@@ -19,7 +19,13 @@ namespace basecross {
 		m_TextureKey(TextureKey),
 		m_Trace(Trace),
 		m_StartScale(StartScale),
-		m_StartPos(StartPos)
+		m_StartPos(StartPos),
+		m_firstEatScale(Vec3(0.26f, 0.7f, 1.0f)),
+		m_firstEatPos(Vec3(340.0f, -320.0f, 0.4f)),
+		m_secondEatScale(Vec3(0.55f, 0.7f, 1.0f)),
+		m_secondEatPos(Vec3(390.0f, -320.0f, 0.4f)),
+		m_thirdEatScale(Vec3(0.95f, 0.7f, 1.0f)),
+		m_thirdEatPos(Vec3(420.0f, -320.0f, 0.4f))
 	{}
 
 	void HungerGage::OnCreate() {
@@ -46,18 +52,18 @@ namespace basecross {
             //!ゲージが一個溜まったとき
 			SetDrawActive(true);
 
-		    PtrTransform->SetScale(0.26f, 0.7f, 1.0f);
-		     PtrTransform->SetPosition(340.0f, -320.0f, 0.4f);
+		    PtrTransform->SetScale(m_firstEatScale);
+		     PtrTransform->SetPosition(m_firstEatPos);
 		    break;
 		case(static_cast<int>(EatCondition::secondEat)):
 			//!ゲージが二個溜まったとき
-			PtrTransform->SetScale(0.55f, 0.7f, 1.0f);
-		    PtrTransform->SetPosition(390.0f, -320.0f, 0.4f);
+			PtrTransform->SetScale(m_secondEatScale);
+		    PtrTransform->SetPosition(m_secondEatPos);
 		    break;
 		case(static_cast<int>(EatCondition::thirdEat)):
             //!満タンの時
-			 PtrTransform->SetScale(0.95f, 0.7f, 1.0f);
-		   PtrTransform->SetPosition(420.0f, -320.0f, 0.4f);
+			 PtrTransform->SetScale(m_thirdEatScale);
+		   PtrTransform->SetPosition(m_thirdEatPos);
 		break;
 
 		}

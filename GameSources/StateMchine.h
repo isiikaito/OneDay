@@ -16,9 +16,9 @@ namespace basecross
 			State(){}
 			virtual~State(){}
 			//!仮想純粋関数
-			virtual void Enter(entity_type*) = 0;//!ステートが入ったときに実装される
-			virtual void Execute(entity_type*) = 0;//!これは更新ステップごとに自分のステートを更新する関数によって呼ばれる
-			virtual void Exit(entity_type*) = 0;//!これはステートを出た時に実行される
+			virtual void Enter(entity_type*) = 0;	//!ステートが入ったときに実装される
+			virtual void Execute(entity_type*) = 0;	//!これは更新ステップごとに自分のステートを更新する関数によって呼ばれる
+			virtual void Exit(entity_type*) = 0;	//!これはステートを出た時に実行される
 
 		};
 
@@ -27,8 +27,8 @@ namespace basecross
 		class StateMachine
 		{
 		private:
-			entity_type* m_Owner;//!このインスタンスを所持するエージェントへのポインタ
-			State<entity_type>* m_CurrentState;//!現在のステート
+			entity_type* m_Owner;				//!このインスタンスを所持するエージェントへのポインタ
+			State<entity_type>* m_CurrentState;	//!現在のステート
 			State<entity_type>* m_PreviousState;//!エージェントの直前のステートの記録
 
 		public:
@@ -52,10 +52,10 @@ namespace basecross
 			void ChangeState(State<entity_type>* NewState)
 			{
 				assert(NewState&&"<StateMachine::ChangeState::trying to change to a null sate>");//!新しいステートあ入っていればtrue入っていなければfalse
-				m_PreviousState = m_CurrentState;//!以前のステートを記録する
-				m_CurrentState->Exit(m_Owner);//!存在するステートの終了関数を呼ぶ
-				m_CurrentState = NewState;//!新しいステートに変更する
-				m_CurrentState->Enter(m_Owner);//!新しいステートの開始関数を呼ぶ
+				m_PreviousState = m_CurrentState;	//!以前のステートを記録する
+				m_CurrentState->Exit(m_Owner);		//!存在するステートの終了関数を呼ぶ
+				m_CurrentState = NewState;			//!新しいステートに変更する
+				m_CurrentState->Enter(m_Owner);		//!新しいステートの開始関数を呼ぶ
 
 			}
 			void RevertToPreviousState()

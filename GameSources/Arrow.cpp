@@ -53,7 +53,7 @@ namespace basecross
 		//!Œx‰ú“x‚ª3‚ÌŽž
 		if (PlayrHp == first)
 		{
-			ptrTransform->SetPosition(Vec3(530.0f, 330.0f, 0.0f));
+			ptrTransform->SetPosition(m_firstPosition);
 		}
 		
 			

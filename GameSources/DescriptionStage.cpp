@@ -1,6 +1,7 @@
 /*!
-@file TitleStage.cpp
-@brief
+@file DescriptionStage.cpp
+@brief 説明書の実体
+*@author isii kaito
 */
 
 #include "stdafx.h"
@@ -11,137 +12,106 @@
 
 namespace basecross {
 
-	constexpr int randomspeed = 22;
-	constexpr int randomNumber = 3;
-	constexpr int m_maxPage = 3;
-	constexpr float m_timeToTurnThePage = 1.0f;
-	//--------------------------------------------------------------------------------------
-	//	説明ステージクラス
-	//--------------------------------------------------------------------------------------
+	constexpr int m_page = 1;//!最大ページ数(0を含んでいる)
+
+	//!ビューの作成
 	void DescriptionStage::CreateViewLight()
 	{
-		auto PtrView = CreateView<SingleView>();
-		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<Camera>();
-		PtrView->SetCamera(PtrCamera);
-		PtrCamera->SetEye(Vec3(0.0f, 2.0f, -3.0f));
-		PtrCamera->SetAt(Vec3(0.0f, 0.0f, 0.0f));
-		//マルチライトの作成
-		auto PtrMultiLight = CreateLight<MultiLight>();
-		//デフォルトのライティングを指定
-		PtrMultiLight->SetDefaultLighting();
+		auto PtrView = CreateView<SingleView>();			//!ビューのカメラの設定
+		auto PtrCamera = ObjectFactory::Create<Camera>();	//!カメラの取得
+		PtrView->SetCamera(PtrCamera);						//!カメラの設定
+		PtrCamera->SetEye(m_startEye);						//!カメラの位置の設定
+		PtrCamera->SetAt(m_startAt);						//!カメラの視点の設定
+		auto PtrMultiLight = CreateLight<MultiLight>();		//!マルチライトの作成
+		PtrMultiLight->SetDefaultLighting();				//!デフォルトのライティングを指定
 	}
 
-	
-	//初期化
+	//!初期化
 	void DescriptionStage::OnCreate() {
 		CreateViewLight();
-		//!説明書のデータの取得
-		auto m_descriptionStageCanvas = AddGameObject<DescriptionStageCanvas>();
-		//!ページごとの情報を配列に入れる
-		DescriptionSprites= m_descriptionStageCanvas->GetDescriptionSprites();
-		CreatePlayBGM();//!BGMの作成
+		auto m_descriptionStageCanvas = AddGameObject<DescriptionStageCanvas>();//!説明書のキャンバスの作成
+		DescriptionSprites= m_descriptionStageCanvas->GetDescriptionSprites();	//!ページごとの情報を配列に入れる
+		CreatePlayBGM();
 	}
-
-
-
-	//更新
+	//!更新
 	void DescriptionStage::OnUpdate() {
-		auto& app = App::GetApp();
-		auto scene = app->GetScene<Scene>();
-		//!コントローラチェックして入力があればコマンド呼び出し
-		m_InputHandler.PushHandle(GetThis<DescriptionStage>());
-		//!コントローラチェックして入力があればコマンドの呼び出し
-		m_InputHandlerCrossKey.PushHandleCrossKey(GetThis<DescriptionStage>());
-
-		auto DescriptionNumber = scene->GetDescriptionStageNumber();
+		auto& app = App::GetApp();												//!アプリの取得
+		auto scene = app->GetScene<Scene>();									//!シーンの取得	
+		m_InputHandler.PushHandle(GetThis<DescriptionStage>());					//!コントローラチェックして入力があればコマンド呼び出し	
+		m_InputHandlerCrossKey.PushHandleCrossKey(GetThis<DescriptionStage>()); //!コントローラチェックして入力があればコマンドの呼び出し
+		auto DescriptionNumber = scene->GetDescriptionStageNumber();			//!説明書の番号を受け取る
 
 	}
-
-	////BGMの再生
+	//!BGM作成
 	void DescriptionStage::CreatePlayBGM()
 	{
-		auto XAPtr = App::GetApp()->GetXAudio2Manager();
-		m_BGM = XAPtr->Start(L"TitleBGM", XAUDIO2_LOOP_INFINITE, 0.5f);
+		auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();	//!音量の取得
+		auto& XAPtr = App::GetApp()->GetXAudio2Manager();					//!サウンドマネージャーの取得
+		m_BGM = XAPtr->Start(L"TitleBGM", XAUDIO2_LOOP_INFINITE, volume);	//!BGMの再生
 	}
-
-	/// BGMのストップ
+	//!音を止める
 	void DescriptionStage::OnDestroy()
 	{
-		auto XAPtr = App::GetApp()->GetXAudio2Manager();
-		XAPtr->Stop(m_BGM);
+		auto& XAPtr = App::GetApp()->GetXAudio2Manager();	//!サウンドマネージャーの取得
+		XAPtr->Stop(m_BGM);									//!BGMのストップ
 	}
 
-	//Aボタン
+	//!Aボタンを押す
 	void DescriptionStage::OnPushA() {
-		//サウンド再生
-		auto ptrXA = App::GetApp()->GetXAudio2Manager();
-		ptrXA->Start(L"decision", 0, 1.0f);
-		PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+		auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();	//!音量の取得
+		auto& ptrXA = App::GetApp()->GetXAudio2Manager();					//!サウンドマネージャーの取得
+		ptrXA->Start(L"decision", 0, volume);								//!効果音の開始
+		PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");//!ステージ移行
 
 	}
-
-	
-
-
-	
-
-
-	//!じゅーじきー右
+	//!十字キー右
 	void DescriptionStage::PushHandleCrossRight()
 	{
 		
-		auto scene = App::GetApp()->GetScene<Scene>();
-		auto DescriptionNumber = scene->GetDescriptionStageNumber();
-		if (DescriptionNumber < 1)
+		auto scene = App::GetApp()->GetScene<Scene>();				//!シーンの取得
+		auto volume = scene->GetSoundvolume();						//!音量の取得
+		auto DescriptionNumber = scene->GetDescriptionStageNumber();//!説明書の番号の取得
+		//!ページが1以下の時
+		if (DescriptionNumber < m_page)
 		{
-			DescriptionNumber++;
-			
-			scene->SetDescriptionStageNumber(DescriptionNumber);
-
-			//サウンド再生
-			auto ptrXA = App::GetApp()->GetXAudio2Manager();
-			ptrXA->Start(L"FlipPage", 0, 1.0f);
+			auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();//!音量の取得
+			DescriptionNumber++;								//!次のページへ
+			scene->SetDescriptionStageNumber(DescriptionNumber);//!現在のページ数を更新
+			auto& ptrXA = App::GetApp()->GetXAudio2Manager();	//!サウンドマネージャーの取得
+			ptrXA->Start(L"FlipPage", 0, volume);				//!サウンド再生
 
 		}
-		switch (DescriptionNumber)
+		//!説明書が2ページの時
+		if (DescriptionNumber == static_cast<int>(PageNumber::second))
 		{
-		case(static_cast<int>(PageNumber::second)):
-			DescriptionSprites[static_cast<int>(PageNumber::farst)]->SetMoveTexture(true);
-			break;		
-
+			DescriptionSprites[static_cast<int>(PageNumber::farst)]->SetMoveTexture(true);//!テクスチャを動かす
 		}
 		
-
 		
 	}
 
-
-	//!左
+	//!十字キー左
 	void DescriptionStage::PushHandleCrossLeft()
 	{
 
 	
-		auto scene = App::GetApp()->GetScene<Scene>();
-		auto DescriptionNumber = scene->GetDescriptionStageNumber();
-		if (DescriptionNumber >=1)
+		auto scene = App::GetApp()->GetScene<Scene>();              //!シーンの取得
+		auto DescriptionNumber = scene->GetDescriptionStageNumber();//!説明書の番号の取得
+		//!ページが1以上の時
+		if (DescriptionNumber >= m_page)							
 		{
-			DescriptionNumber--;
-			
-			scene->SetDescriptionStageNumber(DescriptionNumber);
+			auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();//!音量の取得
+			DescriptionNumber--;											 //!前のページへ
+			scene->SetDescriptionStageNumber(DescriptionNumber);			 //!現在のページ数を更新
+			auto& ptrXA = App::GetApp()->GetXAudio2Manager();//!サウンドマネージャーの取得
+			ptrXA->Start(L"FlipPage", 0, volume);				 //!サウンド再生
+		}
 
-			//サウンド再生
-			auto ptrXA = App::GetApp()->GetXAudio2Manager();
-			ptrXA->Start(L"FlipPage", 0, 1.0f);
-		}
-		switch (DescriptionNumber)
+		//!説明書が1ページの時
+		if (DescriptionNumber == static_cast<int>(PageNumber::farst))
 		{
-		case(static_cast<int>(PageNumber::farst)):
-			DescriptionSprites[static_cast<int>(PageNumber::farst)]->SetPageBackTo(true);
-			break;
-		
-		}
-		
+			DescriptionSprites[static_cast<int>(PageNumber::farst)]->SetPageBackTo(true);//!テクスチャを動かす
+		}		
 		
 	}
 

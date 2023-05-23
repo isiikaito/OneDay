@@ -16,9 +16,9 @@ namespace basecross {
 		Vec2 m_StartScale;    //!大きさ
 		Vec3 m_StartPos;      //!位置
 		wstring m_TextureKey; //!テクスチャ
-		int m_RustLife;
+		int m_RustLife;		  //!最後のライフ
 		Vec3 m_secondPosition;//!警戒度ゲージがレベル2の時
-		Vec3 m_firstPosition;//!警戒度ゲージがレベル3の時
+		Vec3 m_firstPosition; //!警戒度ゲージがレベル3の時
 
 	public:
 
@@ -26,7 +26,6 @@ namespace basecross {
 		/*!
 		@brief　コンストラクタ
 		*/
-		//--------------------------------------------------------------------------------------
 		Arrow(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
 			const Vec2& StartScale, const Vec3& StartPos);
 
@@ -34,21 +33,18 @@ namespace basecross {
 		/*!
 		@brief　デストラクタ
 		*/
-		//--------------------------------------------------------------------------------------
 		virtual ~Arrow();
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　初期化
 		*/
-		//--------------------------------------------------------------------------------------
 		virtual void OnCreate() override;
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　更新
 		*/
-		//--------------------------------------------------------------------------------------
 		virtual void OnUpdate()override;
 
 	};
