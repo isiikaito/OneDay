@@ -267,9 +267,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Hunter.h">
       <Filter>Object\Enemy\Hunter</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)HeadMan.h">
-      <Filter>Object\Enemy\HeadMan</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h">
       <Filter>Object\Enemy\BaseEnemy</Filter>
     </ClInclude>
@@ -326,6 +323,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameManager.h">
       <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HeadMan.h">
+      <Filter>Object\Enemy\HeadMan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -21,6 +21,7 @@ namespace basecross
 
 	class BaseEnemy :public GameObject
 	{
+
 	protected:
 		//!ステートマシーン
 		kaito::StateMachine<BaseEnemy>* m_StateMachine;	//!ステートマシンクラスのインスタンスの生成

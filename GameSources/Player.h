@@ -86,8 +86,8 @@ namespace basecross {
 	
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief	コンストラクタ
-		@param[in]	StagePtr	ステージ
+		@brief コンストラクタ
+		@param[in] StagePtr	ステージ
 		*/
 		Player(const shared_ptr<Stage>& StagePtr);
 

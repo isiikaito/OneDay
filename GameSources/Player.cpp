@@ -389,7 +389,8 @@ namespace basecross {
 			Vec3 ret;														//!最近接点の代入
 			auto ptrVillager = dynamic_pointer_cast<Villager>(VillagerPtr);	//!ロックした物を取り出す
 
-			//!プレイヤーの範囲に敵が入ったら
+			//!プレイヤーの範囲に敵が入ったらv
+
 			if (ptrVillager)
 			{
 				auto VillagerCapsrul = ptrVillager->GetComponent<CollisionCapsule>()->GetCapsule();	//!ハンタ-のObbオブジェクトを取得

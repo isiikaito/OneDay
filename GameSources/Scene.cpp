@@ -112,18 +112,8 @@ namespace basecross{
 		RoadTexture(L"Explanation_01.png", L"DescriptionSprite1_TX");
 		//!説明書2のテクスチャ
 		RoadTexture(L"Explanation_02.png", L"DescriptionSprite2_TX");
-		
-		
-		
-		wstring dataDir;
-		//サンプルのためアセットディレクトリを取得
-		App::GetApp()->GetAssetsDirectory(dataDir);
-
-	
-		wstring strTexture = dataDir + L"PlalyerBanpMap.png";
-		App::GetApp()->RegisterTexture(L"OBJECT_NORMAL_TX", strTexture);
-		
-		
+		//!法線マップのテクスチャ
+		RoadTexture(L"PlalyerBanpMap.png", L"OBJECT_NORMAL_TX");
 	    //!床のモデル
 		RoadStaticModelMesh(L"StageFloor", L"STAGEFLOOR_MESH");
 		//!ボックスの追加
@@ -145,8 +135,6 @@ namespace basecross{
 		RoadStaticModelMesh(L"Meat", L"MEAT_MESH");
 		
 		//ボーンモデルの通常リソース
-		// プレイヤーのアニメーション
-		RoadBoneModel(L"Enemy_Animation", L"Player_WalkAnimation_MESH", L"Player_WalkAnimation_MESH_WITH_TAN");
 		// プレイヤー（狼）のアニメーション
 		RoadBoneModel(L"Wolf_Animation", L"PlayerWolf_WalkAnimation_MESH", L"PlayerWolf_WalkAnimation_MESH_WITH_TAN");
 		// ハンターのアニメーション
@@ -189,7 +177,6 @@ namespace basecross{
 		RoadSound(L"GameClear.wav", L"GameClear");
 		//ゲームオーバー音
 		RoadSound(L"GameOver.wav", L"GameOver");
-
 		//!ページめくる音
 		RoadSound(L"FlipPage.wav", L"FlipPage");
 
