@@ -26,20 +26,6 @@ namespace basecross {
 
 	
 	
-	void GameManager::ChangeState(kaito::State<GameManager>* NewState)
-	{
-
-		m_StateMachine->ChangeState(NewState);
-	}
-
-	void GameManager::OnUpdate()
-	{
-
-
-		m_StateMachine->Update();
-
-	}
-	
 	 float GameManager::GetElpasedTiem()
 	{
 		auto gameElpasedTime = App::GetApp()->GetScene<Scene>()->GetGameTime();//!ƒQ[ƒ€‚ÌisŠÔ

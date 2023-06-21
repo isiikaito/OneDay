@@ -33,32 +33,32 @@ namespace basecross {
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　コンストラクタ
+		@brief	コンストラクタ
 		*/
 		HungerGage(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
 			const Vec2& StartScale, const Vec3& StartPos);
 		
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　デストラクタ
+		@brief	デストラクタ
 		*/
 		virtual ~HungerGage() {}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　ゲージの変更
+		@brief	ゲージの変更
 		*/
 		void ChangeGage();
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　初期化
+		@brief	初期化
 		*/
 		virtual void OnCreate() override;
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　更新
+		@brief	更新
 		*/
 		virtual void OnUpdate()override;
 

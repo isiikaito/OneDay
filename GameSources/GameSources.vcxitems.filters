@@ -64,9 +64,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.cpp">
       <Filter>Sprite\DateChangeComment\DateChangeCommentNight</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameManagerState.cpp">
-      <Filter>State\GameManagerState</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionSpriteFront.cpp">
       <Filter>Sprite\DescriptionSpriteFront</Filter>
     </ClCompile>
@@ -231,9 +228,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DateChangeCommentNight.h">
       <Filter>Sprite\DateChangeComment\DateChangeCommentNight</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameManagerState.h">
-      <Filter>State\GameManagerState</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionSpriteFront.h">
       <Filter>Sprite\DescriptionSpriteFront</Filter>
     </ClInclude>
@@ -285,9 +279,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Player.h">
       <Filter>Object\Player</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
-      <Filter>Object\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h">
       <Filter>Object\Stage\ClearStage</Filter>
     </ClInclude>
@@ -326,6 +317,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)HeadMan.h">
       <Filter>Object\Enemy\HeadMan</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
+      <Filter>Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -394,9 +388,6 @@
     </Filter>
     <Filter Include="Sprite\CircleClockSprite">
       <UniqueIdentifier>{5af14bf9-13fb-437b-bdba-5d3548085b25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="State\GameManagerState">
-      <UniqueIdentifier>{9032d263-e293-474c-985f-3fcedd543bfb}</UniqueIdentifier>
     </Filter>
     <Filter Include="State\DescriptionSpriteFrontState">
       <UniqueIdentifier>{815379fd-ec0d-44a9-a933-4b7d7dda9d42}</UniqueIdentifier>

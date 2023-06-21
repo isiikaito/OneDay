@@ -49,7 +49,7 @@ namespace basecross
 		SetAlphaActive(true);
 		//SetDrawActive(false);
 		auto transComp = GetComponent<Transform>();  // トランスフォーム：変換行列(Transform Matrix)		
-		transComp->SetScale(Vec3(15.0f));
+		transComp->SetScale(m_scale);
 		auto EnemyTransform = parent->GetComponent<Transform>();
 		transComp->SetQuaternion(EnemyTransform->GetQuaternion());
 		SetDrawActive(false);

@@ -13,18 +13,18 @@ namespace basecross
 {
 	namespace kaito
 	{
-		constexpr float m_maxHumanChangeTime = 31.0f;	//!人間の時の時間
-		constexpr float m_maxWolfChangeTime = 62.0f;	//!狼の時の時間
-		constexpr int randomNumber = 2;					//!ランダムな数字の範囲
-		constexpr float m_MeatTimeSpeed = 22.0f;		//!ランダムにするスピード
-		constexpr float m_notEatSpeed = 10.0f;			//!何も食べてない状態のスピード
-		constexpr float m_firstEat = 15.0f;				//!一個食べた状態のスピード
-		constexpr float m_secondEat = 20.0f;			//!二個食べた状態のスピード
-		constexpr float m_thirdEat = 23.0f;				//!三個食べた状態のスピード
-		constexpr float m_humanSpeed = 24.0f;			//!人間の速度
-		constexpr float m_playerChangeDirectingMaxTiem = 2.0f;//!プレイヤーの変身時間
-		constexpr float m_positionRange = 10.0f;		//!ポジションの幅
-		constexpr float m_correctionOfPosition = 8.6f;	//!位置の修正
+		constexpr float m_maxHumanChangeTime = 31.0f;			//!人間の時の時間
+		constexpr float m_maxWolfChangeTime = 62.0f;			//!狼の時の時間
+		constexpr int randomNumber = 2;							//!ランダムな数字の範囲
+		constexpr float m_MeatTimeSpeed = 22.0f;				//!ランダムにするスピード
+		constexpr float m_notEatSpeed = 10.0f;					//!何も食べてない状態のスピード
+		constexpr float m_firstEat = 15.0f;						//!一個食べた状態のスピード
+		constexpr float m_secondEat = 20.0f;					//!二個食べた状態のスピード
+		constexpr float m_thirdEat = 23.0f;						//!三個食べた状態のスピード
+		constexpr float m_humanSpeed = 24.0f;					//!人間の速度
+		constexpr float m_playerChangeDirectingMaxTiem = 2.0f;	//!プレイヤーの変身時間
+		constexpr float m_positionRange = 10.0f;				//!ポジションの幅
+		constexpr float m_correctionOfPosition = 8.6f;			//!位置の修正
 
 
 		//!人間状態の時----------------------------------------------------------
@@ -50,20 +50,18 @@ namespace basecross
 			m_MeatPositon.SetFileName(csvDirectory + FileNume + Util::IntToWStr(m_MeatNumber) + L".csv");
 			m_MeatPositon.ReadCsv();
 
-			m_HumanChangeTime = 0.0f;
+			m_HumanChangeTime = 0.0f;//!時間の更新
 
 		}
 
 		void HumanState::CreateMeat()
 		{
-
-			ReadCsv(L"MeatPosition");//!肉のCsvの取得
-
-			//!肉の削除
+			Vec3 scale = Vec3(5.0f);								//!大きさ
+			Vec3 rotation = Vec3(0.0f);								//!回転
+			ReadCsv(L"MeatPosition");								//!肉のCsvの取得
 			auto& app = App::GetApp();								//!アプリの取得
 			auto Stage = app->GetScene<Scene>()->GetActiveStage();	//!ステージの取得
 			auto& Objects = Stage->GetGameObjectVec();				//!ステージの中のオブジェクトを取得
-
 			//CSVの全体の配列
 			//CSVからすべての行を抜き出す
 			auto& LineVec = m_MeatPositon.GetCsvVec();
@@ -80,7 +78,7 @@ namespace basecross
 					float ZPos = (float)(m_correctionOfPosition - (int)i) * m_positionRange;
 					if (Tokens[j] == L"5")//5の時にゲームステージに追加
 					{
-						Stage->AddGameObject<Meat>(Vec3(5.0f), Vec3(0.0f), Vec3(XPos, YPos, ZPos));
+						Stage->AddGameObject<Meat>(scale, rotation, Vec3(XPos, YPos, ZPos));//!肉の作成
 					}
 				}
 			}
@@ -88,24 +86,17 @@ namespace basecross
 
 		void HumanState::CreateWoodBox()
 		{
-
-			auto& app = App::GetApp();//!アプリの取得
-			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
-			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
-
+			Vec3 scale = Vec3(9.0f);										//!大きさ
+			Vec3 rotation = Vec3(0.0f);										//!回転
+			auto& app = App::GetApp();										//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();			//!ステージの取得
+			auto& Objects = Stage->GetGameObjectVec();						//!ステージの中のオブジェクトを取得
 			wstring DataDir;
-			App::GetApp()->GetDataDirectory(DataDir);
-			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
-
-
-			// フォルダの指定
-			auto csvDirectory = DataDir + L"csvFolder\\";
-			//!MetaPositonファイルの読み込み
-			m_GameStageCsvD.SetFileName(csvDirectory + L"GameStageD.csv");
+			App::GetApp()->GetDataDirectory(DataDir);						//!データの取得
+			auto scene = App::GetApp()->GetScene<Scene>();					//!シーンの取得
+			auto csvDirectory = DataDir + L"csvFolder\\";					//フォルダの指定
+			m_GameStageCsvD.SetFileName(csvDirectory + L"GameStageD.csv");	//!MetaPositonファイルの読み込み
 			m_GameStageCsvD.ReadCsv();
-
-
-
 			//CSVの全体の配列
 		//CSVからすべての行を抜き出す
 			auto& LineVec = m_GameStageCsvD.GetCsvVec();
@@ -117,11 +108,12 @@ namespace basecross
 				for (size_t j = 0; j < Tokens.size(); j++) {
 					//XとZの位置を計算
 					float XPos = (float)((int)j - m_correctionOfPosition) * m_positionRange;
+					float YPos = 3.0f;
 					float ZPos = (float)(m_correctionOfPosition - (int)i) * m_positionRange;
 					if (Tokens[j] == L"3")//3の時にゲームステージに追加
 					{
 						//!木箱の作成
-						Stage->AddGameObject<WoodenBox>(Vec3(9.0f, 9.0f, 9.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(XPos, 3.0f, ZPos));
+						Stage->AddGameObject<WoodenBox>(scale, rotation, Vec3(XPos, YPos, ZPos));
 					}
 				}
 			}
@@ -129,43 +121,31 @@ namespace basecross
 
 		void  HumanState::Enter(Player* Player)
 		{
-			auto playerChange = Player->GetPlayerCange();//!プレイヤー状態の取得
-			playerChange = static_cast<int>(PlayerModel::human);//!状態を狼にする
-			Player->SetPlayerChange(playerChange);//!プレイヤーの状態の設定
-			Player->SetMeatCount(0);//!肉を食べた数
-			Player->SetPlayerTaskDay(true);//!プレイヤーのミッションの表示
-
-			CreateWoodBox();//!木箱の作成
-
-			CreateMeat();//肉の作成
-
-			
-			auto meatPosition = Player->GetMeatPosition();//!肉のポジションの取得
-			Player->SetMeatEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetMeatEfkEffect(), meatPosition));//!エフェクトの再生
-
-			Player->SetSpeed(m_humanSpeed);//!プレイヤーの時のスピード
-
+			auto playerChange = Player->GetPlayerCange();														//!プレイヤー状態の取得
+			playerChange = static_cast<int>(PlayerModel::human);												//!状態を狼にする
+			Player->SetPlayerChange(playerChange);																//!プレイヤーの状態の設定
+			Player->SetMeatCount(0);																			//!肉を食べた数
+			Player->SetPlayerTaskDay(true);																		//!プレイヤーのミッションの表示
+			CreateWoodBox();																					//!木箱の作成
+			CreateMeat();																						//肉の作成
+			auto meatPosition = Player->GetMeatPosition();														//!肉のポジションの取得
+			Player->SetMeatEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetMeatEfkEffect(), meatPosition));	//!エフェクトの再生
+			Player->SetSpeed(m_humanSpeed);																		//!プレイヤーの時のスピード
 
 		}
 
 		void HumanState::Execute(Player* Player)
 		{	
-			float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
-
-
-			auto playerDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの取得
-			auto shadowPtr = Player->GetComponent<Shadowmap>();//!シャドウコンポーネントの取得
-
-			shadowPtr->SetMeshResource(L"Player_WalkAnimation2_MESH");
+			float elapsedTime = App::GetApp()->GetElapsedTime();				//!エルパソタイムの取得
+			auto playerDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();		//!描画コンポーネントの取得
+			auto shadowPtr = Player->GetComponent<Shadowmap>();					//!シャドウコンポーネントの取得
+			shadowPtr->SetMeshResource(L"Player_WalkAnimation2_MESH");			//!プレイヤーのメッシュの変更
 			playerDraw->SetMeshResource(L"Player_WalkAnimation2_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
-
-			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
-			ptrDraw->UpdateAnimation(elapsedTime);//!アニメーションの更新
-
-			auto gameTime = Player->GetGameTime();//!ゲームの時間を取得する
-
-			auto scene = App::GetApp()->GetScene<Scene>();
-			m_HumanChangeTime = scene->GetPlayerConditionTime();
+			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();		//アニメーション
+			ptrDraw->UpdateAnimation(elapsedTime);								//!アニメーションの更新
+			auto gameTime = Player->GetGameTime();								//!ゲームの時間を取得する
+			auto scene = App::GetApp()->GetScene<Scene>();						//!シーンの取得
+			m_HumanChangeTime = scene->GetPlayerConditionTime();				//!変身時間
 			//!ゲーム時間が30秒経過したら
 			if (m_HumanChangeTime >= m_maxHumanChangeTime)
 			{
@@ -218,11 +198,10 @@ namespace basecross
 		void WolfState::RemoveWoodBox()
 		{
 			//!木の箱の削除
-			auto& app = App::GetApp();//!アプリの取得
-			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
-			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
-
-			for (auto& Obj : Objects)//!オブジェクトの要素分
+			auto& app = App::GetApp();								//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();	//!ステージの取得
+			auto& Objects = Stage->GetGameObjectVec();				//!ステージの中のオブジェクトを取得
+			for (auto& Obj : Objects)								//!オブジェクトの要素分
 			{
 				auto stageMeat = dynamic_pointer_cast<WoodenBox>(Obj);//!建物の取得
 				if (stageMeat)
@@ -236,10 +215,9 @@ namespace basecross
 		void WolfState::RemoveMeat()
 		{
 			//!肉の削除
-			auto& app = App::GetApp();//!アプリの取得
-			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
-			auto& Objects = Stage->GetGameObjectVec();//!ステージの中のオブジェクトを取得
-
+			auto& app = App::GetApp();								//!アプリの取得
+			auto Stage = app->GetScene<Scene>()->GetActiveStage();	//!ステージの取得
+			auto& Objects = Stage->GetGameObjectVec();				//!ステージの中のオブジェクトを取得
 			for (auto& Obj : Objects)//!オブジェクトの要素分
 			{
 				auto stageMeat = dynamic_pointer_cast<Meat>(Obj);//!建物の取得
@@ -260,40 +238,30 @@ namespace basecross
 		void WolfState::Enter(Player* Player)
 		{
 
-			auto playerChange = Player->GetPlayerCange();//!プレイヤーの状態の取得
-			playerChange = static_cast<int>(PlayerModel::wolf);//!状態を狼にする
-			Player->SetPlayerChange(playerChange);//!プレイヤーの状態の設定
-			auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();
-			
+			auto playerChange = Player->GetPlayerCange();						//!プレイヤーの状態の取得
+			playerChange = static_cast<int>(PlayerModel::wolf);					//!状態を狼にする
+			Player->SetPlayerChange(playerChange);								//!プレイヤーの状態の設定
+			auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();	//!音量の取得
 			//サウンド再生
 			auto& ptrXA = App::GetApp()->GetXAudio2Manager();
-			ptrXA->Start(L"howling", 0, volume);
-
+			ptrXA->Start(L"howling", 0, volume);								//!再生
 			RemoveMeat();
-
-			
-
-			
 		}
 
 		void WolfState::Execute(Player* Player)
 		{
 
 
-			auto WolfPlayerDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//!プレイヤーの描画コンポ―ネントを取得
-			auto shadowPtr = Player->GetComponent<Shadowmap>();
-			shadowPtr->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH");
-			WolfPlayerDraw->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN");//!プレイヤーのメッシュの変更
-
-			float elapsedTime = App::GetApp()->GetElapsedTime();
-			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
-			ptrDraw->UpdateAnimation(elapsedTime);
-
-            auto scene = App::GetApp()->GetScene<Scene>();
-			m_WolfChangeTime = scene->GetPlayerConditionTime();
-
-			
-			//m_WolfChangeTime += scene->GetGameTime();
+			auto WolfPlayerDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();			//!プレイヤーの描画コンポ―ネントを取得
+			auto shadowPtr = Player->GetComponent<Shadowmap>();							//!シャドウマップ
+			shadowPtr->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH");				//!メッシュの変更
+			WolfPlayerDraw->SetMeshResource(L"PlayerWolf_WalkAnimation_MESH_WITH_TAN");	//!プレイヤーのメッシュの変更
+			float elapsedTime = App::GetApp()->GetElapsedTime();						//!エルパソタイムの取得
+			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();				//アニメーション
+			ptrDraw->UpdateAnimation(elapsedTime);										//!アニメーションを更新
+            auto scene = App::GetApp()->GetScene<Scene>();								//!シーンの取得
+			m_WolfChangeTime = scene->GetPlayerConditionTime();							//!変身時間の取得
+			//!オオカミ時間を過ぎたら
 			if (m_WolfChangeTime >= m_maxWolfChangeTime)
 			{
 				Player->ChangeState(WolfChangeDirectingState::Instance());
@@ -305,19 +273,14 @@ namespace basecross
 
 		void WolfState::Exit(Player* Player)
 		{
-			auto scene = App::GetApp()->GetScene<Scene>();
-			//m_WolfChangeTime = 0.0f;
-			Player->SetMeatCount(0);
-			m_Date++;
-			scene->SetDate(m_Date);
+			auto scene = App::GetApp()->GetScene<Scene>();	//!シーンの取得
+			Player->SetMeatCount(0);						//!肉カウントのリセット
+			m_Date++;										//!日付の更新
+			scene->SetDate(m_Date);							//!日付の設定
 			RemoveWoodBox();
-			
-			
-		
 		}
 
 		//!	-------------------------------------------------------------------------------------
-
 
 		//!人間から狼に変身するときの演出ステート-------------------------------------------------
 		HumanChangeDirectingState* HumanChangeDirectingState::Instance()
@@ -328,24 +291,22 @@ namespace basecross
 
 		void HumanChangeDirectingState::Enter(Player* Player)
 		{
-			Player->SetPlayerTaskNight(true);//!夜のミッションの表示
-
-			Player->SetSpeed(0.0f);
+			Player->SetPlayerTaskNight(true);	//!夜のミッションの表示
+			Player->SetSpeed(0.0f);				//!スピードを停止させる
 			//エフェクトのプレイ
-			auto Ptr = Player->GetComponent<Transform>();
-			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));
+			auto Ptr = Player->GetComponent<Transform>();//!トランスフォームの取得
+			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));//!エフェクトの取得
 			
-			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
-			scene->SetPlayerChangeDirecting(true);//!プレイヤーの変身を開始する
+			auto scene = App::GetApp()->GetScene<Scene>();	//!シーンの取得
+			scene->SetPlayerChangeDirecting(true);			//!プレイヤーの変身を開始する
 		
 		}
 
 		void HumanChangeDirectingState::Execute(Player* Player)
 		{
-			auto elapsedTime = App::GetApp()->GetElapsedTime();//!アプリの取得
-			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();
-			auto& AnimationName = ptrDraw->GetCurrentAnimation();
-
+			auto elapsedTime = App::GetApp()->GetElapsedTime();			//!アプリの取得
+			auto ptrDraw = Player->GetComponent<BcPNTnTBoneModelDraw>();//!描画コンポーネントの取得
+			auto& AnimationName = ptrDraw->GetCurrentAnimation();		//!現在のアニメーション
 			//!人から狼になるときのアニメーションモデル
 			if (AnimationName == L"Move" || AnimationName == L"Default")
 			{
@@ -380,11 +341,10 @@ namespace basecross
 
 			Player->SetSpeed(0.0f);
 			//エフェクトのプレイ
-			auto Ptr = Player->GetComponent<Transform>();
-			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));
-
-			auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
-			scene->SetPlayerChangeDirecting(true);//!プレイヤーの変身を開始する
+			auto Ptr = Player->GetComponent<Transform>();//!トランスフォームの取得
+			Player->SetTransformEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetTransformEfkEffect(), Ptr->GetPosition()));//!エフェクトの取得
+			auto scene = App::GetApp()->GetScene<Scene>();	//!シーンの取得
+			scene->SetPlayerChangeDirecting(true);			//!プレイヤーの変身を開始する
 
 		}
 

@@ -32,53 +32,52 @@ namespace basecross
 				DefUp = Vec3(0, 0, 1.0f);
 			}
 			Temp.normalize();
-			RotMatrix = XMMatrixLookAtLH(Vec3(0, 0, 0), Temp, DefUp);
+			RotMatrix = XMMatrixLookAtLH(Vec3(0), Temp, DefUp);
 			RotMatrix.inverse();
 			Quat Qt;
 			Qt = RotMatrix.quatInMatrix();
 			Qt.normalize();
 			return Qt;
 		}
-		float m_LoseSeghtOfTime;
-		const float m_spritePositionY;
-
+		const float m_spritePositionY;	//!コメントの高さ
+		const Vec3 m_scale;				//!大きさ
 
 	public:
 		
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　コンストラクタ
+		@brief	コンストラクタ
 		*/
 		HeadManComment(const std::shared_ptr<Stage>& stage, const std::shared_ptr<GameObject>& parent)
-			: GameObject(stage), parent(parent), m_LoseSeghtOfTime(0.0f), m_spritePositionY(17.0f) {}
+			: GameObject(stage), parent(parent), m_spritePositionY(17.0f), m_scale(Vec3(15.0f)) {}
 		
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　デストラクタ
+		@brief	デストラクタ
 		*/
 		virtual ~HeadManComment() {}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　村人がプレイヤーを見失った時の処理
+		@brief	村人がプレイヤーを見失った時の処理
 		*/
 		void Comment();
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　ビルボード処理
+		@brief	ビルボード処理
 		*/
 		void Billboard();
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　初期化
+		@brief	初期化
 		*/
 		virtual void OnCreate() override;
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　更新
+		@brief	更新
 		*/
 		virtual void OnUpdate() override;
 

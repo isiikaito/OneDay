@@ -9,6 +9,12 @@
 
 namespace basecross {
 
+	enum Hurte
+	{
+		RightHurte,
+		CentraHurte,
+		LeftHurteS
+	};
 
 	class GameStageCanvas : public GameObject {
 	private:

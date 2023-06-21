@@ -55,24 +55,25 @@ namespace basecross
 				// !HP表示のハートが点滅する処理
 				float elapsedTime = App::GetApp()->GetElapsedTime();
 				m_Time += elapsedTime;
+				//!消える時間の時
 				if (m_Time >= m_feadOutTime)
 				{
-					SetDrawActive(false);
-
+					SetDrawActive(false);//!非表示
+					//!表示時間の時
 					if (m_Time >= m_feadInTime)
 					{
-						SetDrawActive(true);
-						m_hurtCount++; //!点滅した回数
-						m_Time = 0;
+						SetDrawActive(true);//!表示
+						m_hurtCount++;		//!点滅した回数
+						m_Time = 0;			//!時間のリセット
 					}
-					return;
+					
 				}
 			}
 
 			// !ハートの点滅回数が最大になった時
 			if (m_hurtCount == m_MaxhurteCount) //!一定の回数点滅したら
 			{
-				m_hurtDefise = false;
+				m_hurtDefise = false;//!更新をやめる
 				
                 SetDrawActive(false); //!ライフの表示を完全に消す
 				

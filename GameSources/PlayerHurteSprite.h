@@ -31,32 +31,32 @@ namespace basecross {
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　コンストラクタ
+		@brief	コンストラクタ
 		*/
 		PlayerHurteSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
 			const Vec2& StartScale, const Vec3& StartPos,int currentHp,bool hurtDefise);
 
 		//--------------------------------------------------------------------------------------
 		/*
-		@brief　デストラクタ
+		@brief	デストラクタ
 		*/
 		virtual ~PlayerHurteSprite(){}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　ライフのテクスチャの表示を点滅させる
+		@brief	ライフのテクスチャの表示を点滅させる
 		*/
 		void FlashingHurteSprite(int currentHp);
 			
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　初期化
+		@brief	初期化
 		*/
 		virtual void OnCreate() override;
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　更新
+		@brief	更新
 		*/
 		virtual void OnUpdate()override;
 	};

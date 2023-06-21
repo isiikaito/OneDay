@@ -30,47 +30,63 @@ namespace basecross
 			Qt.normalize();
 			return Qt;
 		}
-		float m_LoseSeghtOfTime;		//!見ている時間
-		const float m_spritePositionY;	//!ポジション
-		Vec3 m_scale;					//!テクスチャの大きさ
+		float m_LoseSeghtOfTime;				//!見ている時間
+		const float m_spritePositionY;			//!ポジション
+		Vec3 m_scale;							//!テクスチャの大きさ
+		const Vec2 m_LeftUpperSummit;			//!左上の頂点
+		const Vec2 m_LeftLowerSummit;			//!左下の頂点
+		const Vec2 m_RightUpperSummit;			//!右上の頂点
+		const Vec2 m_RightLowerSummit;			//!右下の頂点
+		Col4 m_TextureColor;					//!テクスチャの色
+
 		
 
 	public:
 
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief　コンストラクタ
-		*/
-		LoseSightOf(const std::shared_ptr<Stage>& stage, const std::shared_ptr<GameObject>& parent)
-		: GameObject(stage), parent(parent), m_LoseSeghtOfTime(0.0f), m_spritePositionY(8.0f), m_scale(Vec3(5.0f)) {}
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief　コンストラクタ
+			*/
+		LoseSightOf(const std::shared_ptr<Stage>& stage,
+			const std::shared_ptr<GameObject>& parent)
+		: GameObject(stage), parent(parent),
+			m_LoseSeghtOfTime(0.0f), 
+			m_spritePositionY(8.0f), 
+			m_scale(Vec3(5.0f)),
+			m_LeftUpperSummit(Vec2(0.0f, 0.0f)),
+			m_LeftLowerSummit(Vec2(0.0f, 1.0f)),
+			m_RightUpperSummit(Vec2(1.0f, 0.0f)),
+			m_RightLowerSummit(Vec2(1.0f, 1.0f)),
+			m_TextureColor(Col4(1.0f, 1.0f, 1.0f, 1.0f))
+		{}
 		
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　デストラクタ
+		@brief	デストラクタ
 		*/
 		virtual ~LoseSightOf(){}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　村人がプレイヤーを見失ったら
+		@brief	村人がプレイヤーを見失ったら
 		*/
 		void LoseSight();
 	
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　ビルボード処理
+		@brief	ビルボード処理
 		*/
 		void Billboard();
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　初期化
+		@brief	初期化
 		*/
 		virtual void OnCreate() override;
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　更新
+		@brief	更新
 		*/
 		virtual void OnUpdate() override;
 

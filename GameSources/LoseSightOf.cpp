@@ -19,10 +19,10 @@ namespace basecross
 
 		//頂点配列(縦横5個ずつ表示)
 		vector<VertexPositionColorTexture> vertices = {
-			{ VertexPositionColorTexture(Vec3(-HelfSize, HelfSize, 0),Col4(1.0f,1.0f,1.0f,1.0f), Vec2(0.0f, 0.0f)) },
-			{ VertexPositionColorTexture(Vec3(HelfSize, HelfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 0.0f)) },
-			{ VertexPositionColorTexture(Vec3(-HelfSize, -HelfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(0.0f, 1.0f)) },
-			{ VertexPositionColorTexture(Vec3(HelfSize, -HelfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 1.0f)) },
+			{ VertexPositionColorTexture(Vec3(-HelfSize, HelfSize, 0),m_TextureColor, m_LeftUpperSummit) },
+			{ VertexPositionColorTexture(Vec3(HelfSize, HelfSize, 0), m_TextureColor, m_RightUpperSummit) },
+			{ VertexPositionColorTexture(Vec3(-HelfSize, -HelfSize, 0),m_TextureColor, m_LeftLowerSummit) },
+			{ VertexPositionColorTexture(Vec3(HelfSize, -HelfSize, 0),m_TextureColor, m_RightLowerSummit) },
 		};
 
 		// 頂点インデックス（頂点をつなぐ順番）
@@ -36,17 +36,17 @@ namespace basecross
 		// Normal : 法線ベクトル（頂点の向き、ポリゴンの向き → 光の反射の計算に使う）
 		// Color : 頂点色
 		// Texture : テクスチャ座標(UV座標)
-		auto drawComp = AddComponent<PCTStaticDraw>();
-		drawComp->CreateOriginalMesh(vertices, indices);
-		drawComp->SetOriginalMeshUse(true);
-		drawComp->SetTextureResource(L"LoseSightOf_TX");			//!テクスチャの設定
-		drawComp->SetDepthStencilState(DepthStencilState::None);	// 重ね合わせの問題を解消する
-		SetAlphaActive(true);
-		SetDrawActive(false);
-		auto transComp = GetComponent<Transform>();					// トランスフォーム：変換行列(Transform Matrix)		
-		transComp->SetScale(m_scale);
-		auto EnemyTransform = parent->GetComponent<Transform>();
-		transComp->SetQuaternion(EnemyTransform->GetQuaternion());
+		auto drawComp = AddComponent<PCTStaticDraw>();				//!描画コンポーネントの取得
+		drawComp->CreateOriginalMesh(vertices, indices);			//!メッシュの生成
+		drawComp->SetOriginalMeshUse(true);							//!オリジナルメッシュを使う
+		drawComp->SetTextureResource(L"LoseSightOf_TX");			//!テクスチャの設定//!テクスチャの設定
+		drawComp->SetDepthStencilState(DepthStencilState::None);	//!重ね合わせの問題を解消する// 重ね合わせの問題を解消する
+		SetAlphaActive(true);										//!透明処理
+		SetDrawActive(false);										//!非表示
+		auto transComp = GetComponent<Transform>();					//!トランスフォーム：変換行列(Transform Matrix)	// トランスフォーム：変換行列(Transform Matrix)		
+		transComp->SetScale(m_scale);								//!大きさの設定
+		auto EnemyTransform = parent->GetComponent<Transform>();	//!敵のトランスフォームの取得
+		transComp->SetQuaternion(EnemyTransform->GetQuaternion());	//!自分の回転に敵の回転を取得
 	}
 
 	void LoseSightOf::Billboard()
@@ -70,23 +70,20 @@ namespace basecross
 	
 	void LoseSightOf::LoseSight()
 	{
-		auto GetHunter = std::dynamic_pointer_cast<BaseEnemy>(parent);
-
-
-		auto loseSightOfTarget = GetHunter->GetloseSightOfTarget();
+		auto enemy = std::dynamic_pointer_cast<BaseEnemy>(parent);	//!敵の取得
+		auto loseSightOfTarget = enemy->GetloseSightOfTarget();		//!ターゲットの取得
 
 		//!プレイヤーが見つかったら
 		if (loseSightOfTarget == true)
 		{
-			float Time = App::GetApp()->GetElapsedTime();//!時間の取得
-			m_LoseSeghtOfTime += Time;
-
-			SetDrawActive(true);
+			float Time = App::GetApp()->GetElapsedTime();	//!時間の取得
+			m_LoseSeghtOfTime += Time;						//!時間の更新
+			SetDrawActive(true);							//!表示
 			//!2秒たったら
 			if (m_LoseSeghtOfTime >= MaxLosefSeghtOfTime)
 			{
 				loseSightOfTarget = false;
-				GetHunter->SetloseSightOfTarget(loseSightOfTarget);
+				enemy->SetloseSightOfTarget(loseSightOfTarget);
 			}
 
 		}
@@ -95,7 +92,6 @@ namespace basecross
 		{
 			m_LoseSeghtOfTime = 0.0f;	//!見失った時間を0秒にする
 			SetDrawActive(false);		//!描画をやめる
-
 		}
 	}
 

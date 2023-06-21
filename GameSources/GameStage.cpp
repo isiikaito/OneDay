@@ -388,7 +388,7 @@ namespace basecross {
 		{
 			vector<wstring>Tokens;						//!トークン(カラム)の配置
 			Util::WStrToTokenVector(Tokens, v, L',');	//!トークン(カラム)単位で文字列を抽出(',')
-			//!トークン(カラム)をスケール、回転、位置に読み込む
+			//!大きさ
 			Vec3 Scale(
 				(float)_wtof(Tokens[1].c_str()),
 				(float)_wtof(Tokens[2].c_str()),
@@ -400,7 +400,7 @@ namespace basecross {
 			Rot.y = (Tokens[5] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[5].c_str());
 			Rot.z = (Tokens[6] == L"XM_PIDIV2") ? XM_PIDIV2 : (float)_wtof(Tokens[6].c_str());
 
-			//!村人の位置
+			//!位置
 			Vec3 Pos(
 				(float)_wtof(Tokens[7].c_str()),
 				(float)_wtof(Tokens[8].c_str()),
@@ -704,11 +704,11 @@ namespace basecross {
 			m_MeatPositon.SetFileName(csvDirectory + L"MeatPosition" + Util::IntToWStr(m_MeatNumber) + L".csv");
 			m_MeatPositon.ReadCsv();
 
-			CreateViewLight();//ビューとライトの作成
-			CreateStageFloor();//!ステージの床の作成
-			CreateStageWall(); //!ステージの壁の作成
-			CreateStageBuilding(); //!ステージの建物の作成
-			CreateKey();//!カギの作成
+			CreateViewLight();
+			CreateStageFloor();
+			CreateStageWall();
+			CreateStageBuilding();
+			CreateKey();
 			CreateStageGate(); //!ステージの門の作成
 			CreatePlayer();//!プレーヤーの作成
 			CerateVillager();//!村人の作成

@@ -336,21 +336,13 @@ namespace basecross{
 
 	}
 	void Scene::OnCreate(){
-		try {
+		
 			CreateResourses();//!リソース作成
-			//クリアする色を設定
-			Col4 Col;
-			Col.set(31.0f / 255.0f, 30.0f / 255.0f, 71.0f / 255.0f, 255.0f / 255.0f);
-			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
 
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
-
-		}
-		catch (...) {
-			throw;
-		}
+		
 
 	}
 

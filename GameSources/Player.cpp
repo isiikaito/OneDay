@@ -24,18 +24,18 @@ namespace basecross {
 	constexpr float m_rotToHead = 1.0f;					//!正面
 	constexpr float m_targetToAtY = 0.25f;				//!カメラの視点位置のy
 	constexpr WORD  m_maxVibration = 65535;				//!振動の大きさ
-	constexpr int m_movestartSample = 0;		   //!動くアニメーションの開始フレーム
-	constexpr int m_movesampleLength = 30;		   //!動くアニメーションの長さ
-	constexpr float m_movesamplesParSecond = 20.0f;//!動くアニメーションの再生速度
-	constexpr int m_defaultstartSample = 31;		   //!待機アニメーションの開始フレーム
-	constexpr int m_defaultsampleLength = 30;		   //!待機アニメーションの長さ
-	constexpr float m_defaultsamplesParSecond = 10.0f; //!待機アニメーションの再生速度
-	constexpr int m_dedstartSample = 61;		   //!倒れるアニメーションの開始フレーム
-	constexpr int m_dedsampleLength = 30;		   //!倒れるアニメーションの長さ
-	constexpr float m_dedsamplesParSecond = 30.0f;//!倒れるアニメーションの再生速度
-	constexpr int m_changestartSample = 91;		   //!変身アニメーションの開始フレーム
-	constexpr int m_changesampleLength = 60;		   //!変身アニメーションの長さ
-	constexpr float m_changesamplesParSecond = 30.0f;//!変身アニメーションの再生速度
+	constexpr int m_movestartSample = 0;				//!動くアニメーションの開始フレーム
+	constexpr int m_movesampleLength = 30;				//!動くアニメーションの長さ
+	constexpr float m_movesamplesParSecond = 20.0f;		//!動くアニメーションの再生速度
+	constexpr int m_defaultstartSample = 31;			//!待機アニメーションの開始フレーム
+	constexpr int m_defaultsampleLength = 30;			//!待機アニメーションの長さ
+	constexpr float m_defaultsamplesParSecond = 10.0f;	//!待機アニメーションの再生速度
+	constexpr int m_dedstartSample = 61;				//!倒れるアニメーションの開始フレーム
+	constexpr int m_dedsampleLength = 45;				//!倒れるアニメーションの長さ
+	constexpr float m_dedsamplesParSecond = 30.0f;		//!倒れるアニメーションの再生速度
+	constexpr int m_changestartSample = 91;				//!変身アニメーションの開始フレーム
+	constexpr int m_changesampleLength = 60;			//!変身アニメーションの長さ
+	constexpr float m_changesamplesParSecond = 30.0f;	//!変身アニメーションの再生速度
 	
 
 	
@@ -144,11 +144,11 @@ namespace basecross {
 			GetComponent<Transform>()->SetPosition(pos);				 //!ポジションの設定
 
 			//歩くアニメーション
+			//!待機モーションか変身モーションの時
 			if (AnimationName == L"Default" || AnimationName == L"Change") {
-				ptrDraw->ChangeCurrentAnimation(L"Move");
-				//歩く音再生
-				auto& XAptr = App::GetApp()->GetXAudio2Manager();
-				m_Wolk = XAptr->Start(L"WalkBGM", m_soundLoop, volume);
+				ptrDraw->ChangeCurrentAnimation(L"Move");				//!アニメーションを変える
+				auto& XAptr = App::GetApp()->GetXAudio2Manager();		//!サウンドマネージャーの取得
+				m_Wolk = XAptr->Start(L"WalkBGM", m_soundLoop, volume);	//歩く音再生
 			}
 		}
 
@@ -164,7 +164,7 @@ namespace basecross {
 		//!回転の計算
 		if (angle.length() > 0.0f) {
 			auto utilPtr = GetBehavior<UtilBehavior>();
-			utilPtr->RotToHead(angle, m_rotToHead);
+			utilPtr->RotToHead(angle, m_rotToHead);		//!正面を向く
 		}
 	}
 
@@ -203,20 +203,20 @@ namespace basecross {
 			Vec3(0.0f, -1.0f, 0.0f)		//!位置
 		);
 
-		auto ptrColl = AddComponent<CollisionCapsule>();				 //!CollisionSphere衝突判定を付ける
-		auto ptrGra = AddComponent<Gravity>();							 //!重力をつける
-		auto shadowPtr = AddComponent<Shadowmap>();						 //!影をつける（シャドウマップを描画する）
-		shadowPtr->SetMeshResource(L"Player_WalkAnimation2_MESH");		 //!影の形（メッシュ）を設定
-		shadowPtr->SetMeshToTransformMatrix(spanMat);					 //!メッシュの大きさ設定
-		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();			 //!描画コンポーネントの設定
-		ptrDraw->SetMeshResource(L"Player_WalkAnimation2_MESH_WITH_TAN");//!描画するメッシュを設定
-		ptrDraw->SetMeshToTransformMatrix(spanMat);					     //!メッシュの大きさ設定
+		auto ptrColl = AddComponent<CollisionCapsule>();																//!CollisionSphere衝突判定を付ける
+		auto ptrGra = AddComponent<Gravity>();																			//!重力をつける
+		auto shadowPtr = AddComponent<Shadowmap>();																		//!影をつける（シャドウマップを描画する）
+		shadowPtr->SetMeshResource(L"Player_WalkAnimation2_MESH");														//!影の形（メッシュ）を設定
+		shadowPtr->SetMeshToTransformMatrix(spanMat);																	//!メッシュの大きさ設定
+		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();															//!描画コンポーネントの設定
+		ptrDraw->SetMeshResource(L"Player_WalkAnimation2_MESH_WITH_TAN");												//!描画するメッシュを設定
+		ptrDraw->SetMeshToTransformMatrix(spanMat);																		//!メッシュの大きさ設定
 		ptrDraw->AddAnimation(L"Move", m_movestartSample, m_movesampleLength, true, m_movesamplesParSecond);			//!歩くアニメーションの登録
 		ptrDraw->AddAnimation(L"Default", m_defaultstartSample, m_defaultsampleLength, true, m_defaultsamplesParSecond);//!待機アニメーションの登録
 		ptrDraw->AddAnimation(L"Ded", m_dedstartSample, m_dedsampleLength, false, m_dedsamplesParSecond);				//!倒れるアニメーションの登録
 		ptrDraw->AddAnimation(L"Change", m_changestartSample, m_changesampleLength, false, m_changesamplesParSecond);	//!変身アニメーションの登録
-		ptrDraw->ChangeCurrentAnimation(L"Default");					 //!現在のアニメーションの設定
-		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");		 //!法線マップの設定
+		ptrDraw->ChangeCurrentAnimation(L"Default");																	//!現在のアニメーションの設定
+		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");														//!法線マップの設定
 
 		
 
@@ -224,7 +224,7 @@ namespace basecross {
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
 		if (ptrCamera) {
 
-			ptrCamera->SetTargetObject(GetThis<GameObject>());//!MyCameraである
+			ptrCamera->SetTargetObject(GetThis<GameObject>());	//!MyCameraである
 			ptrCamera->SetTargetToAt(Vec3(0, m_targetToAtY, 0));//!MyCameraに注目するオブジェクト（プレイヤー）の設定
 		}
 	}
@@ -504,13 +504,13 @@ namespace basecross {
 			}
 		}
 
-		m_StateMachine->Update();						//!ステートマシンの更新
+		m_StateMachine->Update();							//!ステートマシンの更新
 		OneWeek();
 		Controllervibration();
-		auto scene = App::GetApp()->GetScene<Scene>();	//!シーンの取得
-		auto gameOver = scene->GetGameOver();			//!ゲームオーバーかどうかの取得
-		auto gameTime = scene->GetGameTime();			//!ゲーム時間の取得
-		m_gameTime += gameTime;							//!時間の加算
+		auto scene = App::GetApp()->GetScene<Scene>();		//!シーンの取得
+		auto gameOver = scene->GetGameOver();				//!ゲームオーバーかどうかの取得
+		auto gameTime = scene->GetGameTime();				//!ゲーム時間の取得
+		m_gameTime += gameTime;								//!時間の加算
 
 		
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得

@@ -31,7 +31,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EfkInterfece.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameManagerState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOver.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GoalPlayer.h" />
@@ -86,7 +85,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameManagerState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOver.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameUI.cpp" />

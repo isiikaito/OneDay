@@ -8,13 +8,13 @@
 #include "Timer.h"
 
 namespace basecross {
-	constexpr float helfSize = 0.5f;//!ポリゴンサイズ
-	constexpr float  m_StartScalez = 1.0f;//!ｚ大きさ
-	constexpr float m_StartPosz = 0.1f;//!テクスチャの奥行き
-	constexpr float m_maxnum = 10.0f;//!テクスチャの最大数字
-	constexpr float m_rightUv = 0.1f;//!右側のuv頂点
-	constexpr float m_picecpos = 1.0f;//!桁ごとの位置
-
+	constexpr float helfSize = 0.5f;		//!ポリゴンサイズ
+	constexpr float  m_StartScalez = 1.0f;	//!ｚ大きさ
+	constexpr float m_StartPosz = 0.1f;		//!テクスチャの奥行き
+	constexpr float m_maxnum = 10.0f;		//!テクスチャの最大数字
+	constexpr float m_rightUv = 0.1f;		//!右側のuv頂点
+	constexpr float m_picecpos = 1.0f;		//!桁ごとの位置
+	constexpr int m_numberQuantity = 4;		//!頂点配置データ
 	//--------------------------------------------------------------------------------------
 	///	スコア表示のスプライト
 	//--------------------------------------------------------------------------------------
@@ -28,7 +28,11 @@ namespace basecross {
 		m_Trace(Trace),
 		m_StartScale(StartScale),
 		m_StartPos(StartPos),
-		m_Score(0.0f)
+		m_Score(0.0f),
+		m_LeftUpperSummit(Vec2(0.0f, 0.0f)),
+		m_LeftLowerSummit(Vec2(0.0f, 1.0f)),
+		m_RightUpperSummit(Vec2(0.1f, 0.0f)),
+		m_RightLowerSummit(Vec2(0.1f, 1.0f))
 	{}
 
 	void Timer::OnCreate() {
@@ -42,32 +46,31 @@ namespace basecross {
 			float vertex1 = vertex0 + xPiecesize;             //!右側の頂点
 			//!0
 			m_BackupVertices.push_back(
-				VertexPositionTexture(Vec3(vertex0, helfSize, 0), Vec2(0.0f, 0.0f))//!頂点データ1
+				VertexPositionTexture(Vec3(vertex0, helfSize, 0), m_LeftUpperSummit)//!頂点データ1
 			);
 			//!1
 			m_BackupVertices.push_back(
-				VertexPositionTexture(Vec3(vertex1, helfSize, 0), Vec2(0.1f, 0.0f))//!頂点データ2
+				VertexPositionTexture(Vec3(vertex1, helfSize, 0), m_RightUpperSummit)//!頂点データ2
 			);
 			//!2
 			m_BackupVertices.push_back(
-				VertexPositionTexture(Vec3(vertex0, -helfSize, 0), Vec2(0.0f, 1.0f))//!頂点データ3
+				VertexPositionTexture(Vec3(vertex0, -helfSize, 0), m_LeftLowerSummit)//!頂点データ3
 			);
 			//!3
 			m_BackupVertices.push_back(
-				VertexPositionTexture(Vec3(vertex1, -helfSize, 0), Vec2(0.1f, 1.0f))//!頂点データ4
+				VertexPositionTexture(Vec3(vertex1, -helfSize, 0), m_RightLowerSummit)//!頂点データ4
 			);
-			indices.push_back(i * 4 + 0);
-			indices.push_back(i * 4 + 1);
-			indices.push_back(i * 4 + 2);
-			indices.push_back(i * 4 + 1);
-			indices.push_back(i * 4 + 3);
-			indices.push_back(i * 4 + 2);
+			indices.push_back(i * m_numberQuantity + 0);
+			indices.push_back(i * m_numberQuantity + 1);
+			indices.push_back(i * m_numberQuantity + 2);
+			indices.push_back(i * m_numberQuantity + 1);
+			indices.push_back(i * m_numberQuantity + 3);
+			indices.push_back(i * m_numberQuantity + 2);
 		}
 
 		SetAlphaActive(m_Trace);                                 //!透明度
 		auto ptrTrans = GetComponent<Transform>();               //!トランスコンポーネントの取得
 		ptrTrans->SetScale(m_StartScale.x, m_StartScale.y, m_StartScalez);//!大きさの設定
-		ptrTrans->SetRotation(Vec3(0.0f));                          //!回転の設定
 		ptrTrans->SetPosition(m_StartPos.x, m_StartPos.y, m_StartPosz); //!位置の設定
 		//!頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PTSpriteDraw>(m_BackupVertices, indices);//!描画コンポーネントの取得
@@ -122,13 +125,11 @@ namespace basecross {
 		int verNum = 0;
 		//!時間の数を取得
 		for (UINT i = m_NumberOfDigits; i > 0; i--) {
-			UINT base = (UINT)pow(m_maxnum, i);//!powは乗算という意味である。iは今処理している桁数が代入されている
-			num = ((UINT)m_Score) % base;//!余りを出して少数切り捨て
-			num = num / (base / m_maxnum);     //!残った数字がその桁に入る
+			UINT base = (UINT)pow(m_maxnum, i);		//!powは乗算という意味である。iは今処理している桁数が代入されている
+			num = ((UINT)m_Score) % base;			//!余りを出して少数切り捨て
+			num = num / (base / m_maxnum);			//!残った数字がその桁に入る
 
 			SetUVPos(verNum, num, newVertices);
-
-
 
 		}
 		auto ptrDraw = GetComponent<PTSpriteDraw>();//!描画コンポーネント

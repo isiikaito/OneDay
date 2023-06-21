@@ -364,7 +364,7 @@ namespace basecross {
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	ステートマシンのアクセッサ
-		//!ステートマシン
+		@return ステートマシン
 		*/
 		const kaito::StateMachine<Player>* GetFSM()const
 		{
