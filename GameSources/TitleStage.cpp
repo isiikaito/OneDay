@@ -12,8 +12,10 @@
 
 namespace basecross {
 	
-	constexpr int randomspeed = 22;
-	constexpr int randomNumber = 3;
+	constexpr int RANDOMSPEED = 22;			//乱数の時間
+	constexpr int RANDOMNUMBER = 3;			//ランダムに選ぶ数字
+	constexpr float BUTTONVOLUME = 1.0f;	//音量
+	constexpr float TITLEVOLUME = 0.5f;		//タイトルBGM
 	//--------------------------------------------------------------------------------------
 	//	タイトルステージクラス
 	//--------------------------------------------------------------------------------------
@@ -23,12 +25,10 @@ namespace basecross {
 		//ビューのカメラの設定
 		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
-		PtrCamera->SetEye(Vec3(0.0f, 2.0f, -3.0f));
-		PtrCamera->SetAt(Vec3(0.0f, 0.0f, 0.0f));
-		//マルチライトの作成
-		auto PtrMultiLight = CreateLight<MultiLight>();
-		//デフォルトのライティングを指定
-		PtrMultiLight->SetDefaultLighting();
+		PtrCamera->SetEye(m_startEye);
+		PtrCamera->SetAt(m_startAt);
+		auto PtrMultiLight = CreateLight<MultiLight>();//マルチライトの作成
+		PtrMultiLight->SetDefaultLighting();//デフォルトのライティングを指定
 	}
 
 	
@@ -49,9 +49,9 @@ namespace basecross {
 		auto scene = app->GetScene<Scene>();//!シーンの取得
 		
 		auto deltaTime = app->GetElapsedTime();//!デルタタイムの取得
-		m_keyTime += deltaTime * randomspeed;
-		srand(std::time(0));
-		m_keyNumber = rand() % randomNumber;
+		m_keyTime += deltaTime * RANDOMSPEED;
+		srand((unsigned)std::time(0));
+		m_keyNumber = rand() % RANDOMNUMBER;
 		scene->SetKeyNamber(m_keyNumber);
 
 
@@ -63,7 +63,7 @@ namespace basecross {
 	void TitleStage::CreatePlayBGM()
 	{
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
-		m_BGM = XAPtr->Start(L"TitleBGM", XAUDIO2_LOOP_INFINITE, 0.5f);
+		m_BGM = XAPtr->Start(L"TitleBGM", XAUDIO2_LOOP_INFINITE, TITLEVOLUME);
 	}
 
 	//! BGMのストップ
@@ -77,7 +77,7 @@ namespace basecross {
 	void TitleStage::OnPushA() {
 		//!サウンド再生
 		auto ptrXA = App::GetApp()->GetXAudio2Manager();
-		ptrXA->Start(L"decision", 0, 1.0f);
+		ptrXA->Start(L"decision", 0, BUTTONVOLUME);
 		PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToDescriptionStage");
 	}
 

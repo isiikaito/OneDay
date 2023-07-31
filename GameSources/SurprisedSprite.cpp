@@ -14,21 +14,21 @@ namespace basecross
 	///	ビックリマークスプライト
 	//--------------------------------------------------------------------------------------
 
-	constexpr float m_maxSurprisedTime = 2.0f;//!テクスチャを表示している時間
-	constexpr float helfSize = 0.5f;//!ポリゴンサイズ
+	constexpr float MAXSURPRISEDTIME = 2.0f;//!テクスチャを表示している時間
+	constexpr float HELFSIZE = 0.5f;//!ポリゴンサイズ
 
 	void SurprisedSprite::OnCreate()
 	{
 		auto PtrTransform = GetComponent<Transform>();
 		// 頂点データ
-		float HelfSize = helfSize;
+		
 
 		//頂点配列(縦横5個ずつ表示)
 		vector<VertexPositionColorTexture> vertices = {
-			{ VertexPositionColorTexture(Vec3(-HelfSize, HelfSize, 0),m_TextureColor, m_LeftUpperSummit) },
-			{ VertexPositionColorTexture(Vec3(HelfSize, HelfSize, 0),m_TextureColor, m_RightUpperSummit) },
-			{ VertexPositionColorTexture(Vec3(-HelfSize, -HelfSize, 0), m_TextureColor,m_LeftLowerSummit) },
-			{ VertexPositionColorTexture(Vec3(HelfSize, -HelfSize, 0),m_TextureColor,m_RightLowerSummit) },
+			{ VertexPositionColorTexture(Vec3(-HELFSIZE, HELFSIZE, 0),m_TextureColor, m_LeftUpperSummit) },
+			{ VertexPositionColorTexture(Vec3(HELFSIZE, HELFSIZE, 0),m_TextureColor, m_RightUpperSummit) },
+			{ VertexPositionColorTexture(Vec3(-HELFSIZE, -HELFSIZE, 0), m_TextureColor,m_LeftLowerSummit) },
+			{ VertexPositionColorTexture(Vec3(HELFSIZE, -HELFSIZE, 0),m_TextureColor,m_RightLowerSummit) },
 		};
 
 		// 頂点インデックス（頂点をつなぐ順番）
@@ -38,10 +38,7 @@ namespace basecross
 			2, 1, 3  // 右下の三角ポリゴン
 		};
 
-		// Position : 頂点座標
-		// Normal : 法線ベクトル（頂点の向き、ポリゴンの向き → 光の反射の計算に使う）
-		// Color : 頂点色
-		// Texture : テクスチャ座標(UV座標)
+		
 		auto drawComp = AddComponent<PCTStaticDraw>();				//!描画コンポーネントの取得
 		drawComp->CreateOriginalMesh(vertices, indices);			//!メッシュの生成
 		drawComp->SetOriginalMeshUse(true);							//!オリジナルメッシュを使う
@@ -79,19 +76,19 @@ namespace basecross
 		{
 			auto elapsedTime = App::GetApp()->GetElapsedTime();			//!エルパソタイムの取得
 			m_surprisedTime += elapsedTime;								//!時間の更新
+
 			//!表示時間を過ぎたら
-			if (m_surprisedTime >= m_maxSurprisedTime)
+			if (m_surprisedTime >= MAXSURPRISEDTIME)
 			{
 				GetEnemy->SetSurprisedSprite(false);					//!非表示を消す
 			}
-		
-			SetDrawActive(true);//!表示する
+			SetDrawActive(true);										//!表示する
 		}
 
 		else
 		{
-			m_surprisedTime = 0.0f;	//!時間のリセット
-			SetDrawActive(false);	//!表示しない
+			m_surprisedTime = 0.0f;										//!時間のリセット
+			SetDrawActive(false);										//!表示しない
 		}
 	}
 

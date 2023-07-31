@@ -14,9 +14,8 @@
 namespace basecross
 {
 	//--------------------------------------------------------------------------------------
-	///	ゲームキャンバス
+	///	タイトルキャンバス
 	//--------------------------------------------------------------------------------------
-
 	TitleStageCanvas::TitleStageCanvas(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr)
 	{}
@@ -44,21 +43,21 @@ namespace basecross
 	//!csvからデータの取り出し
 	std::vector<TextureTransformCreateDate>TitleTextureTransformDate(const wstring& keyName)
 	{
-		std::vector<TextureTransformCreateDate>result;	//!トランスフォームのデータを保存する配列
-		vector<wstring>LineVec;							//!変数名
-		auto& app = App::GetApp();						//!アプリの取得
-		wstring DateDir;								//!データ
-		App::GetApp()->GetDataDirectory(DateDir);		//!データを取得する
-		auto fullPass = DateDir + L"csvFolder\\" + L"TexturecsvFolder\\" + L"TitleStageTextureTransform.csv";//!特定のcsvの取得
-		CsvFile csvFile;						//!csvの保存
-		csvFile.SetFileName(fullPass);			//!ファイルの名前を保存する
-		csvFile.ReadCsv();						//!csvを読みこっむ
-		csvFile.GetSelect(LineVec, 0, keyName);	//!1行めが指定の文字か判別
+		std::vector<TextureTransformCreateDate>result;															//!トランスフォームのデータを保存する配列
+		vector<wstring>LineVec;																					//!変数名
+		auto& app = App::GetApp();																				//!アプリの取得
+		wstring DateDir;																						//!データ
+		App::GetApp()->GetDataDirectory(DateDir);																//!データを取得する
+		auto fullPass = DateDir + L"csvFolder\\" + L"TexturecsvFolder\\" + L"TitleStageTextureTransform.csv";	//!特定のcsvの取得
+		CsvFile csvFile;																						//!csvの保存
+		csvFile.SetFileName(fullPass);																			//!ファイルの名前を保存する
+		csvFile.ReadCsv();																						//!csvを読みこっむ
+		csvFile.GetSelect(LineVec, 0, keyName);																	//!1行めが指定の文字か判別
 
 		for (auto& v : LineVec)
 		{
-			vector<wstring>Tokens;						//!トークン(カラム)の配置
-			Util::WStrToTokenVector(Tokens, v, L',');	//!トークン(カラム)単位で文字列を抽出(',')
+			vector<wstring>Tokens;																				//!トークン(カラム)の配置
+			Util::WStrToTokenVector(Tokens, v, L',');															//!トークン(カラム)単位で文字列を抽出(',')
 
 			//!トークン(カラム)をスケール、回転、位置に読み込む
 			Vec2 Scale(
@@ -75,7 +74,7 @@ namespace basecross
 
 
 
-			result.push_back(TextureTransformCreateDate(Scale, Vec3(Pos.x, Pos.y, Pos.z)));
+			result.push_back(TextureTransformCreateDate(Scale, Vec3(Pos.x, Pos.y, Pos.z)));						//!取得した大きさと位置の報を配列に渡す
 
 		}
 		return result;//!構造体の中身を配列に入れて返す
@@ -88,8 +87,12 @@ namespace basecross
 		//!データ分回す
 		for (auto& data : datas)
 		{
-			auto titleSprite = GetStage()->AddGameObject<GameUI>(L"MESSAGE_TX", false,
-				data.scale, data.position);
+			auto titleSprite = GetStage()->AddGameObject<GameUI>(
+				L"MESSAGE_TX",//!テクスチャ
+				false,		  //!透明処理
+				data.scale,	  //!大きさ 
+				data.position //!位置(x,y,z)z奥行きは0.0f～1.0fの間
+				);
 			titleSprite->SetDrawActive(true);
 		}
 	}
@@ -101,10 +104,6 @@ namespace basecross
 		CreateTitleSprite();
 	}
 
-	void TitleStageCanvas::OnUpdate()
-	{
-
-
-	}
+	
 
 }

@@ -29,7 +29,7 @@ namespace basecross {
 	void GameOverSprite::OnUpdate()
 	{
 		auto player = GetStage()->GetSharedGameObject<Player>(L"Player");//!プレイヤーの取得
-		auto gameOver=player->GetGameOverDrawActive();//!ゲームオーバースプライトを表示させるかどうか
+		auto gameOver=player->GetGameOverDrawActive();					//!ゲームオーバースプライトを表示させるかどうか
 		//!表示させるとき
 		if (gameOver == true)
 		{
@@ -38,8 +38,6 @@ namespace basecross {
 			auto gameOverSprite=scene->GetGameOverSprite(); //!ゲームオーバースプライトの表示を取得
 			gameOverSprite = true;							//!ゲームオーバースプライトの表示をtrueにする
 			scene->SetGameOverSprite(gameOverSprite);		//!ゲームオーバースプライトの表示を設定
-
-			
 		}
 
 		else

@@ -9,15 +9,15 @@
 #include "GameUI.h"
 namespace basecross {
 	//--------------------------------------------------------------------------------------
-	///	ゲームオーバースプライト
+	///	カギのスプライト
 	//--------------------------------------------------------------------------------------
 	class KeySprite : public GameUI {
 	private:
-		bool m_Trace;
-		Vec2 m_StartScale;
-		Vec3 m_StartPos;
-		wstring m_TextureKey;
-		int m_keyCount;
+		bool m_Trace;			//!透明度
+		Vec2 m_StartScale;		//!最初の大きさ
+		Vec3 m_StartPos;		//!最初の位置
+		wstring m_TextureKey;	//!テクスチャの名前
+		int m_keyCount;			//!カギの数
 
 	public:
 

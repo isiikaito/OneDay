@@ -13,8 +13,8 @@
 namespace basecross
 {
 	
-	constexpr float m_textureWSpeed = 2;      //!フェードアウトの速さ
-	constexpr float m_textureWMaxValue = 1.0f;//!テクスチャが完全に表示された
+	constexpr float TEXTUREWSPEED = 2;      //!フェードアウトの速さ
+	constexpr float TEXTUREWMAXVALUE = 1.0f;//!テクスチャが完全に表示された
 	
 	//--------------------------------------------------------------------------------------
 	///	昼から夜に変わる時のコメント
@@ -43,21 +43,20 @@ namespace basecross
 	{
 		auto ptrDraw=GetComponent<PCTSpriteDraw>();
 		auto player = GetStage()->GetSharedGameObject<Player>(L"Player");	//!プレイヤーの取得
-		auto playerCondition = player->GetPlayerCange();					//!プレイヤーの状態の取得
+		auto playerCondition = player->GetPlayerChange();					//!プレイヤーの状態の取得
 		m_IstexturemaxW = player->GetPlayerTaskDay();
 
 		//!フェードアウトを開始するとき
 		if (m_IstexturemaxW == true)
 		{
 			
-            auto Diffuse = ptrDraw->GetDiffuse();				//!色の取得
-			auto fadeinTime = App::GetApp()->GetElapsedTime();	//!時間の取得
-			m_textureW += fadeinTime / m_textureWSpeed;			//!フェードアウトのスピード
-			ptrDraw->SetDiffuse(Col4(Diffuse.x, Diffuse.y, Diffuse.z, m_textureW));//!テクスチャのRGBWの設定
+            auto Diffuse = ptrDraw->GetDiffuse();									//!色の取得
+			auto fadeinTime = App::GetApp()->GetElapsedTime();						//!時間の取得
+			m_textureW += fadeinTime / TEXTUREWSPEED;								//!フェードアウトのスピード
+			ptrDraw->SetDiffuse(Col4(Diffuse.x, Diffuse.y, Diffuse.z, m_textureW));	//!テクスチャのRGBWの設定
 			//!テクスチャが表示されたら
-			if (m_textureW >= m_textureWMaxValue)
+			if (m_textureW >= TEXTUREWMAXVALUE)
 			{
-
 				player->SetPlayerTaskDay(false);//!フェードアウトに移行
 			}
 
@@ -73,10 +72,10 @@ namespace basecross
 			if (m_textureW >= 0.0f)
 			{
 				auto ptrDraw = GetComponent<PCTSpriteDraw>();
-				auto Diffuse = ptrDraw->GetDiffuse();				//!色の取得
-				auto fadeOutTime = App::GetApp()->GetElapsedTime();	//!時間の取得
-				m_textureW -= fadeOutTime / m_textureWSpeed;		//!フェードアウトスピード
-				ptrDraw->SetDiffuse(Col4(Diffuse.x, Diffuse.y, Diffuse.z, m_textureW));//!テクスチャのRGBWの設定
+				auto Diffuse = ptrDraw->GetDiffuse();									//!色の取得
+				auto fadeOutTime = App::GetApp()->GetElapsedTime();						//!時間の取得
+				m_textureW -= fadeOutTime / TEXTUREWSPEED;							//!フェードアウトスピード
+				ptrDraw->SetDiffuse(Col4(Diffuse.x, Diffuse.y, Diffuse.z, m_textureW));	//!テクスチャのRGBWの設定
 
 			}
 

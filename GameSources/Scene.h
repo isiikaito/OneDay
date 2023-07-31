@@ -6,14 +6,14 @@
 
 #include "stdafx.h"
 
-namespace basecross{
+namespace basecross {
 
 	//--------------------------------------------------------------------------------------
 	///	ゲームシーン
 	//--------------------------------------------------------------------------------------
-	class Scene : public SceneBase{
+	class Scene : public SceneBase {
 	private:
-		
+
 		int m_keyNamber;				//!鍵を保存しているCSVを識別する数字
 		int m_AlertlevelCount;			//!警戒度の数字
 		bool m_IsGameOver;				//!ゲームオーバーしたかどうか
@@ -44,18 +44,18 @@ namespace basecross{
 		@brief コンストラクタ
 		*/
 		Scene() :SceneBase(),
-			m_goleGateParameter(false), 
+			m_goleGateParameter(false),
 			m_IsmoveForwardInaPage(true),
 			m_IspageBackTo(true),
 			m_AlertlevelCount(0),
 			m_emissiveChangeTime(1.0f),
 			m_date(0),
-			m_playerConditionTime(0.0f), 
+			m_playerConditionTime(0.0f),
 			m_IsplayerChangeDirecting(0.0f),
 			m_IsGameOver(false),
-			m_dayTime(0.0f), 
+			m_dayTime(0.0f),
 			m_IsGameOverSprite(false),
-			m_gameStageTime(0.0f), 
+			m_gameStageTime(0.0f),
 			m_keyNamber(0),
 			m_meatNumber(0),
 			m_gameStrat(true),
@@ -75,7 +75,7 @@ namespace basecross{
 		@return	なし
 		*/
 		virtual void OnCreate() override;
-		
+
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief イベント取得
@@ -88,7 +88,7 @@ namespace basecross{
 		@brief 警戒度の取得
 		@return	警戒度のカウント
 		*/
-		int GetAlertlevelCount()
+		int GetAlertlevelCount() const
 		{
 			return m_AlertlevelCount;
 		}
@@ -96,6 +96,7 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief 警戒度の設定
+		@param 警戒度
 		@return	なし
 		*/
 		void SetAlertlevelCount(int AlertlevelCount);
@@ -112,15 +113,16 @@ namespace basecross{
 		@brief ゲームオーバーの取得
 		@return	ゲームオーバーしたかどうか
 		*/
-		bool GetGameOver()
+		bool GetGameOver() const
 		{
 			return m_IsGameOver;
 		}
-		
+
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief ゲームオーバーの設定
-		@return	ゲームオーバーしたかどうか
+		@param ゲームオーバーかどうか
+		@return	　なし
 		*/
 		void SetGameOver(bool gameOver)
 		{
@@ -132,7 +134,7 @@ namespace basecross{
 		@brief ゲームオーバースプライト表示の取得
 		@return	ゲームオーバーしたかどうか
 		*/
-		bool GetGameOverSprite()
+		bool GetGameOverSprite() const
 		{
 			return m_IsGameOverSprite;
 		}
@@ -140,7 +142,8 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief ゲームオーバースプライト表示の設定
-		@return	ゲームオーバーしたかどうか
+		@param ゲームオーバースプライト表示
+		@return	なし
 		*/
 		void SetGameOverSprite(bool gameOverSprite)
 		{
@@ -152,16 +155,17 @@ namespace basecross{
 		@brief 鍵のcsvのナンバーの取得
 		@return	ゲームオーバーしたかどうか
 		*/
-		int GetKeyNamber()
+		int GetKeyNamber() const
 		{
 			return m_keyNamber;
 		}
 
 		//--------------------------------------------------------------------------------------
-	    /*!
-	    @brief 鍵のcsvのナンバーの設定
-	    @return	ゲームオーバーしたかどうか
-	    */
+		/*!
+		@brief 鍵のcsvのナンバーの設定
+		@param 鍵のcsvのナンバー
+		@return	なし
+		*/
 		void SetKeyNamber(int keyNamber)
 		{
 			m_keyNamber = keyNamber;
@@ -170,8 +174,9 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief ゲームの時間の取得
+		@return ゲームの時間
 		*/
-		float GetGameTime()
+		float GetGameTime() const
 		{
 			return m_gameStageTime;
 		}
@@ -179,6 +184,7 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief ゲームの時間の設定
+		@param ゲームの時間
 		*/
 		void SetGameTime(float gameStageTime)
 		{
@@ -190,7 +196,7 @@ namespace basecross{
 		@brief 鍵のcsvのナンバーの取得
 		@return	ゲームオーバーしたかどうか
 		*/
-		int GetMeatNamber()
+		int GetMeatNamber() const
 		{
 			return m_meatNumber;
 		}
@@ -198,6 +204,7 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief 日付の設定
+		@param 日付
 		*/
 		void SetDate(int Date)
 		{
@@ -209,14 +216,15 @@ namespace basecross{
 		@brief 日付の取得
 		@return	現在の日付
 		*/
-		int GetDate()
+		int GetDate() const
 		{
 			return m_date;
 		}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief 鍵のcsvのナンバーの設定
+		@brief 肉のcsvのナンバーの設定
+		@param 肉のcsvのナンバー
 		*/
 		void SetMeatNamber(int MeatNamber)
 		{
@@ -226,24 +234,33 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief テクスチャの読み込み
+		@param テクスチャの名前
+		@param[in] 使うときのテクスチャの名前
 		*/
-		void RoadTexture(const wstring&TextureName, const wstring& UseTextureName);
+		void RoadTexture(const wstring& TextureName, const wstring& UseTextureName);
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief サウンドの読み込み
+		@param 音の名前
+		@param[in] 使うときの音の名前
 		*/
 		void RoadSound(const wstring& soundDataName, const wstring& soundName);
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief スタティックモデルの読み込み
+		@param スタティックモデルbmfの名前
+		@param[in] 使うときのスタティックモデルの名前
 		*/
 		void RoadStaticModelMesh(const wstring& staticModelbmfName, const wstring& staticModelMeshName);
 
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief ボーンモデルのの読み込み
+		@param ボーンモデルのbmfの名前
+		@param[in] ボーンモデルのメッシュの名前
+		@param[in out] 使うときのボーンモデルの名前
 		*/
 		void RoadBoneModel(const wstring& BoneModelbmfName, const wstring& BoneModelMeshName, const wstring& BomeModelMeshTangentName);
 
@@ -252,14 +269,15 @@ namespace basecross{
 		@brief プレイヤーが変身するかどうかの取得
 		@return	プレイヤーが変身するかどうか
 		*/
-		bool GetPlayerChangeDirecting()
+		bool GetPlayerChangeDirecting() const
 		{
 			return m_IsplayerChangeDirecting;
 		}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief ゲームの時間の設定
+		@brief プレイヤーの見た目を変更する時間の設定
+		@param プレイヤーの見た目を変更する時間
 		*/
 		void SetPlayerChangeDirecting(bool PlayerChangeDirecting)
 		{
@@ -272,14 +290,15 @@ namespace basecross{
 		@brief 日にちの取得
 		@return	現在の日にち
 		*/
-	     float GetDayTime()
+		float GetDayTime() const
 		{
 			return m_dayTime;
 		}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief ゲームの時間の設定
+		@brief 一日の時間の設定
+		@param 一日の時間
 		*/
 		void SetDayTime(float DayTime)
 		{
@@ -291,7 +310,7 @@ namespace basecross{
 		@brief　プレイヤーの状態の時間の取得
 		@return プレイヤーの状態の時間を返す
 		*/
-		float GetPlayerConditionTime()
+		float GetPlayerConditionTime() const
 		{
 			return m_playerConditionTime;
 		}
@@ -299,6 +318,7 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　プレイヤーの状態の時間の設定
+		@param プレイヤーの状態の時間
 		*/
 		void SetPlayerConditionTime(float PlayerConditionTime)
 		{
@@ -310,7 +330,7 @@ namespace basecross{
 		@brief　ゲームがスタートしたことを伝える
 		@return ゲームがスタートしたかどうか
 		*/
-		bool GetGameStrat()
+		bool GetGameStrat() const
 		{
 			return m_gameStrat;
 		}
@@ -318,6 +338,7 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　ゲームスタートしたときの設定
+		@param ゲームスタートしたかどうか
 		*/
 		void SetGameStrat(bool gameStrat)
 		{
@@ -325,11 +346,11 @@ namespace basecross{
 		}
 
 		//--------------------------------------------------------------------------------------
-	    /*!
-	    @brief　エミッシブカラーの変わる時間の取得
+		/*!
+		@brief　エミッシブカラーの変わる時間の取得
 		@return オブジェクトの明るさ変更
-	    */
-		float GetEmissiveChangeTime()
+		*/
+		float GetEmissiveChangeTime() const
 		{
 			return m_emissiveChangeTime;
 		}
@@ -337,18 +358,19 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　エミッシブカラーの変わる時間の設定
+		@param エミッシブカラーの変わる時間
 		*/
 		void SetEmissiveChangeTime(float emissiveChangeTime)
 		{
 			m_emissiveChangeTime = emissiveChangeTime;
 		}
-		
+
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　説明書のページ数
 		@return 説明書のページ数を返す
 		*/
-		int GetDescriptionStageNumber()
+		int GetDescriptionStageNumber() const
 		{
 			return m_descriptionStageNumber;
 		}
@@ -356,17 +378,18 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　説明書のページ数の設定
+		@param 説明書のページ数
 		*/
 		void SetDescriptionStageNumber(int descriptionStageNumber)
 		{
-			m_descriptionStageNumber= descriptionStageNumber;
+			m_descriptionStageNumber = descriptionStageNumber;
 		}
-		
+
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　ページをめくっているかどうかの取得
 		*/
-		bool GetIsMoveForwardInaPage()
+		bool GetIsMoveForwardInaPage() const
 		{
 			return m_IsmoveForwardInaPage;
 		}
@@ -374,6 +397,7 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　ページをめくっているかどうかの設定
+		@param ページをめくっているかどうか
 		*/
 		void SetIsMoveForwardInaPage(bool IsmoveForwardInaPage)
 		{
@@ -385,7 +409,7 @@ namespace basecross{
 		/*!
 		@brief　ページを戻しているかどうか
 		*/
-		bool GetIspageBackTo()
+		bool GetIspageBackTo() const
 		{
 			return m_IspageBackTo;
 		}
@@ -393,6 +417,7 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　ページをもどしているかどうかの設定
+		@param ページをもどしているかどうか
 		*/
 		void SetIsPageBackTo(bool IspageBackTo)
 		{
@@ -403,7 +428,7 @@ namespace basecross{
 		/*!
 		@brief　ゴールパラメータの門を適用するかどうか
 		*/
-		bool GetGoleGateParameter()
+		bool GetGoleGateParameter() const
 		{
 			return m_goleGateParameter;
 
@@ -412,6 +437,7 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief　ゴールパラメータの門を適用するかどうか
+		@param ゴールパラメータの門を適用するかどうか
 		*/
 		void SetGoleGateParameter(bool goleGateParameter)
 		{
@@ -422,14 +448,15 @@ namespace basecross{
 		/*!
 		@brief プレイヤーが変身するかどうかの取得
 		*/
-		float GetSoundvolume()
+		float GetSoundvolume() const
 		{
 			return m_soundvolume;
 		}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief ゲームの時間の設定
+		@brief 音量の設定
+		@param 音量
 		*/
 		void SetSoundvolume(float soundvolume)
 		{

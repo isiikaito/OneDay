@@ -14,7 +14,7 @@
 namespace basecross
 {
 	//--------------------------------------------------------------------------------------
-	///	ゲームキャンバス
+	///	説明書キャンバス
 	//--------------------------------------------------------------------------------------
 
 	DescriptionStageCanvas::DescriptionStageCanvas(const shared_ptr<Stage>& StagePtr) :
@@ -89,16 +89,24 @@ namespace basecross
 		//!データ分回す
 		for (auto& data : descriptionSprite1s)
 		{
-			m_DescriptionSprites.push_back(GetStage()->AddGameObject<DescriptionSpriteFront>(L"DescriptionSprite1_TX", false,
-				data.scale, data.position));
+			m_DescriptionSprites.push_back(GetStage()->AddGameObject<DescriptionSpriteFront>(
+				L"DescriptionSprite1_TX", //!テクスチャ
+				false,					  //!透明処理
+				data.scale,				  //!大きさ 
+				data.position			  //!位置(x,y,z)z奥行きは0.0f～1.0fの間
+				));
 		}
 
 		auto descriptionSprite2 = DescriptionSpriteTransformDate(L"DescriptionSprite2");//!指定のキーの行を取得
 		//!データ分回す
 		for (auto& data : descriptionSprite2)
 		{
-			m_DescriptionSprites.push_back(GetStage()->AddGameObject<DescriptionSpriteFront>(L"DescriptionSprite2_TX", false,
-				data.scale, data.position));
+			m_DescriptionSprites.push_back(GetStage()->AddGameObject<DescriptionSpriteFront>(
+				L"DescriptionSprite2_TX", //!テクスチャ
+				false,					  //!透明処理
+				data.scale,				  //!大きさ 
+				data.position			  //!位置(x,y,z)z奥行きは0.0f～1.0fの間
+				));
 		}
 
 	}

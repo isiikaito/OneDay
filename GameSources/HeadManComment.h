@@ -41,6 +41,12 @@ namespace basecross
 		}
 		const float m_spritePositionY;	//!コメントの高さ
 		const Vec3 m_scale;				//!大きさ
+		const Vec2 m_LeftUpperSummit;	//!左上の頂点
+		const Vec2 m_LeftLowerSummit;	//!左下の頂点
+		const Vec2 m_RightUpperSummit;	//!右上の頂点
+		const Vec2 m_RightLowerSummit;	//!右下の頂点
+		Col4 m_TextureColor;			//!テクスチャの色
+
 
 	public:
 		
@@ -48,8 +54,17 @@ namespace basecross
 		/*!
 		@brief	コンストラクタ
 		*/
-		HeadManComment(const std::shared_ptr<Stage>& stage, const std::shared_ptr<GameObject>& parent)
-			: GameObject(stage), parent(parent), m_spritePositionY(17.0f), m_scale(Vec3(15.0f)) {}
+		HeadManComment(const std::shared_ptr<Stage>& stage, 
+			const std::shared_ptr<GameObject>& parent)
+			: GameObject(stage), parent(parent), 
+			m_spritePositionY(17.0f), 
+			m_scale(Vec3(15.0f)),
+			m_LeftUpperSummit(Vec2(0.0f, 0.0f)),
+			m_LeftLowerSummit(Vec2(0.0f, 1.0f)),
+			m_RightUpperSummit(Vec2(1.0f, 0.0f)),
+			m_RightLowerSummit(Vec2(1.0f, 1.0f)),
+			m_TextureColor(Col4(1.0f, 1.0f, 1.0f, 1.0f))
+		{}
 		
 		//--------------------------------------------------------------------------------------
 		/*!

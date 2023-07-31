@@ -16,19 +16,18 @@
 
 namespace basecross {
 
-	constexpr int alertlevelFirst = 1;				  //!危険度レベル1
-	constexpr int randomNumber = 4;					  //!ランダムの最大値
-	constexpr float m_MeatTimeSpeed = 22.0f;		  //!肉をランダムにする値の変化するスピード
-	constexpr float m_playerChangeMaxTime = 2.0f;	  //!プレイヤーを変身する時間
-	constexpr float m_circleClockSpeed = 10.0f;		  //!時計を回転させるスピード
-	constexpr float m_opningCameraTime = 6.0f;		  //!オープニングカメラの時間
-	constexpr float m_playerConditionMaxTime = 62.0f; //!プレイヤーの状態の最大時間
-	constexpr float m_emissiveChangeTimeSpeed = 32.0f;//!明るさを変える時間
-	constexpr float m_emissiveReset = 1.0f;			  //!明るさのリセット
-	constexpr float m_emissiveChangeMaxTime = 1.0f;   //!昼夜の変更
-	constexpr float m_celladjustment = 8.6f;		  //!セルの幅調整
-	constexpr float m_cellPosadjustment = 10.0f;	  //!セルのポジションを調整
-	constexpr float m_bgmVolume=0.2f;				  //!BGMの音量
+	constexpr int RANDOMNUMBER = 4;					  //!ランダムの最大値
+	constexpr float MEATTIMESPEED = 22.0f;		  //!肉をランダムにする値の変化するスピード
+	constexpr float PLAYERCHANGEMAXTIME = 2.0f;	  //!プレイヤーを変身する時間
+	constexpr float CIRCLECLOCKSPEED = 10.0f;		  //!時計を回転させるスピード
+	constexpr float OPNINGCAMERATIME = 6.0f;		  //!オープニングカメラの時間
+	constexpr float PLAYERCONDITIONMAXTIME = 62.0f; //!プレイヤーの状態の最大時間
+	constexpr float EMISSIVECHANGETIMESPEED = 32.0f;//!明るさを変える時間
+	constexpr float EMISSIVERESET = 1.0f;			  //!明るさのリセット
+	constexpr float EMISSIVECHANGEMAXTIME = 1.0f;   //!昼夜の変更
+	constexpr float CELLADJUSMENT = 8.6f;		  //!セルの幅調整
+	constexpr float CELLPOSADJUSTMENT = 10.0f;	  //!セルのポジションを調整
+	constexpr float BGMVOLUME=0.2f;				  //!BGMの音量
 	
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
@@ -180,9 +179,9 @@ namespace basecross {
 			for (size_t j = 0; j < Tokens.size(); j++) {
 				 
 				//XとZの位置を計算
-				float XPos = (float)((int)j - m_celladjustment) * m_cellPosadjustment;
+				float XPos = (float)((int)j - CELLADJUSMENT) * CELLPOSADJUSTMENT;
 				float Ypos = 5.0f;
-				float ZPos = (float)(m_celladjustment - (int)i) * m_cellPosadjustment;
+				float ZPos = (float)(CELLADJUSMENT - (int)i) * CELLPOSADJUSTMENT;
 				if (Tokens[j] == L"1")
 				{
 					AddGameObject<StageBuilding>(m_BuildingScale, Vec3(0.0f), Vec3(XPos, Ypos, ZPos));
@@ -206,9 +205,9 @@ namespace basecross {
 			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
 			for (size_t j = 0; j < Tokens.size(); j++) {
 				//XとZの位置を計算
-				float XPos = (float)((int)j - m_celladjustment) * m_cellPosadjustment;
+				float XPos = (float)((int)j - CELLADJUSMENT) * CELLPOSADJUSTMENT;
 				float Ypos = 3.0f;
-				float ZPos = (float)(m_celladjustment - (int)i) * m_cellPosadjustment;
+				float ZPos = (float)(CELLADJUSMENT - (int)i) * CELLPOSADJUSTMENT;
 				if (Tokens[j] == L"2")//2の時にゲームステージに追加
 				{
 					AddGameObject<Key>(Vec3(2.0f, 4.0f, 1.0f), Vec3(0.0f), Vec3(XPos, Ypos, ZPos));
@@ -231,9 +230,9 @@ namespace basecross {
 			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
 			for (size_t j = 0; j < Tokens.size(); j++) {
 				//XとZの位置を計算
-				float XPos = (float)((int)j - m_celladjustment) * m_cellPosadjustment;
+				float XPos = (float)((int)j - CELLADJUSMENT) * CELLPOSADJUSTMENT;
 				float Ypos = 3.0f;
-				float ZPos = (float)(m_celladjustment - (int)i) * m_cellPosadjustment;
+				float ZPos = (float)(CELLADJUSMENT - (int)i) * CELLPOSADJUSTMENT;
 				if (Tokens[j] == L"3")//3の時にゲームステージに追加
 				{
 					AddGameObject<WoodenBox>(m_woodenBoxScale, Vec3(0.0f), Vec3(XPos, Ypos, ZPos));
@@ -256,9 +255,9 @@ namespace basecross {
 			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
 			for (size_t j = 0; j < Tokens.size(); j++) {
 				//XとZの位置を計算
-				float XPos = (float)((int)j - m_celladjustment) * m_cellPosadjustment;
+				float XPos = (float)((int)j - CELLADJUSMENT) * CELLPOSADJUSTMENT;
 				float Ypos = 3.0f;
-				float ZPos = (float)(m_celladjustment - (int)i) * m_cellPosadjustment;
+				float ZPos = (float)(CELLADJUSMENT - (int)i) * CELLPOSADJUSTMENT;
 				if (Tokens[j] == L"4")//4の時にゲームステージに追加
 				{
 					AddGameObject<Wood>(m_woodScale, Vec3(0.0f), Vec3(XPos, Ypos, ZPos));
@@ -281,9 +280,9 @@ namespace basecross {
 			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
 			for (size_t j = 0; j < Tokens.size(); j++) {
 				//XとZの位置を計算
-				float XPos = (float)((int)j - m_celladjustment) * m_cellPosadjustment;
+				float XPos = (float)((int)j - CELLADJUSMENT) * CELLPOSADJUSTMENT;
 				float Ypos = 4.0f;
-				float ZPos = (float)(m_celladjustment - (int)i) * m_cellPosadjustment;
+				float ZPos = (float)(CELLADJUSMENT - (int)i) * CELLPOSADJUSTMENT;
 				if (Tokens[j] == L"5")//5の時にゲームステージに追加
 				{
 					AddGameObject<Meat>(m_meteScale, Vec3(0.0f), Vec3(XPos, Ypos, ZPos));
@@ -544,7 +543,7 @@ namespace basecross {
 		{
 			auto scene = App::GetApp()->GetScene<Scene>();				//!シーンの取得
 			auto m_emissiveChangeTime = scene->GetEmissiveChangeTime();	//!明るさを変更する時間の取得
-			m_emissiveChangeTime = m_emissiveReset;						//!明るさを変更する時間のリセット
+			m_emissiveChangeTime = EMISSIVERESET;						//!明るさを変更する時間のリセット
 			scene->SetEmissiveChangeTime(m_emissiveChangeTime);			//!明るさを変更する時間の設定
 			auto gameStrat = scene->GetGameStrat();						//!ゲームスタートしているかの取得
 			gameStrat = true;											//!ゲームスタートする				
@@ -559,7 +558,7 @@ namespace basecross {
 	void GameStage::GameTime()
 	{
 		float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
-		OpeningCameraBooting(m_opningCameraTime);			//!オープニングカメラの時間中の処理
+		OpeningCameraBooting(OPNINGCAMERATIME);			//!オープニングカメラの時間中の処理
 		auto scene = App::GetApp()->GetScene<Scene>();		//!シーンの取得
 		auto gameStrat = scene->GetGameStrat();				//!スタートしているかどうかの取得
 
@@ -573,7 +572,7 @@ namespace basecross {
 			if (scene->GetPlayerChangeDirecting())
 			{
 				//!プレイヤーの変身が終わったら
-				if (m_playerConditionTime >= m_playerConditionMaxTime)
+				if (m_playerConditionTime >= PLAYERCONDITIONMAXTIME)
 				{
 					m_playerConditionTime = 0.0f;						 //!変身時間のリセット
 					scene->SetPlayerConditionTime(m_playerConditionTime);//!変身時間のリセット設定
@@ -582,7 +581,7 @@ namespace basecross {
 				m_playerChangeTime += elapsedTime;					//!時間を止めている時間
 
 				//!プレイヤーの変身時間が過ぎたら時間を動かす
-				if (m_playerChangeTime >= m_playerChangeMaxTime)
+				if (m_playerChangeTime >= PLAYERCHANGEMAXTIME)
 				{
 					
 					m_playerChangeTime = 0.0f;				//!時間を止めている時間のリセット
@@ -595,7 +594,7 @@ namespace basecross {
 			else
 			{
 				float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
-				m_dayTime += elapsedTime / m_circleClockSpeed;		//!時間を回転させるスピードで割る
+				m_dayTime += elapsedTime / CIRCLECLOCKSPEED;		//!時間を回転させるスピードで割る
 				m_playerConditionTime += elapsedTime;				//!変身の時間に加算
 				m_totalTime -= elapsedTime;							//!ゲーム時間の取得
 				auto m_emissiveChangeTime = App::GetApp()->GetScene<Scene>()->GetEmissiveChangeTime();//!明るさの変更
@@ -603,7 +602,7 @@ namespace basecross {
 				//!昼の時
 				if (m_oneday == static_cast<int>(Oneday::midday))
 				{
-					m_emissiveChangeTime -= elapsedTime / m_emissiveChangeTimeSpeed;//!エミッシブが変わる時間
+					m_emissiveChangeTime -= elapsedTime / EMISSIVECHANGETIMESPEED;//!エミッシブが変わる時間
 					scene->SetEmissiveChangeTime(m_emissiveChangeTime);				//!エミッシブが変わる時間の設定
 					
 					//!夜の時間になったら
@@ -617,11 +616,11 @@ namespace basecross {
 				//!夜の時
 				if (m_oneday == static_cast<int>(Oneday::night))
 				{
-					m_emissiveChangeTime += elapsedTime / m_emissiveChangeTimeSpeed;//!エミッシブが変わる時間
+					m_emissiveChangeTime += elapsedTime / EMISSIVECHANGETIMESPEED;//!エミッシブが変わる時間
 					scene->SetEmissiveChangeTime(m_emissiveChangeTime);				//!エミッシブが変わる時間の設定
 
 					//!昼の時間になったら
-					if (m_emissiveChangeTime >= m_emissiveChangeMaxTime)
+					if (m_emissiveChangeTime >= EMISSIVECHANGEMAXTIME)
 					{
 						m_oneday = static_cast<int>(Oneday::midday);//!昼に変化
 					}
@@ -709,16 +708,16 @@ namespace basecross {
 			CreateStageWall();
 			CreateStageBuilding();
 			CreateKey();
-			CreateStageGate(); //!ステージの門の作成
-			CreatePlayer();//!プレーヤーの作成
-			CerateVillager();//!村人の作成
-			CreatePlayBGM();//!BGMの作成
-			CerateHunter();//!ハンターの作成
-			CreateWoodenBox();//!箱の作成
-			CreateWood();//!木の作成
-			CreateHeadMan();//!村長の作成
-			CreateMeat();//!肉の作成
-			CreateCameraman(); //!カメラマンの作成
+			CreateStageGate(); 
+			CreatePlayer();		
+			CerateVillager();	
+			CreatePlayBGM();	
+			CerateHunter();		
+			CreateWoodenBox();	
+			CreateWood();		
+			CreateHeadMan();	
+			CreateMeat();		
+			CreateCameraman();	
 
 			//!ゲームステージのUIキャンバスの作成
 			AddGameObject<GameStageCanvas>();
@@ -741,9 +740,9 @@ namespace basecross {
 		auto scene = App::GetApp()->GetScene<Scene>();	//!シーンの取得
 		auto& app = App::GetApp();						//!アプリの取得
 		auto deltaTime = app->GetElapsedTime();			//!エルパソタイムの取得
-		m_MeatTime += deltaTime* m_MeatTimeSpeed;		//!肉の時間に加算
-		srand(std::time(0));
-		m_MeatNumber = rand() % randomNumber;			//!ランダムの上限の数字で割ることでそれ以上にならない
+		m_MeatTime += deltaTime* MEATTIMESPEED;		//!肉の時間に加算
+		srand((unsigned)std::time(0));
+		m_MeatNumber = rand() % RANDOMNUMBER;			//!ランダムの上限の数字で割ることでそれ以上にならない
 		scene->SetMeatNamber(m_MeatNumber);				//!肉の位置の数字が設定される
 		GameTime();
 		auto gameOver = scene->GetGameOver();			//!ゲームオーバーしているかどうか
@@ -772,14 +771,14 @@ namespace basecross {
 	void GameStage::CreatePlayBGM()
 	{
 		auto& XAPtr = App::GetApp()->GetXAudio2Manager();
-		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, m_bgmVolume);
+		m_BGM = XAPtr->Start(L"bgm", XAUDIO2_LOOP_INFINITE, BGMVOLUME);
 	}
 
 	// !ゲームオーバーのBGMの再生
 	void GameStage::CreateGameOverBGM()
 	{
 		auto& XAPtr = App::GetApp()->GetXAudio2Manager();
-		m_GameOverBGM = XAPtr->Start(L"GameOver", XAUDIO2_LOOP_INFINITE, m_bgmVolume);
+		m_GameOverBGM = XAPtr->Start(L"GameOver", XAUDIO2_LOOP_INFINITE, BGMVOLUME);
 
 	}
 

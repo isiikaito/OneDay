@@ -13,8 +13,6 @@ namespace basecross {
 	//	ゲームステージクラス
 	//--------------------------------------------------------------------------------------
 	class GameManager{
-	private:
-
 
 	public:
 
@@ -46,7 +44,7 @@ namespace basecross {
 		@brief	ステージ時間の取得
 		@retrun	時間を返す
 		*/
-		static float GetElpasedTiem();
+		static float GetElpasedTiem() ;
 
 		//--------------------------------------------------------------------------------------
 		/*!

@@ -9,16 +9,15 @@
 
 namespace basecross
 {
-	constexpr float eyeRang = 50.0f;			   //!視界の長さ
-	constexpr float maxPlayerCatch = 10.0f;		   //!プレイヤーを捕まえる距離
-	constexpr float m_maxdedTime = 1.0f;		   //!倒れる時間
-	constexpr float dividedNumber = 9.0f;		   //!視野の広さを決める
-	constexpr int m_movestartSample = 0;		   //!動くアニメーションの開始フレーム
-	constexpr int m_movesampleLength = 30;		   //!動くアニメーションの長さ
-	constexpr float m_movesamplesParSecond = 40.0f;//!動くアニメーションの再生速度
-	constexpr int m_dedstartSample = 60;		   //!倒れるアニメーションの開始フレーム
-	constexpr int m_dedsampleLength = 30;		   //!倒れるアニメーションの長さ
-	constexpr float m_dedsamplesParSecond = 15.0f; //!倒れるアニメーションの再生速度
+	constexpr float EYERANGE = 50.0f;				//!視界の長さ
+	constexpr float MAXPLAYERCATCH = 10.0f;			//!プレイヤーを捕まえる距離
+	constexpr float dividedNumber = 9.0f;			//!視野の広さを決める
+	constexpr int MOVESTARTSAMPLE = 0;				//!動くアニメーションの開始フレーム
+	constexpr int MOVESAMPLELENGTH = 30;			//!動くアニメーションの長さ
+	constexpr float MOVESAMPLESPARSECOND = 40.0f;	//!動くアニメーションの再生速度
+	constexpr int DEDSTARTSAMPLE = 60;				//!倒れるアニメーションの開始フレーム
+	constexpr int DEDSAMPLELENGTH = 30;				//!倒れるアニメーションの長さ
+	constexpr float DEDSAMPLESPARSECOND = 15.0f;	//!倒れるアニメーションの再生速度
 
 
 
@@ -65,22 +64,22 @@ namespace basecross
 		);
 
 
-		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");	//!オブジェクトのグループを得る
-		group->IntoGroup(GetThis<Hunter>());								//!グループに自分自身を追加
-		SetAlphaActive(true);												//!SetDiffiuseのカラー変更を適用
+		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");								//!オブジェクトのグループを得る
+		group->IntoGroup(GetThis<Hunter>());															//!グループに自分自身を追加
+		SetAlphaActive(true);																			//!SetDiffiuseのカラー変更を適用
 
-		AddComponent<Gravity>();											//!重力をつける
-		auto Coll = AddComponent<CollisionCapsule>();						//!CollisionObb衝突判定を付ける
-		auto ptrShadow = AddComponent<Shadowmap>();							//!影をつける（シャドウマップを描画する）
-		ptrShadow->SetMeshResource(L"EnemyHunter_Animation_MESH");			//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshToTransformMatrix(spanMat);						//!見た目と当たり判定
-		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();				//!描画コンポーネントの設定
-		ptrDraw->SetMeshResource(L"EnemyHunter_Animation_MESH_WITH_TAN");	//!描画するメッシュを設定
-		ptrDraw->SetMeshToTransformMatrix(spanMat);															//!メッシュの大きさ設定
-		ptrDraw->AddAnimation(L"Move", m_movestartSample, m_movesampleLength, true, m_movesamplesParSecond);//!歩くアニメーションの読み込み
-		ptrDraw->AddAnimation(L"Ded", m_dedstartSample, m_dedsampleLength, false, m_dedsamplesParSecond);	//!倒れるアニメーションの追加
-		ptrDraw->ChangeCurrentAnimation(L"Move");							//!現在のアニメーションの設定
-		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");			//!法線マップの設定
+		AddComponent<Gravity>();																		//!重力をつける
+		auto Coll = AddComponent<CollisionCapsule>();													//!CollisionObb衝突判定を付ける
+		auto ptrShadow = AddComponent<Shadowmap>();														//!影をつける（シャドウマップを描画する）
+		ptrShadow->SetMeshResource(L"EnemyHunter_Animation_MESH");										//!影の形（メッシュ）を設定
+		ptrShadow->SetMeshToTransformMatrix(spanMat);													//!見た目と当たり判定
+		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();											//!描画コンポーネントの設定
+		ptrDraw->SetMeshResource(L"EnemyHunter_Animation_MESH_WITH_TAN");								//!描画するメッシュを設定
+		ptrDraw->SetMeshToTransformMatrix(spanMat);														//!メッシュの大きさ設定
+		ptrDraw->AddAnimation(L"Move", MOVESTARTSAMPLE, MOVESAMPLELENGTH, true, MOVESAMPLESPARSECOND);	//!歩くアニメーションの読み込み
+		ptrDraw->AddAnimation(L"Ded", DEDSTARTSAMPLE, DEDSAMPLELENGTH, false, DEDSAMPLESPARSECOND);		//!倒れるアニメーションの追加
+		ptrDraw->ChangeCurrentAnimation(L"Move");														//!現在のアニメーションの設定
+		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");										//!法線マップの設定
 
 		//!巡回ポイントの取得
 		auto patrolPoints = GetEnemyPatorolPoints();
@@ -90,7 +89,7 @@ namespace basecross
 		}
 
 		SetpatorolPoints(patrolPoints);
-		SetEyeRang(eyeRang);
+		SetEyeRang(EYERANGE);
 
 
 	}
@@ -114,7 +113,7 @@ namespace basecross
 			if (angle <= chk && angle >= -chk)
 			{
 				//!プレイヤーを捕まえる範囲の中にプレイヤーがいたら
-				if (playerCatch <= maxPlayerCatch)
+				if (playerCatch <= MAXPLAYERCATCH)
 				{
 					ptrPlayer->SetIsplayerDed(true);								//!プレイヤーを倒す
 				}

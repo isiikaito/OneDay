@@ -7,7 +7,8 @@
 #include "GameManager.h"
 namespace basecross {
 
-	constexpr float m_colLimit = 0.2;
+	constexpr float COLLIMIT = 0.2;	//色の変化値
+	constexpr float TRANCE = 1.0f;		//!透明度
 	//--------------------------------------------------------------------------------------
 	//	class Wood : public GameObject;
 	//--------------------------------------------------------------------------------------
@@ -36,10 +37,10 @@ namespace basecross {
 		// モデルとトランスフォームの間の差分行列
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.06f, 0.06f, 0.06f),//!大きさ
+			Vec3(0.06f, 0.06f, 0.06f),	//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(0.0f, -0.5f, 0.0f)  //!位置
+			Vec3(0.0f, 0.0f, 0.0f),		//!回転
+			Vec3(0.0f, -0.5f, 0.0f)		//!位置
 		);
 
 		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
@@ -67,7 +68,7 @@ namespace basecross {
 		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
 		auto m_time = scene->GetEmissiveChangeTime();
 
-		ptrDraw->SetEmissive(Col4(m_time - m_colLimit, m_time - m_colLimit, m_time - m_colLimit, 1.0f)); // !夜にする処理
+		ptrDraw->SetEmissive(Col4(m_time - COLLIMIT, m_time - COLLIMIT, m_time - COLLIMIT, TRANCE)); // !夜にする処理
 
 	}
 

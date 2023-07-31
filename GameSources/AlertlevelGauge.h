@@ -16,8 +16,11 @@ namespace basecross {
 		Vec2 m_StartScale;    //!大きさ
 		Vec2 m_StartPos;      //!位置
 		wstring m_TextureKey; //!テクスチャ
-		int m_RustLife;
-
+		const Vec2 m_LeftUpperSummit;	//!左上の頂点
+		const Vec2 m_LeftLowerSummit;	//!左下の頂点
+		const Vec2 m_RightUpperSummit;	//!右上の頂点
+		const Vec2 m_RightLowerSummit;	//!右下の頂点
+		Col4 m_TextureColor;			//!テクスチャの色
 
 	public:
 

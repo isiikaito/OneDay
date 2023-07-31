@@ -81,7 +81,8 @@ namespace basecross {
 		@brief	視点の位置を取得
 		@return 視点の位置
 		*/
-		Vec3 GetAtPos() const {
+		Vec3 GetAtPos() const
+		{
 			return m_AtPos;
 		}
 

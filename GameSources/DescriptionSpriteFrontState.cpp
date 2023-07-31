@@ -11,6 +11,7 @@
 
 namespace basecross
 {
+	
 	namespace kaito
 	{
 		constexpr float FlippingSpeed = 20.0f;//!à–¾‘‚ª“®‚­‘¬“x
@@ -95,7 +96,6 @@ namespace basecross
 
 
 		}
-
 		void DescriptionSpriteStandbyFrontState::Exit(DescriptionSpriteFront* descriptionSpriteFront)
 		{
 		}

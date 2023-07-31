@@ -34,8 +34,8 @@ namespace basecross {
 		spanMat.affineTransformation(
 			Vec3(0.2f, 0.1f, 0.5f),//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.6f, 0.0f),   //!回転
-			Vec3(0.0f, -0.5f, 0.0f) //!位置
+			Vec3(0.0f, 0.6f, 0.0f),//!回転
+			Vec3(0.0f, -0.5f, 0.0f)//!位置
 		);
 
 
@@ -51,13 +51,11 @@ namespace basecross {
 		//!メッシュの設定
 		ptrDraw->SetMeshResource(L"KEY_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		Coll->SetDrawActive(false);
+
 		//!RigidbodyBoxの追加
 		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
 		auto PsPtr = AddComponent<RigidbodyBox>(param);
-
 		auto group = GetStage()->GetSharedObjectGroup(L"key_ObjGroup");
-
 		//グループに自分自身を追加
 		group->IntoGroup(GetThis<Key>());
 	
@@ -71,18 +69,13 @@ namespace basecross {
 	    m_Time += time;
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.2f, 0.1f, 0.5f),//!大きさ
+			Vec3(0.2f, 0.1f, 0.5f),		//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, m_Time, 0.0f),   //!回転
-			Vec3(0.0f, -0.5f, 0.0f) //!位置
+			Vec3(0.0f, -0.5f, 0.0f)		//!位置
 		);
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		
-		
-		/*std::wstringstream ms;
-		ms << keyPosition.x << "\n";
-	    MessageBox(NULL, ms.str().c_str(), L"", MB_OK);*/
-
 	}
 }
 //end basecross

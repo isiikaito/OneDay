@@ -9,13 +9,13 @@
 
 namespace basecross
 {
-	constexpr float eyeRang = 20.0f;			   //!視野の長さ
-	constexpr int m_movestartSample = 0;		   //!動くアニメーションの開始フレーム
-	constexpr int m_movesampleLength = 30;		   //!動くアニメーションの長さ
-	constexpr float m_movesamplesParSecond = 40.0f;//!動くアニメーションの再生速度
-	constexpr int m_dedstartSample = 60;		   //!倒れるアニメーションの開始フレーム
-	constexpr int m_dedsampleLength = 30;		   //!倒れるアニメーションの長さ
-	constexpr float m_dedsamplesParSecond = 15.0f; //!倒れるアニメーションの再生速度
+	constexpr float EYERANGE = 20.0f;				//!視野の長さ
+	constexpr int MOVESTARTSAMPLE = 0;				//!動くアニメーションの開始フレーム
+	constexpr int MOVESAMPLELENGTH = 30;			//!動くアニメーションの長さ
+	constexpr float MOVESAMPLESPARSECOND = 40.0f;	//!動くアニメーションの再生速度
+	constexpr int DEDSTARTSAMPLE = 60;				//!倒れるアニメーションの開始フレーム
+	constexpr int DEDSAMPLELENGTH = 30;				//!倒れるアニメーションの長さ
+	constexpr float DEDSAMPLESPARSECOND = 15.0f;	//!倒れるアニメーションの再生速度
 	
 	Villager::Villager(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
@@ -65,8 +65,8 @@ namespace basecross
 		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();					//!描画コンポーネントの設定
 		ptrDraw->SetMeshResource(L"EnemyVillager_WalkAnimation_MESH_WITH_TAN");	//!描画するメッシュを設定
 		ptrDraw->SetMeshToTransformMatrix(spanMat);								//!メッシュの大きさを設定する
-		ptrDraw->AddAnimation(L"Move", m_movestartSample, m_movesampleLength, true, m_movesamplesParSecond);//!歩くアニメーションの読み込み
-		ptrDraw->AddAnimation(L"Ded", m_dedstartSample, m_dedsampleLength, false, m_dedsamplesParSecond);	//!倒れるアニメーションの追加
+		ptrDraw->AddAnimation(L"Move", MOVESTARTSAMPLE, MOVESAMPLELENGTH, true, MOVESAMPLESPARSECOND);//!歩くアニメーションの読み込み
+		ptrDraw->AddAnimation(L"Ded", DEDSTARTSAMPLE, DEDSAMPLELENGTH, false, DEDSAMPLESPARSECOND);	//!倒れるアニメーションの追加
 		ptrDraw->ChangeCurrentAnimation(L"Move");								//!現在のアニメーションの設定
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");				//!法線マップの設定
 
@@ -78,7 +78,7 @@ namespace basecross
 		}
 
 		SetpatorolPoints(patrolPoints);		
-		SetEyeRang(eyeRang);
+		SetEyeRang(EYERANGE);
 
 	}
 	
@@ -120,7 +120,7 @@ namespace basecross
 	{
 		VillagerDed();
 		SetMaxSpeed(m_Speed);
-		SetEyeRang(eyeRang);
+		SetEyeRang(EYERANGE);
 		BaseEnemy::OnUpdate();
 	}
 

@@ -35,36 +35,33 @@ namespace basecross {
 
 	void HungerGage::ChangeGage()
 	{
-		auto PtrTransform = GetComponent<Transform>();
-		auto player = GetStage()->GetSharedGameObject<Player>(L"Player"); //!プレイヤーの取得
-		player->GetMeatCount();
-
-		auto MeatCount = player->GetMeatCount();
-
+		auto PtrTransform = GetComponent<Transform>();						//!トランスフォームの取得
+		auto player = GetStage()->GetSharedGameObject<Player>(L"Player");	//!プレイヤーの取得											
+		auto MeatCount = player->GetMeatCount();							//!肉の取得数
+		//!肉の数に応じて
 		switch (MeatCount)
 		{
-
+		//!ゲージがなくなったとき
 		case(static_cast<int>(EatCondition::notEat)):
-			//!ゲージがなくなったとき
-			SetDrawActive(false);
+			SetDrawActive(false);											//!表示しない
 			break;
+		//!ゲージが一個溜まったとき
 		case(static_cast<int>(EatCondition::firstEat)):
-            //!ゲージが一個溜まったとき
-			SetDrawActive(true);
-
-		    PtrTransform->SetScale(m_firstEatScale);
-		     PtrTransform->SetPosition(m_firstEatPos);
-		    break;
+			SetDrawActive(true);											//!表示する
+			PtrTransform->SetScale(m_firstEatScale);						//!一個の時のゲージの大きさにする
+			PtrTransform->SetPosition(m_firstEatPos);						//!一個の時のゲージの位置にする
+			break;
+		//!ゲージが二個溜まったとき
 		case(static_cast<int>(EatCondition::secondEat)):
-			//!ゲージが二個溜まったとき
-			PtrTransform->SetScale(m_secondEatScale);
-		    PtrTransform->SetPosition(m_secondEatPos);
-		    break;
+			PtrTransform->SetScale(m_secondEatScale);						//!二個の時のゲージの大きさにする
+			PtrTransform->SetPosition(m_secondEatPos);						//!二個の時のゲージの位置にする
+			break;
+		//!満タンの時
 		case(static_cast<int>(EatCondition::thirdEat)):
-            //!満タンの時
-			 PtrTransform->SetScale(m_thirdEatScale);
-		   PtrTransform->SetPosition(m_thirdEatPos);
-		break;
+			
+			PtrTransform->SetScale(m_thirdEatScale);						//!満タンの時のゲージの大きさにする
+			PtrTransform->SetPosition(m_thirdEatPos);						//!満タンの時のゲージの位置にする
+			break;
 
 		}
 

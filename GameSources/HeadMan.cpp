@@ -9,10 +9,10 @@
 #include "HeadMan.h"
 namespace basecross
 {
-	constexpr float m_samplesParSecond = 10.0f;//!アニメーションの再生速度
-	constexpr int m_startSample = 31;		   //!アニメーションの開始フレーム
-	constexpr int m_sampleLength = 30;		   //!アニメーションの長さ
-	constexpr float m_headManSp = 30.0f;       //!当たり判定を作るスフィアの半径
+	constexpr float SAMPLESPARSECOND = 10.0f;//!アニメーションの再生速度
+	constexpr int STARTSAMPLE = 31;		   //!アニメーションの開始フレーム
+	constexpr int SAMPLELENGTH = 30;		   //!アニメーションの長さ
+	constexpr float HEADMANSP = 30.0f;       //!当たり判定を作るスフィアの半径
 	
 		
 
@@ -53,7 +53,7 @@ namespace basecross
 		ptrShadow->SetMeshToTransformMatrix(spanMat);						                       //!メッシュを当たり判定と合わせる
 		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();				                       //!描画コンポーネントの設定
 		ptrDraw->SetMeshResource(L"EnemyVillager_WalkAnimation_MESH_WITH_TAN");                    //!描画するメッシュを設定
-		ptrDraw->AddAnimation(L"Default", m_startSample, m_sampleLength, true, m_samplesParSecond);//!アニメーションの取得
+		ptrDraw->AddAnimation(L"Default", STARTSAMPLE, SAMPLELENGTH, true, SAMPLESPARSECOND);//!アニメーションの取得
 		ptrDraw->ChangeCurrentAnimation(L"Default");						                       //!現在のアニメーションの設定
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");			                       //!法線マップの設定
 		ptrDraw->SetMeshToTransformMatrix(spanMat);												   //!メッシュの大きさの設定
@@ -62,7 +62,7 @@ namespace basecross
 	void HeadMan::HeadManComment()
 	{
 		auto position = GetComponent<Transform>()->GetPosition();				  //!現在のプレイヤーの位置の取得
-		SPHERE headManSp(position, m_headManSp);								  //!プレイヤーの座標を中心に半径30センチの円の作成
+		SPHERE headManSp(position, HEADMANSP);								  //!プレイヤーの座標を中心に半径30センチの円の作成
 		auto player = GetStage()->GetSharedGameObject<Player>(L"Player");		  //!プレイヤーの取得
 		Vec3 ret;																  //!最近接点
 		auto playerCapsrul=player->GetComponent<CollisionCapsule>()->GetCapsule();//!プレイヤーのカプセルオブジェクトを取得

@@ -13,7 +13,7 @@ namespace basecross
 {
 	namespace kaito
 	{
-
+		//!ページ数
 		enum class PageNumber {
 			farst,
 			second,
@@ -24,9 +24,15 @@ namespace basecross
 		class DescriptionSpriteFrontState :public State<DescriptionSpriteFront>
 		{
 		private:
-			DescriptionSpriteFrontState() {}
+		
 			float m_moveTime = 0.0f;				//!動いている時間
 			float m_stateChangePositionX = -1300.0f;//!テクスチャを横スライドする座標
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	コンストラクタ
+			*/
+			DescriptionSpriteFrontState() {}
 
 			//!シングルトンパターン
 			DescriptionSpriteFrontState(const DescriptionSpriteFrontState&) = delete;//!関数を削除する
@@ -35,9 +41,25 @@ namespace basecross
 		public:
 			static DescriptionSpriteFrontState* Instance();
 
-
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Enter(DescriptionSpriteFront* descriptionSpriteFront)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに常に呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Execute(DescriptionSpriteFront* descriptionSpriteFront)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートを出るときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Exit(DescriptionSpriteFront* descriptionSpriteFront)override;
 		};
 
@@ -57,8 +79,25 @@ namespace basecross
 			static DescriptionSpriteStandbyFrontState* Instance();
 
 
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Enter(DescriptionSpriteFront* descriptionSpriteFront)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに常に呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Execute(DescriptionSpriteFront* descriptionSpriteFront)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートを出るときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Exit(DescriptionSpriteFront* descriptionSpriteFront)override;
 		};
 
@@ -78,8 +117,25 @@ namespace basecross
 			static DescriptionPageBackToState* Instance();
 
 
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Enter(DescriptionSpriteFront* descriptionSpriteFront)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに常に呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Execute(DescriptionSpriteFront* descriptionSpriteFront)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートを出るときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Exit(DescriptionSpriteFront* descriptionSpriteFront)override;
 		};
 

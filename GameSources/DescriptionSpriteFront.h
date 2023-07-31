@@ -22,63 +22,62 @@ namespace basecross {
 	
 	class DescriptionSpriteFront : public GameUI {
 	private:
-		bool m_Trace;		  //!透明
-		Vec2 m_StartScale;	  //!大きさ
-		Vec3 m_StartPos;	  //!位置
-		wstring m_TextureKey; //!テクスチャ
-		bool m_moveTexture;	  //!テクスチャの移動するかどうか
-		bool m_pageBackTo;    //!ページを戻す処理
-		//!ステートマシーン
+		bool m_Trace;												//!透明
+		Vec2 m_StartScale;											//!大きさ
+		Vec3 m_StartPos;											//!位置
+		wstring m_TextureKey;										//!テクスチャ
+		bool m_moveTexture;											//!テクスチャの移動するかどうか
+		bool m_pageBackTo;											//!ページを戻す処理
 		kaito::StateMachine<DescriptionSpriteFront>* m_StateMachine;//!ステートマシンクラスのインスタンスの生成
 
 	public:
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　コンストラクタ
+		@brief	コンストラクタ
 		*/
 		DescriptionSpriteFront(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
 			const Vec2& StartScale, const Vec3& StartPos);
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief ステートマシーンのアクセッサ
+		@brief	ステートマシーンのアクセッサ
 		*/
-		const kaito::StateMachine<DescriptionSpriteFront>* GetFSM()const
+		const kaito::StateMachine<DescriptionSpriteFront>* GetFSM() const
 		{
 			return m_StateMachine;
 		}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　デストラクタ
+		@brief	デストラクタ
 		*/
 		virtual ~DescriptionSpriteFront();
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　初期化
+		@brief	初期化
 		*/
 		virtual void OnCreate() override;
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　更新
+		@brief	更新
 		*/
 		virtual void OnUpdate() override;
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　テクスチャを動かすかどうか
+		@brief	テクスチャを動かすかどうか
 		*/
-		bool GetMoveTexture()
+		bool GetMoveTexture() const
 		{
 			return m_moveTexture;
 		}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　テクスチャを動かすか設定する
+		@brief	テクスチャを動かすか設定する
 		*/
 		void SetMoveTexture(bool moveTexture)
 		{
@@ -87,16 +86,16 @@ namespace basecross {
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　ページを戻すかどうかの取得
+		@brief	ページを戻すかどうかの取得
 		*/
-		bool GetPageBackTo()
+		bool GetPageBackTo() const
 		{
 			return m_pageBackTo;
 		}
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief　ページを戻すかどうかの取得
+		@brief	ページを戻すかどうかの取得
 		*/
 		void SetPageBackTo(bool pageBackTo)
 		{
@@ -107,7 +106,7 @@ namespace basecross {
 
 		//--------------------------------------------------------------------------------------
 		/*!
-		@brief ステートの変更
+		@brief	ステートの変更
 		*/
 		virtual void ChangeState(kaito::State<DescriptionSpriteFront>* NewState);
 

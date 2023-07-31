@@ -9,20 +9,20 @@
 
 namespace basecross
 {
-	constexpr float helfSize = 0.5f;//!ポリゴンサイズ
-	constexpr float MaxLosefSeghtOfTime = 2.0f;//!テクスチャを表示する時間
+	constexpr float HELFSIZE = 0.5f;//!ポリゴンサイズ
+	constexpr float MAXLOSEFSEGHTOFTIME = 2.0f;//!テクスチャを表示する時間
 	void LoseSightOf::OnCreate()
 	{
 		auto PtrTransform = GetComponent<Transform>();
 		// 頂点データ
-		float HelfSize = helfSize;
+	
 
 		//頂点配列(縦横5個ずつ表示)
 		vector<VertexPositionColorTexture> vertices = {
-			{ VertexPositionColorTexture(Vec3(-HelfSize, HelfSize, 0),m_TextureColor, m_LeftUpperSummit) },
-			{ VertexPositionColorTexture(Vec3(HelfSize, HelfSize, 0), m_TextureColor, m_RightUpperSummit) },
-			{ VertexPositionColorTexture(Vec3(-HelfSize, -HelfSize, 0),m_TextureColor, m_LeftLowerSummit) },
-			{ VertexPositionColorTexture(Vec3(HelfSize, -HelfSize, 0),m_TextureColor, m_RightLowerSummit) },
+			{ VertexPositionColorTexture(Vec3(-HELFSIZE, HELFSIZE, 0),m_TextureColor, m_LeftUpperSummit) },
+			{ VertexPositionColorTexture(Vec3(HELFSIZE, HELFSIZE, 0), m_TextureColor, m_RightUpperSummit) },
+			{ VertexPositionColorTexture(Vec3(-HELFSIZE, -HELFSIZE, 0),m_TextureColor, m_LeftLowerSummit) },
+			{ VertexPositionColorTexture(Vec3(HELFSIZE, -HELFSIZE, 0),m_TextureColor, m_RightLowerSummit) },
 		};
 
 		// 頂点インデックス（頂点をつなぐ順番）
@@ -80,9 +80,9 @@ namespace basecross
 			m_LoseSeghtOfTime += Time;						//!時間の更新
 			SetDrawActive(true);							//!表示
 			//!2秒たったら
-			if (m_LoseSeghtOfTime >= MaxLosefSeghtOfTime)
+			if (m_LoseSeghtOfTime >= MAXLOSEFSEGHTOFTIME)
 			{
-				loseSightOfTarget = false;
+				loseSightOfTarget = false;					//!見失う
 				enemy->SetloseSightOfTarget(loseSightOfTarget);
 			}
 
@@ -98,7 +98,6 @@ namespace basecross
 	void LoseSightOf::OnUpdate()
 	{
 		Billboard();
-		
 		LoseSight();
 	}
 }

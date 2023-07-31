@@ -16,14 +16,26 @@ namespace basecross {
 	{
 	private:
 		std::shared_ptr<GameObject> parent; // 親オブジェクト
-		float m_surprisedTime;
+		float m_surprisedTime;				//!表示時間
+		Vec3 m_scale;						//!大きさ
+		float m_SurprisedTime;				//!板ポリを表示する時間
+		const float m_spritePositionY;		//!板ポリのY軸のポジション
+		bool m_IsFoundPlayer;				//!プレイヤーを発見したとき
+		const Vec2 m_LeftUpperSummit;		//!左上の頂点
+		const Vec2 m_LeftLowerSummit;		//!左下の頂点
+		const Vec2 m_RightUpperSummit;		//!右上の頂点
+		const Vec2 m_RightLowerSummit;		//!右下の頂点
+		Col4 m_TextureColor;				//!テクスチャの色
+		float m_tempLength;					//!臨時の長さ
+		Vec3 m_defUp;						//!通常
+
 		Quat Billboard(const Vec3& Line) {
 			Vec3 Temp = Line;
 			Mat4x4 RotMatrix;
 			Vec3 DefUp(0, 1.0f, 0);
 			Vec2 TempVec2(Temp.x, Temp.z);
-			if (TempVec2.length() < 0.1f) {
-				DefUp = Vec3(0, 0, 1.0f);
+			if (TempVec2.length() < m_tempLength) {
+				DefUp = m_defUp;
 			}
 			Temp.normalize();
 			RotMatrix = XMMatrixLookAtLH(Vec3(0, 0, 0), Temp, DefUp);
@@ -33,16 +45,6 @@ namespace basecross {
 			Qt.normalize();
 			return Qt;
 		}
-		Vec3 m_scale;
-
-		float m_SurprisedTime;			//!板ポリを表示する時間
-		const float m_spritePositionY;	//!板ポリのY軸のポジション
-		bool m_IsFoundPlayer;			//!プレイヤーを発見したとき
-		const Vec2 m_LeftUpperSummit;	//!左上の頂点
-		const Vec2 m_LeftLowerSummit;	//!左下の頂点
-		const Vec2 m_RightUpperSummit;	//!右上の頂点
-		const Vec2 m_RightLowerSummit;	//!右下の頂点
-		Col4 m_TextureColor;			//!テクスチャの色
 		
 
 	public:
@@ -64,7 +66,9 @@ namespace basecross {
 			m_LeftLowerSummit(Vec2(0.0f, 1.0f)),
 			m_RightUpperSummit(Vec2(1.0f, 0.0f)),
 			m_RightLowerSummit(Vec2(1.0f, 1.0f)),
-			m_TextureColor(Col4(1.0f, 1.0f, 1.0f, 1.0f))
+			m_TextureColor(Col4(1.0f, 1.0f, 1.0f, 1.0f)),
+			m_tempLength(0.1f),
+			m_defUp(Vec3(0, 0, 1.0f))
 		
 		{}
 		

@@ -80,9 +80,7 @@ namespace basecross {
 	{
 		auto group = CreateSharedObjectGroup(L"StageBuilding_Group");
 
-		//各値が揃ったのでオブジェクトの作成
-		//auto stagebuilding = AddGameObject<StageBuilding>(Vec3(20, 30, 20), Vec3(0), Vec3(0));//!ステージの床の作成
-
+		
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
 		auto& LineVec = m_GameStageCsvD.GetCsvVec(); // csvファイルをセットする

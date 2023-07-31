@@ -11,33 +11,31 @@
 #include "GameUI.h"
 
 namespace basecross {
-	constexpr float m_maxDedTime = 1.0f;			    //!倒れるまでの時間
-	constexpr float m_vibrationMaxTime = 1.0f;			//!振動する時間
-	constexpr int m_Day = 7;							//!ゲームオーバーまでの日にち
-	constexpr int m_soundLoop = 1;						//!音のループ
-	constexpr int m_notsoundLoop = 0;					//!サウンドループ無し
-	constexpr float m_escapeSphereRadius = 10.0f;		//!プレイヤーを中心とした円の半径
-	constexpr float m_villagerkillerSphereRadius = 5.0f;//!村人を倒す時の円の半径
-	constexpr float m_breakWoodBoxSphereRadius = 5.0f;	//!木箱を倒す時の円の半径
-	constexpr float m_hunterkillerSphereRadius = 5.0f;	//!ハンターを倒す時の円の半径
-	constexpr float m_angleEqual = 6.0f;				//!視野の制限
-	constexpr float m_rotToHead = 1.0f;					//!正面
-	constexpr float m_targetToAtY = 0.25f;				//!カメラの視点位置のy
-	constexpr WORD  m_maxVibration = 65535;				//!振動の大きさ
-	constexpr int m_movestartSample = 0;				//!動くアニメーションの開始フレーム
-	constexpr int m_movesampleLength = 30;				//!動くアニメーションの長さ
-	constexpr float m_movesamplesParSecond = 20.0f;		//!動くアニメーションの再生速度
-	constexpr int m_defaultstartSample = 31;			//!待機アニメーションの開始フレーム
-	constexpr int m_defaultsampleLength = 30;			//!待機アニメーションの長さ
-	constexpr float m_defaultsamplesParSecond = 10.0f;	//!待機アニメーションの再生速度
-	constexpr int m_dedstartSample = 61;				//!倒れるアニメーションの開始フレーム
-	constexpr int m_dedsampleLength = 45;				//!倒れるアニメーションの長さ
-	constexpr float m_dedsamplesParSecond = 30.0f;		//!倒れるアニメーションの再生速度
-	constexpr int m_changestartSample = 91;				//!変身アニメーションの開始フレーム
-	constexpr int m_changesampleLength = 60;			//!変身アニメーションの長さ
-	constexpr float m_changesamplesParSecond = 30.0f;	//!変身アニメーションの再生速度
-	
-
+	constexpr float MAXDEDTIME = 1.0f;			    //!倒れるまでの時間
+	constexpr float VIbRATIONMAXTIME = 1.0f;			//!振動する時間
+	constexpr int DAY = 7;							//!ゲームオーバーまでの日にち
+	constexpr int SOUNDLOOP = 1;						//!音のループ
+	constexpr int NOTSOUNDLOOP = 0;					//!サウンドループ無し
+	constexpr float ESCAPESPHERERAKIUS = 10.0f;		//!プレイヤーを中心とした円の半径
+	constexpr float VILLAGERKILLERSPHERERADIUS = 5.0f;//!村人を倒す時の円の半径
+	constexpr float BREAKWOODBOXSPHERERADIUS = 5.0f;	//!木箱を倒す時の円の半径
+	constexpr float HUNTERKILLERSPHERERADIUS = 5.0f;	//!ハンターを倒す時の円の半径
+	constexpr float ANGLEEQUAL = 6.0f;				//!視野の制限
+	constexpr float ROTTOHEAD = 1.0f;					//!正面
+	constexpr float TARGETTOATY = 0.25f;				//!カメラの視点位置のy
+	constexpr WORD  MAXVIBRATION = 65535;				//!振動の大きさ
+	constexpr int MOVESTARTSAMPLE = 0;				//!動くアニメーションの開始フレーム
+	constexpr int MOVESAMPLELENGTH = 30;				//!動くアニメーションの長さ
+	constexpr float MOVESAMPLESPARSECOND = 20.0f;		//!動くアニメーションの再生速度
+	constexpr int DEFAULTSTARTSAMPLE = 31;			//!待機アニメーションの開始フレーム
+	constexpr int DEFAULTSAMPLELENGTH = 30;			//!待機アニメーションの長さ
+	constexpr float DEFAULTSAMPLESPARSECOND = 10.0f;	//!待機アニメーションの再生速度
+	constexpr int DEDSTARTSAMPLE = 61;				//!倒れるアニメーションの開始フレーム
+	constexpr int DEDSAMPLELENGTH = 45;				//!倒れるアニメーションの長さ
+	constexpr float DEDSAMPLESPARSECOND = 30.0f;		//!倒れるアニメーションの再生速度
+	constexpr int CHANGESTARTSAMPLE = 91;				//!変身アニメーションの開始フレーム
+	constexpr int CHANGESAMPLELENGTH = 60;			//!変身アニメーションの長さ
+	constexpr float CHANGESAMPLESPARSECOND = 30.0f;	//!変身アニメーションの再生速度
 	
 
 	//--------------------------------------------------------------------------------------
@@ -49,7 +47,7 @@ namespace basecross {
 		GameObject(StagePtr),
 		m_Speed(20.0f),
 		m_ChangeTime(0.0f),
-		m_playerChange(static_cast<int>(PlayerModel::human)),
+		m_playerChange(PlayerModel::human),
 		m_humanTime(31.0f),
 		m_wolfTime(61.0f),
 		m_reset(0),
@@ -148,7 +146,7 @@ namespace basecross {
 			if (AnimationName == L"Default" || AnimationName == L"Change") {
 				ptrDraw->ChangeCurrentAnimation(L"Move");				//!アニメーションを変える
 				auto& XAptr = App::GetApp()->GetXAudio2Manager();		//!サウンドマネージャーの取得
-				m_Wolk = XAptr->Start(L"WalkBGM", m_soundLoop, volume);	//歩く音再生
+				m_Wolk = XAptr->Start(L"WalkBGM", SOUNDLOOP, volume);	//歩く音再生
 			}
 		}
 
@@ -164,7 +162,7 @@ namespace basecross {
 		//!回転の計算
 		if (angle.length() > 0.0f) {
 			auto utilPtr = GetBehavior<UtilBehavior>();
-			utilPtr->RotToHead(angle, m_rotToHead);		//!正面を向く
+			utilPtr->RotToHead(angle, ROTTOHEAD);		//!正面を向く
 		}
 	}
 
@@ -211,10 +209,10 @@ namespace basecross {
 		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();															//!描画コンポーネントの設定
 		ptrDraw->SetMeshResource(L"Player_WalkAnimation2_MESH_WITH_TAN");												//!描画するメッシュを設定
 		ptrDraw->SetMeshToTransformMatrix(spanMat);																		//!メッシュの大きさ設定
-		ptrDraw->AddAnimation(L"Move", m_movestartSample, m_movesampleLength, true, m_movesamplesParSecond);			//!歩くアニメーションの登録
-		ptrDraw->AddAnimation(L"Default", m_defaultstartSample, m_defaultsampleLength, true, m_defaultsamplesParSecond);//!待機アニメーションの登録
-		ptrDraw->AddAnimation(L"Ded", m_dedstartSample, m_dedsampleLength, false, m_dedsamplesParSecond);				//!倒れるアニメーションの登録
-		ptrDraw->AddAnimation(L"Change", m_changestartSample, m_changesampleLength, false, m_changesamplesParSecond);	//!変身アニメーションの登録
+		ptrDraw->AddAnimation(L"Move", MOVESTARTSAMPLE, MOVESAMPLELENGTH, true, MOVESAMPLESPARSECOND);			//!歩くアニメーションの登録
+		ptrDraw->AddAnimation(L"Default", DEFAULTSTARTSAMPLE, DEFAULTSAMPLELENGTH, true, DEFAULTSAMPLESPARSECOND);//!待機アニメーションの登録
+		ptrDraw->AddAnimation(L"Ded", DEDSTARTSAMPLE, DEDSAMPLELENGTH, false, DEDSAMPLESPARSECOND);				//!倒れるアニメーションの登録
+		ptrDraw->AddAnimation(L"Change", CHANGESTARTSAMPLE, CHANGESAMPLELENGTH, false, CHANGESAMPLESPARSECOND);	//!変身アニメーションの登録
 		ptrDraw->ChangeCurrentAnimation(L"Default");																	//!現在のアニメーションの設定
 		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");														//!法線マップの設定
 
@@ -225,7 +223,7 @@ namespace basecross {
 		if (ptrCamera) {
 
 			ptrCamera->SetTargetObject(GetThis<GameObject>());	//!MyCameraである
-			ptrCamera->SetTargetToAt(Vec3(0, m_targetToAtY, 0));//!MyCameraに注目するオブジェクト（プレイヤー）の設定
+			ptrCamera->SetTargetToAt(Vec3(0, TARGETTOATY, 0));//!MyCameraに注目するオブジェクト（プレイヤー）の設定
 		}
 	}
 
@@ -236,13 +234,13 @@ namespace basecross {
 		auto scene=App::GetApp()->GetScene<Scene>();//!シーンの取得
 		auto gameOver = scene->GetGameOver();		//!ゲームオーバー判定の取得
 		gameOver = true;							//!ゲームオーバーにする
-		scene->SetGameOver(gameOver);				//!ゲームオーバーにする
+		scene->SetGameOver(gameOver);				
 
 		
 		float Time = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
 		m_dedTime += Time;							 //!倒れる時間に加算
 		//!倒れる時間になったら
-		if (m_dedTime >= m_maxDedTime)
+		if (m_dedTime >= MAXDEDTIME)
 		{
 			m_gameOverDrawActive = true;			//!ゲームオーバー画面を表示
 		}
@@ -272,15 +270,15 @@ namespace basecross {
 	{
 		auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();//!効果音量の取得
 		auto& ptrXA = App::GetApp()->GetXAudio2Manager();				 //!サウンドマネージャーの取得
-		ptrXA->Start(L"kill", m_notsoundLoop, volume);					 //!倒したときのサウンドの開始
-		ptrXA->Start(L"scream", m_notsoundLoop, volume);				 //!攻撃のサウンドの開始
+		ptrXA->Start(L"kill", NOTSOUNDLOOP, volume);					 //!倒したときのサウンドの開始
+		ptrXA->Start(L"scream", NOTSOUNDLOOP, volume);				 //!攻撃のサウンドの開始
 	}
 
 	void Player::Hunterkiller()
 	{
 		auto transComp = GetComponent<Transform>();						  //!トランスフォームを取得
 		auto position = transComp->GetPosition();						  //!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, m_hunterkillerSphereRadius);			  //!プレイヤーの座標を中心に半径5センチの円の作成
+		SPHERE playerSp(position, HUNTERKILLERSPHERERADIUS);			  //!プレイヤーの座標を中心に半径5センチの円の作成
 		auto scene = App::GetApp()->GetScene<Scene>();					  //!シーンの取得
 		int alertlevelCount = scene->GetAlertlevelCount();				  //!警戒度の取得
 		auto group = GetStage()->GetSharedObjectGroup(L"Hunter_ObjGroup");//!ハンターグループの取得
@@ -297,7 +295,7 @@ namespace basecross {
 			PEvector.normalize();										 //!プレイヤーと敵のベクトルを正規化
 			auto Enemyfront = HunterTrans->GetForword();				 //!敵の正面を取得
 			auto angle = angleBetweenNormals(-Enemyfront, PEvector);     //!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-			auto chk = XM_PI / m_angleEqual;							 //!360を6で割って角度を出す。
+			auto chk = XM_PI / ANGLEEQUAL;							 //!360を6で割って角度を出す。
 		
 
 			//!プレイヤーの範囲に敵がはいったら
@@ -331,7 +329,7 @@ namespace basecross {
 		auto scene = App::GetApp()->GetScene<Scene>();	//!シーンの取得
 		auto Date = scene->GetDate();					//!日付の取得
 		//!ゲームオーバーの日付になったら
-		if (Date == m_Day)
+		if (Date == DAY)
 		{
 			PlayerGameOver();//!ゲームオーバー
 		}
@@ -342,7 +340,7 @@ namespace basecross {
 	{
 		auto transComp = GetComponent<Transform>();							//!トランスフォームを取得
 		auto position = transComp->GetPosition();							//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, m_breakWoodBoxSphereRadius);				//!プレイヤーの座標を中心に半径2センチの円の作成
+		SPHERE playerSp(position, BREAKWOODBOXSPHERERADIUS);				//!プレイヤーの座標を中心に半径2センチの円の作成
 		auto scene = App::GetApp()->GetScene<Scene>();						//!シーンの取得
 		auto group = GetStage()->GetSharedObjectGroup(L"WoodBox_ObjGroup"); //!グループの取得
 		auto& vecWoodBox = group->GetGroupVector();							//!ゲームオブジェクトの配列の取得
@@ -364,7 +362,7 @@ namespace basecross {
 					GetStage()->RemoveGameObject<WoodenBox>(ptrWoodBox);			 //!木箱を消す
 					
 					auto& ptrXA = App::GetApp()->GetXAudio2Manager();				 //サウンド再生
-					ptrXA->Start(L"WoodBoxBreak", m_notsoundLoop, volume);
+					ptrXA->Start(L"WoodBoxBreak", NOTSOUNDLOOP, volume);
 					
 				}
 			}
@@ -376,7 +374,7 @@ namespace basecross {
 	{
 		auto transComp = GetComponent<Transform>();							//!トランスフォームを取得
 		auto position = transComp->GetPosition();							//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, m_villagerkillerSphereRadius);			//!プレイヤーの座標を中心に半径2センチの円の作成
+		SPHERE playerSp(position, VILLAGERKILLERSPHERERADIUS);			//!プレイヤーの座標を中心に半径2センチの円の作成
 		auto scene = App::GetApp()->GetScene<Scene>();						//!シーンの取得
 		int alertlevelCount = scene->GetAlertlevelCount();					//!危険度の取得
 		//!村人を殺す
@@ -398,7 +396,7 @@ namespace basecross {
 				if (HitTest::SPHERE_CAPSULE(playerSp, VillagerCapsrul, ret))						
 				{
 					
-					auto VillagerSpeed = ptrVillager->GetSpeed();									//!村人のスピードを取得
+					auto VillagerSpeed = ptrVillager->GetSpeed();	//!村人のスピードを取得
 					//!村人の速度が停止していなかったら
 					if (VillagerSpeed != m_Ded)
 					{
@@ -442,7 +440,7 @@ namespace basecross {
 	{
 		auto transComp = GetComponent<Transform>();						//!トランスフォームを取得
 		auto position = transComp->GetPosition();						//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, m_escapeSphereRadius);				//!プレイヤーの座標を中心に半径2センチの円の作成
+		SPHERE playerSp(position, ESCAPESPHERERAKIUS);				//!プレイヤーの座標を中心に半径2センチの円の作成
 
 		auto gate = GetStage()->GetSharedGameObject<StageGate>(L"Gate");//!門を取得
 		Vec3 ret;														//!最近接点の代入
@@ -472,9 +470,9 @@ namespace basecross {
 		{
 			auto Time = App::GetApp()->GetElapsedTime();//!時間の取得
 			m_vibrationTime += Time;					//!振動させる時間
-             m_vibration = m_maxVibration;				//!現在の振動の大きさ
+             m_vibration = MAXVIBRATION;				//!現在の振動の大きさ
 			//!振動する時間経ったら
-			if (m_vibrationTime >= m_vibrationMaxTime)
+			if (m_vibrationTime >= VIbRATIONMAXTIME)
 			{
 				m_IsvibrationOn = false;//!振動をやめる
 			}
@@ -495,7 +493,7 @@ namespace basecross {
 
 	//更新
 	void Player::OnUpdate() {
-		if (m_playerChange == static_cast<int>(PlayerModel::human))
+		if (m_playerChange == PlayerModel::human)
 		{
 			//!プレイヤーが鍵を持っていたら
 			if (m_KeyCount == m_MaxKeyCount)
@@ -568,7 +566,7 @@ namespace basecross {
 		auto ptrKey = dynamic_pointer_cast<Key>(Other);//!鍵の取得
 
 		auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();//!効果音量の取得
-		if (m_playerChange == static_cast<int>(PlayerModel::wolf))
+		if (m_playerChange == PlayerModel::wolf)
 		{
 			//!プレイヤーが鍵に当たったら
 			if (ptrKey)
@@ -577,7 +575,7 @@ namespace basecross {
 				m_KeyCount++;																		//!鍵のカウント
 				GetStage()->RemoveGameObject<Key>(Other);											//!鍵オブジェクトの削除
 				auto& ptrXA = App::GetApp()->GetXAudio2Manager();									//!サウンドマネージャーの取得
-				ptrXA->Start(L"acquisition", m_notsoundLoop, volume);								//!サウンドの再生
+				ptrXA->Start(L"acquisition", NOTSOUNDLOOP, volume);								//!サウンドの再生
 				auto Ptr = ptrKey->GetComponent<Transform>();										//!エフェクトのプレイ
 				auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();					//!エフェクトインターフェースの取得
 				m_KeyEfkPlay = ObjectFactory::Create<EfkPlay>(m_KeyEfkEffect, Ptr->GetPosition());	//!エフェクトのポジション
@@ -589,7 +587,7 @@ namespace basecross {
 
 		auto ptrMeat = dynamic_pointer_cast<Meat>(Other);//!肉の取得
 
-		if (m_playerChange == static_cast<int>(PlayerModel::human))
+		if (m_playerChange == PlayerModel::human)
 		{
 			//!プレイヤーが肉に当たったら
 			if (ptrMeat)
@@ -597,7 +595,7 @@ namespace basecross {
 				m_meatCount++;
 				GetStage()->RemoveGameObject<Meat>(Other);											//!鍵オブジェクトの削除
 				auto& ptrXA = App::GetApp()->GetXAudio2Manager();									//!サウンドマネージャーの取得
-				ptrXA->Start(L"MeatEat", m_notsoundLoop, volume);									//!肉を食べるサウンドの再生
+				ptrXA->Start(L"MeatEat", NOTSOUNDLOOP, volume);									//!肉を食べるサウンドの再生
 				auto Ptr = GetComponent<Transform>();												//!トランスフォームの取得
 				auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();					//!エフェクトインターフェースの取得
 				m_MeatEfkPlay = ObjectFactory::Create<EfkPlay>(m_MeatEfkEffect, Ptr->GetPosition());//!エフェクトの作成
@@ -627,7 +625,7 @@ namespace basecross {
 		if (gameOver == false)
 		{
 			//!オオカミの姿になったとき
-			if (m_playerChange == static_cast<int>(PlayerModel::wolf))
+			if (m_playerChange == PlayerModel::wolf)
 			{
 				Villagerkiller();
 				Hunterkiller();

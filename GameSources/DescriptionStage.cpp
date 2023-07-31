@@ -12,7 +12,7 @@
 
 namespace basecross {
 
-	constexpr int m_page = 1;//!最大ページ数(0を含んでいる)
+	constexpr int PAGE = 1;//!最大ページ数(0を含んでいる)
 
 	//!ビューの作成
 	void DescriptionStage::CreateViewLight()
@@ -72,13 +72,13 @@ namespace basecross {
 		auto volume = scene->GetSoundvolume();						//!音量の取得
 		auto DescriptionNumber = scene->GetDescriptionStageNumber();//!説明書の番号の取得
 		//!ページが1以下の時
-		if (DescriptionNumber < m_page)
+		if (DescriptionNumber < PAGE)
 		{
-			auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();//!音量の取得
-			DescriptionNumber++;								//!次のページへ
-			scene->SetDescriptionStageNumber(DescriptionNumber);//!現在のページ数を更新
-			auto& ptrXA = App::GetApp()->GetXAudio2Manager();	//!サウンドマネージャーの取得
-			ptrXA->Start(L"FlipPage", 0, volume);				//!サウンド再生
+			auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();	//!音量の取得
+			DescriptionNumber++;												//!次のページへ
+			scene->SetDescriptionStageNumber(DescriptionNumber);				//!現在のページ数を更新
+			auto& ptrXA = App::GetApp()->GetXAudio2Manager();					//!サウンドマネージャーの取得
+			ptrXA->Start(L"FlipPage", 0, volume);								//!サウンド再生
 
 		}
 		//!説明書が2ページの時
@@ -98,13 +98,13 @@ namespace basecross {
 		auto scene = App::GetApp()->GetScene<Scene>();              //!シーンの取得
 		auto DescriptionNumber = scene->GetDescriptionStageNumber();//!説明書の番号の取得
 		//!ページが1以上の時
-		if (DescriptionNumber >= m_page)							
+		if (DescriptionNumber >= PAGE)							
 		{
-			auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();//!音量の取得
-			DescriptionNumber--;											 //!前のページへ
-			scene->SetDescriptionStageNumber(DescriptionNumber);			 //!現在のページ数を更新
-			auto& ptrXA = App::GetApp()->GetXAudio2Manager();//!サウンドマネージャーの取得
-			ptrXA->Start(L"FlipPage", 0, volume);				 //!サウンド再生
+			auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();	//!音量の取得
+			DescriptionNumber--;												//!前のページへ
+			scene->SetDescriptionStageNumber(DescriptionNumber);				//!現在のページ数を更新
+			auto& ptrXA = App::GetApp()->GetXAudio2Manager();					//!サウンドマネージャーの取得
+			ptrXA->Start(L"FlipPage", 0, volume);								//!サウンド再生
 		}
 
 		//!説明書が1ページの時

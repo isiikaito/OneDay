@@ -9,7 +9,7 @@
 #include "OpeningCameraState.h"
 
 namespace basecross {
-	constexpr float changeStateTime = 3.0f;//!カメラの移動時間
+	constexpr float CHANGESTATETIME = 3.0f;//!カメラの移動時間
 	namespace kaito
 	{
 
@@ -29,7 +29,7 @@ namespace basecross {
 		void OpeningCameraPatrolState::Execute(OpeningCameraMan* OpeningCamera)
 		{
 			//!ステートチェンジ
-			if (OpeningCamera->MoveCamera(changeStateTime))
+			if (OpeningCamera->MoveCamera(CHANGESTATETIME))
 			{
 				OpeningCamera->ChangeState(OpeningCameraComebackStartState::Instance());//!ステートを変更する
 			}
@@ -58,7 +58,7 @@ namespace basecross {
 		void OpeningCameraComebackStartState::Execute(OpeningCameraMan* OpeningCamera)
 		{
 			//!ステートチェンジ
-			if (OpeningCamera->MoveCamera(changeStateTime))
+			if (OpeningCamera->MoveCamera(CHANGESTATETIME))
 			{
 				OpeningCamera->ChangeState(ChangeCameraState::Instance());//!ステートを変更する
 			}

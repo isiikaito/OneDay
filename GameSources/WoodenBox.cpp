@@ -10,7 +10,7 @@
 #include "GameManager.h"
 namespace basecross {
 
-	constexpr float m_colLimit = 0.2;
+	constexpr float COLLIMIT = 0.2;//!色の変化値
 	//--------------------------------------------------------------------------------------
 	//	class FixedBox : public GameObject;
 	//--------------------------------------------------------------------------------------
@@ -56,7 +56,6 @@ namespace basecross {
 		//!メッシュの設定
 		ptrDraw->SetMeshResource(L"BOX_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		/*Coll->SetDrawActive(true);*/
 		
 		auto group = GetStage()->GetSharedObjectGroup(L"WoodBox_ObjGroup");
 		//グループに自分自身を追加
@@ -72,7 +71,7 @@ namespace basecross {
 		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
 		auto m_time = scene->GetEmissiveChangeTime();
 
-		ptrDraw->SetEmissive(Col4(m_time - m_colLimit, m_time - m_colLimit, m_time - m_colLimit, 1.0f)); // !夜にする処理
+		ptrDraw->SetEmissive(Col4(m_time - COLLIMIT, m_time - COLLIMIT, m_time - COLLIMIT, 1.0f)); // !夜にする処理
 	}
 
 }

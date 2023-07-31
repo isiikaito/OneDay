@@ -11,22 +11,21 @@
 
 namespace basecross
 {
-	constexpr float MaxLosefSeghtOfTime = 2.0f;//!テクスチャを表示している時間
-	constexpr float helfSize = 0.5f;//!ポリゴンサイズ
+	constexpr float HELFSIZE = 0.5f;//!ポリゴンサイズ
 
 
 	void HeadManComment::OnCreate()
 	{
 		auto PtrTransform = GetComponent<Transform>();
 		// 頂点データ
-		float HelfSize = helfSize;
+		
 
 		//頂点配列(縦横5個ずつ表示)
 		vector<VertexPositionColorTexture> vertices = {
-			{ VertexPositionColorTexture(Vec3(-HelfSize, HelfSize, 0),Col4(1.0f,1.0f,1.0f,1.0f), Vec2(0.0f, 0.0f)) },
-			{ VertexPositionColorTexture(Vec3(HelfSize, HelfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 0.0f)) },
-			{ VertexPositionColorTexture(Vec3(-HelfSize, -HelfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(0.0f, 1.0f)) },
-			{ VertexPositionColorTexture(Vec3(HelfSize, -HelfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 1.0f)) },
+			{ VertexPositionColorTexture(Vec3(-HELFSIZE, HELFSIZE, 0),m_TextureColor, m_LeftUpperSummit) },
+			{ VertexPositionColorTexture(Vec3(HELFSIZE, HELFSIZE, 0), m_TextureColor,m_RightUpperSummit) },
+			{ VertexPositionColorTexture(Vec3(-HELFSIZE, -HELFSIZE, 0), m_TextureColor, m_LeftLowerSummit) },
+			{ VertexPositionColorTexture(Vec3(HELFSIZE, -HELFSIZE, 0), m_TextureColor, m_RightLowerSummit) },
 		};
 
 		// 頂点インデックス（頂点をつなぐ順番）
@@ -36,39 +35,31 @@ namespace basecross
 			2, 1, 3  // 右下の三角ポリゴン
 		};
 
-		// Position : 頂点座標
-		// Normal : 法線ベクトル（頂点の向き、ポリゴンの向き → 光の反射の計算に使う）
-		// Color : 頂点色
-		// Texture : テクスチャ座標(UV座標)
-		auto drawComp = AddComponent<PCTStaticDraw>();
-		//drawComp->SetMeshResource(L"DEFAULT_SQUARE");
-		drawComp->CreateOriginalMesh(vertices, indices);
-		drawComp->SetOriginalMeshUse(true);
-		drawComp->SetTextureResource(L"HeadManCommet1_TX");
-		drawComp->SetDepthStencilState(DepthStencilState::None); // 重ね合わせの問題を解消する
-		SetAlphaActive(true);
-		//SetDrawActive(false);
-		auto transComp = GetComponent<Transform>();  // トランスフォーム：変換行列(Transform Matrix)		
-		transComp->SetScale(m_scale);
-		auto EnemyTransform = parent->GetComponent<Transform>();
-		transComp->SetQuaternion(EnemyTransform->GetQuaternion());
-		SetDrawActive(false);
+		
+		auto drawComp = AddComponent<PCTStaticDraw>();					//!描画コンポーネントの取得
+		drawComp->CreateOriginalMesh(vertices, indices);				//!メッシュの生成
+		drawComp->SetOriginalMeshUse(true);								//!メッシュの適用
+		drawComp->SetTextureResource(L"HeadManCommet1_TX");				//!使うテクスチャの読み込み
+		drawComp->SetDepthStencilState(DepthStencilState::None);		//!重ね合わせの問題を解消する
+		SetAlphaActive(true);											//!透明処理をする
+		auto transComp = GetComponent<Transform>();						//!トランスフォーム：変換行列(Transform Matrix)		
+		transComp->SetScale(m_scale);									//!大きさの設定
+		auto EnemyTransform = parent->GetComponent<Transform>();		//!トランスフォームの取得
+		transComp->SetQuaternion(EnemyTransform->GetQuaternion());		//!敵の開店に合わせる
+		SetDrawActive(false);											//!表示しない
 
 	}
 
 	void HeadManComment::Billboard()
 	{
 
-		auto ptrTransform = GetComponent<Transform>();
-		auto PtrCamera = GetStage()->GetView()->GetTargetCamera();
-
+		auto ptrTransform = GetComponent<Transform>();					//!トランスフォームの取得
+		auto PtrCamera = GetStage()->GetView()->GetTargetCamera();		//!カメラの取得
 		Quat Qt;
-		//向きをビルボードにする
-		Qt = Billboard(PtrCamera->GetAt() - PtrCamera->GetEye());
-
-		ptrTransform->SetQuaternion(Qt);
-		auto EnemyTransform = parent->GetComponent<Transform>();
-		auto EnemyPosition = EnemyTransform->GetPosition();
+		Qt = Billboard(PtrCamera->GetAt() - PtrCamera->GetEye());		//!向きをビルボードにする
+		ptrTransform->SetQuaternion(Qt);								//!回転の設定
+		auto EnemyTransform = parent->GetComponent<Transform>();		//!トランスフォームの取得
+		auto EnemyPosition = EnemyTransform->GetPosition();				//!敵の位置の取得
 		//!ビルボード処理はオブジェクトの回転まで反映してしまうためポジションを変更する
 		ptrTransform->SetPosition(EnemyPosition.x, m_spritePositionY, EnemyPosition.z);
 
@@ -77,8 +68,9 @@ namespace basecross
 
 	void HeadManComment::Comment()
 	{
-		auto headMan=GetStage()->GetSharedGameObject<HeadMan>(L"HeadMan");//!村長の取得
-		auto CommentOn=headMan->GetHeadManComment();//!コメントを出すかどうか
+		auto headMan=GetStage()->GetSharedGameObject<HeadMan>(L"HeadMan");	//!村長の取得
+		auto CommentOn=headMan->GetHeadManComment();						//!コメントを出すかどうか
+
 		//!コメントを出す時
 		if (CommentOn == true)
 		{
@@ -95,6 +87,7 @@ namespace basecross
 		auto scene = App::GetApp()->GetScene<Scene>();	//!シーンの取得
 		auto date = scene->GetDate();					//!日付の取得
 
+		//!日にちごとのコメント
 		switch (date)
 		{
 		case(static_cast<int>(Day::FirstDay)):

@@ -11,11 +11,11 @@
 
 namespace basecross
 {
-	constexpr int m_MaxhurteCount = 3; // !HP点滅の回数制限
-	constexpr float m_feadOutTime = 0.5;//!ハートの点滅時に消える時間
-	constexpr float m_feadInTime = 1.0f;//!ハートの点滅時が付く時間
+	constexpr int MAXHURTECOUNT = 3; // !HP点滅の回数制限
+	constexpr float FEADOUTTIME = 0.5;//!ハートの点滅時に消える時間
+	constexpr float FEADINTIME = 1.0f;//!ハートの点滅時が付く時間
 	//--------------------------------------------------------------------------------------
-	///	左側のハートスプライト
+	///	ハートスプライト
 	//--------------------------------------------------------------------------------------
 
 	PlayerHurteSprite::PlayerHurteSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
@@ -43,10 +43,11 @@ namespace basecross
 
 	void PlayerHurteSprite::FlashingHurteSprite(int currentHp)
 	{
-		auto GetPlayer = GetStage()->GetSharedGameObject<Player>(L"Player"); //!プレイヤーの取得
-		auto PlayrHp = GetPlayer->GetPlayerHp(); //!プレイヤーのHpの取得
+		auto GetPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");	//!プレイヤーの取得
+		auto PlayrHp = GetPlayer->GetPlayerHp();								//!プレイヤーのHpの取得
 		
-		if (PlayrHp <= currentHp && m_hurtDefise == true) //!プレイヤーのHpが0の時かつ右ライフが表示されているとき
+		//!プレイヤーのHpが0の時かつ右ライフが表示されているとき
+		if (PlayrHp <= currentHp && m_hurtDefise == true) 
 		{
 
 			m_hurt = true; //!ライフの点滅をtrue
@@ -56,11 +57,11 @@ namespace basecross
 				float elapsedTime = App::GetApp()->GetElapsedTime();
 				m_Time += elapsedTime;
 				//!消える時間の時
-				if (m_Time >= m_feadOutTime)
+				if (m_Time >= FEADOUTTIME)
 				{
 					SetDrawActive(false);//!非表示
 					//!表示時間の時
-					if (m_Time >= m_feadInTime)
+					if (m_Time >= FEADINTIME)
 					{
 						SetDrawActive(true);//!表示
 						m_hurtCount++;		//!点滅した回数
@@ -71,7 +72,7 @@ namespace basecross
 			}
 
 			// !ハートの点滅回数が最大になった時
-			if (m_hurtCount == m_MaxhurteCount) //!一定の回数点滅したら
+			if (m_hurtCount == MAXHURTECOUNT) //!一定の回数点滅したら
 			{
 				m_hurtDefise = false;//!更新をやめる
 				

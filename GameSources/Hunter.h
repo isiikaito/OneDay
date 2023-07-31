@@ -57,7 +57,7 @@ namespace basecross
 		@brief	ハンターのスピードの取得
 		@return ハンターのスピード
 		*/
-		float GetSpeed()
+		float GetSpeed() const
 		{
 			return m_Speed;
 		}
@@ -77,7 +77,8 @@ namespace basecross
 		@brief	ステートチェンジサイズの取得
 		@return ステートチェンジサイズ
 		*/
-		float GetStateChangeSize() const {
+		float GetStateChangeSize() const
+		{
 			return m_StateChangeSize;
 		}
 
@@ -86,7 +87,7 @@ namespace basecross
 		@brief	プレイヤーの死亡判定の取得
 		@return プレイヤーの死亡判定
 		*/
-		bool GetPlayerDed()
+		bool GetPlayerDed() const
 		{
 			return m_playerDed;
 		}

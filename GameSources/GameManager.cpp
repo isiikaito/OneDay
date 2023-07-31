@@ -26,7 +26,7 @@ namespace basecross {
 
 	
 	
-	 float GameManager::GetElpasedTiem()
+	 float GameManager::GetElpasedTiem() 
 	{
 		auto gameElpasedTime = App::GetApp()->GetScene<Scene>()->GetGameTime();//!ƒQ[ƒ€‚ÌisŠÔ
 		return gameElpasedTime;

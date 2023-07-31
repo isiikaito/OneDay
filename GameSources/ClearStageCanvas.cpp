@@ -13,7 +13,7 @@
 
 namespace basecross
 {
-	constexpr float m_clearTime = 6.0f;//!クリア時間
+	constexpr float CLEARTIME = 6.0f;//!クリア時間
 	//--------------------------------------------------------------------------------------
 	///	ゲームキャンバス
 	//--------------------------------------------------------------------------------------
@@ -90,8 +90,12 @@ namespace basecross
 		for (auto& data : datas)
 		{
 
-			auto gameClearSprite = GetStage()->AddGameObject<GameUI>(L"GAMECLEAR_TX", false,
-				data.scale, data.position);
+			auto gameClearSprite = GetStage()->AddGameObject<GameUI>(
+				L"GAMECLEAR_TX", //!テクスチャ
+				false,			 //!透明処理
+				data.scale, 	 //!大きさ 
+				data.position	 //!位置(x,y,z)z奥行きは0.0f～1.0fの間
+				);
 			GetStage()->SetSharedGameObject(L"gameClearSprite", gameClearSprite);
 		}
 	}
@@ -108,7 +112,7 @@ namespace basecross
 		auto elapsedTIme = App::GetApp()->GetElapsedTime();									//!エルパソタイムの取得
 		m_clearTime += elapsedTIme;															//!時間の変数にエルパソタイムを足す
 		//!クリア時間になったら
-		if (m_clearTime <= m_clearTime)
+		if (m_clearTime <= CLEARTIME)
 		{        
 		gameClearSprite->SetDrawActive(true);//!表示する
 		}

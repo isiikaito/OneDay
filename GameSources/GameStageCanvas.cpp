@@ -17,7 +17,7 @@
 
 namespace basecross
 {
-	constexpr int m_MaxKeyCount = 3;//!カギを取得できる最大個数
+	constexpr int MAXKEYCOUNT = 3;//!カギを取得できる最大個数
 	//--------------------------------------------------------------------------------------
 	///	ゲームキャンバス
 	//--------------------------------------------------------------------------------------
@@ -97,10 +97,10 @@ namespace basecross
 		{
 			GetStage()->AddGameObject<GameUI>
 				(
-					L"Clock_TX",
-					true,
-					data.scale,  
-					data.position
+					L"Clock_TX",	//!テクスチャ
+					true,			//!透明処理
+					data.scale,		//!大きさ 
+					data.position	//!位置(x,y,z)z奥行きは0.0f～1.0fの間
 					);
 		}
 
@@ -116,10 +116,10 @@ namespace basecross
 		{
 			GetStage()->AddGameObject<CircleClockSprite>
 				(
-					L"Circle_TX",
-					true,
-					data.scale,  
-					data.position
+					L"Circle_TX",//!テクスチャ
+					true,		 //!透明処理
+					data.scale,  //!大きさ 
+					data.position//!位置(x,y,z)z奥行きは0.0f～1.0fの間 
 					);
 		}
 
@@ -134,10 +134,10 @@ namespace basecross
 		{
 			GetStage()->AddGameObject<GameUI>
 				(
-					L"AlertlevelGaugeGauge_TX",
-					true,
-					data.scale,       //!大きさ
-					data.position //!位置(x,y,z)z奥行きは0.0f～1.0fの間
+					L"AlertlevelGaugeGauge_TX",//!テクスチャ
+					true,					   //!透明処理
+					data.scale,				   //!大きさ
+					data.position			   //!位置(x,y,z)z奥行きは0.0f～1.0fの間
 					);
 		}
 
@@ -150,10 +150,11 @@ namespace basecross
 		for (auto& data : datas)
 		{
 			GetStage()->AddGameObject<Timer>(2,
-				L"NUMBER_TX",
-				true,
-				data.scale,  
-				data.position);
+				L"NUMBER_TX",//!テクスチャ
+				true,		 //!透明処理
+				data.scale,  //!大きさ
+				data.position//!位置(x,y,z)z奥行きは0.0f～1.0fの間
+				);
 		}
 
 	}
@@ -168,12 +169,12 @@ namespace basecross
 			//!左側のハート
 			GetStage()->AddGameObject<PlayerHurteSprite>
 				(
-					L"PlayerHp_TX",
-					true,
-					data.scale,        //!大きさ
-					data.position,//!位置(x,y,z)z奥行きは0.0f～1.0fの間
-					LeftHurteS,//!現在のライフ
-					true//!表示されているかどうか
+					L"PlayerHp_TX",		//!テクスチャ
+					true,				//!透明処理
+					data.scale,			//!大きさ
+					data.position,		//!位置(x,y,z)z奥行きは0.0f～1.0fの間
+					LeftHurteS,			//!現在のライフ
+					true				//!表示されているかどうか
 					);
 		}
 
@@ -184,12 +185,12 @@ namespace basecross
 			//!中央側のハート
 			GetStage()->AddGameObject<PlayerHurteSprite>
 				(
-					L"PlayerHp_TX",
-					true,
-					data.scale,       //!大きさ
-					data.position,//!位置(x,y,z)z奥行きは0.0f～1.0fの間
-					CentraHurte,//!現在のライフ
-					true//!表示されているかどうか
+					L"PlayerHp_TX",		//!テクスチャ
+					true,				//!透明処理
+					data.scale,			//!大きさ
+					data.position,		//!位置(x,y,z)z奥行きは0.0f～1.0fの間
+					CentraHurte,		//!現在のライフ
+					true				//!表示されているかどうか
 					);
 		}
 
@@ -201,12 +202,12 @@ namespace basecross
 			//!右側のハート
 			GetStage()->AddGameObject<PlayerHurteSprite>
 				(
-					L"PlayerHp_TX",
-					true,
-					data.scale,  //!大きさ
-					data.position,//!位置(x,y,z)z奥行きは0.0f～1.0fの間
-					RightHurte,//!現在のライフ
-					true//!表示されているかどうか
+					L"PlayerHp_TX",//!テクスチャ
+					true,		   //!透明処理
+					data.scale,		//!大きさ
+					data.position,	//!位置(x,y,z)z奥行きは0.0f～1.0fの間
+					RightHurte,		//!現在のライフ
+					true			//!表示されているかどうか
 					);
 		}
 
@@ -221,8 +222,8 @@ namespace basecross
 			//!矢印の作成
 			GetStage()->AddGameObject<Arrow>
 				(
-					L"Arrow_TX",
-					true,
+					L"Arrow_TX", //!テクスチャ
+					true,		 //!透明処理
 					data.scale,  //!大きさ
 					data.position//!位置(x,y,z)z奥行きは0.0f～1.0fの間
 					);
@@ -238,9 +239,9 @@ namespace basecross
 		{
 			GetStage()->AddGameObject<GameUI>(
 				L"ItemField_TX",//!テクスチャ
-				true,
-				data.scale,  //!大きさ
-				data.position//!位置(x,y,z)z奥行きは0.0f～1.0fの間
+				true,			//!透明処理
+				data.scale,		//!大きさ
+				data.position	//!位置(x,y,z)z奥行きは0.0f～1.0fの間
 				);
 		}
 
@@ -255,10 +256,10 @@ namespace basecross
 		{
 			GetStage()->AddGameObject<GameUI>
 				(
-					L"Background_TX",//!テクスチャ
-					true,
-					data.scale,  //大きさ
-					data.position//座標
+					L"Background_TX",	//!テクスチャ
+					true,				//!透明処理
+					data.scale,			//大きさ
+					data.position		//座標
 					);
 		}
 
@@ -272,10 +273,10 @@ namespace basecross
 		for (auto& data : datas)
 		{
 			GetStage()->AddGameObject<GameUI>(
-				L"Frame_TX",//!テクスチャ
-				true,
-				data.scale,  //大きさ
-				data.position//座標
+				L"Frame_TX",	//!テクスチャ
+				true,			//!透明処理
+				data.scale,		//大きさ
+				data.position	//座標
 				);
 		}
 	}
@@ -288,10 +289,10 @@ namespace basecross
 		for (auto& data : datas)
 		{
 			GetStage()->AddGameObject<HungerGage>(
-				L"Full_TX",//!テクスチャ
-				true,
-				data.scale,  //大きさ
-				data.position//座標
+				L"Full_TX",		//!テクスチャ
+				true,			//!透明処理
+				data.scale,		//大きさ
+				data.position	//座標
 				);
 		}
 	}
@@ -305,11 +306,11 @@ namespace basecross
 		{
 			GetStage()->AddGameObject<GameUI>
 				(
-					L"Arrow_TX",
-					true,
-					data.scale,//!大きさ
-					rotation,//!回転
-					data.position//!位置
+					L"Arrow_TX",	//!テクスチャ
+					true,			//!透明処理
+					data.scale,		//!大きさ
+					rotation,		//!回転
+					data.position	//!位置
 					);
 		}
 
@@ -322,10 +323,10 @@ namespace basecross
 		for (auto& data : datas)
 		{
 			GetStage()->AddGameObject<DateChangeCommentDay>(
-				L"CommentDay_TX",//!テクスチャ
-				true,
-				data.scale,  //大きさ
-				data.position//座標
+				L"CommentDay_TX",	//!テクスチャ
+				true,				//!透明処理
+				data.scale,			//大きさ
+				data.position		//座標
 				);
 		}
 	}
@@ -337,10 +338,10 @@ namespace basecross
 		for (auto& data : datas)
 		{
 			GetStage()->AddGameObject<DateChangeCommentNight>(
-				L"CommentNignt_TX",//!テクスチャ
-				true,
-				data.scale,  //大きさ
-				data.position//座標
+				L"CommentNignt_TX",	//!テクスチャ
+				true,				//!透明処理
+				data.scale,			//大きさ
+				data.position		//座標
 				);
 
 		}
@@ -353,30 +354,32 @@ namespace basecross
 		//!データ分回す
 		for (auto& data : datas)
 		{
-			GetStage()->AddGameObject<GameOverSprite>(L"GAMEOVER_TX", false,
-				data.scale,  
-				data.position
+			GetStage()->AddGameObject<GameOverSprite>(
+				L"GAMEOVER_TX",//!テクスチャ
+				false,		   //!透明処理
+				data.scale,    //!大きさ
+				data.position  //!位置(x,y,z)z奥行きは0.0f～1.0fの間
 				);
 		}
 
 	}
 
-	//!鍵のスプライトの作成
+	
 	void GameStageCanvas::CreateKeySprite()
 	{
 	
-		for (int i = 0; i < m_MaxKeyCount; i++)
+		for (int i = 0; i < MAXKEYCOUNT; i++)
 		{
 			auto datas = GameStageTextureTransformDate(L"TexturecsvFolder\\", L"GameStageTextureTransform.csv", L"KeySpriteTexture"+ Util::IntToWStr(i));//!csvの最初の行の文字の取得
 			//!データ分回す
 			for (auto& data : datas)
 			{
 					GetStage()->AddGameObject<KeySprite>(
-						L"KEY_TX",//!テクスチャ
-						true,
-						data.scale, //大きさ
-						data.position,//座標
-						i//!カギの個数
+						L"KEY_TX",		//!テクスチャ
+						true,			//!透明処理
+						data.scale,		//!大きさ//!大きさ
+						data.position,	//!位置(x,y,z)z奥行きは0.0f～1.0fの間
+						i				//!カギの個数
 				    );
 			}
 		}
@@ -389,32 +392,33 @@ namespace basecross
 		//!データ分回す
 		for (auto& data : datas)
 		{
-			GetStage()->AddGameObject<FadeOut>(true,
-				data.scale, //大きさ
-				data.position);//座標
-		}
+			GetStage()->AddGameObject<FadeOut>(
+				true,			//!透明処理//!大きさ
+				data.scale,		//!大きさ//!位置(x,y,z)z奥行きは0.0f～1.0fの間
+				data.position);	//!位置(x,y,z)z奥行きは0.0f～1.0fの間
+		}						
 	}
 	
 	
 	
 	void GameStageCanvas::OnCreate()
 	{
-		CreateClockSprite();			//!時計のスプライト
-		CreateCircleClockSprite();		//!時計の円盤のスプライトの作成
-		CreateAlertlevelGauge();		//!警戒度のゲージの作成
-		CreateTimerSprite();			//!時間のスプライトの作成
-		CreateHeartSprite();			//!プレイヤーのHPの作成
-		CreateArrow();					//!矢印の作成
-		CreateKeyFrame();				//!カギの枠の作成
-		CreateMeatGageBackGround();		//!空腹ゲージの背景
-		CreateMeatGageFrame();			//!空腹ゲージの枠
-		CreateHungerGage();				//!空腹ゲージ
-		CreateClockArrow();				//!時計の針
-		CreateDateChangeCommentDay();	//!夜から昼にでるテクスチャ
-		CreateDateChangeCommentNight();	//!昼から夜にでるテクスチャ
-		CreateGameOver();				//!ゲームオーバー
-		CreateKeySprite();				//!カギのスプライトの作成
-		CreateFadeOut();				//!フェードアウトの作成
+		CreateClockSprite();			
+		CreateCircleClockSprite();		
+		CreateAlertlevelGauge();		
+		CreateTimerSprite();			
+		CreateHeartSprite();			
+		CreateArrow();					
+		CreateKeyFrame();				
+		CreateMeatGageBackGround();		
+		CreateMeatGageFrame();			
+		CreateHungerGage();				
+		CreateClockArrow();				
+		CreateDateChangeCommentDay();	
+		CreateDateChangeCommentNight();	
+		CreateGameOver();				
+		CreateKeySprite();				
+		CreateFadeOut();				
 	}
 
 	

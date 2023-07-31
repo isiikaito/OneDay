@@ -77,7 +77,7 @@ namespace basecross
 		@brief ステートを変更する長さの取得
 		@return ステートを変更する長さ
 		*/
-		float GatStateChangeSize()const
+		float GatStateChangeSize() const
 		{
 			return m_StateChangeSize;
 		}
@@ -149,7 +149,7 @@ namespace basecross
 		@brief 最大の速度の取得
 		@return　最大速度
 		*/
-		float& GetMaxSpeed()
+		float GetMaxSpeed() const
 		{
 			return m_MaxSpeed;
 		}
@@ -189,7 +189,7 @@ namespace basecross
 		@brief 敵の巡回ポイント数の取得
 		@return 敵の巡回ポイント
 		*/
-		int GetEnemyPatorolindex()
+		int GetEnemyPatorolindex() const
 		{
 			return m_Enemypatorolindex;
 		}
@@ -209,7 +209,7 @@ namespace basecross
 		@brief 敵がプレイヤーを見失ったとき取得
 		@return 敵がプレイヤーを見失っているかどうか
 		*/
-		bool GetloseSightOfTarget()
+		bool GetloseSightOfTarget() const
 		{
 			return m_loseSightOfTarget;
 		}
@@ -229,7 +229,7 @@ namespace basecross
 		@brief 敵がプレイヤーを追いかけている状態の取得
 		@return 敵がプレイヤーを追いかけている状態
 		*/
-		bool GetseekCondition()
+		bool GetseekCondition() const
 		{
 			return m_seekCondition;
 		}
@@ -249,7 +249,7 @@ namespace basecross
 		@brief プレイヤーの位置のリセットの取得
 		@retrun プレイヤーの位置のリセットするかどうか
 		*/
-		bool GetIspositionLiset()
+		bool GetIspositionLiset() const
 		{
 			return m_IspositionLiset;
 		}
@@ -269,7 +269,7 @@ namespace basecross
 		@brief 敵の生死の取得
 		@retrun 敵の生死
 		*/
-		bool GetIsEnemyDed()
+		bool GetIsEnemyDed() const
 		{
 			return m_IsEnemyDed;
 		}
@@ -289,7 +289,7 @@ namespace basecross
 		@brief 敵の視野の取得
 		@retrun 敵の視野
 		*/
-		float GetEyeRang()
+		float GetEyeRang() const
 		{
 			return m_eyeRange;
 		}
@@ -309,7 +309,7 @@ namespace basecross
 		@brief 敵がプレイヤーを見つけた時の取得
 		@return 敵がプレイヤーを見つけたかどうか
 		*/
-		bool GetSurprisedSprite()
+		bool GetSurprisedSprite() const
 		{
 			return m_SurprisedSprite;
 		}

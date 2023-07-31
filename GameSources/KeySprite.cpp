@@ -27,7 +27,7 @@ namespace basecross {
 		auto GetkeyCount = player->GetKeyCount();//!現在取得したカギの数
 		if (GetkeyCount > keyCount)
 		{
-			SetDrawActive(true);
+			SetDrawActive(true);//!テクスチャを表示する
 		}
 	}
 
@@ -41,7 +41,7 @@ namespace basecross {
 	void KeySprite::OnUpdate()
 	{
 		
-		CurrentKeySpriteDisplay(m_keyCount);
+		CurrentKeySpriteDisplay(m_keyCount);//!カギの数に応じてテクスチャを表示する
 
 	}
 }

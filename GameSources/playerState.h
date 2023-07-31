@@ -29,12 +29,7 @@ namespace basecross
 			CsvFile m_GameStageCsvD;		// !建物の配置4
 			float m_meatTime = 0.0f;		//!肉の時間
 
-			shared_ptr<EfkEffect> m_TransformEfkEffect;
-			shared_ptr<EfkPlay> m_TransformEfkPlay;
-
-			shared_ptr<EfkEffect> m_MeatEfkEffect;
-			shared_ptr<EfkPlay> m_MeatEfkPlay;
-
+			
 			//!シングルトンパターン
 			HumanState(const HumanState&) = delete;//!関数を削除する
 			HumanState& operator=(const HumanState&) = delete;//!operatorの中にある=を削除（コピーされないように）
@@ -48,11 +43,26 @@ namespace basecross
 			void CreateWoodBox();
 			//!csvの取得
 			void ReadCsv(const wstring& FileNume);
-			//!ステートに入ったときに一度だけ呼ばれる
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Enter(Player* Player)override;
-			//!ステートの中に居るとき毎フレーム更新される
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに常に呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Execute(Player* Player)override;
-			//!ステートを出るときに一度実行される
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートを出るときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Exit(Player* Player)override;
 		};
 
@@ -77,9 +87,28 @@ namespace basecross
 			void RemoveMeat();
 			//!木箱のリセット
 			void RemoveWoodBox();
+
 			void MeatEat(Player* Player);
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Enter(Player* Player)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに常に呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Execute(Player* Player)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートを出るときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Exit(Player* Player)override;
 		};
 
@@ -100,8 +129,25 @@ namespace basecross
 		public:
 			static HumanChangeDirectingState* Instance();
 
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Enter(Player* Player)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに常に呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Execute(Player* Player)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートを出るときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Exit(Player* Player)override;
 		};
 
@@ -121,8 +167,25 @@ namespace basecross
 		public:
 			static WolfChangeDirectingState* Instance();
 
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Enter(Player* Player)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに常に呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Execute(Player* Player)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートを出るときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
 			virtual void Exit(Player* Player)override;
 		};
 

@@ -10,11 +10,8 @@
 
 namespace basecross
 {
-	constexpr int first = 1;//!警戒度レベル1
-	constexpr int second = 2;//!警戒度レベル2
-	constexpr float m_startScaleZ = 1.0f;//!大きさ
-	constexpr float m_startPosZ = 0.2f;  //!奥行き
-	constexpr float m_helfSize = 0.5f;   //!半分の大きさ
+	constexpr int FIRST = 1;				//!警戒度レベル1
+	constexpr int SECOND = 2;				//!警戒度レベル2
 	//--------------------------------------------------------------------------------------
 	///	矢印
 	//--------------------------------------------------------------------------------------
@@ -40,23 +37,19 @@ namespace basecross
 	void Arrow::OnUpdate()
 	{
 		GameUI::OnUpdate();
-
-		//auto alertlevelCount = App::GetApp()->GetScene<Scene>()->GetAlertlevelCount();//!シーンの取得
 		auto GetPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
 		auto PlayrHp = GetPlayer->GetPlayerHp();
 		auto ptrTransform = GetComponent<Transform>();//!矢印のテクスチャの取得
 		//!警戒度が2の時
-		if (PlayrHp == second)
+		if (PlayrHp == SECOND)
 		{
           ptrTransform->SetPosition(m_secondPosition);
 		}
 		//!警戒度が3の時
-		if (PlayrHp == first)
+		if (PlayrHp == FIRST)
 		{
 			ptrTransform->SetPosition(m_firstPosition);
-		}
-		
-			
+		}	
 	}
 
 }

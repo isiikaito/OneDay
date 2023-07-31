@@ -56,7 +56,7 @@ namespace basecross
 		@brief	村長がコメントしているかどうかの取得
 		@return 村長がコメントしているかどうか
 		*/
-		bool GetHeadManComment()
+		bool GetHeadManComment() const
 		{
 			return m_IsheadManCommentOn;
 		}

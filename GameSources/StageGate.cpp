@@ -10,7 +10,8 @@
 #include "GameManager.h"
 namespace basecross {
 
-	constexpr float m_colLimit = 0.2;
+	constexpr float COLLIMIT = 0.2;	//!カラーの変更値
+	constexpr float TRANCE = 1.0f;		//!透明度
 	//--------------------------------------------------------------------------------------
 	//	class FixedBox : public GameObject;
 	//--------------------------------------------------------------------------------------
@@ -68,9 +69,8 @@ namespace basecross {
 
 
 		////!メッシュの設定
-		//ptrDraw->SetMeshResource(L"STAGEGATE_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		//Coll->SetDrawActive(true);
+
 		//!RigidbodyBoxの追加
 		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
 		auto PsPtr = AddComponent<RigidbodyBox>(param);
@@ -82,9 +82,6 @@ namespace basecross {
 		ptrDraw->SetMeshResource(L"GateAnimation_MESH_WITH_TAN");
 		ptrDraw->AddAnimation(L"Open", 0, 60, false, 20.0f);
 		ptrDraw->AddAnimation(L"defoult", 0, 1, false, 20.0f);//!開かないアニメーション
-
-
-
 	}
 	void StageGate::AnimationChange()
 	{
@@ -120,11 +117,11 @@ namespace basecross {
 	}
 
 	void StageGate::OnUpdate() {
-		auto AnimaptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//!アニメーション
-		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
+		auto AnimaptrDraw = GetComponent<BcPNTnTBoneModelDraw>();	//!アニメーション
+		auto scene = App::GetApp()->GetScene<Scene>();				//!シーンの取得
 		auto m_time = scene->GetEmissiveChangeTime();
 
-		AnimaptrDraw->SetEmissive(Col4(m_time - m_colLimit, m_time - m_colLimit, m_time - m_colLimit, 1.0f)); // !夜にする処理
+		AnimaptrDraw->SetEmissive(Col4(m_time - COLLIMIT, m_time - COLLIMIT, m_time - COLLIMIT, TRANCE)); // !夜にする処理
 
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 

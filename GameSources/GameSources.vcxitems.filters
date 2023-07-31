@@ -319,7 +319,7 @@
       <Filter>Object\Enemy\HeadMan</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

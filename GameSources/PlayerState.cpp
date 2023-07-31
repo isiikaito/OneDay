@@ -13,18 +13,16 @@ namespace basecross
 {
 	namespace kaito
 	{
-		constexpr float m_maxHumanChangeTime = 31.0f;			//!人間の時の時間
-		constexpr float m_maxWolfChangeTime = 62.0f;			//!狼の時の時間
-		constexpr int randomNumber = 2;							//!ランダムな数字の範囲
-		constexpr float m_MeatTimeSpeed = 22.0f;				//!ランダムにするスピード
-		constexpr float m_notEatSpeed = 10.0f;					//!何も食べてない状態のスピード
-		constexpr float m_firstEat = 15.0f;						//!一個食べた状態のスピード
-		constexpr float m_secondEat = 20.0f;					//!二個食べた状態のスピード
-		constexpr float m_thirdEat = 23.0f;						//!三個食べた状態のスピード
-		constexpr float m_humanSpeed = 24.0f;					//!人間の速度
-		constexpr float m_playerChangeDirectingMaxTiem = 2.0f;	//!プレイヤーの変身時間
-		constexpr float m_positionRange = 10.0f;				//!ポジションの幅
-		constexpr float m_correctionOfPosition = 8.6f;			//!位置の修正
+		constexpr float MAXHUMANCHANGETIME = 31.0f;			//!人間の時の時間
+		constexpr float MAXWOLFCHANGETIME = 62.0f;			//!狼の時の時間
+		constexpr float NOTEALSPEED = 10.0f;					//!何も食べてない状態のスピード
+		constexpr float FIRSTEAT = 15.0f;						//!一個食べた状態のスピード
+		constexpr float SECONDEAT = 20.0f;					//!二個食べた状態のスピード
+		constexpr float THIRDEAT = 23.0f;						//!三個食べた状態のスピード
+		constexpr float HUMANSPEED = 24.0f;					//!人間の速度
+		constexpr float PLAYERCHANGEDIRECTINHMAXTIME = 2.0f;	//!プレイヤーの変身時間
+		constexpr float POSITIONRANGE = 10.0f;				//!位置の幅
+		constexpr float CORRECTIONOFPOSITION = 8.6f;			//!位置の修正
 
 
 		//!人間状態の時----------------------------------------------------------
@@ -73,9 +71,9 @@ namespace basecross
 				Util::WStrToTokenVector(Tokens, LineVec[i], L',');
 				for (size_t j = 0; j < Tokens.size(); j++) {
 					//XとZの位置を計算
-					float XPos = (float)((int)j - m_correctionOfPosition) * m_positionRange;
+					float XPos = (float)((int)j - CORRECTIONOFPOSITION) * POSITIONRANGE;
 					float YPos = 4.0f;
-					float ZPos = (float)(m_correctionOfPosition - (int)i) * m_positionRange;
+					float ZPos = (float)(CORRECTIONOFPOSITION - (int)i) * POSITIONRANGE;
 					if (Tokens[j] == L"5")//5の時にゲームステージに追加
 					{
 						Stage->AddGameObject<Meat>(scale, rotation, Vec3(XPos, YPos, ZPos));//!肉の作成
@@ -107,9 +105,9 @@ namespace basecross
 				Util::WStrToTokenVector(Tokens, LineVec[i], L',');
 				for (size_t j = 0; j < Tokens.size(); j++) {
 					//XとZの位置を計算
-					float XPos = (float)((int)j - m_correctionOfPosition) * m_positionRange;
+					float XPos = (float)((int)j - CORRECTIONOFPOSITION) * POSITIONRANGE;
 					float YPos = 3.0f;
-					float ZPos = (float)(m_correctionOfPosition - (int)i) * m_positionRange;
+					float ZPos = (float)(CORRECTIONOFPOSITION - (int)i) * POSITIONRANGE;
 					if (Tokens[j] == L"3")//3の時にゲームステージに追加
 					{
 						//!木箱の作成
@@ -121,8 +119,8 @@ namespace basecross
 
 		void  HumanState::Enter(Player* Player)
 		{
-			auto playerChange = Player->GetPlayerCange();														//!プレイヤー状態の取得
-			playerChange = static_cast<int>(PlayerModel::human);												//!状態を狼にする
+			auto playerChange = Player->GetPlayerChange();														//!プレイヤー状態の取得
+			playerChange = PlayerModel::human;												//!状態を狼にする
 			Player->SetPlayerChange(playerChange);																//!プレイヤーの状態の設定
 			Player->SetMeatCount(0);																			//!肉を食べた数
 			Player->SetPlayerTaskDay(true);																		//!プレイヤーのミッションの表示
@@ -130,7 +128,7 @@ namespace basecross
 			CreateMeat();																						//肉の作成
 			auto meatPosition = Player->GetMeatPosition();														//!肉のポジションの取得
 			Player->SetMeatEfkPlay(ObjectFactory::Create<EfkPlay>(Player->GetMeatEfkEffect(), meatPosition));	//!エフェクトの再生
-			Player->SetSpeed(m_humanSpeed);																		//!プレイヤーの時のスピード
+			Player->SetSpeed(HUMANSPEED);																		//!プレイヤーの時のスピード
 
 		}
 
@@ -147,7 +145,7 @@ namespace basecross
 			auto scene = App::GetApp()->GetScene<Scene>();						//!シーンの取得
 			m_HumanChangeTime = scene->GetPlayerConditionTime();				//!変身時間
 			//!ゲーム時間が30秒経過したら
-			if (m_HumanChangeTime >= m_maxHumanChangeTime)
+			if (m_HumanChangeTime >= MAXHUMANCHANGETIME)
 			{
 				Player->ChangeState(HumanChangeDirectingState::Instance());//!狼のステートに変更
 			}
@@ -181,16 +179,16 @@ namespace basecross
 			switch (meatCount)
 			{
 			case(static_cast<int>(EatCondition::notEat)):
-				Player->SetSpeed(m_notEatSpeed);
+				Player->SetSpeed(NOTEALSPEED);
 				break;
 			case(static_cast<int>(EatCondition::firstEat)):
-				Player->SetSpeed(m_firstEat);
+				Player->SetSpeed(FIRSTEAT);
 				break;
 			case(static_cast<int>(EatCondition::secondEat)):
-				Player->SetSpeed(m_secondEat);
+				Player->SetSpeed(SECONDEAT);
 				break;
 			case(static_cast<int>(EatCondition::thirdEat)):
-				Player->SetSpeed(m_thirdEat);
+				Player->SetSpeed(THIRDEAT);
 				break;
 			}
 		}
@@ -238,8 +236,8 @@ namespace basecross
 		void WolfState::Enter(Player* Player)
 		{
 
-			auto playerChange = Player->GetPlayerCange();						//!プレイヤーの状態の取得
-			playerChange = static_cast<int>(PlayerModel::wolf);					//!状態を狼にする
+			auto playerChange = Player->GetPlayerChange();						//!プレイヤーの状態の取得
+			playerChange = PlayerModel::wolf;					//!状態を狼にする
 			Player->SetPlayerChange(playerChange);								//!プレイヤーの状態の設定
 			auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();	//!音量の取得
 			//サウンド再生
@@ -262,7 +260,7 @@ namespace basecross
             auto scene = App::GetApp()->GetScene<Scene>();								//!シーンの取得
 			m_WolfChangeTime = scene->GetPlayerConditionTime();							//!変身時間の取得
 			//!オオカミ時間を過ぎたら
-			if (m_WolfChangeTime >= m_maxWolfChangeTime)
+			if (m_WolfChangeTime >= MAXWOLFCHANGETIME)
 			{
 				Player->ChangeState(WolfChangeDirectingState::Instance());
 			}
@@ -315,7 +313,7 @@ namespace basecross
 
 			auto scene = App::GetApp()->GetScene<Scene>();
 			m_humanChangeDirectingTiem += elapsedTime;//!ゲームの時間を変数に足す
-			if (m_humanChangeDirectingTiem>= m_playerChangeDirectingMaxTiem)
+			if (m_humanChangeDirectingTiem>= PLAYERCHANGEDIRECTINHMAXTIME)
 			{
 				Player->ChangeState(WolfState::Instance());//!狼のステートに変更
 			}
@@ -363,7 +361,7 @@ namespace basecross
 			//!狼から人間に変身する時のアニメーションモデル 
 			auto scene = App::GetApp()->GetScene<Scene>();
 			m_wolfChangeDirectingTiem += elapsedTime;//!ゲームの時間を変数に足す
-			if (m_wolfChangeDirectingTiem>= m_playerChangeDirectingMaxTiem)
+			if (m_wolfChangeDirectingTiem>= PLAYERCHANGEDIRECTINHMAXTIME)
 			{
 				Player->ChangeState(HumanState::Instance());//!狼のステートに変更
 			}

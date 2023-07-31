@@ -52,7 +52,7 @@ namespace basecross
 		@brief	村人のスピードの取得
 		@return 村人のスピード
 		*/
-		float GetSpeed()
+		float GetSpeed() const
 		{
 			return m_Speed;
 		}
@@ -72,7 +72,8 @@ namespace basecross
 		@brief	ステートチェンジサイズ
 		@return ステートチェンジサイズ
 		*/
-		float GetStateChangeSize() const {
+		float GetStateChangeSize() const
+		{
 			return m_StateChangeSize;
 		}
 

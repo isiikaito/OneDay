@@ -12,15 +12,26 @@ namespace basecross
 	class LoseSightOf :public GameObject
 	{
 	private:
-		std::shared_ptr<GameObject> parent; // 親オブジェクト
+		std::shared_ptr<GameObject> parent;		//!親オブジェクト
+		float m_LoseSeghtOfTime;				//!見ている時間
+		const float m_spritePositionY;			//!ポジション
+		Vec3 m_scale;							//!テクスチャの大きさ
+		const Vec2 m_LeftUpperSummit;			//!左上の頂点
+		const Vec2 m_LeftLowerSummit;			//!左下の頂点
+		const Vec2 m_RightUpperSummit;			//!右上の頂点
+		const Vec2 m_RightLowerSummit;			//!右下の頂点
+		Col4 m_TextureColor;					//!テクスチャの色
+		float m_tempLength;						//!臨時の長さ
+		Vec3 m_defUp;							//!通常
+
 
 		Quat Billboard(const Vec3& Line) {
 			Vec3 Temp = Line;				//!テクスチャとカメラ間のベクトル
 			Mat4x4 RotMatrix;
 			Vec3 DefUp(0, 1.0f, 0);
 			Vec2 TempVec2(Temp.x, Temp.z);
-			if (TempVec2.length() < 0.1f) {
-				DefUp = Vec3(0, 0, 1.0f);
+			if (TempVec2.length() < m_tempLength) {
+				DefUp = m_defUp;
 			}
 			Temp.normalize();
 			RotMatrix = XMMatrixLookAtLH(Vec3(0, 0, 0), Temp, DefUp);
@@ -30,23 +41,13 @@ namespace basecross
 			Qt.normalize();
 			return Qt;
 		}
-		float m_LoseSeghtOfTime;				//!見ている時間
-		const float m_spritePositionY;			//!ポジション
-		Vec3 m_scale;							//!テクスチャの大きさ
-		const Vec2 m_LeftUpperSummit;			//!左上の頂点
-		const Vec2 m_LeftLowerSummit;			//!左下の頂点
-		const Vec2 m_RightUpperSummit;			//!右上の頂点
-		const Vec2 m_RightLowerSummit;			//!右下の頂点
-		Col4 m_TextureColor;					//!テクスチャの色
-
 		
 
 	public:
-
-			//--------------------------------------------------------------------------------------
-			/*!
-			@brief　コンストラクタ
-			*/
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	コンストラクタ
+		*/
 		LoseSightOf(const std::shared_ptr<Stage>& stage,
 			const std::shared_ptr<GameObject>& parent)
 		: GameObject(stage), parent(parent),
@@ -57,7 +58,10 @@ namespace basecross
 			m_LeftLowerSummit(Vec2(0.0f, 1.0f)),
 			m_RightUpperSummit(Vec2(1.0f, 0.0f)),
 			m_RightLowerSummit(Vec2(1.0f, 1.0f)),
-			m_TextureColor(Col4(1.0f, 1.0f, 1.0f, 1.0f))
+			m_TextureColor(Col4(1.0f, 1.0f, 1.0f, 1.0f)),
+			m_tempLength(0.1f),
+			m_defUp(Vec3(0, 0, 1.0f))
+
 		{}
 		
 		//--------------------------------------------------------------------------------------

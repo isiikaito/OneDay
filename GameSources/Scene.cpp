@@ -216,16 +216,15 @@ namespace basecross{
 		std::vector<TransformCreate>result;//!変数名
 		vector<wstring>LineVec;//!CSVの行単位の配列
 
-		auto& app = App::GetApp();//!アプリの取得
+		auto& app = App::GetApp();						//!アプリの取得
 		wstring DataDir;
-		App::GetApp()->GetDataDirectory(DataDir);
-		auto fullPass = DataDir + folderName + fileName;
-
+		App::GetApp()->GetDataDirectory(DataDir);		//!データの取得
+		auto fullPass = DataDir + folderName + fileName;//!ファイルの位置の特定
 		CsvFile csvFile;
-		csvFile.SetFileName(fullPass);
-		csvFile.ReadCsv();
+		csvFile.SetFileName(fullPass);					//!ファイルの位置の設定
+		csvFile.ReadCsv();								//!csvの読み込み
 
-		csvFile.GetSelect(LineVec, 0, keyName);//!0番目のカラムがL"Villager"である行を抜き出す
+		csvFile.GetSelect(LineVec, 0, keyName);			//!0番目のカラムがL"Villager"である行を抜き出す
 
 		for (auto& v : LineVec)
 		{
@@ -278,13 +277,13 @@ namespace basecross{
 		PointCreate PatorlPoint;
 
 		vector<wstring>LineVec;
-		auto& app = App::GetApp();//!アプリの取得
+		auto& app = App::GetApp();						//!アプリの取得
 		wstring DataDir;
-		App::GetApp()->GetDataDirectory(DataDir);
-		auto fullPass = DataDir + folderName + fileName;//!
+		App::GetApp()->GetDataDirectory(DataDir);		//!データの取得
+		auto fullPass = DataDir + folderName + fileName;//!ファイルの位置の特定
 
-		CsvFile csvFile;
-		csvFile.SetFileName(fullPass);
+		CsvFile csvFile;								//!ファイルの位置の設定
+		csvFile.SetFileName(fullPass);					//!csvの読み込み
 		csvFile.ReadCsv();
 
 		csvFile.GetSelect(LineVec, 0, keyName);//!0番目のカラムがkeyNameである行を抜き出す
@@ -313,8 +312,8 @@ namespace basecross{
 		{
 			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", dataHunter.EnemykeyName);//!敵の巡回ポイントの名前を取り出す
 			auto HunterPtr = GetActiveStage()->AddGameObject<Hunter>(dataHunter.scale, dataHunter.rotation, dataHunter.position, pointData.m_patorlPositions);//!増員されるハンターの作成
-			GetActiveStage()->AddGameObject<LoseSightOf>(HunterPtr);
-			GetActiveStage()->AddGameObject<SurprisedSprite>(HunterPtr);
+			GetActiveStage()->AddGameObject<LoseSightOf>(HunterPtr);	//!はてなマークの板ポリ生成時にハンターとペアレント化する
+			GetActiveStage()->AddGameObject<SurprisedSprite>(HunterPtr);//!ビックリマークの板ポリ生成時にハンターとペアレント化する
 
 		}
 		
@@ -340,7 +339,6 @@ namespace basecross{
 			CreateResourses();//!リソース作成
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		
 
@@ -350,20 +348,21 @@ namespace basecross{
 	}
 
 	void Scene::OnEvent(const shared_ptr<Event>& event) {
-		if (event->m_MsgStr == L"ToGameStage") {
+		if (event->m_MsgStr == L"ToGameStage")				//!ゲームステージ
+		{
 			//最初のアクティブステージの設定
 			ResetActiveStage<GameStage>();
 		}
-		else if (event->m_MsgStr == L"ToTitleStage")//!タイトルステージ
+		else if (event->m_MsgStr == L"ToTitleStage")		//!タイトルステージ
 		{
 			ResetActiveStage<TitleStage>();
 		}
 		
-		else if (event->m_MsgStr == L"ToGameClearStage")//!ゲームクリアステージ
+		else if (event->m_MsgStr == L"ToGameClearStage")	//!ゲームクリアステージ
 		{
 			ResetActiveStage<GameClearStage>();
 		}
-		else if (event->m_MsgStr == L"ToDescriptionStage")
+		else if (event->m_MsgStr == L"ToDescriptionStage")	//!説明書ステージ
 		{
 			ResetActiveStage<DescriptionStage>();
 		}

@@ -9,10 +9,10 @@
 
 namespace basecross
 {
-	constexpr float m_maxRotationTime = 4.0f;//!見渡す時間
-	constexpr int m_randomRange = 6;		 //!乱数の上限
-	constexpr int m_randomNumber = 4;		 //!特定の乱数
-	constexpr float m_rotToHead = 1.0f;		 //!正面を向く値
+	constexpr float MAXROTATIONTIME = 4.0f;	//!見渡す時間
+	constexpr int RANDOMRANGE = 6;			//!乱数の上限
+	constexpr int RANDOMNUMBER = 4;			//!特定の乱数
+	constexpr float ROTTOHEAD = 1.0f;		//!正面を向く値
 	//!-------------------------------------
 	//! 敵のオブジェクトの親
 	//! ------------------------------------
@@ -140,7 +140,7 @@ namespace basecross
 	void BaseEnemy::Facade()
 	{
 		auto ptrUtil = GetBehavior<UtilBehavior>();//!Behaviorの取得
-		ptrUtil->RotToHead(m_rotToHead);		   //!正面の値を入れてオブジェクトを正面に向かせる
+		ptrUtil->RotToHead(ROTTOHEAD);		   //!正面の値を入れてオブジェクトを正面に向かせる
 	}
 
 	void BaseEnemy::EnemyRandomRotation()
@@ -150,10 +150,10 @@ namespace basecross
 		m_randomTime += time;					//!ランダムタイムに時間を足す
 
 		srand(0);								//!乱数の初期化
-		m_randomCount = rand() % m_randomRange;//!特定の値で割りその余りを受け取ることによりそれ以上は返ってこないようにする
+		m_randomCount = rand() % RANDOMRANGE;//!特定の値で割りその余りを受け取ることによりそれ以上は返ってこないようにする
 
 		//!ランダムに変わる変数が特定の数字に変わったとき
-		if (m_randomCount == m_randomNumber)
+		if (m_randomCount == RANDOMNUMBER)
 		{
 			m_patrolRotation = true;//!敵の見渡す処理をtrueにする
 		}
@@ -166,7 +166,7 @@ namespace basecross
 			EnemyTransform->SetRotation(0, m_rotationTime, 0);	//!Y軸の回転を変更
 
 			//!周り終わったら回転の処理を実行しない
-			if (m_rotationTime >= m_maxRotationTime)
+			if (m_rotationTime >= MAXROTATIONTIME)
 			{
 				m_patrolRotation = false;						//!見渡しを終了する
 			}

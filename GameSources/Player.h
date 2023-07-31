@@ -35,7 +35,7 @@ namespace basecross {
 		Vec3 m_scale;					//!大きさ
 		Vec3 m_rotation;				//!回転
 		Vec3 m_position;				//!位置
-		int m_playerChange;				//!プレイヤーの見た目の状態
+		PlayerModel m_playerChange;				//!プレイヤーの見た目の状態
 		int m_KeyCount;					//!鍵を持っている個数カウント
 		int m_AlertleveCount;			//!警戒度のカウント
 		int m_MaxKeyCount;				//!鍵の所持数の最大
@@ -57,7 +57,7 @@ namespace basecross {
 		const float m_wolfTime;			//!狼の時間
 		bool m_playerTaskDay;			//!昼のミッションの表示
 		bool m_playerTaskNight;			//!夜のミッションの表示
-		bool m_IsPlayerFound;			//!プレイヤーが見つかった稼働羽化
+		bool m_IsPlayerFound;			//!プレイヤーが見つかったかどうか
 		bool m_IsPlayerDed;				//!プレイヤーが死んだかどうかの判定
 		bool m_IsFastHowling;			//!初めて狼男が鳴くとき
 		bool m_IsvibrationOn;			//!振動しているかどうか
@@ -81,6 +81,8 @@ namespace basecross {
 		shared_ptr<EfkPlay> m_TransformEfkPlay;
 		shared_ptr<EfkPlay> m_MeatEfkPlay;
 
+		shared_ptr<SoundItem>m_Wolk;				//!歩く音
+		shared_ptr<SoundItem>m_Howling;				//!オオカミの鳴き声
 
 	public:
 	
@@ -154,8 +156,6 @@ namespace basecross {
 		*/
 		void OnPushB();
 
-		shared_ptr<SoundItem>m_Wolk;
-		shared_ptr<SoundItem>m_Howling;
 
 
 		//--------------------------------------------------------------------------------------
@@ -163,7 +163,7 @@ namespace basecross {
 		@brief	プレイヤーの状態の取得
 		@retrun プレイヤーの状態
 		*/
-		int GetPlayerCange()const
+		PlayerModel GetPlayerChange()const
 		{
 			return m_playerChange;
 		}
@@ -173,7 +173,7 @@ namespace basecross {
 		@brief	プレイヤーの状態の設定
 		@引数　プレイヤーの状態
 		*/
-		void SetPlayerChange(int playerChange)
+		void SetPlayerChange(PlayerModel playerChange)
 		{
 			m_playerChange = playerChange;
 		}
@@ -183,7 +183,7 @@ namespace basecross {
 		@brief	毎秒ごとのプレイヤーの位置の取得
 		@retrun 毎秒ごとのプレイヤーの位置
 		*/
-		std::vector<Vec3>GetPlayerPositionOnSecond()const
+		const std::vector<Vec3>& GetPlayerPositionOnSecond() const
 		{
 			return m_PlayerPositionOnSecond;
 		}
@@ -193,7 +193,7 @@ namespace basecross {
 		@brief	毎秒ごとのプレイヤーの位置の設定
 		@引数　毎秒ごとのプレイヤーの位置
 		*/
-		void SetPlayerPositionOnSecond(const std::vector<Vec3>PlayerPositionOnSecond)
+		void SetPlayerPositionOnSecond(const std::vector<Vec3>& PlayerPositionOnSecond)
 		{
 			m_PlayerPositionOnSecond = PlayerPositionOnSecond;
 		}
@@ -203,7 +203,7 @@ namespace basecross {
 		@brief	プレイヤーのHP取得
 		@retrun プレイヤーのHP
 		*/
-		int GetPlayerHp()
+		int GetPlayerHp() const
 		{
 			return m_PlayerHp;
 		}
@@ -223,7 +223,7 @@ namespace basecross {
 		@brief	プレイヤーが見つかった判定の取得
 		@retrun　プレイヤーが見つかったかどうか
 		*/
-		bool GetPlayerFound()
+		bool GetPlayerFound() const
 		{
 			return m_IsPlayerFound;
 		}
@@ -243,7 +243,7 @@ namespace basecross {
 		@brief	スピードの取得
 		@retrun プレイヤーのスピード
 		*/
-		float GetSpeed()
+		float GetSpeed() const
 		{
 			return m_Speed;
 		}
@@ -263,7 +263,7 @@ namespace basecross {
 		@brief	プレイヤーが死んだかどうかの取得
 		@retrun プレイヤーが死んだかどうか
 		*/
-		bool GetIsplayerDed()
+		bool GetIsplayerDed() const
 		{
 			return m_IsPlayerDed;
 		}
@@ -283,7 +283,7 @@ namespace basecross {
 		@brief	ゲームオーバースプライトを表示するかの取得
 		@retrun ゲームオーバースプライトを表示するかどうか
 		*/
-		bool GetGameOverDrawActive()
+		bool GetGameOverDrawActive() const
 		{
 			return m_gameOverDrawActive;
 		}
@@ -313,7 +313,7 @@ namespace basecross {
 		@brief	ゲームステージの時間
 		@return ゲームステージの時間
 		*/
-		float GetGameTime()
+		float GetGameTime() const
 		{
 			return m_gameTime;
 		}
@@ -389,7 +389,7 @@ namespace basecross {
 		@brief	肉を取った数の取得
 		@return 食べた肉の数
 		*/
-		int GetMeatCount()
+		int GetMeatCount() const
 		{
 			return m_meatCount;
 		}
@@ -409,7 +409,7 @@ namespace basecross {
 		@brief	カギを取った数の取得
 		@return 取得したカギの数
 		*/
-		int GetKeyCount()
+		int GetKeyCount() const
 		{
 			return m_KeyCount;
 		}
@@ -430,7 +430,7 @@ namespace basecross {
 		/*!
 		@brief	昼のプレイヤーのタスクの取得
 		*/
-		bool GetPlayerTaskDay()
+		bool GetPlayerTaskDay() const
 		{
 			return m_playerTaskDay;
 		}
@@ -448,7 +448,7 @@ namespace basecross {
 		/*!
 		@brief	夜のプレイヤーのタスクの取得
 		*/
-		bool GetPlayerTaskNight()
+		bool GetPlayerTaskNight() const
 		{
 			return m_playerTaskNight;
 		}
@@ -505,7 +505,7 @@ namespace basecross {
 		@brief	肉のポジション取得
 		@return 肉のポジション
 		*/
-		Vec3 GetMeatPosition()
+		Vec3 GetMeatPosition() const
 		{
 			return m_meatPosition;
 		}
