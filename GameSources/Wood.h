@@ -6,14 +6,15 @@
 */
 #pragma once
 #include "stdafx.h"
+#include "StaticModelComponent.h"
 
 /**basecross共通のネームペース*/
 namespace basecross {
+	
+
 	class Wood : public GameObject {
 	private:
-		Vec3 m_Scale;   //!大きさ
-		Vec3 m_Rotation;//!回転
-		Vec3 m_Position;//!位置
+		StaticModelDeta m_woodModelData;//!家のモデルデータ
 
 	public:
 		/**

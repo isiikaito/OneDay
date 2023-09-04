@@ -6,14 +6,25 @@
 */
 #pragma once
 #include "stdafx.h"
+#include "StaticModelComponent.h"
 
 /**basecross共通のネームペース*/
 namespace basecross {
+
+	namespace kaito
+	{
+		//!前方宣言
+		template<class entity_type>
+		class State;
+		//!前方宣言
+		template <class entity_type>
+		class StateMachine;
+	}
+
 	class WoodenBox : public GameObject {
 	private:
-		Vec3 m_Scale;   //!大きさ
-		Vec3 m_Rotation;//!回転
-		Vec3 m_Position;//!位置
+		StaticModelDeta m_woodenBoxModelData;			//!木箱モデルデータ
+		kaito::StateMachine<WoodenBox>* m_StateMachine;		//!プレイヤーのステートマシン
 
 	public:
 		//--------------------------------------------------------------------------------------
@@ -27,6 +38,23 @@ namespace basecross {
 　　　　* デストラクタ
 　　　　*/
 		virtual ~WoodenBox() {}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	ステートマシンのアクセッサ
+		@return ステートマシン
+		*/
+		const kaito::StateMachine<WoodenBox>* GetFSM()const
+		{
+			return m_StateMachine;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	ステートの変更
+		@引数　クラスに対応したステート
+		*/
+		virtual void ChangeState(kaito::State<WoodenBox>* NewState);
 
 		//--------------------------------------------------------------------------------------
 		/**

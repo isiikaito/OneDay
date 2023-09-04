@@ -19,6 +19,7 @@ namespace basecross
 		constexpr float ANGLELIMITSIX = 6.0f;		//!プレイヤーの視野の制限
 		constexpr float ANGLELIMITNINE = 9.0f;		//!プレイヤーの視野の制限
 		constexpr int ADDINDEX = 1;					//!次のインデックスへ進める
+		constexpr int DAMAGE = 1;					//!プレイヤーに与えるダメージ値
 
 		//!追いかけるステート-----------------------------------------
 
@@ -74,8 +75,10 @@ namespace basecross
 				}
 			}
 
+			auto dedState = Enemy->GetIsEnemyDed();
+
 			//!敵が殺されたとき死亡のステートに切り替わる
-			if (maxSpeed == 0)
+			if (dedState)
 			{
 				Enemy->ChangeState(DedState::Instance());//!ステートを変更する
 			}
@@ -104,6 +107,13 @@ namespace basecross
 
 		void PatrolState::Execute(BaseEnemy* Enemy)
 		{
+			auto dedState = Enemy->GetIsEnemyDed();
+
+			//!敵が殺されたとき
+			if (dedState)
+			{
+				Enemy->ChangeState(DedState::Instance());//!ステートを変更する
+			}
 
 			//!敵のパラメーターの取得
 			auto ptrEnemyTrans = Enemy->GetComponent<Transform>();	//!敵のトランスフォームの取得
@@ -162,11 +172,7 @@ namespace basecross
 
 			}
 
-			//!敵が殺されたとき
-			if (maxSpeed == 0)
-			{
-				Enemy->ChangeState(DedState::Instance());//!ステートを変更する
-			}
+			
 		}
 
 		void PatrolState::Exit(BaseEnemy* Enemy)
@@ -309,7 +315,10 @@ namespace basecross
 			}
 
 			HitStageBuildingObb(Enemy);
-			if (maxSpeed == 0)
+
+			auto dedState = Enemy->GetIsEnemyDed();
+
+			if (dedState)
 			{
 				Enemy->ChangeState(DedState::Instance());//!ステートを変更する
 			}
@@ -335,12 +344,13 @@ namespace basecross
 
 		void DedState::Enter(BaseEnemy* Enemy)
 		{
-			auto enemyDed = Enemy->GetIsEnemyDed();	//!敵が倒れたかどうか
-			enemyDed = true;						//!倒れた
-			Enemy->SetIsEnemyDed(enemyDed);			//!倒れたかどうか設定する
 			auto player = Enemy->GetTarget();		//!プレイヤーの取得
 			player->SetVibrationOn(true);			//!コントローラの振動
-
+			auto playerHp = player->GetPlayerHp();	//!プレイヤーのHPを取得
+			playerHp -= DAMAGE;						//!プレイヤーのHPを1削る
+			player->SetPlayerHp(playerHp);			//!プレイヤーのHPを更新する
+			Enemy->SetMaxSpeed(0.0f);
+			m_draw = Enemy->GetComponent<BcPNTnTBoneModelDraw>();
 
 		}
 
@@ -351,7 +361,26 @@ namespace basecross
 			Enemy->SetVelocity(EnemyVelocity);			//!ベクトルの設定
 			auto& app = App::GetApp();					//!アプリの取得
 			auto Stage = app->GetScene<Scene>()->GetActiveStage();//!ステージの取得
+			auto elapasedime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
 
+			
+			auto ptrDraw = m_draw.lock();	//アニメーションの取得
+			auto& AnimationName = ptrDraw->GetCurrentAnimation();		//!現在のアニメーションを取得
+			auto AnimationEnd = ptrDraw->UpdateAnimation(elapasedime);	//!アニメーションの更新
+			//歩くアニメーションの時
+			if (AnimationName == L"Move") {
+				ptrDraw->ChangeCurrentAnimation(L"Ded");							//!倒れるアニメーションに変更
+
+			}
+
+			else
+			{
+				//!アニメーションが終わったら
+				if (AnimationEnd)
+				{
+					Enemy->SetDedAnimationEnd(true);										//!死体を消す処理
+				}
+			}
 
 
 		}

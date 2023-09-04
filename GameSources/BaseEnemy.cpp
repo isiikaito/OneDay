@@ -23,7 +23,6 @@ namespace basecross
 		m_Force(0),
 		m_Velocity(0),
 		m_MaxSpeed(20),
-		m_StateChangeSize(20.0f),
 		m_Enemypatorolindex(0),
 		m_loseSightOfTarget(false),
 		m_IsEnemyDed(false),
@@ -45,7 +44,7 @@ namespace basecross
 	
 	void BaseEnemy::ApplyForce()
 	{
-		float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
+		float elapsedTime = App::GetApp()->GetElapsedTime();//!経過時間の取得
 		m_Velocity += m_Force * elapsedTime;				//!速度に力を加算
 		auto ptrTrans = GetComponent<Transform>();			//!トランスフォームの取得
 		auto pos = ptrTrans->GetPosition();					//!ポジションの取得
@@ -77,9 +76,9 @@ namespace basecross
 			auto ptrHunter = dynamic_pointer_cast<Hunter>(hunterPtr);	  //!ロックした物を取り出す
 			if (ptrHunter)
 			{
-				auto hunterSpeed = ptrHunter->GetSpeed();				  //!村人のスピードを取得
+				auto hunterDetState = ptrHunter->GetIsEnemyDed();				//!村人のスピードを取得
 				//!ハンターの速度が0の時
-				if (hunterSpeed == 0.0f)
+				if (hunterDetState)
 				{
 
 					GetStage()->RemoveGameObject<Hunter>(ptrHunter);	  //!ハンターオブジェクトを削除
@@ -110,9 +109,9 @@ namespace basecross
 			if (ptrVillager)
 			{
 
-				auto VillagerSpeed = ptrVillager->GetSpeed();				//!村人のスピードを取得
+				auto VillagerDetState = ptrVillager->GetIsEnemyDed();				//!村人のスピードを取得
 				//!村人の速度が0になったら
-				if (VillagerSpeed == 0.0f)
+				if (VillagerDetState)
 				{
 
 					GetStage()->RemoveGameObject<Villager>(VillagerPtr);//!村人のオブジェクトを削除
@@ -143,6 +142,7 @@ namespace basecross
 		ptrUtil->RotToHead(ROTTOHEAD);		   //!正面の値を入れてオブジェクトを正面に向かせる
 	}
 
+
 	void BaseEnemy::EnemyRandomRotation()
 	{
 		auto& app = App::GetApp();				//!アプリの取得
@@ -150,13 +150,14 @@ namespace basecross
 		m_randomTime += time;					//!ランダムタイムに時間を足す
 
 		srand(0);								//!乱数の初期化
-		m_randomCount = rand() % RANDOMRANGE;//!特定の値で割りその余りを受け取ることによりそれ以上は返ってこないようにする
+		m_randomCount = rand() % RANDOMRANGE;	//!特定の値で割りその余りを受け取ることによりそれ以上は返ってこないようにする
 
 		//!ランダムに変わる変数が特定の数字に変わったとき
 		if (m_randomCount == RANDOMNUMBER)
 		{
 			m_patrolRotation = true;//!敵の見渡す処理をtrueにする
 		}
+
 		//!見渡しているとき
 		if (m_patrolRotation == true)
 		{
@@ -181,6 +182,8 @@ namespace basecross
 
 	}
 
+	
+
 	void BaseEnemy::OnUpdate()
 	{
 		auto scene = App::GetApp()->GetScene<Scene>();			//!シーンの取得
@@ -189,7 +192,7 @@ namespace basecross
 		//!ゲームオーバーになっていないとき
 		if (!gameOver)
 		{
-			//!プレイヤーが返信していないとき
+			//!プレイヤーが変身していないとき
 			if (!playerChange)
 			{
 				//!倒れたアニメーション終了後

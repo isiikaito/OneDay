@@ -6,21 +6,20 @@
 */
 #pragma once
 #include "stdafx.h"
+#include "StaticModelComponent.h"
 
 /**basecross共通のネームペース*/
 namespace basecross {
+
+
+
+
 	class StageBuilding : public GameObject {
 	private:
-		Vec3 m_Scale;   //!大きさ
-		Vec3 m_Rotation;//!回転
-		Vec3 m_Position;//!位置
-		float m_Time; // !切り替える時間
-		int m_oneday; // !朝と夜に変化する
-
-		enum class Oneday {
-			midday,
-			night
-		};
+		float m_Time;									//!切り替える時間
+		int m_oneday;									//!朝と夜に変化する
+		StaticModelDeta m_buildingModelData;			//!家のモデルデータ
+		std::weak_ptr<PNTStaticModelDraw> m_ptrDrow;	//!描画処理
 
 	public:
 		//--------------------------------------------------------------------------------------

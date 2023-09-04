@@ -14,9 +14,7 @@ namespace basecross {
 	//--------------------------------------------------------------------------------------
 	class GoalPlayer : public GameObject {
 	private:
-		Vec3 m_Position;	//!位置
-		Vec3 m_Rotation;	//!回転
-		Vec3 m_Scale;		//!大きさ
+		BoneModelDeta m_goalPlayerBoneModelDeta;				//!プレイヤーのモデルデータ
 
 	public:
 
@@ -32,8 +30,6 @@ namespace basecross {
 		void OnCreate()override;
 
 
-		//更新
-		void OnUpdate()override;
 	};
 }
 //end basecross

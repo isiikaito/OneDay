@@ -19,8 +19,6 @@ namespace basecross
 
 		private:
 			SeekState() {}
-			float m_surprisedTime = 0.0f;
-
 			//!シングルトンパターン
 			SeekState(const SeekState&) = delete;			//!関数を削除する
 			SeekState& operator=(const SeekState&) = delete;//!operatorの中にある=を削除（コピーされないように）
@@ -140,6 +138,7 @@ namespace basecross
 		{
 
 		private:
+			std::weak_ptr<BcPNTnTBoneModelDraw> m_draw;//!描画コンポーネント
 			DedState() {}
 
 			//!シングルトンパターン

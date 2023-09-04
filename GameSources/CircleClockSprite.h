@@ -11,11 +11,11 @@
 namespace basecross {
 	class CircleClockSprite : public GameUI {
 	private:
-		bool m_Trace;         //!透明
-		Vec2 m_StartScale;    //!大きさ
-		Vec3 m_StartPos;      //!位置
+		bool m_Trace;			//!透明
+		Vec2 m_StartScale;		//!大きさ
+		Vec3 m_StartPos;		//!位置
 		wstring m_TextureClock; //!テクスチャ
-		float m_CircleTime; //!回転
+		float m_CircleTime;		//!回転
 
 	public:
 

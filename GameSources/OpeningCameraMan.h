@@ -48,6 +48,11 @@ namespace basecross {
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	オープニングカメラの設定
+		@param	スタート位置
+		@param[in]	最終位置
+		@param[out] 視点のスタート位置
+		@param[in out]	視点の最終位置
+		@param	移動時間
 		*/
 		void OpeningCameraStatus(Vec3 StartPos, Vec3 EndPos, Vec3 AtStartPos, Vec3 AtEndPos, float TotalTime);
 		
@@ -72,7 +77,7 @@ namespace basecross {
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	動くカメラ
-		@return カメラを使うかどうか
+		@param	オープニングカメラの時間
 		*/
 		bool MoveCamera(float totaltime);
 

@@ -9,7 +9,6 @@
 #include "Project.h"
 #include "GoalPlayer.h"
 #include "ClearStageCanvas.h"
-
 namespace basecross {
 //--------------------------------------------------------------------------------------
 //	ゲームクリアステージクラス
@@ -79,7 +78,6 @@ namespace basecross {
 	void GameClearStage::CreateStageBuilding()
 	{
 		auto group = CreateSharedObjectGroup(L"StageBuilding_Group");
-
 		
 		//CSVの全体の配列
 		//CSVからすべての行を抜き出す
@@ -197,10 +195,10 @@ namespace basecross {
 		// フォルダの指定
 		auto csvDirectory = DataDir + L"csvFolder\\";
 
-		m_StageCsv.SetFileName(csvDirectory + L"ClearStage.csv");
+		m_StageCsv.SetFileName(csvDirectory + L"StageData\\" + L"ClearStage.csv");
 		m_StageCsv.ReadCsv();
 		//!Buildingファイルの読み込み4
-		m_GameStageCsvD.SetFileName(csvDirectory + L"GameStageD.csv");
+		m_GameStageCsvD.SetFileName(csvDirectory + L"BuildingPosition\\"+ L"GameStageD.csv");
 		m_GameStageCsvD.ReadCsv();
 
 		CerateGoalPlayer(); //! プレイヤーの追加

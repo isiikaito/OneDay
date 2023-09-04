@@ -8,6 +8,8 @@
 #include "stdafx.h"
 #include "Project.h"
 #include "GameManager.h"
+#include "AnimationComponent.h"
+
 namespace basecross {
 
 	constexpr float COLLIMIT = 0.2;	//!カラーの変更値
@@ -24,13 +26,19 @@ namespace basecross {
 		GameObject(StagePtr),
 		m_Scale(Scale),
 		m_Rotation(Rotation),
-		m_Position(Position)
+		m_Position(Position),
+		modelScale(Vec3(0.3f, 0.1f, 0.09f)),
+		modelRotOrigin(Vec3(0.0f, 0.0f, 0.0f)),
+		modelRotation(Vec3(0.0f, 0.0f, 0.0f)),
+		modelPosition(Vec3(-0.1f, -0.5f, 0.0f))
 	{
 	}
 
 
 	//初期化
 	void StageGate::OnCreate() {
+
+
 		//!衝突判定の設定
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(m_Scale);      //!大きさ
@@ -40,10 +48,10 @@ namespace basecross {
 		// モデルとトランスフォームの間の差分行列
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.3f, 0.1f, 0.09f),//!大きさ
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f),   //!回転
-			Vec3(-0.1f, -0.5f, 0.0f)  //!位置
+			modelScale,
+			modelRotOrigin ,
+			modelRotation ,
+			modelPosition 
 		);
 
 
@@ -56,17 +64,8 @@ namespace basecross {
 		if (!goleGateParameter)
 		{
 			auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
-			//Coll->SetDrawActive(true);
 			Coll->SetFixed(true);
 		}
-
-		if (goleGateParameter)
-		{
-
-
-		}
-
-
 
 		////!メッシュの設定
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
@@ -80,8 +79,7 @@ namespace basecross {
 
 		//!描画するメッシュを設定
 		ptrDraw->SetMeshResource(L"GateAnimation_MESH_WITH_TAN");
-		ptrDraw->AddAnimation(L"Open", 0, 60, false, 20.0f);
-		ptrDraw->AddAnimation(L"defoult", 0, 1, false, 20.0f);//!開かないアニメーション
+		AddComponent<AnimationComponent>(L"Gate", L"defoult");									//!アニメーションの読み込み
 	}
 	void StageGate::AnimationChange()
 	{
@@ -111,7 +109,7 @@ namespace basecross {
 			if (AnimationName == L"Open")
 			{
 				drowComponet->ChangeCurrentAnimation(L"defoult");//!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
-				;
+				
 			}
 		}
 	}

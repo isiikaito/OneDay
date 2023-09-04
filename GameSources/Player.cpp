@@ -9,153 +9,87 @@
 #include "PlayerState.h"
 #include "Meat.h"
 #include "GameUI.h"
+#include "WoodenBoxState.h"
+#include "AnimationComponent.h"
+
+
 
 namespace basecross {
-	constexpr float MAXDEDTIME = 1.0f;			    //!倒れるまでの時間
 	constexpr float VIbRATIONMAXTIME = 1.0f;			//!振動する時間
-	constexpr int DAY = 7;							//!ゲームオーバーまでの日にち
+	constexpr int DAY = 7;								//!ゲームオーバーまでの日にち
 	constexpr int SOUNDLOOP = 1;						//!音のループ
-	constexpr int NOTSOUNDLOOP = 0;					//!サウンドループ無し
-	constexpr float ESCAPESPHERERAKIUS = 10.0f;		//!プレイヤーを中心とした円の半径
-	constexpr float VILLAGERKILLERSPHERERADIUS = 5.0f;//!村人を倒す時の円の半径
+	constexpr int NOTSOUNDLOOP = 0;						//!サウンドループ無し
+	constexpr float ESCAPESPHERERAKIUS = 10.0f;			//!プレイヤーを中心とした円の半径
+	constexpr float VILLAGERKILLERSPHERERADIUS = 5.0f;	//!村人を倒す時の円の半径
 	constexpr float BREAKWOODBOXSPHERERADIUS = 5.0f;	//!木箱を倒す時の円の半径
 	constexpr float HUNTERKILLERSPHERERADIUS = 5.0f;	//!ハンターを倒す時の円の半径
-	constexpr float ANGLEEQUAL = 6.0f;				//!視野の制限
+	constexpr float ANGLEEQUAL = 6.0f;					//!視野の制限
 	constexpr float ROTTOHEAD = 1.0f;					//!正面
 	constexpr float TARGETTOATY = 0.25f;				//!カメラの視点位置のy
 	constexpr WORD  MAXVIBRATION = 65535;				//!振動の大きさ
-	constexpr int MOVESTARTSAMPLE = 0;				//!動くアニメーションの開始フレーム
-	constexpr int MOVESAMPLELENGTH = 30;				//!動くアニメーションの長さ
-	constexpr float MOVESAMPLESPARSECOND = 20.0f;		//!動くアニメーションの再生速度
-	constexpr int DEFAULTSTARTSAMPLE = 31;			//!待機アニメーションの開始フレーム
-	constexpr int DEFAULTSAMPLELENGTH = 30;			//!待機アニメーションの長さ
-	constexpr float DEFAULTSAMPLESPARSECOND = 10.0f;	//!待機アニメーションの再生速度
-	constexpr int DEDSTARTSAMPLE = 61;				//!倒れるアニメーションの開始フレーム
-	constexpr int DEDSAMPLELENGTH = 45;				//!倒れるアニメーションの長さ
-	constexpr float DEDSAMPLESPARSECOND = 30.0f;		//!倒れるアニメーションの再生速度
-	constexpr int CHANGESTARTSAMPLE = 91;				//!変身アニメーションの開始フレーム
-	constexpr int CHANGESAMPLELENGTH = 60;			//!変身アニメーションの長さ
-	constexpr float CHANGESAMPLESPARSECOND = 30.0f;	//!変身アニメーションの再生速度
 	
-
-	//--------------------------------------------------------------------------------------
-	//	class Player : public GameObject;
-	//	用途: プレイヤー
-	//--------------------------------------------------------------------------------------
 	//!構築と破棄
 	Player::Player(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr),
-		m_Speed(20.0f),
-		m_ChangeTime(0.0f),
+		m_playerBoneModelDeta({ 
+		Vec3(3.0f, 3.0f, 3.0f),
+		Vec3(0.0f, 0.0f, 0.0f),
+		Vec3(0.0f, 4.0f, -90.0f),
+		Vec3(0.4f, 0.4f, 0.4f) ,
+		Vec3(0.0f, 0.0f, 0.0f),
+		Vec3(0.0f, 0.0f, 0.0f),
+		Vec3(0.0f, -1.0f, 0.0f),
+		L"Player_WalkAnimation2_MESH" ,
+		L"Player_WalkAnimation2_MESH_WITH_TAN",
+		L"OBJECT_NORMAL_TX" }),
 		m_playerChange(PlayerModel::human),
-		m_humanTime(31.0f),
-		m_wolfTime(61.0f),
 		m_reset(0),
 		m_KeyCount(0),
-		m_MaxKeyCount(3),
 		m_Ded(0.0f),
 		m_GetPlayerPositionTime(0.8f),
 		m_PlayerPositionTime(0.0f),
 		m_PlayerPositionOnSecondMax(39),
 		m_PlayerHp(3),
-		m_IsPlayerFound(false),
-		m_wolfPlayerSpeed(21.0f),
-		m_humanPlayerSpeed(20.0f),
-		m_AlertleveCount(0),
-		m_IsFastHowling(false),
-		m_wolfHowlingTime(0),
-		m_dedTime(0.0f),
 		m_IsPlayerDed(0.0f),
-		m_gameOverDrawActive(false),
 		m_vibration(0),
-		m_gameTime(0.0f),
 		m_meatCount(0),
 		m_vibrationTime(0.0f),
 		m_IsvibrationOn(false),
 		m_playerTaskDay(true),
 		m_playerTaskNight(false),
-		m_IsPlayerChangeEffect(true),
-		m_scale(Vec3(3.0f, 3.0f, 3.0f)),
-		m_rotation(Vec3(0.0f, 0.0f, 0.0f)),
-		m_position(Vec3(0.0f, 4.0f, -90.0f))
+		m_effectManager(NULL)
 	{
 		m_StateMachine = new kaito::StateMachine<Player>(this);
 		m_StateMachine->SetCurrentState(kaito::HumanState::Instance());	//!現在のステート
 	}
 
-	Vec2 Player::GetInputState() const {
-		Vec2 ret;
-		auto& cntlVec = App::GetApp()->GetInputDevice().GetControlerVec();//!コントローラの取得
-		ret.x = 0.0f;
-		ret.y = 0.0f;
-		WORD wButtons = 0;
-		//!接続されているコントローラ
-		if (cntlVec[0].bConnected) {
-			ret.x = cntlVec[0].fThumbLX;//!左スティックx座標
-			ret.y = cntlVec[0].fThumbLY;//!左スティックy座標
-		}
-		return ret;
-	}
-
-	//!プレイヤーのベクトルの取得
-	Vec3 Player::GetMoveVector() const {
-		Vec3 angle(0, 0, 0);
-
-		//!入力の取得
-		auto inPut = GetInputState();
-		float moveX = inPut.x;
-		float moveZ = inPut.y;
-
-		if (moveX != 0 || moveZ != 0) {
-			float moveLength = 0;											//!動いた時のスピード
-			auto ptrTransform = GetComponent<Transform>();					//!トランスフォームの取得
-			auto& ptrCamera = OnGetDrawCamera();							//!カメラの取得
-			auto front = ptrTransform->GetPosition() - ptrCamera->GetEye();	//!進行方向の向きを計算
-			front.y = 0;
-			front.normalize();												//!進行方向の向きを正規化
-			float frontAngle = atan2(front.z, front.x);						//!進行方向向きからの角度を算出
-			Vec2 moveVec(moveX, moveZ);										//!コントローラの向き計算
-			float moveSize = moveVec.length();								//!動く大きさ
-			float cntlAngle = atan2(-moveX, moveZ);							//!コントローラの向きから角度を計算
-			float totalAngle = frontAngle + cntlAngle;						//!トータルの角度を算出
-			angle = Vec3(cos(totalAngle), 0, sin(totalAngle));				//!角度からベクトルを作成
-			angle.normalize();												//!正規化する
-			angle *= moveSize;												//!移動サイズを設定
-			angle.y = 0;													//!Y軸は変化させない
-		}
-		return angle;
-	}
-
-	
+	//プレイヤーを動かす
 	void Player::MovePlayer() {
 
 		
-		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();			 //アニメーション
-		auto& AnimationName = ptrDraw->GetCurrentAnimation();			 //!現在のアニメーション
-		float elapsedTime = App::GetApp()->GetElapsedTime();			 //!エルパソタイムの取得
-		auto angle = GetMoveVector();									 //!ベクトルの取得
-		auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();//!効果音量
+		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();				//アニメーション
+		auto& AnimationName = ptrDraw->GetCurrentAnimation();				//!現在のアニメーション
+		float elapsedTime = App::GetApp()->GetElapsedTime();				//!経過時間の取得
+		auto angle = m_playermove.lock()->GetMoveVector();					//!ベクトルの取得
+		auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();	//!効果音量
 		//!スティックが傾いていたら
 		if (angle.length() > 0.0f) {
-			auto pos = GetComponent<Transform>()->GetPosition();		 //!自身のポジションの取得
-			pos += angle * elapsedTime * m_Speed;						 //!ポジションの更新
-			GetComponent<Transform>()->SetPosition(pos);				 //!ポジションの設定
-
+			
 			//歩くアニメーション
 			//!待機モーションか変身モーションの時
 			if (AnimationName == L"Default" || AnimationName == L"Change") {
-				ptrDraw->ChangeCurrentAnimation(L"Move");				//!アニメーションを変える
-				auto& XAptr = App::GetApp()->GetXAudio2Manager();		//!サウンドマネージャーの取得
-				m_Wolk = XAptr->Start(L"WalkBGM", SOUNDLOOP, volume);	//歩く音再生
+				ptrDraw->ChangeCurrentAnimation(L"Move");						//!アニメーションを変える
+				auto& XAptr = App::GetApp()->GetXAudio2Manager();				//!サウンドマネージャーの取得
+				m_Wolk = XAptr->Start(L"WalkBGM", SOUNDLOOP, volume);			//歩く音再生
 			}
 		}
 
 		else {
 			//立ち止まるアニメーション
 			if (AnimationName == L"Move") {
-				ptrDraw->ChangeCurrentAnimation(L"Default");
-				auto& XAptr = App::GetApp()->GetXAudio2Manager();
-				XAptr->Stop(m_Wolk);
+				ptrDraw->ChangeCurrentAnimation(L"Default");		//!アニメーションを変える
+				auto& XAptr = App::GetApp()->GetXAudio2Manager();	//!サウンドマネージャーの取得
+				XAptr->Stop(m_Wolk);								//歩く音を止める
 			}
 		}
 
@@ -166,57 +100,16 @@ namespace basecross {
 		}
 	}
 
-	//!初期化
 	void Player::OnCreate() {
 
-		//エフェクトの初期化
-		wstring DataDir;
-		App::GetApp()->GetDataDirectory(DataDir);
-		wstring keyEffectStr = DataDir + L"Effects\\key.efk";										//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
-		auto EfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();							//!エフェクトのインターフェースの取得
-		m_KeyEfkEffect = ObjectFactory::Create<EfkEffect>(EfkInterface, keyEffectStr);				//!取得したエフェクトで作る
+		m_effectManager = EffectManager::Instance();
 
-		wstring ScratchEffectStr = DataDir + L"Effects\\kill.efk";									//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
-		m_ScratchEfkEffect = ObjectFactory::Create<EfkEffect>(EfkInterface, ScratchEffectStr);		//!取得したエフェクトで作る
-
-		wstring TransformEffectStr = DataDir + L"Effects\\Transform2.efk";							//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
-		m_TransformEfkEffect = ObjectFactory::Create<EfkEffect>(EfkInterface, TransformEffectStr);	//!取得したエフェクトで作る
-
-		wstring MeatEffectStr = DataDir + L"Effects\\smoke.efk";									//!エフェクトの保存されているフォルダ\\保存したエフェクトの名前
-		m_MeatEfkEffect = ObjectFactory::Create<EfkEffect>(EfkInterface, MeatEffectStr);			//!取得したエフェクトで作る
-
-
-		//!初期位置などの設定
-		auto ptr = AddComponent<Transform>();
-		ptr->SetScale(m_scale);			//!大きさ
-		ptr->SetRotation(m_rotation);	//!回転
-		ptr->SetPosition(m_position);	//!位置
-
-
-		Mat4x4 spanMat;
-		spanMat.affineTransformation(
-			Vec3(0.4f, 0.4f, 0.4f),		//!大きさ
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f),		//!回転
-			Vec3(0.0f, -1.0f, 0.0f)		//!位置
-		);
-
-		auto ptrColl = AddComponent<CollisionCapsule>();																//!CollisionSphere衝突判定を付ける
-		auto ptrGra = AddComponent<Gravity>();																			//!重力をつける
-		auto shadowPtr = AddComponent<Shadowmap>();																		//!影をつける（シャドウマップを描画する）
-		shadowPtr->SetMeshResource(L"Player_WalkAnimation2_MESH");														//!影の形（メッシュ）を設定
-		shadowPtr->SetMeshToTransformMatrix(spanMat);																	//!メッシュの大きさ設定
-		auto ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();															//!描画コンポーネントの設定
-		ptrDraw->SetMeshResource(L"Player_WalkAnimation2_MESH_WITH_TAN");												//!描画するメッシュを設定
-		ptrDraw->SetMeshToTransformMatrix(spanMat);																		//!メッシュの大きさ設定
-		ptrDraw->AddAnimation(L"Move", MOVESTARTSAMPLE, MOVESAMPLELENGTH, true, MOVESAMPLESPARSECOND);			//!歩くアニメーションの登録
-		ptrDraw->AddAnimation(L"Default", DEFAULTSTARTSAMPLE, DEFAULTSAMPLELENGTH, true, DEFAULTSAMPLESPARSECOND);//!待機アニメーションの登録
-		ptrDraw->AddAnimation(L"Ded", DEDSTARTSAMPLE, DEDSAMPLELENGTH, false, DEDSAMPLESPARSECOND);				//!倒れるアニメーションの登録
-		ptrDraw->AddAnimation(L"Change", CHANGESTARTSAMPLE, CHANGESAMPLELENGTH, false, CHANGESAMPLESPARSECOND);	//!変身アニメーションの登録
-		ptrDraw->ChangeCurrentAnimation(L"Default");																	//!現在のアニメーションの設定
-		ptrDraw->SetNormalMapTextureResource(L"OBJECT_NORMAL_TX");														//!法線マップの設定
-
-		
+		AddComponent<PlayerMoveComponent>();														//!プレイヤーの動く処理
+		m_playermove = GetComponent<PlayerMoveComponent>();
+		AddComponent<BoneModelComponent>(m_playerBoneModelDeta);									//!プレイヤーのモデル作成
+		AddComponent<BcPNTnTBoneModelDraw>();														//!モデルの描画コンポーネントの追加
+		m_draw = GetComponent<BcPNTnTBoneModelDraw>();												//!描画処理
+		AddComponent<AnimationComponent>(L"Player", L"Default");									//!アニメーションの読み込み
 
 			//!カメラを得る
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
@@ -228,50 +121,14 @@ namespace basecross {
 	}
 
 	
-
-	void Player::PlayerGameOver()
-	{
-		auto scene=App::GetApp()->GetScene<Scene>();//!シーンの取得
-		auto gameOver = scene->GetGameOver();		//!ゲームオーバー判定の取得
-		gameOver = true;							//!ゲームオーバーにする
-		scene->SetGameOver(gameOver);				
-
-		
-		float Time = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
-		m_dedTime += Time;							 //!倒れる時間に加算
-		//!倒れる時間になったら
-		if (m_dedTime >= MAXDEDTIME)
-		{
-			m_gameOverDrawActive = true;			//!ゲームオーバー画面を表示
-		}
-
-	}
-
-	void Player::PlayerDed()
-	{
-		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();	//!描画コンポーネントの取得
-		auto& AnimationName = ptrDraw->GetCurrentAnimation();	//!現在のアニメーションの取得
-		float elapsedTime = App::GetApp()->GetElapsedTime();	//!エルパソタイムの取得
-
-		//立ち止まるアニメーション
-		if (AnimationName == L"Move" || AnimationName == L"Default")
-		{
-			ptrDraw->ChangeCurrentAnimation(L"Ded");			//!アニメーションをDedに変更
-			auto& XAptr = App::GetApp()->GetXAudio2Manager();	//!サウンドマネージャーの取得
-			XAptr->Stop(m_Wolk);								//!歩くサウンドを止める
-
-		}
-		PlayerGameOver();
-	}
-
 	
 
 	void Player::EnemyDedSound()
 	{
-		auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();//!効果音量の取得
-		auto& ptrXA = App::GetApp()->GetXAudio2Manager();				 //!サウンドマネージャーの取得
-		ptrXA->Start(L"kill", NOTSOUNDLOOP, volume);					 //!倒したときのサウンドの開始
-		ptrXA->Start(L"scream", NOTSOUNDLOOP, volume);				 //!攻撃のサウンドの開始
+		auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();	//!効果音量の取得
+		auto& ptrXA = App::GetApp()->GetXAudio2Manager();					//!サウンドマネージャーの取得
+		ptrXA->Start(L"kill", NOTSOUNDLOOP, volume);						//!倒したときのサウンドの開始
+		ptrXA->Start(L"scream", NOTSOUNDLOOP, volume);						//!攻撃のサウンドの開始
 	}
 
 	void Player::Hunterkiller()
@@ -289,14 +146,6 @@ namespace basecross {
 			auto HunterPtr = v.lock();									 //!ハンターのグループから1つロックする
 			Vec3 ret;													 //!最近接点の代入
 			auto ptrHunter = dynamic_pointer_cast<Hunter>(HunterPtr);    //!ロックした物を取り出す
-			auto HunterTrans = GetComponent<Transform>();				 //!ハンターのトランスフォームの取得
-			auto HunterPosition = HunterTrans->GetPosition();            //!ハンターのポジションの取得
-			Vec3 PEvector = position - HunterPosition;					 //!プレイヤーと敵のベクトルを取得
-			PEvector.normalize();										 //!プレイヤーと敵のベクトルを正規化
-			auto Enemyfront = HunterTrans->GetForword();				 //!敵の正面を取得
-			auto angle = angleBetweenNormals(-Enemyfront, PEvector);     //!敵の正面とプレイヤーと敵のベクトルを取得し角度に変換
-			auto chk = XM_PI / ANGLEEQUAL;							 //!360を6で割って角度を出す。
-		
 
 			//!プレイヤーの範囲に敵がはいったら
 			if (ptrHunter)
@@ -307,17 +156,11 @@ namespace basecross {
 				if (HitTest::SPHERE_CAPSULE(playerSp, HunterCapsrul, ret))
 				{
 					
-						auto HunterSpeed = ptrHunter->GetSpeed();//!村人のスピードを取得
-						//!ハンターの速度が0ではないとき
-						if (HunterSpeed != m_Ded)
-						{
-							HunterSpeed = m_Ded;						//!村人のスピードを０にする
-							ptrHunter->SetSpeed(HunterSpeed);			//!村人のスピードを設定
-							alertlevelCount++;							//!危険度を上げる
-							scene->SetAlertlevelCount(alertlevelCount); //!危険度を更新
-							EnemyDedSound();
-						}
-					
+					ptrHunter->SetIsEnemyDed(true);				//!敵を死んだステートに変更する
+					alertlevelCount++;							//!危険度を上げる
+					scene->SetAlertlevelCount(alertlevelCount); //!危険度を更新
+					EnemyDedSound();
+						
 				}
 			}
 
@@ -331,11 +174,11 @@ namespace basecross {
 		//!ゲームオーバーの日付になったら
 		if (Date == DAY)
 		{
-			PlayerGameOver();//!ゲームオーバー
+			m_PlayerHp = 0;//!ゲームオーバー
 		}
 
 	}
-
+	//!木箱を破壊する
 	void Player::BreakWoodBox()
 	{
 		auto transComp = GetComponent<Transform>();							//!トランスフォームを取得
@@ -354,14 +197,15 @@ namespace basecross {
 			//!プレイヤーの範囲に敵が入ったら
 			if (ptrWoodBox)
 			{
-				auto WoodBoxOBB = ptrWoodBox->GetComponent<CollisionObb>()->GetObb();//!ハンタ-のObbオブジェクトを取得
+				auto woodBoxCollision = ptrWoodBox->GetComponent<CollisionObb>();
+				auto WoodenBoxOBB = woodBoxCollision->GetObb();//!ハンタ-のObbオブジェクトを取得
+
 				//!プレイヤーの周りを囲んでいるスフィアに当たったら
-				if (HitTest::SPHERE_OBB(playerSp, WoodBoxOBB, ret))					 
+				if (HitTest::SPHERE_OBB(playerSp, WoodenBoxOBB, ret))
 				{
-					auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();//!効果音量の取得
-					GetStage()->RemoveGameObject<WoodenBox>(ptrWoodBox);			 //!木箱を消す
-					
-					auto& ptrXA = App::GetApp()->GetXAudio2Manager();				 //サウンド再生
+					ptrWoodBox->ChangeState(basecross::kaito::WoodenBoxBreakState::Instance());	//!木箱を破壊するステートに変更
+					auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();			//!効果音量の取得					
+					auto& ptrXA = App::GetApp()->GetXAudio2Manager();							//サウンド再生
 					ptrXA->Start(L"WoodBoxBreak", NOTSOUNDLOOP, volume);
 					
 				}
@@ -374,7 +218,7 @@ namespace basecross {
 	{
 		auto transComp = GetComponent<Transform>();							//!トランスフォームを取得
 		auto position = transComp->GetPosition();							//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, VILLAGERKILLERSPHERERADIUS);			//!プレイヤーの座標を中心に半径2センチの円の作成
+		SPHERE playerSp(position, VILLAGERKILLERSPHERERADIUS);				//!プレイヤーの座標を中心に半径2センチの円の作成
 		auto scene = App::GetApp()->GetScene<Scene>();						//!シーンの取得
 		int alertlevelCount = scene->GetAlertlevelCount();					//!危険度の取得
 		//!村人を殺す
@@ -395,18 +239,11 @@ namespace basecross {
 				//!プレイヤーの周りを囲んでいるスフィアに当たったら
 				if (HitTest::SPHERE_CAPSULE(playerSp, VillagerCapsrul, ret))						
 				{
-					
-					auto VillagerSpeed = ptrVillager->GetSpeed();	//!村人のスピードを取得
-					//!村人の速度が停止していなかったら
-					if (VillagerSpeed != m_Ded)
-					{
-						VillagerSpeed = m_Ded;						//!村人のスピードを０にする
-						ptrVillager->SetSpeed(VillagerSpeed);		//!村人のスピードを設定
+						ptrVillager->SetIsEnemyDed(true);			//!敵を死んだステートに変更する
 						alertlevelCount++;							//!危険度を上げる
 						scene->SetAlertlevelCount(alertlevelCount); //!危険度を設定
-
 						EnemyDedSound();
-					}
+					
 				}
 			}
 		}
@@ -438,21 +275,21 @@ namespace basecross {
 
 	void Player::Escape()
 	{
-		auto transComp = GetComponent<Transform>();						//!トランスフォームを取得
-		auto position = transComp->GetPosition();						//!現在のプレイヤーの位置の取得
-		SPHERE playerSp(position, ESCAPESPHERERAKIUS);				//!プレイヤーの座標を中心に半径2センチの円の作成
+		auto transComp = GetComponent<Transform>();														//!トランスフォームを取得
+		auto position = transComp->GetPosition();														//!現在のプレイヤーの位置の取得
+		SPHERE playerSp(position, ESCAPESPHERERAKIUS);													//!プレイヤーの座標を中心に半径2センチの円の作成
 
-		auto gate = GetStage()->GetSharedGameObject<StageGate>(L"Gate");//!門を取得
-		Vec3 ret;														//!最近接点の代入
-		auto gateObb = gate->GetComponent<CollisionObb>()->GetObb();	//!コリジョンの衝突判定
-		if (HitTest::SPHERE_OBB(playerSp, gateObb, ret))				//!プレイヤーの周りを囲んでいるスフィアに当たったら
+		auto gate = GetStage()->GetSharedGameObject<StageGate>(L"Gate");								//!門を取得
+		Vec3 ret;																						//!最近接点の代入
+		auto gateObb = gate->GetComponent<CollisionObb>()->GetObb();									//!コリジョンの衝突判定
+		if (HitTest::SPHERE_OBB(playerSp, gateObb, ret))												//!プレイヤーの周りを囲んでいるスフィアに当たったら
 		{
-			auto& XAptr = App::GetApp()->GetXAudio2Manager();			//!サウンドマネージャーの取得
-			XAptr->Stop(m_Wolk);										//!歩く音の停止
-			PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");//!ゲームクリアステージに遷移
+			auto& XAptr = App::GetApp()->GetXAudio2Manager();											//!サウンドマネージャーの取得
+			XAptr->Stop(m_Wolk);																		//!歩く音の停止
+			PostEvent(0.0f, GetThis<Player>(), App::GetApp()->GetScene<Scene>(), L"ToGameClearStage");	//!ゲームクリアステージに遷移
 		}
 	}
-
+		
 	
 
 	void Player::ChangeState(kaito::State<Player>* NewState)
@@ -463,99 +300,79 @@ namespace basecross {
 	
 	void Player::Controllervibration()
 	{
-		
-
-		//!振動がオンになっているとき
-		if (m_IsvibrationOn == true)
+		auto scene = App::GetApp()->GetScene<Scene>();			//!シーンの取得
+		auto gameOverSprite = scene->GetGameOverSprite();		//!ゲームオーバー判定の取得
+		if (gameOverSprite == false)
 		{
-			auto Time = App::GetApp()->GetElapsedTime();//!時間の取得
-			m_vibrationTime += Time;					//!振動させる時間
-             m_vibration = MAXVIBRATION;				//!現在の振動の大きさ
-			//!振動する時間経ったら
-			if (m_vibrationTime >= VIbRATIONMAXTIME)
+			//!振動がオンになっているとき
+			if (m_IsvibrationOn == true)
 			{
-				m_IsvibrationOn = false;//!振動をやめる
+				auto Time = App::GetApp()->GetElapsedTime();//!時間の取得
+				m_vibrationTime += Time;					//!振動させる時間
+				m_vibration = MAXVIBRATION;					//!現在の振動の大きさ
+				//!振動する時間経ったら
+				if (m_vibrationTime >= VIbRATIONMAXTIME)
+				{
+					m_IsvibrationOn = false;//!振動をやめる
+				}
 			}
-		}
-		if (m_IsvibrationOn == false)
-		{
-			m_vibrationTime = 0.0f;	//!時間をリセット
-			m_vibration = 0;		//!振動を無くす
+			if (m_IsvibrationOn == false)
+			{
+				m_vibrationTime = 0.0f;	//!時間をリセット
+				m_vibration = 0;		//!振動を無くす
+			}
+
+
+			XINPUT_VIBRATION vibration;							//!コントローラーの振動
+			ZeroMemory(&vibration, sizeof(XINPUT_VIBRATION));
+			vibration.wLeftMotorSpeed = m_vibration;			// use any value between 0-65535 here
+			vibration.wRightMotorSpeed = m_vibration;			// use any value between 0-65535 here
+			XInputSetState(0, &vibration);						//!コントローラーの振動の設定
 		}
 
+		else
+		{
+			
+				m_vibrationTime = 0.0f;	//!時間をリセット
+				m_vibration = 0;		//!振動を無くす
 		
-		XINPUT_VIBRATION vibration;							//!コントローラーの振動
-		ZeroMemory(&vibration, sizeof(XINPUT_VIBRATION));
-		vibration.wLeftMotorSpeed = m_vibration;			// use any value between 0-65535 here
-		vibration.wRightMotorSpeed = m_vibration;			// use any value between 0-65535 here
-		XInputSetState(0, &vibration);						//!コントローラーの振動の設定
+			XINPUT_VIBRATION vibration;							//!コントローラーの振動
+			ZeroMemory(&vibration, sizeof(XINPUT_VIBRATION));
+			vibration.wLeftMotorSpeed = m_vibration;			// use any value between 0-65535 here
+			vibration.wRightMotorSpeed = m_vibration;			// use any value between 0-65535 here
+			XInputSetState(0, &vibration);						//!コントローラーの振動の設定
+		}
+		
 	}
 
 	//更新
 	void Player::OnUpdate() {
-		if (m_playerChange == PlayerModel::human)
-		{
-			//!プレイヤーが鍵を持っていたら
-			if (m_KeyCount == m_MaxKeyCount)
-			{
-				Escape();
-			}
-		}
+		
 
-		m_StateMachine->Update();							//!ステートマシンの更新
+		m_StateMachine->Update();								//!ステートマシンの更新
 		OneWeek();
 		Controllervibration();
-		auto scene = App::GetApp()->GetScene<Scene>();		//!シーンの取得
-		auto gameOver = scene->GetGameOver();				//!ゲームオーバーかどうかの取得
-		auto gameTime = scene->GetGameTime();				//!ゲーム時間の取得
-		m_gameTime += gameTime;								//!時間の加算
-
-		
-		float elapsedTime = App::GetApp()->GetElapsedTime();//!エルパソタイムの取得
-		auto ptrDraw = GetComponent<BcPNTnTBoneModelDraw>();//アニメーション
-		ptrDraw->UpdateAnimation(elapsedTime);				//!アニメーションの更新
-
-		
-		
-		auto playerChange = scene->GetPlayerChangeDirecting();//!プレイヤーの変身を開始する
-		auto gameStrat = scene->GetGameStrat();				  //!オープニングカメラの時かどうか
+		auto scene = App::GetApp()->GetScene<Scene>();			//!シーンの取得
+		float elapsedTime = App::GetApp()->GetElapsedTime();	//!経過時間の取得
+		auto ptrDraw = m_draw.lock();							//アニメーション
+		ptrDraw->UpdateAnimation(elapsedTime);					//!アニメーションの更新
+		auto playerChange = scene->GetPlayerChangeDirecting();	//!プレイヤーの変身を開始する
+		auto gameStrat = scene->GetGameStrat();					//!オープニングカメラの時かどうか
 	
-		//!ゲームオーバーになってない時に
-		if (!gameOver)
+		GetPlayerPositionBrett();
+		//!プレイヤーが変身していない時
+		if (!playerChange)
 		{
-			GetPlayerPositionBrett();
-			//!プレイヤーが変身していない時
-			if (!playerChange)
-			{
-				//!オープニングカメラではない時
-				if (!gameStrat)
-				{
-					MovePlayer();
-				}
-
-			}
-			//!変身しているかオープニングカメラの時
-			if(playerChange|| gameStrat)
-			{
-				auto& XAptr = App::GetApp()->GetXAudio2Manager();//!サウンドマネージャーの取得
-				XAptr->Stop(m_Wolk);							 //!歩く音を止める
-			}
-				
+				MovePlayer();
 		}
-		
-		//!プレイヤーが倒れた時
-		if (m_IsPlayerDed == true)
+		//!変身しているかオープニングカメラの時
+		if(playerChange|| gameStrat)
 		{
-			PlayerDed();
+			auto& XAptr = App::GetApp()->GetXAudio2Manager();//!サウンドマネージャーの取得
+			XAptr->Stop(m_Wolk);							 //!歩く音を止める
 		}
 
-		//!HPが無くなったとき
-		if (m_PlayerHp == m_Ded)
-		{
-			PlayerGameOver();
-		}
-            m_InputHandlerB.PushHandleB(GetThis<Player>());//!Bボタンのインプットハンドラの追加
-	    }
+	 }
 
 
 
@@ -575,11 +392,11 @@ namespace basecross {
 				m_KeyCount++;																		//!鍵のカウント
 				GetStage()->RemoveGameObject<Key>(Other);											//!鍵オブジェクトの削除
 				auto& ptrXA = App::GetApp()->GetXAudio2Manager();									//!サウンドマネージャーの取得
-				ptrXA->Start(L"acquisition", NOTSOUNDLOOP, volume);								//!サウンドの再生
-				auto Ptr = ptrKey->GetComponent<Transform>();										//!エフェクトのプレイ
-				auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();					//!エフェクトインターフェースの取得
-				m_KeyEfkPlay = ObjectFactory::Create<EfkPlay>(m_KeyEfkEffect, Ptr->GetPosition());	//!エフェクトのポジション
+				ptrXA->Start(L"acquisition", NOTSOUNDLOOP, volume);									//!サウンドの再生
+				auto position = ptrKey->GetComponent<Transform>()->GetPosition();					//!エフェクトのプレイ
+				m_effectManager->KeyEfkPlay(position);												//!エフェクトの再生
 
+			
 			}
 
 
@@ -595,12 +412,10 @@ namespace basecross {
 				m_meatCount++;
 				GetStage()->RemoveGameObject<Meat>(Other);											//!鍵オブジェクトの削除
 				auto& ptrXA = App::GetApp()->GetXAudio2Manager();									//!サウンドマネージャーの取得
-				ptrXA->Start(L"MeatEat", NOTSOUNDLOOP, volume);									//!肉を食べるサウンドの再生
+				ptrXA->Start(L"MeatEat", NOTSOUNDLOOP, volume);										//!肉を食べるサウンドの再生
 				auto Ptr = GetComponent<Transform>();												//!トランスフォームの取得
-				auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();					//!エフェクトインターフェースの取得
-				m_MeatEfkPlay = ObjectFactory::Create<EfkPlay>(m_MeatEfkEffect, Ptr->GetPosition());//!エフェクトの作成
-				auto manager=ShEfkInterface->GetManager();											//!マネージャーの取得
-				
+				m_effectManager->MeatEfkPlay(Ptr->GetPosition());									//!エフェクトの再生
+
 			}
 
 
@@ -611,29 +426,21 @@ namespace basecross {
 	void Player::AttackEffect()
 	{
 		//エフェクトのプレイ
-		auto Ptr = GetComponent<Transform>();                                                 //!トランスフォームの取得
-		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();					  //!エフェクトインターフェースの取得 
-		auto playerPosition = Ptr->GetPosition();											  //!プレイヤーのポジションの取得 
-		m_ScratchEfkPlay = ObjectFactory::Create<EfkPlay>(m_ScratchEfkEffect, playerPosition);//!エフェクトの作成
+		auto Ptr = GetComponent<Transform>();                                               //!トランスフォームの取得
+		auto ShEfkInterface = GetTypeStage<GameStage>()->GetEfkInterface();					//!エフェクトインターフェースの取得 
+		auto playerPosition = Ptr->GetPosition();											//!プレイヤーのポジションの取得 
+		m_effectManager->ScratchEfkPlay(playerPosition);									//!エフェクトの再生
+
 	}																						  
 																							   
 	void Player::OnPushB()																	   
 	{
-		auto scene = App::GetApp()->GetScene<Scene>();	//!シーンの取得
-		auto gameOver = scene->GetGameOver();			//!ゲームオーバーの取得
-		//!ゲームオーバーになってない時に
-		if (gameOver == false)
-		{
-			//!オオカミの姿になったとき
-			if (m_playerChange == PlayerModel::wolf)
-			{
-				Villagerkiller();
-				Hunterkiller();
-				BreakWoodBox();
-				AttackEffect();
-			}
-
-		}
+		
+			Villagerkiller();
+			Hunterkiller();
+			BreakWoodBox();
+			AttackEffect();
+		
 	}
 }
 //end basecross

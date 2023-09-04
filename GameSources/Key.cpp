@@ -15,46 +15,28 @@ namespace basecross {
 		const Vec3& Position
 	) :
 		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Rotation(Rotation),
-		m_Position(Position),
-		m_Time(0.0f)
+		m_RotationSpeed(0.0f),
+		m_keyModelData
+		(
+			{
+			    Scale ,
+				Rotation ,
+				Position,
+				Vec3(0.2f, 0.1f, 0.5f),
+				Vec3(0.0f, 0.0f, 0.0f),
+				Vec3(0.0f, 0.6f, 0.0f),
+				Vec3(0.0f, -0.5f, 0.0f),
+				L"KEY_MESH"
+
+			}
+		)
 	{
 	}
 
 	void Key::OnCreate() {
 
-		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_Scale);      //!大きさ
-		ptrTrans->SetRotation(m_Rotation);//!回転
-		ptrTrans->SetPosition(m_Position);//!位置
+		AddComponent<StaticModelComponent>(m_keyModelData);				//!モデルデータ生成	                           
 
-
-		Mat4x4 spanMat;
-		spanMat.affineTransformation(
-			Vec3(0.2f, 0.1f, 0.5f),//!大きさ
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.6f, 0.0f),//!回転
-			Vec3(0.0f, -0.5f, 0.0f)//!位置
-		);
-
-
-		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
-		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
-		auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
-		                           
-
-		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"KEY_MESH");
-		ptrShadow->SetMeshToTransformMatrix(spanMat);
-
-		//!メッシュの設定
-		ptrDraw->SetMeshResource(L"KEY_MESH");
-		ptrDraw->SetMeshToTransformMatrix(spanMat);
-
-		//!RigidbodyBoxの追加
-		PsBoxParam param(ptrTrans->GetWorldMatrix(), 0.0f, true, PsMotionType::MotionTypeFixed);
-		auto PsPtr = AddComponent<RigidbodyBox>(param);
 		auto group = GetStage()->GetSharedObjectGroup(L"key_ObjGroup");
 		//グループに自分自身を追加
 		group->IntoGroup(GetThis<Key>());
@@ -66,13 +48,13 @@ namespace basecross {
 		auto ptrTrans = GetComponent<Transform>();
 		auto& app = App::GetApp();//!アプリの取得
 		auto time = app->GetElapsedTime();
-	    m_Time += time;
+		m_RotationSpeed += time;
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
-			Vec3(0.2f, 0.1f, 0.5f),		//!大きさ
+			Vec3(0.2f, 0.1f, 0.5f),				//!大きさ
 			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, m_Time, 0.0f),   //!回転
-			Vec3(0.0f, -0.5f, 0.0f)		//!位置
+			Vec3(0.0f, m_RotationSpeed, 0.0f),   //!回転
+			Vec3(0.0f, -0.5f, 0.0f)				//!位置
 		);
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 		

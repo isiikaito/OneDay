@@ -23,6 +23,15 @@ namespace basecross {
 		const Vec2 m_RightLowerSummit;	//!右下の頂点
 		Col4 m_TextureColor;			//!テクスチャの色
 
+
+	protected:
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	ポリゴンの生成とテクスチャの決定
+		*/
+		void CreateGameUI(const wstring& TextureKey, bool Trace, const Vec2& StartScale, const Vec3& StartPos);
+
+
 	public:
 
 		//--------------------------------------------------------------------------------------
@@ -35,12 +44,7 @@ namespace basecross {
 		GameUI(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
 			const Vec2& StartScale,Vec3&Rotation, const Vec3& StartPos);
 
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief	ポリゴンの生成とテクスチャの決定
-		*/
-		void CreateGameUI( const wstring& TextureKey, bool Trace, const Vec2& StartScale, const Vec3& StartPos);
-	
+		
 
 		//--------------------------------------------------------------------------------------
 		/*!

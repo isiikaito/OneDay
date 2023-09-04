@@ -10,10 +10,9 @@
 namespace basecross {
 	class Meat : public GameObject {
 	private:
-		Vec3 m_Scale;    //!大きさ
-		Vec3 m_Rotation; //!回転
-		Vec3 m_Position; //!位置
 		float m_Time;	 //!y軸回転
+		StaticModelDeta m_meatModelData;			//!肉のモデルデータ
+
 	public:
 		//--------------------------------------------------------------------------------------
 		/*!

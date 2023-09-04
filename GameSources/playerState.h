@@ -24,10 +24,7 @@ namespace basecross
 		private:
 			HumanState() {}
 			float m_HumanChangeTime = 0.0f;	//!変更する時間
-			CsvFile m_MeatPositon;			//!肉のポジションのCSVファイル
-			int m_MeatNumber = 0;			//!肉の位置が保存されたCSVファイルの番号
-			CsvFile m_GameStageCsvD;		// !建物の配置4
-			float m_meatTime = 0.0f;		//!肉の時間
+			
 
 			
 			//!シングルトンパターン
@@ -37,13 +34,7 @@ namespace basecross
 		public:
 			static HumanState* Instance();
 
-			//!肉の生成
-			void CreateMeat();
-			//!木箱の生成
-			void CreateWoodBox();
-			//!csvの取得
-			void ReadCsv(const wstring& FileNume);
-
+			
 			//--------------------------------------------------------------------------------------
 			/*!
 			@brief	ステートに入ったときに一度呼ばれる処理
@@ -76,18 +67,13 @@ namespace basecross
 			WolfState() {}
 			WolfState(const WolfState&) = delete;//!関数を削除する
 			WolfState& operator=(const WolfState&) = delete;//!operatorの中にある=を削除(コピーされないように)
-			float m_WolfChangeTime = 0.0f;
-			int m_Date = 0;//!日付
+			float m_WolfChangeTime = 0.0f;						//!変身するまでの時間
+			InputHandlerB<Player> m_InputHandlerB;				//!コントローラーのボタンの取得B
 
-
-
+			weak_ptr<Player> m_player;
 		public:
 			static WolfState* Instance();
-			//!肉の位置リセット
-			void RemoveMeat();
-			//!木箱のリセット
-			void RemoveWoodBox();
-
+			
 			void MeatEat(Player* Player);
 
 			//--------------------------------------------------------------------------------------
@@ -188,10 +174,45 @@ namespace basecross
 			*/
 			virtual void Exit(Player* Player)override;
 		};
-
-
-
 		//-------------------------------------------------------------------
+
+
+		//プレイヤーが死んだときのステート
+		class PlayerDedState :public State<Player>
+		{
+		private:
+
+			PlayerDedState() {}
+
+			PlayerDedState(const PlayerDedState&) = delete;//!関数を削除する
+			PlayerDedState& operator=(const PlayerDedState&) = delete;//!operatorの中にある=を削除(コピーされないように)
+
+		public:
+			static PlayerDedState* Instance();
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
+			virtual void Enter(Player* Player)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートに入ったときに常に呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
+			virtual void Execute(Player* Player)override;
+
+			//--------------------------------------------------------------------------------------
+			/*!
+			@brief	ステートを出るときに一度呼ばれる処理
+			@param	ステートを実装しているクラス
+			*/
+			virtual void Exit(Player* Player)override;
+		};
+		//-------------------------------------------------------------------
+
 
 	}
 }

@@ -1,9 +1,0 @@
-diff a/media/csvFolder/Enemy.csv b/media/csvFolder/Enemy.csv	(rejected hunks)
-@@ -2,6 +2,7 @@
- EnemyName,��,��,��,��,��,��,��,��,��,
- Villager,3,3,3,0,0,0,-90,5,80,Enemy1
- Villager,3,3,3,0,0,0,-30,5,-90,Enemy2
-+<<<<<<< HEAD
- Hunter,3,3,3,0,0,0,95,5,80,Enemy3
- HeadMan,3,3,3,0,54,0,4,10,-5,
- =======

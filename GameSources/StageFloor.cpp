@@ -22,45 +22,25 @@ namespace basecross {
 		const Vec3& Position
 	) :
 		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Rotation(Rotation),
-		m_Position(Position)
+		m_stageFloorModelData
+		(
+			{
+				Scale ,
+				Rotation ,
+				Position,
+				Vec3(0.04f, 1.0f, 0.04f),
+				Vec3(0.0f, 0.0f, 0.0f),
+				Vec3(0.0f, 0.0f, 0.0f),	
+				Vec3(0.0f, 0.5f, -0.003f),
+				L"GROUND_MESH"
+			}
+		)
 	{
 	}
-	
 
 	//初期化
 	void StageFloor::OnCreate() {
-		//!衝突判定の設定
-		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_Scale);      //!大きさ
-		ptrTrans->SetRotation(m_Rotation);//!回転
-		ptrTrans->SetPosition(m_Position);//!位置
-
-		// モデルとトランスフォームの間の差分行列
-		Mat4x4 spanMat;
-		spanMat.affineTransformation(
-			Vec3(0.04f, 1.0f, 0.04f),	//!大きさ
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f),		//!回転
-			Vec3(0.0f, 0.5f, -0.003f)	//!位置
-		);
-
-
-		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
-		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
-		auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
-		Coll->SetFixed(true);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
-
-		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"GROUND_MESH");
-		ptrShadow->SetMeshToTransformMatrix(spanMat);
-
-		ptrDraw->SetOwnShadowActive(true); // 影の映りこみを有効にする
-
-		//!メッシュの設定
-		ptrDraw->SetMeshResource(L"GROUND_MESH");
-		ptrDraw->SetMeshToTransformMatrix(spanMat);
+		AddComponent<StaticModelComponent>(m_stageFloorModelData);				//!モデルデータ生成
 	
 	}
 

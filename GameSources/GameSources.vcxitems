@@ -15,11 +15,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)AlertlevelGauge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnimationComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Arrow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BaseEnemy.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ClearStageCanvas.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DescriptionStageCanvas.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EffectManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClearStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
@@ -32,6 +34,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOver.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameManagerState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GoalPlayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeadMan.h" />
@@ -42,6 +45,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)KeyParticle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)KeySprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Meat.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BoneModelComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MoveComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)OpeningCameraMan.h" />
@@ -51,6 +56,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageBuilding.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageFloor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageGate.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StaticModelComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStageCanvas.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoseSightOf.h" />
@@ -68,9 +74,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Villager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Wood.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WoodenBox.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WoodenBoxState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)AlertlevelGauge.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AnimationComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Arrow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BaseEnemy.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CircleClockSprite.cpp" />
@@ -80,11 +88,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionSpriteFrontState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DescriptionStageCanvas.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EffectManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EfkInterfece.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClearStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameManagerState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOver.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameUI.cpp" />
@@ -97,6 +107,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)KeyParticle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)KeySprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Meat.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)BoneModelComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MoveComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)OpeningCameraMan.cpp" />
@@ -106,6 +118,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageBuilding.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageFloor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageGate.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StaticModelComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStageCanvas.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)LoseSightOf.cpp" />
@@ -122,5 +135,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStageCanvas.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Wood.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WoodenBox.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WoodenBoxState.cpp" />
   </ItemGroup>
 </Project>

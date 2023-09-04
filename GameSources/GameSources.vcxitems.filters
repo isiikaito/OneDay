@@ -155,7 +155,28 @@
       <Filter>Object\OpeningCamera\OpeningCamera</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameManager.cpp">
-      <Filter>GameManager</Filter>
+      <Filter>Manager\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MoveComponent.cpp">
+      <Filter>Component\MoveComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)BoneModelComponent.cpp">
+      <Filter>Component\BoneModelComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StaticModelComponent.cpp">
+      <Filter>Component\StaticModelComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameManagerState.cpp">
+      <Filter>State\GameManagerState</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WoodenBoxState.cpp">
+      <Filter>State\WoodenBoxState</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AnimationComponent.cpp">
+      <Filter>Component\AnimationComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EffectManager.cpp">
+      <Filter>Manager\EffectManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -313,13 +334,34 @@
       <Filter>Object\OpeningCamera\OpeningCamera</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameManager.h">
-      <Filter>GameManager</Filter>
+      <Filter>Manager\GameManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)HeadMan.h">
       <Filter>Object\Enemy\HeadMan</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
       <Filter>Object\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MoveComponent.h">
+      <Filter>Component\MoveComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)BoneModelComponent.h">
+      <Filter>Component\BoneModelComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StaticModelComponent.h">
+      <Filter>Component\StaticModelComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameManagerState.h">
+      <Filter>State\GameManagerState</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WoodenBoxState.h">
+      <Filter>State\WoodenBoxState</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnimationComponent.h">
+      <Filter>Component\AnimationComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EffectManager.h">
+      <Filter>Manager\EffectManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -488,9 +530,6 @@
     <Filter Include="Object\WoodBox">
       <UniqueIdentifier>{cbce27ca-5d36-4c6a-9c55-5db4bfc32b8a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Meat">
-      <UniqueIdentifier>{f1b595fd-71a8-45d0-b8a3-c116caec3eb0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\GoalPlayer">
       <UniqueIdentifier>{cf345e47-6a37-4abb-b2b7-c0886affea75}</UniqueIdentifier>
     </Filter>
@@ -506,8 +545,38 @@
     <Filter Include="Object\OpeningCamera\OpeningCamera">
       <UniqueIdentifier>{f6735c36-10d2-4c14-bc49-7ef9cf40c6d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameManager">
+    <Filter Include="Component">
+      <UniqueIdentifier>{49ffab59-da61-455b-9a07-6daae97d7768}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\MoveComponent">
+      <UniqueIdentifier>{da7ea47c-4fb6-445a-a8cf-9aaba01b2cf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\BoneModelComponent">
+      <UniqueIdentifier>{761e8d32-575c-499c-85cc-b7e2438f88a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\StaticModelComponent">
+      <UniqueIdentifier>{1bfd585c-178b-4613-95ed-0f33b579e251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\GameManagerState">
+      <UniqueIdentifier>{ccd55d53-887b-4a3d-936d-1735e1760511}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Meat">
+      <UniqueIdentifier>{f1b595fd-71a8-45d0-b8a3-c116caec3eb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\WoodenBoxState">
+      <UniqueIdentifier>{b9edf039-5ce8-469d-80e7-b37d8d5f836d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\AnimationComponent">
+      <UniqueIdentifier>{4080bb62-a5f4-464d-8c9e-dc7215f5eea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{b9a69401-ab57-4f1c-919d-60c11c46c472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\GameManager">
       <UniqueIdentifier>{2ce4f3e2-7d94-4c65-91b2-9cef9769b0d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\EffectManager">
+      <UniqueIdentifier>{a8590b60-99e5-41ff-acab-889316673d07}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@
 
 #include "stdafx.h"
 #include "Project.h"
-
+#include "GameOver.h"
 namespace basecross {
 	//ゲージ
 	constexpr float FADEOUTSPEED = 2.0f;//!フェイドアウトする時間
@@ -48,7 +48,7 @@ namespace basecross {
 	void FadeOut::OnUpdate() {
 
 		auto scene = App::GetApp()->GetScene<Scene>();//!シーンの取得
-		auto gameOver = scene->GetGameOver();//!ゲームオーバーかどうかの取得
+		auto gameOver = scene->GetGameOverSprite();//!ゲームオーバーかどうかの取得
 		if (gameOver)
 		{
 			float elapsedTime = App::GetApp()->GetElapsedTime();//!時間の取得
@@ -57,6 +57,9 @@ namespace basecross {
 			if (m_TotalTime >= XM_PI / FADEOUTSPEED) 
 			{
 				m_TotalTime = XM_PI / FADEOUTSPEED;			//!フェイドアウトのまま
+				auto gameOverSprite = GetStage()->GetSharedGameObject<GameOverSprite>(L"GameOverSprite");
+				gameOverSprite->SetDrawActive(true);
+			
 			}
 			vector<VertexPositionColor> newVertices;			//!頂点の取得
 

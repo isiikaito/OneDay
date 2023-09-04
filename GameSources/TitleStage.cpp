@@ -41,6 +41,8 @@ namespace basecross {
 		auto scene = App::GetApp()->GetScene<Scene>();
 		scene->SetGameOver(false);
 	    scene->SetGameStrat(true);
+		scene->SetGameOverSprite(false);
+
 	}
 
 	//!XV

@@ -19,15 +19,6 @@ namespace basecross {
 	class GameStageCanvas : public GameObject {
 	private:
 		
-
-	public:
-
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief	コンストラクタ
-		*/
-		GameStageCanvas(const shared_ptr<Stage>& StagePtr);
-
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	時計のスプライトの作成
@@ -105,7 +96,7 @@ namespace basecross {
 		@brief	昼から夜に変わるときのコメント
 		*/
 		void CreateDateChangeCommentNight();
-		
+
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	ゲームオーバースプライト
@@ -123,7 +114,15 @@ namespace basecross {
 		@brief	フェードアウトの作成
 		*/
 		void CreateFadeOut();
-		
+
+	public:
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	コンストラクタ
+		*/
+		GameStageCanvas(const shared_ptr<Stage>& StagePtr);
+
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	デストラクタ

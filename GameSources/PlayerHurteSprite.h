@@ -26,6 +26,11 @@ namespace basecross {
 		bool m_GameOver;      //!ゲームオーバーしたかどうか
 		int m_currentHp;	  //!現在のHP
 
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	ライフのテクスチャの表示を点滅させる
+		*/
+		void FlashingHurteSprite(int currentHp);
 
 	public:
 
@@ -42,11 +47,6 @@ namespace basecross {
 		*/
 		virtual ~PlayerHurteSprite(){}
 
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief	ライフのテクスチャの表示を点滅させる
-		*/
-		void FlashingHurteSprite(int currentHp);
 			
 		//--------------------------------------------------------------------------------------
 		/*!

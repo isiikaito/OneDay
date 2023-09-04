@@ -7,34 +7,42 @@
 #include "stdafx.h"
 #include "Project.h"
 #include "GameManager.h"
+#include "GameManagerState.h"
 
 
+namespace basecross
+{
 
-namespace basecross {
 
-	//!インスタンスの生成(実体の作成)
-	GameManager* GameManager::Instance()
+	GameManager::GameManager(const shared_ptr<Stage>& StagePtr) :GameObject(StagePtr)
 	{
-		static GameManager instance;
-		return&instance;
+		m_StateMachine = new kaito::StateMachine<GameManager>(this);
+		m_StateMachine->SetCurrentState(kaito::OpeningCameraPlayState::Instance());	//!現在のステート
 	}
-
-	void GameManager::GetStage()
-	{
-		GameManager::Instance()->GetStage();
-	}
-
-	
-	
-	 float GameManager::GetElpasedTiem() 
+	float GameManager::GetElpasedTiem()
 	{
 		auto gameElpasedTime = App::GetApp()->GetScene<Scene>()->GetGameTime();//!ゲームの進行時間
 		return gameElpasedTime;
 	}
-	
-	 float GameManager::GetDayTiem()
-	 {
-		 auto dayTime = App::GetApp()->GetScene<Scene>()->GetDayTime();//!変身する時間
-		 return dayTime;
-	 }
+
+	float GameManager::GetDayTiem()
+	{
+		auto dayTime = App::GetApp()->GetScene<Scene>()->GetDayTime();//!変身する時間
+		return dayTime;
+	}
+	void GameManager::OnUpdate()
+	{
+		m_StateMachine->Update();//!ステートマシンの更新
+
+	}
+
+	void GameManager::ChangeState(kaito::State<GameManager>* NewState)
+	{
+		m_StateMachine->ChangeState(NewState);//!ステートを変更する
+	}
+
+	shared_ptr<Player>GameManager::GetPlayer()const 
+	{
+		return std::dynamic_pointer_cast<Player>(GetStage()->GetSharedObject(L"Player"));//!プレイヤーの取得
+	}
 }

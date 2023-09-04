@@ -17,16 +17,14 @@ namespace basecross
 	private:
 
 		std::vector<Vec3> m_patrolPoints;	//!巡回ポイント
-		Vec3  m_Position;					//!位置
-		Vec3 m_Rotation;					//!回転
-		Vec3 m_Scale;						//!大きさ
 		int m_playerChange;					//!プレイヤーの状態
 		float m_Speed;						//!スピード
 		int m_patrolindex;					//!パトロールポイントのインデックス
-		float m_StateChangeSize;			//!ステートを切り替える大きさ
 		bool m_dedDecision;					//!生死の判定
 		int m_damage;						//!プレイヤーに与えるダメージ量
+		BoneModelDeta m_enemyBoneModelDeta;				//!敵のモデルデータ
 
+		
 
 	public:
 		//--------------------------------------------------------------------------------------
@@ -45,7 +43,6 @@ namespace basecross
 		@brief	デストラクタ
 		*/
 		virtual ~Villager(){}
-	public:
 
 		//--------------------------------------------------------------------------------------
 		/*!
@@ -67,22 +64,9 @@ namespace basecross
 			m_Speed = VillagerSpeed;
 		}
 
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief	ステートチェンジサイズ
-		@return ステートチェンジサイズ
-		*/
-		float GetStateChangeSize() const
-		{
-			return m_StateChangeSize;
-		}
+		
 
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief	村人を殺す判定
-		*/
-		void VillagerDed();
-
+		
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	初期化

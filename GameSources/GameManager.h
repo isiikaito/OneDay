@@ -1,18 +1,33 @@
 /*!
-@file GameStageManager.h
+@file GameManager.h
 @brief ゲームステージ時間マネージャー
 *@author isii kaito
 */
 
 #pragma once
 #include "stdafx.h"
-#include "GameManagerState.h"
+#include "Player.h"
 namespace basecross {
+
+	namespace kaito
+	{
+		//!前方宣言
+		template<class entity_type>
+		class State;
+		//!前方宣言
+		template <class entity_type>
+		class StateMachine;
+	}
 
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス
 	//--------------------------------------------------------------------------------------
-	class GameManager{
+	class GameManager:public GameObject
+	{
+		
+	private:
+		kaito::StateMachine<GameManager>* m_StateMachine;		//!プレイヤーのステートマシン
+
 
 	public:
 
@@ -20,24 +35,7 @@ namespace basecross {
 		/*!
 		@brief	コンストラクタ
 		*/
-		GameManager()
-		{
-			
-		}
-
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief	インスタンスの取得
-		*/
-		static GameManager* Instance();
-		
-
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief	ステートの変更
-		@引数	クラスに対応したステート
-		*/
-		void GetStage();
+		GameManager(const shared_ptr<Stage>& StagePtr);
 
 		//--------------------------------------------------------------------------------------
 		/*!
@@ -52,6 +50,33 @@ namespace basecross {
 		@retrun	時間を返す
 		*/
 		static float GetDayTiem();
+
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	ステートマシンのアクセッサ
+		@return ステートマシン
+		*/
+		const kaito::StateMachine<GameManager>* GetFSM()const
+		{
+			return m_StateMachine;
+		}
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	ステートの変更
+		@引数　クラスに対応したステート
+		*/
+		virtual void ChangeState(kaito::State<GameManager>* NewState);
+
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief プレイヤーの取得
+		*/
+		shared_ptr<Player>GetPlayer()const;
+
+		virtual void OnUpdate() override;
 	};
 }
 //end basecross

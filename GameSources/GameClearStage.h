@@ -24,8 +24,6 @@ namespace basecross {
 		
 		//ビューの作成
 		void CreateViewLight();
-		void CreatePlayer(); //!プレイヤーの追加
-		//スプライトの作成
 		
 		void CreateStageFloor(); //!床
 		void CreateStageBuilding(); //!建物 

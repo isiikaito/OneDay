@@ -10,25 +10,31 @@
 namespace basecross {
 	class Key : public GameObject {
 	private:
-		Vec3 m_Scale;   //!大きさ
-		Vec3 m_Rotation;//!回転
-		Vec3 m_Position;//!位置
-		float m_Time; 
+		float m_RotationSpeed;	//!回転する速度 
+		StaticModelDeta m_keyModelData;			//!カギのモデルデータ
+
 	public:
-		/**
-		* コンストラクタ
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	コンストラクタ
 		*/
 		Key(const shared_ptr<Stage>& StagePtr, const Vec3& Scale, const Vec3& Rotation, const Vec3& Position);
 
-		/**
-　　　　* デストラクタ
-　　　　*/
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	デストラクタ
+		*/
 		virtual ~Key() {}
 
-		/**
-		* ゲームステージの床の初期パラメータを初期化する関数
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	初期化処理
 		*/
 		virtual void OnCreate() override;
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	更新処理
+		*/
 		virtual void OnUpdate()override;
 
 		

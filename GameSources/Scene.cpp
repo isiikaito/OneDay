@@ -307,13 +307,13 @@ namespace basecross{
 	void Scene::CreateEnemy()
 	{
 		
-		auto datasHunter = TransformDate(L"csvFolder\\", L"RushedEnemy.csv", L"Hunter");//!ハンターのExcelのデータ
+		auto datasHunter = TransformDate(L"csvFolder\\" L"EnemyData\\", L"RushedEnemy.csv", L"Hunter");															//!ハンターのExcelのデータ
 		for (auto& dataHunter : datasHunter)
 		{
-			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", dataHunter.EnemykeyName);//!敵の巡回ポイントの名前を取り出す
-			auto HunterPtr = GetActiveStage()->AddGameObject<Hunter>(dataHunter.scale, dataHunter.rotation, dataHunter.position, pointData.m_patorlPositions);//!増員されるハンターの作成
-			GetActiveStage()->AddGameObject<LoseSightOf>(HunterPtr);	//!はてなマークの板ポリ生成時にハンターとペアレント化する
-			GetActiveStage()->AddGameObject<SurprisedSprite>(HunterPtr);//!ビックリマークの板ポリ生成時にハンターとペアレント化する
+			auto pointData = PointDate(L"csvFolder\\" L"EnemyData\\", L"Point.csv", dataHunter.EnemykeyName);													//!敵の巡回ポイントの名前を取り出す
+			auto HunterPtr = GetActiveStage()->AddGameObject<Hunter>(dataHunter.scale, dataHunter.rotation, dataHunter.position, pointData.m_patorlPositions);	//!増員されるハンターの作成
+			GetActiveStage()->AddGameObject<LoseSightOf>(HunterPtr);																							//!はてなマークの板ポリ生成時にハンターとペアレント化する
+			GetActiveStage()->AddGameObject<SurprisedSprite>(HunterPtr);																						//!ビックリマークの板ポリ生成時にハンターとペアレント化する
 
 		}
 		

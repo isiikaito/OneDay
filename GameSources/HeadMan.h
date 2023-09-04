@@ -14,11 +14,21 @@ namespace basecross
 	class HeadMan :public GameObject
 	{
 	private:
+		bool m_IsheadManCommentOn;				//!村長が話しているかどうか
+		BoneModelDeta m_headManBoneModelDeta;	//!プレイヤーのモデルデータ
 
-		Vec3  m_Position;		  //!位置
-		Vec3 m_Rotation;		  //!回転
-		Vec3 m_Scale;			  //!大きさ
-		bool m_IsheadManCommentOn;//!村長が話しているかどうか
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	村長がコメントを表示する処理
+		*/
+		void HeadManComment();
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief	村長のアニメーション更新
+		*/
+		void HeadManAnimation();
+
 
 	public:
 		
@@ -39,18 +49,7 @@ namespace basecross
 		*/
 		virtual ~HeadMan() {}
 
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief	村長がコメントを表示する処理
-		*/
-		void HeadManComment();
-
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief	村長のアニメーション更新
-		*/
-		void HeadManAnimation();
-
+		
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	村長がコメントしているかどうかの取得

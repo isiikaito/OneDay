@@ -11,10 +11,14 @@
 namespace basecross {
 	class StageGate : public GameObject {
 	private:
-		Vec3 m_Scale;   //!大きさ
-		Vec3 m_Rotation;//!回転
-		Vec3 m_Position;//!位置
-		
+		Vec3 m_Scale;				//!大きさ
+		Vec3 m_Rotation;			//!回転
+		Vec3 m_Position;			//!位置
+		Vec3 modelScale;			//!メッシュの大きさ
+		Vec3 modelRotOrigin;		//!回転の起源
+		Vec3 modelRotation;			//!メッシュの回転
+		Vec3 modelPosition;			//!メッシュの位置
+
 
 	public:
 		/**

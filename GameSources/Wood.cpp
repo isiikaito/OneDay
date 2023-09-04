@@ -19,47 +19,26 @@ namespace basecross {
 		const Vec3& Position
 	) :
 		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Rotation(Rotation),
-		m_Position(Position)
+		m_woodModelData
+		(
+			{
+				Scale ,
+				Rotation ,
+				Position,
+				Vec3(0.06f, 0.06f, 0.06f),	
+				Vec3(0.0f, 0.0f, 0.0f),
+				Vec3(0.0f, 0.0f, 0.0f),		
+				Vec3(0.0f, -0.5f, 0.0f),	
+				L"STAGE_WOOD"
+			}
+		)
 
 	{
 	}
 
 	//初期化
 	void Wood::OnCreate() {
-		//!衝突判定の設定
-		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_Scale);      //!大きさ
-		ptrTrans->SetRotation(m_Rotation);//!回転
-		ptrTrans->SetPosition(m_Position);//!位置
-
-		// モデルとトランスフォームの間の差分行列
-		Mat4x4 spanMat;
-		spanMat.affineTransformation(
-			Vec3(0.06f, 0.06f, 0.06f),	//!大きさ
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f),		//!回転
-			Vec3(0.0f, -0.5f, 0.0f)		//!位置
-		);
-
-		auto ptrShadow = AddComponent<Shadowmap>();       //!影をつける（シャドウマップを描画する）
-		auto ptrDraw = AddComponent<PNTStaticModelDraw>();//!描画コンポーネント
-		auto Coll = AddComponent<CollisionObb>();         //!キューブ型の当たり判定の追加
-		Coll->SetFixed(true);                             //!ほかのオブジェクトの影響を受けない（例プレイヤーに当たったら消えるなどの処理）
-
-		//!影の形（メッシュ）を設定
-		ptrShadow->SetMeshResource(L"STAGE_WOOD");
-		ptrShadow->SetMeshToTransformMatrix(spanMat);
-
-		//!メッシュの設定
-		ptrDraw->SetMeshResource(L"STAGE_WOOD");
-		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		/*Coll->SetDrawActive(true);*/
-
-
-		SetAlphaActive(true);//!SetDiffiuseのカラー変更を適用
-
+		AddComponent<StaticModelComponent>(m_woodModelData);				//!モデルデータ生成
 	}
 
 	void Wood::OnUpdate() {

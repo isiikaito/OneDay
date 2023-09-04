@@ -103,7 +103,4 @@ namespace basecross
 		//スプライトの作成
 		CreateTitleSprite();
 	}
-
-	
-
 }

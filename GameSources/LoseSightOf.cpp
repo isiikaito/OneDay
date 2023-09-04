@@ -82,7 +82,7 @@ namespace basecross
 			//!2•b‚½‚Á‚½‚ç
 			if (m_LoseSeghtOfTime >= MAXLOSEFSEGHTOFTIME)
 			{
-				loseSightOfTarget = false;					//!Œ©Ž¸‚¤
+				loseSightOfTarget = false;					//!Œ©Ž¸‚¤”»’è
 				enemy->SetloseSightOfTarget(loseSightOfTarget);
 			}
 

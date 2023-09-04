@@ -32,6 +32,46 @@ namespace basecross {
 		bool m_goleGateParameter;		//!ゴールステージの時の門のパラメータを適応する
 		float m_soundvolume;			//!効果音の大きさ
 
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief 追加の敵の作成
+		@return	なし
+		*/
+		void CreateEnemy();
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief テクスチャの読み込み
+		@param テクスチャの名前
+		@param[in] 使うときのテクスチャの名前
+		*/
+		void RoadTexture(const wstring& TextureName, const wstring& UseTextureName);
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief サウンドの読み込み
+		@param 音の名前
+		@param[in] 使うときの音の名前
+		*/
+		void RoadSound(const wstring& soundDataName, const wstring& soundName);
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief スタティックモデルの読み込み
+		@param スタティックモデルbmfの名前
+		@param[in] 使うときのスタティックモデルの名前
+		*/
+		void RoadStaticModelMesh(const wstring& staticModelbmfName, const wstring& staticModelMeshName);
+
+		//--------------------------------------------------------------------------------------
+		/*!
+		@brief ボーンモデルのの読み込み
+		@param ボーンモデルのbmfの名前
+		@param[in] ボーンモデルのメッシュの名前
+		@param[in out] 使うときのボーンモデルの名前
+		*/
+		void RoadBoneModel(const wstring& BoneModelbmfName, const wstring& BoneModelMeshName, const wstring& BomeModelMeshTangentName);
+
 	public:
 		//----------------------------------------------------------------------(----------------
 		/*!
@@ -101,12 +141,7 @@ namespace basecross {
 		*/
 		void SetAlertlevelCount(int AlertlevelCount);
 
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief 追加の敵の作成
-		@return	なし
-		*/
-		void CreateEnemy();
+		
 
 		//--------------------------------------------------------------------------------------
 		/*!
@@ -231,39 +266,7 @@ namespace basecross {
 			m_meatNumber = MeatNamber;
 		}
 
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief テクスチャの読み込み
-		@param テクスチャの名前
-		@param[in] 使うときのテクスチャの名前
-		*/
-		void RoadTexture(const wstring& TextureName, const wstring& UseTextureName);
-
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief サウンドの読み込み
-		@param 音の名前
-		@param[in] 使うときの音の名前
-		*/
-		void RoadSound(const wstring& soundDataName, const wstring& soundName);
-
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief スタティックモデルの読み込み
-		@param スタティックモデルbmfの名前
-		@param[in] 使うときのスタティックモデルの名前
-		*/
-		void RoadStaticModelMesh(const wstring& staticModelbmfName, const wstring& staticModelMeshName);
-
-		//--------------------------------------------------------------------------------------
-		/*!
-		@brief ボーンモデルのの読み込み
-		@param ボーンモデルのbmfの名前
-		@param[in] ボーンモデルのメッシュの名前
-		@param[in out] 使うときのボーンモデルの名前
-		*/
-		void RoadBoneModel(const wstring& BoneModelbmfName, const wstring& BoneModelMeshName, const wstring& BomeModelMeshTangentName);
-
+		
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief プレイヤーが変身するかどうかの取得

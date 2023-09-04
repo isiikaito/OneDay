@@ -13,6 +13,7 @@
 #include "OpeningCameraMan.h"
 #include "GameUI.h"
 #include "GameStageCanvas.h"
+#include "GameManager.h"
 
 namespace basecross {
 
@@ -266,32 +267,7 @@ namespace basecross {
 		}
 	}
 
-	void GameStage::CreateMeat()
-	{
-		//CSVの全体の配列
-		//CSVからすべての行を抜き出す
-		auto& LineVec = m_MeatPositon.GetCsvVec();
-		auto group = CreateSharedObjectGroup(L"Meat_ObjGroup");
-
-		for (size_t i = 0; i < LineVec.size(); i++) {
-			//トークン（カラム）の配列
-			vector<wstring> Tokens;
-			//トークン（カラム）単位で文字列を抽出(L','をデリミタとして区分け)
-			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
-			for (size_t j = 0; j < Tokens.size(); j++) {
-				//XとZの位置を計算
-				float XPos = (float)((int)j - CELLADJUSMENT) * CELLPOSADJUSTMENT;
-				float Ypos = 4.0f;
-				float ZPos = (float)(CELLADJUSMENT - (int)i) * CELLPOSADJUSTMENT;
-				if (Tokens[j] == L"5")//5の時にゲームステージに追加
-				{
-					AddGameObject<Meat>(m_meteScale, Vec3(0.0f), Vec3(XPos, Ypos, ZPos));
-				}
-			}
-		}
-
-	}
-
+	
 
 	// !ステージの門の作成
 	void GameStage::CreateStageGate()
@@ -472,12 +448,12 @@ namespace basecross {
 	{
 		auto group = CreateSharedObjectGroup(L"Villager_ObjGroup");				//!グループを取得
 
-		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Villager");	//!Excelのデータ指定
+		auto datas = TransformDate(L"csvFolder\\" L"EnemyData\\", L"Enemy.csv", L"Villager");	//!Excelのデータ指定
 		
 		for (auto& data : datas) {
 
 		
-			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!村人の大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
+			auto pointData = PointDate(L"csvFolder\\" L"EnemyData\\", L"Point.csv", data.EnemykeyName);//!村人の大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
 			
 
 			auto VillagerPtr=AddGameObject<Villager>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
@@ -495,11 +471,11 @@ namespace basecross {
 	{
 		auto group = CreateSharedObjectGroup(L"Hunter_ObjGroup");//!グループを取得
 
-		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
+		auto datas = TransformDate(L"csvFolder\\" L"EnemyData\\", L"Enemy.csv", L"Hunter");//!Excelのデータ指定
 		
 		for (auto& data : datas) {
 
-			auto pointData = PointDate(L"csvFolder\\", L"Point.csv", data.EnemykeyName);//!村人の大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
+			auto pointData = PointDate(L"csvFolder\\" L"EnemyData\\", L"Point.csv", data.EnemykeyName);//!村人の大きさをいじってたCSVからキーネームを取り出すそこから行動を選ぶ
 
 			auto HunterPtr = AddGameObject<Hunter>(data.scale, data.rotation, data.position, pointData.m_patorlPositions);
 
@@ -511,7 +487,7 @@ namespace basecross {
 	//!村長の作成
 	void GameStage::CreateHeadMan()
 	{
-		auto datas = TransformDate(L"csvFolder\\", L"Enemy.csv", L"HeadMan");//!Excelのデータ指定
+		auto datas = TransformDate(L"csvFolder\\" L"EnemyData\\", L"Enemy.csv", L"HeadMan");//!Excelのデータ指定
 
 		for (auto& data : datas) 
 		{
@@ -656,15 +632,15 @@ namespace basecross {
 
 	void GameStage::OnCreate() {
 		
-		try {
+			m_effectManager = EffectManager::Instance();					//!エフェクトマネージャーの取得
 			auto scene = App::GetApp()->GetScene<Scene>();					//!シーンの取得
 			auto m_playerConditionTime = scene->GetPlayerConditionTime();	//!プレイヤーの状態の時間
 			m_playerConditionTime = 0.0f;									//!プレイヤーの状態の時間の初期化
 			scene->SetPlayerConditionTime(m_playerConditionTime);			//!プレイヤーの状態の時間の設定
 			scene->SetGoleGateParameter(false);								//!門のパラメーターの適応
-			//!エフェクト作成
-			m_EfkInterface = ObjectFactory::Create<EfkInterface>();
+			auto meatGroup = CreateSharedObjectGroup(L"Meat_ObjGroup");		//!肉オブジェクトのグループ
 			SetPhysicsActive(true);											//物理計算有効
+
 			//! 「アプリ」オブジェクトのインスタンスを取得する（インスタンス：クラスの実態、オブジェクト指向のオブジェクトのこと）
 			auto& app = App::GetApp();										//!アプリの取得
 			wstring DataDir;
@@ -676,32 +652,19 @@ namespace basecross {
 			auto csvDirectory = DataDir + L"csvFolder\\";
 
 			//!ステージファイルの読み込み
-			m_StageCsv.SetFileName(csvDirectory + L"stage1.csv");
+			m_StageCsv.SetFileName(csvDirectory +L"StageData\\"+ L"stage.csv");
 			m_StageCsv.ReadCsv();
-
 			//!Buildingファイルの読み込み
-			m_GameStageCsvA.SetFileName(csvDirectory + L"GameStageA.csv");
-			m_GameStageCsvA.ReadCsv();
-		
-			//!Buildingファイルの読み込み2
-			m_GameStageCsvB.SetFileName(csvDirectory + L"GameStageB.csv");
-			m_GameStageCsvB.ReadCsv();
-
-			//!Buildingファイルの読み込み3
-			m_GameStageCsvC.SetFileName(csvDirectory + L"GameStageC.csv");
-			m_GameStageCsvC.ReadCsv();
-
-			//!Buildingファイルの読み込み4
-			m_GameStageCsvD.SetFileName(csvDirectory + L"GameStageD.csv");
+			m_GameStageCsvD.SetFileName(csvDirectory + L"BuildingPosition\\"+L"GameStageD.csv");
 			m_GameStageCsvD.ReadCsv();
 
-			//!KeyPositonファイルの読み込み4-1
-			m_KeyPositon.SetFileName(csvDirectory + L"KeyPosition" + Util::IntToWStr(m_keyNamber) + L".csv");
+			//!KeyPositonファイルの読み込み
+			m_KeyPositon.SetFileName(csvDirectory + L"KeyPositions\\"+L"KeyPosition" + Util::IntToWStr(m_keyNamber) + L".csv");
 			m_KeyPositon.ReadCsv();
 
-			//!MetaPositonファイルの読み込み
-			m_MeatPositon.SetFileName(csvDirectory + L"MeatPosition" + Util::IntToWStr(m_MeatNumber) + L".csv");
-			m_MeatPositon.ReadCsv();
+			auto effect = EffectManager::Instance();
+			effect->OnCreate();
+
 
 			CreateViewLight();
 			CreateStageFloor();
@@ -716,11 +679,11 @@ namespace basecross {
 			CreateWoodenBox();	
 			CreateWood();		
 			CreateHeadMan();	
-			CreateMeat();		
 			CreateCameraman();	
 
 			//!ゲームステージのUIキャンバスの作成
 			AddGameObject<GameStageCanvas>();
+			AddGameObject<GameManager>();//!ゲームマネージャーの作成
 
 			auto gameOver = scene->GetGameOver();
 			if (gameOver == true)
@@ -728,15 +691,11 @@ namespace basecross {
 				CreateGameOverBGM();
 
 			}
-		}
-		catch (...) {
-			throw;
-		}
+		
 	}
 
 	void GameStage::OnUpdate() {
-
-		m_EfkInterface->OnUpdate();						//!エフェクトの更新
+		m_effectManager->GetEfkInterface()->OnUpdate();
 		auto scene = App::GetApp()->GetScene<Scene>();	//!シーンの取得
 		auto& app = App::GetApp();						//!アプリの取得
 		auto deltaTime = app->GetElapsedTime();			//!エルパソタイムの取得
@@ -762,8 +721,9 @@ namespace basecross {
 	void GameStage::OnDraw()
 	{
 		auto& camera = GetView()->GetTargetCamera();
-		m_EfkInterface->SetViewProj(camera->GetViewMatrix(), camera->GetProjMatrix());
-		m_EfkInterface->OnDraw();
+		m_effectManager->GetEfkInterface()->SetViewProj(camera->GetViewMatrix(), camera->GetProjMatrix());
+		m_effectManager->GetEfkInterface()->OnDraw();
+
 	}
 	
 
@@ -800,20 +760,15 @@ namespace basecross {
 	{
 		auto volume = App::GetApp()->GetScene<Scene>()->GetSoundvolume();//!音量の取得
 		auto scene = App::GetApp()->GetScene<Scene>();					 //!シーンの取得
-		auto gameOver = scene->GetGameOverSprite();						 //!ゲームオーバースプライトの取得
+		auto gameOver = scene->GetGameOver();						 //!ゲームオーバースプライトの取得
 		//!ゲームオーバーの時
 		if (gameOver == true)
 		{
-			auto gameOver = scene->GetGameOver();//!ゲームオーバーかどうかの取得
-			gameOver = false;					 //!ゲームオーバーかどうかの取得
-			scene->SetGameOver(gameOver);		 //!ゲームオーバーかどうかの設定
-
+			
 			//サウンド再生
 			auto& ptrXA = App::GetApp()->GetXAudio2Manager();
 			ptrXA->Start(L"decision", 0, volume);
 			PostEvent(0.0f, GetThis<GameStage>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");//!タイトルステージに遷移
-			gameOver = false;//!ゲームオーバーをやめる
-			scene->SetGameOverSprite(gameOver);//!ゲームオーバーかどうかの設定
 		}
 	}
 
